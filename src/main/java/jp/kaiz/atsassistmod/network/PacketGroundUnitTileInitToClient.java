@@ -12,7 +12,6 @@ public class PacketGroundUnitTileInitToClient implements IMessageHandler<PacketG
 	public IMessage onMessage(PacketGroundUnitTileInit message, MessageContext ctx) {
 		//受け取るときにClientWorldがあるときはクラス変えないと起動しない
 		World world = ATSAssistCore.proxy.getWorld();
-		//ToDo:Metadata変わるまで
 		Minecraft.getMinecraft().thePlayer.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, world, message.x, message.y, message.z);
 		return null;
 	}

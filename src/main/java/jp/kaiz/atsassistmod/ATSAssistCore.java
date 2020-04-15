@@ -25,7 +25,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
-@Mod(modid = ATSAssistCore.MODID, version = ATSAssistCore.VERSION)
+@Mod(modid = ATSAssistCore.MODID, version = ATSAssistCore.VERSION, name = ATSAssistCore.MODID)
 public class ATSAssistCore {
 	//変更するとブロック消える
 	public static final String MODID = "ATSAssistMod";

@@ -1,16 +1,16 @@
 [
   {
     "modid": "atsassistmod",
-    "name": "ATS Assist MOD",
-    "description": "ATS Assist MOD for Mugen",
-    "version": "1.4b_v3",
+    "name": "ATSAssistMod",
+    "description": "ATSAssistMod",
+    "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "",
     "updateUrl": "",
     "authorList": [
       "Kaiz_JP"
     ],
-    "credits": "The Forge and FML guys, for making this example",
+    "credits": "",
     "logoFile": "",
     "screenshots": [],
     "dependencies": [

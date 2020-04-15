@@ -559,6 +559,10 @@ public abstract class TileEntityGroundUnit extends TileEntity {
 				if (states[i] < TrainState.getStateType(i).min) {
 					continue;
 				}
+				if (i == TrainState.TrainStateType.State_TrainDir.id) {
+					train.setTrainDirection(states[i]);
+					continue;
+				}
 				train.setTrainStateData(i, states[i]);
 			}
 

@@ -29,7 +29,6 @@ public class ATSAssistEventHandler {
 		if (!event.isLocal) {
 			try {
 				List<String> strings = new ArrayList<>();
-				//ToDo:負荷要検証
 				URL url = new URL("https://files.kaiz.jp/kcf/atsassist1.4.kcf");
 				URLConnection conn = url.openConnection();
 				/////////////////////////////////////////////////////
