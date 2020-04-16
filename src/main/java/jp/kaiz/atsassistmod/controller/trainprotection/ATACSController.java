@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ATACSController {
-//	private int count;
+	private int count;
 
 	private TileEntityLargeRailCore savedRail;
 	private RailPosition nowRP;
@@ -50,12 +50,12 @@ public class ATACSController {
 				}
 				movedDistance = movedDistance + distance;
 
-//				if (this.count < 20) {
-//					this.count++;
-//					return;
-//				} else {
-//					this.count = 0;
-//				}
+				if (this.count < 20) {
+					this.count++;
+					return;
+				} else {
+					this.count = 0;
+				}
 
 				double necessaryDistance = this.getBreakingDistance(train.getSpeed());
 				double anotherTrainDistance = this.getAnotherTrainDistance(necessaryDistance + 100d);
@@ -68,7 +68,7 @@ public class ATACSController {
 					anotherTrainDistance = anotherTrainDistance + nowRailLength - movedDistance;
 
 					if (anotherTrainDistance < 0d) {
-//						this.count = 20;
+						this.count = 20;
 						return;
 					}
 
@@ -205,13 +205,11 @@ public class ATACSController {
 		int y = (int) railPosition.posY;
 		int z = (int) railPosition.posZ;
 		for (int dx = -1; dx < 2; dx++) {
-			for (int dy = -1; dy < 2; dy++) {
-				for (int dz = -1; dz < 2; dz++) {
-					if ((nextRail = getRailBaseFromLocation(x + dx, y + dy, z + dz, rail)) != null) {
-						for (RailMap _RailMap : nextRail.getRailCore().getAllRailMaps()) {
-							if (_RailMap.canConnect(railMap)) {
-								return nextRail;
-							}
+			for (int dz = -1; dz < 2; dz++) {
+				if ((nextRail = getRailBaseFromLocation(x + dx, y, z + dz, rail)) != null) {
+					for (RailMap _RailMap : nextRail.getRailCore().getAllRailMaps()) {
+						if (_RailMap.canConnect(railMap)) {
+							return nextRail;
 						}
 					}
 				}
