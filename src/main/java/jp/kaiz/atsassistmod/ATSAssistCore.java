@@ -18,14 +18,6 @@ import jp.kaiz.atsassistmod.item.ItemBlockWithMetadataCustom;
 import jp.kaiz.atsassistmod.network.*;
 import net.minecraft.block.Block;
 
-import javax.xml.bind.DatatypeConverter;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-
 @Mod(modid = ATSAssistCore.MODID, version = ATSAssistCore.VERSION, name = ATSAssistCore.MODID)
 public class ATSAssistCore {
 	//変更するとブロック消える
@@ -46,7 +38,7 @@ public class ATSAssistCore {
 	public static CommonProxy proxy;
 
 	public static final SimpleNetworkWrapper NETWORK_WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
-	public static String gip;
+//	public static String gip;
 
 	//preInit init postInitの順
 
@@ -71,17 +63,17 @@ public class ATSAssistCore {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		System.out.println("[ATSAssist]Loading...");
-		try {
-			//ip認証 公開時削除予定
-			//アルゴリズム 最強SHA-512
-			String algorithm = "SHA-512";
-			//生成
-			byte[] bytes = MessageDigest.getInstance(algorithm).digest(getIp().getBytes(StandardCharsets.UTF_8));
-			//Stringにしてぶちこむ
-			gip = DatatypeConverter.printHexBinary(bytes);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			//ip認証 公開時削除予定
+//			//アルゴリズム 最強SHA-512
+//			String algorithm = "SHA-512";
+//			//生成
+//			byte[] bytes = MessageDigest.getInstance(algorithm).digest(getIp().getBytes(StandardCharsets.UTF_8));
+//			//Stringにしてぶちこむ
+//			gip = DatatypeConverter.printHexBinary(bytes);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 		blockGroundUnit = new GroundUnit();
 		GameRegistry.registerBlock(blockGroundUnit, ItemBlockWithMetadataCustom.class, "tile" + "." + MODID + ":" + "groundUnit");
@@ -140,21 +132,21 @@ public class ATSAssistCore {
 		guiId_GroundUnit = guiId++;
 	}
 
-	private static String getIp() throws Exception {
-		URL checkIP = new URL("http://checkip.amazonaws.com");
-		BufferedReader in = null;
-		try {
-			in = new BufferedReader(new InputStreamReader(
-					checkIP.openStream()));
-			return in.readLine();
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+//	private static String getIp() throws Exception {
+//		URL checkIP = new URL("http://checkip.amazonaws.com");
+//		BufferedReader in = null;
+//		try {
+//			in = new BufferedReader(new InputStreamReader(
+//					checkIP.openStream()));
+//			return in.readLine();
+//		} finally {
+//			if (in != null) {
+//				try {
+//					in.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//	}
 }
