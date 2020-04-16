@@ -10,7 +10,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
-import jp.kaiz.atsassistmod.block.GroundUnitBlock;
+import jp.kaiz.atsassistmod.block.GroundUnit;
+import jp.kaiz.atsassistmod.block.StationAnnounceBase;
 import jp.kaiz.atsassistmod.event.ATSAssistEventHandler;
 import jp.kaiz.atsassistmod.gui.ATSAssistGUIHandler;
 import jp.kaiz.atsassistmod.item.ItemBlockWithMetadataCustom;
@@ -39,6 +40,7 @@ public class ATSAssistCore {
 	public static final int guiId_GroundUnit;
 
 	public static Block blockGroundUnit;
+	public static Block stationAnnounceBase;
 
 	@SidedProxy(clientSide = "jp.kaiz.atsassistmod.ClientProxy", serverSide = "jp.kaiz.atsassistmod.CommonProxy")
 	public static CommonProxy proxy;
@@ -81,8 +83,10 @@ public class ATSAssistCore {
 			e.printStackTrace();
 		}
 
-		blockGroundUnit = new GroundUnitBlock();
+		blockGroundUnit = new GroundUnit();
 		GameRegistry.registerBlock(blockGroundUnit, ItemBlockWithMetadataCustom.class, "tile" + "." + MODID + ":" + "groundUnit");
+		stationAnnounceBase = new StationAnnounceBase();
+//		GameRegistry.registerBlock(stationAnnounceBase, ItemBlockWithMetadataCustom.class, "tile" + "." + MODID + ":" + "stationAnnounceBase");
 		proxy.preInit();
 	}
 

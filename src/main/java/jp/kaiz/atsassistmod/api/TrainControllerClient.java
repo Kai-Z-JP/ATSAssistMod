@@ -45,7 +45,7 @@ public class TrainControllerClient {
 		return atoI;
 	}
 
-	public static int getTASCSpeed() {
+	public static int getTASCDistance() {
 		return tascI;
 	}
 

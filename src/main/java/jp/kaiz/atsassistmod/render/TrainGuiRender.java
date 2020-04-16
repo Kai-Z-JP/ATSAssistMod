@@ -48,7 +48,7 @@ public class TrainGuiRender extends GuiScreen {
 			ModelSetVehicleBase<TrainConfig> model = train.getModelSet();
 
 			int ato = TrainControllerClient.getATOSpeed();
-			int tasc = TrainControllerClient.getTASCSpeed();
+			int tasc = TrainControllerClient.getTASCDistance();
 			int atc = TrainControllerClient.getATCSpeed();
 			int atacs = TrainControllerClient.getATACSSpeed();
 			boolean atoStatus = TrainControllerClient.isATO();

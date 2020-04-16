@@ -83,6 +83,8 @@ public class TrainControllerManager {
 							ATSAssistCore.NETWORK_WRAPPER.sendTo(new PacketTrainControllerToClient(entry.getValue(), controlCar.getEntityId()), (EntityPlayerMP) controlCar.riddenByEntity);
 						}
 						break;
+					} else {
+						controlCar = null;
 					}
 				}
 			}

@@ -17,11 +17,11 @@ import net.minecraft.world.World;
 
 import java.util.stream.IntStream;
 
-public class GroundUnitBlock extends BlockContainer {
+public class GroundUnit extends BlockContainer {
 
 	private IIcon[] iicon = new IIcon[16];
 
-	public GroundUnitBlock() {
+	public GroundUnit() {
 		super(Material.rock);
 		setCreativeTab(CreativeTabs.tabBlock);
 		//modidないとテクスチャおかしくなる
