@@ -21,8 +21,8 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
 		this.atoI = controller.getATOSpeedLimit();
 
 		//TASC
-		this.tascB = controller.isTASC();
-		this.tascI = controller.getTASCStopDistance();
+		this.tascB = controller.tascController.isEnable();
+		this.tascI = (int) controller.tascController.getStopDistance();
 
 		//ATC
 		this.atcI = controller.getSpeedLimit();

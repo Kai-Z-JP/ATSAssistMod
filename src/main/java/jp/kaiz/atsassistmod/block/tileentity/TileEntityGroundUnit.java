@@ -274,7 +274,7 @@ public abstract class TileEntityGroundUnit extends TileEntity {
 
 		@Override
 		public void onTick(EntityTrainBase train) {
-			TrainControllerManager.getTrainController(train).enableTASC(this.distance + 1.5d);
+			TrainControllerManager.getTrainController(train).tascController.enable(this.distance + 1.5d);
 		}
 
 		@Override
@@ -321,7 +321,7 @@ public abstract class TileEntityGroundUnit extends TileEntity {
 
 		@Override
 		public void onTick(EntityTrainBase train) {
-			TrainControllerManager.getTrainController(train).disableTASC();
+			TrainControllerManager.getTrainController(train).tascController.disable();
 		}
 
 		@Override
@@ -352,7 +352,7 @@ public abstract class TileEntityGroundUnit extends TileEntity {
 
 		@Override
 		public void onTick(EntityTrainBase train) {
-			TrainControllerManager.getTrainController(train).setTASCStopDistance(this.distance + 1.5d);
+			TrainControllerManager.getTrainController(train).tascController.setStopDistance(this.distance + 1.5d);
 		}
 
 		@Override

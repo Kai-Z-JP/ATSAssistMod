@@ -1,6 +1,6 @@
 package jp.kaiz.atsassistmod.controller;
 
-public class TCSyncManager {
+public class TCThreadManager {
 	private static int cnt;
 
 	public synchronized void addSync() {

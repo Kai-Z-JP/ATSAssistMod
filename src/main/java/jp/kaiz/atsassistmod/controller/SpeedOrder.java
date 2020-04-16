@@ -15,7 +15,7 @@ public class SpeedOrder {
 		return this.targetSpeedH;
 	}
 
-	public void changeTargetDistance(double movedDistance) {
+	public void moveDistance(double movedDistance) {
 		if (!enable) {
 			if (targetDistance <= 0) {
 				targetDistance = 0;

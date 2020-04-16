@@ -1,39 +1,40 @@
 package jp.kaiz.atsassistmod.controller;
 
 //結構違うから継承しなくていい
-public class TASCSpeedOrder {
-	private double targetDistance;
+public class TASCController {
+	private double stopDistance;
 	private boolean enable = false;
 	private boolean breaking = false;
 	private boolean stopPosition = false;
 
 	private static double DISABLE_DISTANCE = -1D;
 
-	public TASCSpeedOrder(double targetDistance) {
-		this.targetDistance = targetDistance;
+	public TASCController() {
+		this.stopDistance = DISABLE_DISTANCE;
 	}
 
 	public void changeTargetDistance(double movedDistance) {
-		this.targetDistance = Math.max((this.targetDistance - movedDistance), DISABLE_DISTANCE);
+		this.stopDistance = Math.max((this.stopDistance - movedDistance), DISABLE_DISTANCE);
 
-		if (this.targetDistance < 0.5d) {
+		if (this.stopDistance < 0.5d) {
 			this.stopPosition = true;
 		}
 	}
 
-	public void setTargetDistance(double targetDistance) {
-		this.targetDistance = targetDistance;
+	public void setStopDistance(double stopDistance) {
+		this.stopDistance = stopDistance;
 	}
 
-	public double getTargetDistance() {
-		return targetDistance;
+	public double getStopDistance() {
+		return stopDistance;
 	}
 
-	public void setEnable() {
+	public void enable(double targetDistance) {
 		this.enable = true;
+		this.stopDistance = targetDistance;
 	}
 
-	public void setDisable() {
+	public void disable() {
 		this.enable = false;
 		this.stopPosition = false;
 		this.breaking = false;
@@ -63,7 +64,7 @@ public class TASCSpeedOrder {
 		} else if (deceleration > 1.2) {
 			this.breaking = true;
 			return -7;
-		} else if (deceleration >= 1/* || this.stopPosition*/) {
+		} else if (deceleration >= 1) {
 			this.breaking = true;
 			return -6;
 		} else if (deceleration > 0.8 && this.breaking) {
@@ -90,6 +91,6 @@ public class TASCSpeedOrder {
 //		float speedS = nowSpeedH / 3.6f;
 //		double decelerationSecond = this.targetDistance / (speedS / 2f);
 //		return speedS / decelerationSecond;
-		return Math.pow(nowSpeedH, 2) / (this.targetDistance * 7.2d) / 3.6d;
+		return Math.pow(nowSpeedH, 2) / (this.stopDistance * 7.2d) / 3.6d;
 	}
 }

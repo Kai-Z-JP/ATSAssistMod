@@ -56,7 +56,7 @@ public class TrainControllerManager {
 		}
 		List<Long> delList = new ArrayList<>();
 		TrainController[] tcs = new TrainController[trackingTrainMap.size()];
-		TCSyncManager tsm = new TCSyncManager();
+		TCThreadManager tsm = new TCThreadManager();
 		int i = 0;
 		for (Entry<Long, TrainController> entry : trackingTrainMap.entrySet()) {
 			long fid = entry.getKey();

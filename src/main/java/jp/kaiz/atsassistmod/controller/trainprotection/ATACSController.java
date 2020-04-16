@@ -1,4 +1,4 @@
-package jp.kaiz.atsassistmod.controller;
+package jp.kaiz.atsassistmod.controller.trainprotection;
 
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.rail.TileEntityLargeRailBase;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ATACSController {
-	private int count;
+//	private int count;
 
 	private TileEntityLargeRailCore savedRail;
 	private RailPosition nowRP;
@@ -30,9 +30,9 @@ public class ATACSController {
 
 	public void onTick(EntityTrainBase train, double distance) {
 		this.train = train;
-		double trainX = (train.boundingBox.maxX + train.boundingBox.minX) / 2d;
-		double trainY = (train.boundingBox.maxY + train.boundingBox.minY) / 2d;
-		double trainZ = (train.boundingBox.maxZ + train.boundingBox.minZ) / 2d;
+		double trainX = train.posX/*(train.boundingBox.maxX + train.boundingBox.minX) / 2d*/;
+		double trainY = train.posY/*(train.boundingBox.maxY + train.boundingBox.minY) / 2d*/;
+		double trainZ = train.posZ/*(train.boundingBox.maxZ + train.boundingBox.minZ) / 2d*/;
 		TileEntityLargeRailBase nowRailBase = TileEntityLargeRailBase.getRailFromCoordinates(train.worldObj, trainX, trainY, trainZ);
 		if (nowRailBase != null) {
 			TileEntityLargeRailCore nowRailCore = nowRailBase.getRailCore();
@@ -62,12 +62,17 @@ public class ATACSController {
 				if (anotherTrainDistance == -1d) {
 					speed0 = Integer.MAX_VALUE;
 					speed1 = Integer.MAX_VALUE;
+					speed2 = Integer.MAX_VALUE;
 				} else {
 					double nowRailLength = this.nowRM.getLength();
 					anotherTrainDistance = anotherTrainDistance + nowRailLength - movedDistance;
+
 					if (anotherTrainDistance < 0d) {
-						this.count = 20;
-					} else if (anotherTrainDistance > 100d) {
+//						this.count = 20;
+						return;
+					}
+
+					if (anotherTrainDistance > 100d) {
 						speed0 = (int) this.getPattern(anotherTrainDistance - 120d);
 						speed1 = (int) this.getPattern(anotherTrainDistance - 110d);
 						speed2 = (int) this.getPattern(anotherTrainDistance - 100d);
@@ -146,19 +151,22 @@ public class ATACSController {
 			}
 			_tempRail = railBase.getRailCore();
 			if (_tempRail.isTrainOnRail()) {
-				List<TileEntity> tileList = new ArrayList<>();
-				int x0 = MathHelper.floor_double(train.boundingBox.minX + 0.001D);
-				int y0 = MathHelper.floor_double(train.boundingBox.minY + 0.001D);
-				int z0 = MathHelper.floor_double(train.boundingBox.minZ + 0.001D);
-				int x1 = MathHelper.floor_double(train.boundingBox.maxX - 0.001D);
-				int y1 = MathHelper.floor_double(train.boundingBox.maxY - 0.001D);
-				int z1 = MathHelper.floor_double(train.boundingBox.maxZ - 0.001D);
+				List<TileEntityLargeRailCore> tileList = new ArrayList<>();
+				int x0 = MathHelper.floor_double(train.boundingBox.minX + 0.01D);
+				int y0 = MathHelper.floor_double(train.boundingBox.minY + 0.01D);
+				int z0 = MathHelper.floor_double(train.boundingBox.minZ + 0.01D);
+				int x1 = MathHelper.floor_double(train.boundingBox.maxX - 0.01D);
+				int y1 = MathHelper.floor_double(train.boundingBox.maxY - 0.01D);
+				int z1 = MathHelper.floor_double(train.boundingBox.maxZ - 0.01D);
 				for (int x = x0; x <= x1; ++x) {
 					for (int y = y0; y <= y1; ++y) {
 						for (int z = z0; z <= z1; ++z) {
-							TileEntity _temp = train.worldObj.getTileEntity(x, y, z);
-							if (_temp != null) {
-								tileList.add(_temp);
+							TileEntityLargeRailBase rail = TileEntityLargeRailBase.getRailFromCoordinates(train.worldObj, x, y, z);
+							if (rail != null) {
+								TileEntityLargeRailCore railCore = rail.getRailCore();
+								if (railCore != null) {
+									tileList.add(railCore);
+								}
 							}
 						}
 					}
@@ -168,10 +176,10 @@ public class ATACSController {
 				}
 			}
 			_tempMap = this.getNearRailMap(_tempRail, railBase);
-			_tempRailPosition = this.whichIsFarRailPotion(_tempRailPosition, _tempMap);
+			_tempRailPosition = this.getFarRailPotion(_tempRailPosition, _tempMap);
 			distance = distance + _tempMap.getLength();
 		}
-		return distance + train.getModelSet().getConfig().trainDistance;
+		return distance - train.getModelSet().getConfig().trainDistance;
 	}
 
 	private double getPattern(double distance) {
@@ -233,7 +241,7 @@ public class ATACSController {
 		return distance0 < distance1 ? rp0 : rp1;
 	}
 
-	private RailPosition whichIsFarRailPotion(RailPosition railPosition0, RailMap railMap) {
+	private RailPosition getFarRailPotion(RailPosition railPosition0, RailMap railMap) {
 		RailPosition rp0 = railMap.getStartRP();
 		RailPosition rp1 = railMap.getEndRP();
 		double distance0 = this.getRPToRP(railPosition0, rp0);
