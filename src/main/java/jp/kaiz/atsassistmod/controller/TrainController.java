@@ -122,7 +122,7 @@ public class TrainController implements Runnable {
 			} else {
 				speedOrder.moveDistance(movedDistance);
 				//ATO有効時予告に基づきブレーキノッチ追加
-				if (this.ATO) {
+				if (this.ATO || this.TPType == TrainProtection.ATACS) {
 					brakeNotch.add(speedOrder.getNeedNotch(speedH));
 				}
 			}
