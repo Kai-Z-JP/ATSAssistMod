@@ -1,6 +1,6 @@
 package jp.kaiz.atsassistmod.api;
 
-import jp.ngt.rtm.entity.train.EntityTrain;
+import jp.ngt.rtm.entity.train.EntityTrainBase;
 
 public class TrainControllerClient {
 	private static int atoI, tascI, atcI, atacsI, entityID;
@@ -21,7 +21,7 @@ public class TrainControllerClient {
 	}
 
 	//必ずisEnableを確認
-	public static boolean isEnable(EntityTrain train) {
+	public static boolean isEnable(EntityTrainBase train) {
 		return TrainControllerClient.entityID == train.getEntityId();
 	}
 

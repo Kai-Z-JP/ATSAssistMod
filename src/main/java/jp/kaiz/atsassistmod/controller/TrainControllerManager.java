@@ -55,9 +55,6 @@ public class TrainControllerManager {
 			return;
 		}
 		List<Long> delList = new ArrayList<>();
-		TrainController[] tcs = new TrainController[trackingTrainMap.size()];
-		TCThreadManager tsm = new TCThreadManager();
-		int i = 0;
 		for (Entry<Long, TrainController> entry : trackingTrainMap.entrySet()) {
 			long fid = entry.getKey();
 			Formation formation = FormationManager.getInstance().getFormation(fid);
@@ -72,13 +69,7 @@ public class TrainControllerManager {
 						continue;
 					}
 					if (controlCar.isControlCar()) {
-						tcs[i] = entry.getValue();
-						tcs[i].init(controlCar, tsm);
-
-						Thread thread = new Thread(tcs[i]);
-						thread.start();
-//						entry.getValue().onUpdate(controlCar);
-						i++;
+						entry.getValue().onUpdate(controlCar);
 						if (controlCar.riddenByEntity instanceof EntityPlayerMP) {
 							ATSAssistCore.NETWORK_WRAPPER.sendTo(new PacketTrainControllerToClient(entry.getValue(), controlCar.getEntityId()), (EntityPlayerMP) controlCar.riddenByEntity);
 						}
@@ -93,7 +84,6 @@ public class TrainControllerManager {
 			}
 		}
 		delList.forEach(trackingTrainMap::remove);
-		tsm.waitSync();
 	}
 
 

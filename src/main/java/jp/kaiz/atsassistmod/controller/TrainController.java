@@ -7,7 +7,7 @@ import jp.ngt.rtm.entity.train.EntityTrainBase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainController implements Runnable {
+public class TrainController {
 	private final List<SpeedOrder> speedOrderList = new ArrayList<>();
 	private final List<Integer> speedLimit = new ArrayList<>();
 	private int maxSpeed = 0;
@@ -24,7 +24,6 @@ public class TrainController implements Runnable {
 	private TrainProtection TPType = TrainProtection.NONE;
 
 	private EntityTrainBase train;
-	private TCThreadManager tsm;
 
 	private double[] coordinates;
 
@@ -89,19 +88,8 @@ public class TrainController implements Runnable {
 		this.TPType = TrainProtection.NONE;
 	}
 
-	public void init(EntityTrainBase train, TCThreadManager tsm) {
-		this.train = train;
-		this.tsm = tsm;
-		this.tsm.addSync();
-	}
-
-	public void run() {
-		this.onUpdate();
-	}
-
-
 	//Tick毎の処理
-	public void onUpdate() {
+	public void onUpdate(EntityTrainBase train) {
 		//移動距離
 		double movedDistance = this.getMovedDistance();
 
@@ -223,7 +211,6 @@ public class TrainController implements Runnable {
 						this.brakingControlling = false;
 						this.ATO = false;
 						this.tascController.disable();
-						tsm.delSync();
 						return;
 					}
 				}
@@ -243,7 +230,6 @@ public class TrainController implements Runnable {
 							this.brakingControlling = false;
 							this.ATO = false;
 							this.tascController.disable();
-							tsm.delSync();
 							return;
 						}
 					}
@@ -252,7 +238,6 @@ public class TrainController implements Runnable {
 			this.brakingControlling = true;
 			train.setNotch(minBrakeNotch);
 		}
-		tsm.delSync();
 	}
 
 	private double getMovedDistance() {
