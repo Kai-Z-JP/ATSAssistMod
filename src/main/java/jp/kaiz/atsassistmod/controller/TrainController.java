@@ -89,14 +89,15 @@ public class TrainController implements Runnable {
 		this.TPType = TrainProtection.NONE;
 	}
 
+
+	public void run() {
+		this.onUpdate();
+	}
+
 	public void init(EntityTrainBase train, TCThreadManager tsm) {
 		this.train = train;
 		this.tsm = tsm;
 		this.tsm.addSync();
-	}
-
-	public void run() {
-		this.onUpdate();
 	}
 
 
@@ -122,7 +123,7 @@ public class TrainController implements Runnable {
 			} else {
 				speedOrder.moveDistance(movedDistance);
 				//ATO有効時予告に基づきブレーキノッチ追加
-				if (this.ATO || this.TPType == TrainProtection.ATACS) {
+				if (this.ATO) {
 					brakeNotch.add(speedOrder.getNeedNotch(speedH));
 				}
 			}

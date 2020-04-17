@@ -76,6 +76,7 @@ public class TrainControllerManager {
 						tcs[i].init(controlCar, tsm);
 
 						Thread thread = new Thread(tcs[i]);
+						thread.setName("Server thread");
 						thread.start();
 //						entry.getValue().onUpdate(controlCar);
 						i++;
