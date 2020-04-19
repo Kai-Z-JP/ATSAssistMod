@@ -4,63 +4,82 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import jp.kaiz.atsassistmod.api.TrainControllerClient;
+import jp.kaiz.atsassistmod.api.TrainControllerClientManager;
 import jp.kaiz.atsassistmod.controller.TrainController;
 
 public class PacketTrainControllerToClient implements IMessage, IMessageHandler<PacketTrainControllerToClient, IMessage> {
-	int atoI, tascI, atcI, atacsI;
-	boolean atoB, tascB, atacsB;
-	int entityID;
+    byte type;
+    int atoI, tascI, atcI, atacsI;
+    boolean atoB, tascB, atacsB;
+    long formationID;
 
-	public PacketTrainControllerToClient() {
-	}
+    public PacketTrainControllerToClient() {
+    }
 
-	public PacketTrainControllerToClient(TrainController controller, int entityID) {
-		//ATO
-		this.atoB = controller.isATO();
-		this.atoI = controller.getATOSpeedLimit();
+    public PacketTrainControllerToClient(long entityID) {
+        this.type = 0;
 
-		//TASC
-		this.tascB = controller.tascController.isEnable();
-		this.tascI = (int) controller.tascController.getStopDistance();
+        this.formationID = entityID;
+    }
 
-		//ATC
-		this.atcI = controller.getSpeedLimit();
+    public PacketTrainControllerToClient(TrainController controller, long entityID) {
+        this.type = 1;
 
-		//ATACS
-		this.atacsB = controller.isATACS();
-		this.atacsI = controller.getATACSSpeedLimit();
+        this.formationID = entityID;
 
-		this.entityID = entityID;
-	}
+        //ATO
+        this.atoB = controller.isATO();
+        this.atoI = controller.getATOSpeedLimit();
 
-	@Override
-	public void fromBytes(ByteBuf buf) {
-		this.atoB = buf.readBoolean();
-		this.tascB = buf.readBoolean();
-		this.atacsB = buf.readBoolean();
-		this.atoI = buf.readInt();
-		this.tascI = buf.readInt();
-		this.atcI = buf.readInt();
-		this.atacsI = buf.readInt();
-		this.entityID = buf.readInt();
-	}
+        //TASC
+        this.tascB = controller.tascController.isEnable();
+        this.tascI = (int) controller.tascController.getStopDistance();
 
-	@Override
-	public void toBytes(ByteBuf buf) {
-		buf.writeBoolean(this.atoB);
-		buf.writeBoolean(this.tascB);
-		buf.writeBoolean(this.atacsB);
-		buf.writeInt(this.atoI);
-		buf.writeInt(this.tascI);
-		buf.writeInt(this.atcI);
-		buf.writeInt(this.atacsI);
-		buf.writeInt(this.entityID);
-	}
+        //ATC
+        this.atcI = controller.getSpeedLimit();
 
-	@Override
-	public IMessage onMessage(PacketTrainControllerToClient message, MessageContext ctx) {
-		TrainControllerClient.set(message.atoB, message.tascB, message.atacsB, message.atoI, message.tascI, message.atcI, message.atacsI, message.entityID);
-		return null;
-	}
+        //ATACS
+        this.atacsB = controller.isATACS();
+        this.atacsI = controller.getATACSSpeedLimit();
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.type = buf.readByte();
+        this.formationID = buf.readLong();
+        if (this.type == 1) {
+            this.atoB = buf.readBoolean();
+            this.tascB = buf.readBoolean();
+            this.atacsB = buf.readBoolean();
+            this.atoI = buf.readInt();
+            this.tascI = buf.readInt();
+            this.atcI = buf.readInt();
+            this.atacsI = buf.readInt();
+        }
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        buf.writeByte(this.type);
+        buf.writeLong(this.formationID);
+        if (this.type == 1) {
+            buf.writeBoolean(this.atoB);
+            buf.writeBoolean(this.tascB);
+            buf.writeBoolean(this.atacsB);
+            buf.writeInt(this.atoI);
+            buf.writeInt(this.tascI);
+            buf.writeInt(this.atcI);
+            buf.writeInt(this.atacsI);
+        }
+    }
+
+    @Override
+    public IMessage onMessage(PacketTrainControllerToClient message, MessageContext ctx) {
+        if (message.type == 0) {
+            TrainControllerClientManager.removeTCC(message.formationID);
+        } else if (message.type == 1) {
+            TrainControllerClientManager.setTCC(message.formationID, message.atoB, message.tascB, message.atacsB, message.atoI, message.tascI, message.atcI, message.atacsI);
+        }
+        return null;
+    }
 }

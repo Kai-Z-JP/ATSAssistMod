@@ -1,63 +1,51 @@
 package jp.kaiz.atsassistmod.api;
 
-import jp.ngt.rtm.entity.train.EntityTrainBase;
-
 public class TrainControllerClient {
-	private static int atoI, tascI, atcI, atacsI, entityID;
-	private static boolean atoB, tascB, atacsB;
+    private int atoI, tascI, atcI, atacsI;
+    private boolean atoB, tascB, atacsB;
 
-	public static void set(boolean atoB, boolean tascB, boolean atacsB, int atoI, int tascI, int atcI, int atacsI, int entityID) {
-		TrainControllerClient.atoI = atoI;
-		TrainControllerClient.tascI = tascI;
-		TrainControllerClient.atcI = atcI;
+    public TrainControllerClient(boolean atoB, boolean tascB, boolean atacsB, int atoI, int tascI, int atcI, int atacsI) {
+        this.set(atoB, tascB, atacsB, atoI, tascI, atcI, atacsI);
+    }
 
-		TrainControllerClient.atacsI = atacsI;
 
-		TrainControllerClient.atoB = atoB;
-		TrainControllerClient.tascB = tascB;
-		TrainControllerClient.atacsB = atacsB;
+    public void set(boolean atoB, boolean tascB, boolean atacsB, int atoI, int tascI, int atcI, int atacsI) {
+        this.atoI = atoI;
+        this.tascI = tascI;
+        this.atcI = atcI;
 
-		TrainControllerClient.entityID = entityID;
-	}
+        this.atacsI = atacsI;
 
-	//必ずisEnableを確認
-	public static boolean isEnable(EntityTrainBase train) {
-		return TrainControllerClient.entityID == train.getEntityId();
-	}
+        this.atoB = atoB;
+        this.tascB = tascB;
+        this.atacsB = atacsB;
+    }
 
-	public static boolean isEnable(int entityID) {
-		return TrainControllerClient.entityID == entityID;
-	}
+    public boolean isATO() {
+        return atoB;
+    }
 
-	public static boolean isATO() {
-		return atoB;
-	}
+    public boolean isTASC() {
+        return tascB;
+    }
 
-	public static boolean isTASC() {
-		return tascB;
-	}
+    public boolean isATACS() {
+        return atacsB;
+    }
 
-	public static boolean isATACS() {
-		return atacsB;
-	}
+    public int getATOSpeed() {
+        return atoI;
+    }
 
-	public static int getATOSpeed() {
-		return atoI;
-	}
+    public int getTASCDistance() {
+        return tascI;
+    }
 
-	public static int getTASCDistance() {
-		return tascI;
-	}
+    public int getATCSpeed() {
+        return atcI;
+    }
 
-	public static int getATCSpeed() {
-		return atcI;
-	}
-
-	public static int getATACSSpeed() {
-		return atacsI;
-	}
-
-	public static void setEntityID(int entityID) {
-		TrainControllerClient.entityID = entityID;
-	}
+    public int getATACSSpeed() {
+        return atacsI;
+    }
 }

@@ -11,7 +11,7 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import jp.kaiz.atsassistmod.block.GroundUnit;
-import jp.kaiz.atsassistmod.block.StationAnnounceBase;
+import jp.kaiz.atsassistmod.block.StationAnnounce;
 import jp.kaiz.atsassistmod.event.ATSAssistEventHandler;
 import jp.kaiz.atsassistmod.gui.ATSAssistGUIHandler;
 import jp.kaiz.atsassistmod.item.ItemBlockWithMetadataCustom;
@@ -23,7 +23,7 @@ public class ATSAssistCore {
 	//変更するとブロック消える
 	public static final String MODID = "ATSAssistMod";
 
-	public static final String VERSION = "1.4beta_v7";
+	public static final String VERSION = "1.4beta_v8";
 
 	@Mod.Instance(MODID)
 	public static ATSAssistCore INSTANCE;
@@ -77,7 +77,7 @@ public class ATSAssistCore {
 
 		blockGroundUnit = new GroundUnit();
 		GameRegistry.registerBlock(blockGroundUnit, ItemBlockWithMetadataCustom.class, "tile" + "." + MODID + ":" + "groundUnit");
-		stationAnnounceBase = new StationAnnounceBase();
+		stationAnnounceBase = new StationAnnounce();
 //		GameRegistry.registerBlock(stationAnnounceBase, ItemBlockWithMetadataCustom.class, "tile" + "." + MODID + ":" + "stationAnnounceBase");
 		proxy.preInit();
 	}

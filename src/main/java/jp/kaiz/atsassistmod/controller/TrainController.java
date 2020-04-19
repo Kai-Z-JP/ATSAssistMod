@@ -27,8 +27,18 @@ public class TrainController implements Runnable {
 
     private double[] coordinates;
 
+    private int savedEntityID;
+
     //null処理めんどいからこれとインスタンス比較で
-    public static final TrainController NULL = new TrainController();
+    public static final TrainController NULL = new TrainController(-1);
+
+    public TrainController(int entityID) {
+        this.savedEntityID = entityID;
+    }
+
+    public int getSavedEntityID() {
+        return savedEntityID;
+    }
 
     public void addSpeedOrder(SpeedOrder speedOrder) {
         this.speedOrderList.add(speedOrder);
