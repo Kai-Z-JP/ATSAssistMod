@@ -19,16 +19,16 @@ import java.util.stream.IntStream;
 
 public class GroundUnit extends BlockContainer {
 
-    private final IIcon[] iicon = new IIcon[16];
+	private IIcon[] iicon = new IIcon[16];
 
-    public GroundUnit() {
-        super(Material.rock);
-        setCreativeTab(CreativeTabs.tabBlock);
-        //modidないとテクスチャおかしくなる
-        setBlockName(ATSAssistCore.MODID + ":" + "groundUnit");
-        setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
-        setStepSound(Block.soundTypeStone);
-    }
+	public GroundUnit() {
+		super(Material.rock);
+		setCreativeTab(CreativeTabs.tabBlock);
+		//modidないとテクスチャおかしくなる
+		setBlockName(ATSAssistCore.MODID + ":" + "groundUnit");
+		setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
+		setStepSound(Block.soundTypeStone);
+	}
 
 //    0:無動作
 //
