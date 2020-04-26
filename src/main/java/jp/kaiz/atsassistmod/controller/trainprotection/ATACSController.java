@@ -28,7 +28,7 @@ public class ATACSController {
 	private int speed1 = Integer.MAX_VALUE;
 	private int speed2 = Integer.MAX_VALUE;
 
-	public void onTick(EntityTrainBase train, double distance) {
+	public void onTick(EntityTrainBase train, double distance) throws Exception {
 		this.train = train;
 		double trainX = train.posX/*(train.boundingBox.maxX + train.boundingBox.minX) / 2d*/;
 		double trainY = train.posY/*(train.boundingBox.maxY + train.boundingBox.minY) / 2d*/;
@@ -136,7 +136,7 @@ public class ATACSController {
 		return point;
 	}
 
-	private double getAnotherTrainDistance(double searchDistance) {
+	private double getAnotherTrainDistance(double searchDistance) throws Exception {
 		double distance = 0d;
 		RailPosition _tempRailPosition = this.getRailPositionDestination(this.nowRM);
 		TileEntityLargeRailCore _tempRail = this.savedRail;
@@ -199,7 +199,7 @@ public class ATACSController {
 		}
 	}
 
-	private TileEntityLargeRailBase getNextRailBase(TileEntityLargeRailCore rail, RailPosition railPosition, RailMap railMap) {
+	private TileEntityLargeRailBase getNextRailBase(TileEntityLargeRailCore rail, RailPosition railPosition, RailMap railMap) throws Exception {
 		TileEntityLargeRailBase nextRail;
 		int x = (int) railPosition.posX;
 		int y = (int) railPosition.posY;
@@ -218,7 +218,7 @@ public class ATACSController {
 		return null;
 	}
 
-	private TileEntityLargeRailBase getRailBaseFromLocation(int x, int y, int z, TileEntityLargeRailCore nowRail) {
+	private TileEntityLargeRailBase getRailBaseFromLocation(int x, int y, int z, TileEntityLargeRailCore nowRail) throws Exception {
 		TileEntity tile;
 		if ((tile = nowRail.getWorldObj().getTileEntity(x, y, z)) != null) {
 			if (tile instanceof TileEntityLargeRailBase) {

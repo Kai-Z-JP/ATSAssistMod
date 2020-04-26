@@ -7,7 +7,7 @@ public class TASCDataManager {
 
 	private boolean TASCBraking;
 	private boolean autoStop;
-	private boolean autoStopbyTrainType;
+	private boolean autoStopByTrainType;
 
 	public int getTrainType() {
 		return trainType;
@@ -49,11 +49,11 @@ public class TASCDataManager {
 		this.autoStop = autoStop;
 	}
 
-	public boolean isAutoStopbyTrainType() {
-		return autoStopbyTrainType;
+	public boolean isAutoStopByTrainType() {
+		return autoStopByTrainType;
 	}
 
-	public void setAutoStopbyTrainType(boolean autoStopbyTrainType) {
-		this.autoStopbyTrainType = autoStopbyTrainType;
+	public void setAutoStopByTrainType(boolean autoStopByTrainType) {
+		this.autoStopByTrainType = autoStopByTrainType;
 	}
 }

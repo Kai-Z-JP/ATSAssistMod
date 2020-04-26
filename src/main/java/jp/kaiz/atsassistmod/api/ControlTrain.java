@@ -77,46 +77,46 @@ public class ControlTrain {
 			switch (signal) {
 				case 101:
 					if (trainType <= 11) {
-						data.setAutoStopbyTrainType(true);
+						data.setAutoStopByTrainType(true);
 					}
 					break;
 				case 102:
 					if (trainType <= 12) {
-						data.setAutoStopbyTrainType(true);
+						data.setAutoStopByTrainType(true);
 					}
 					break;
 				case 103:
 					if (trainType <= 13) {
-						data.setAutoStopbyTrainType(true);
+						data.setAutoStopByTrainType(true);
 					}
 					break;
 				case 104:
 					if (trainType <= 14) {
-						data.setAutoStopbyTrainType(true);
+						data.setAutoStopByTrainType(true);
 					}
 					break;
 				case 105:
 					if (trainType <= 15) {
-						data.setAutoStopbyTrainType(true);
+						data.setAutoStopByTrainType(true);
 					}
 					break;
 				case 106:
 					if (trainType <= 16) {
-						data.setAutoStopbyTrainType(true);
+						data.setAutoStopByTrainType(true);
 					}
 					break;
 				case 107:
 					if (trainType <= 17) {
-						data.setAutoStopbyTrainType(true);
+						data.setAutoStopByTrainType(true);
 					}
 					break;
 				case 108:
 					if (trainType <= 18) {
-						data.setAutoStopbyTrainType(true);
+						data.setAutoStopByTrainType(true);
 					}
 					break;
 				case 109:
-					data.setAutoStopbyTrainType(true);
+					data.setAutoStopByTrainType(true);
 					break;
 			}
 		}
@@ -128,7 +128,7 @@ public class ControlTrain {
 				data.setTASCBraking(false);
 				data.setStopPositionDistance(10000);
 				data.setCoordinates(null);
-				data.setAutoStopbyTrainType(false);
+				data.setAutoStopByTrainType(false);
 				break;
 			case 127://TASC オン
 				data.setAutoStop(true);
@@ -143,7 +143,7 @@ public class ControlTrain {
 				break;
 		}
 
-		if (!data.isAutoStopbyTrainType()) {
+		if (!data.isAutoStopByTrainType()) {
 			trainData.put(entityID, data);
 			return false;
 		}
