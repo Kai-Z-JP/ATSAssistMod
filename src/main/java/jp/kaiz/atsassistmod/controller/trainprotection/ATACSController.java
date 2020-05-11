@@ -13,14 +13,12 @@ import net.minecraft.util.MathHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ATACSController {
+public class ATACSController extends TrainProtection {
 	private int count;
 
 	private TileEntityLargeRailCore savedRail;
 	private RailPosition nowRP;
 	private RailMap nowRM;
-
-	private EntityTrainBase train;
 
 	private double movedDistance;
 
@@ -28,11 +26,12 @@ public class ATACSController {
 	private int speed1 = Integer.MAX_VALUE;
 	private int speed2 = Integer.MAX_VALUE;
 
+	@Override
 	public void onTick(EntityTrainBase train, double distance) throws Exception {
-		this.train = train;
-		double trainX = train.posX/*(train.boundingBox.maxX + train.boundingBox.minX) / 2d*/;
-		double trainY = train.posY/*(train.boundingBox.maxY + train.boundingBox.minY) / 2d*/;
-		double trainZ = train.posZ/*(train.boundingBox.maxZ + train.boundingBox.minZ) / 2d*/;
+		super.onTick(train, distance);
+		double trainX = train.posX;
+		double trainY = train.posY;
+		double trainZ = train.posZ;
 		TileEntityLargeRailBase nowRailBase = TileEntityLargeRailBase.getRailFromCoordinates(train.worldObj, trainX, trainY, trainZ);
 		if (nowRailBase != null) {
 			TileEntityLargeRailCore nowRailCore = nowRailBase.getRailCore();
@@ -58,24 +57,24 @@ public class ATACSController {
 				}
 
 				double necessaryDistance = this.getBreakingDistance(train.getSpeed());
-				double anotherTrainDistance = this.getAnotherTrainDistance(necessaryDistance + 100d);
-				if (anotherTrainDistance == -1d) {
+				double trainDistance = this.getAnotherTrainDistance(necessaryDistance + 100d);
+				if (trainDistance == -1d) {
 					speed0 = Integer.MAX_VALUE;
 					speed1 = Integer.MAX_VALUE;
 					speed2 = Integer.MAX_VALUE;
 				} else {
 					double nowRailLength = this.nowRM.getLength();
-					anotherTrainDistance = anotherTrainDistance + nowRailLength - movedDistance;
+					trainDistance = trainDistance + nowRailLength - movedDistance;
 
-					if (anotherTrainDistance < 0d) {
+					if (trainDistance < 0d) {
 						this.count = 20;
 						return;
 					}
 
-					if (anotherTrainDistance > 100d) {
-						speed0 = (int) this.getPattern(anotherTrainDistance - 120d);
-						speed1 = (int) this.getPattern(anotherTrainDistance - 110d);
-						speed2 = (int) this.getPattern(anotherTrainDistance - 100d);
+					if (trainDistance > 100d) {
+						speed0 = (int) this.getPattern(trainDistance - 120d);
+						speed1 = (int) this.getPattern(trainDistance - 110d);
+						speed2 = (int) this.getPattern(trainDistance - 100d);
 					} else {
 						speed0 = 0;
 						speed1 = 0;
@@ -96,6 +95,24 @@ public class ATACSController {
 
 	public int getEmergencySpeed() {
 		return speed2;
+	}
+
+	@Override
+	public int getNotch(float speedH) {
+		if (speedH > this.getEmergencySpeed()) {
+			return -8;
+		} else if (speedH > this.getPatternSpeed()) {
+			return -7;
+		} else if (this.getDisplaySpeed() == 0) {
+			return -5;
+		} else {
+			return 1;
+		}
+	}
+
+	@Override
+	public TrainProtectionType getType() {
+		return TrainProtectionType.ATACS;
 	}
 
 	//列車から

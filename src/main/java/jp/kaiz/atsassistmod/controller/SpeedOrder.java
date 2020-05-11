@@ -1,7 +1,7 @@
 package jp.kaiz.atsassistmod.controller;
 
 public class SpeedOrder {
-	private int targetSpeedH;
+	private final int targetSpeedH;
 	private double targetDistance;
 	private boolean enable = false;
 	private boolean breaking = false;

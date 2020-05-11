@@ -4,6 +4,7 @@ import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.GroundUnitType;
 import jp.kaiz.atsassistmod.controller.SpeedOrder;
 import jp.kaiz.atsassistmod.controller.TrainControllerManager;
+import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.entity.train.util.TrainState;
 import net.minecraft.nbt.NBTTagCompound;
@@ -615,8 +616,8 @@ public abstract class TileEntityGroundUnit extends TileEntity {
 
 		@Override
 		protected void onTick(EntityTrainBase train) {
-			TrainControllerManager.getTrainController(train).enableATACS();
-		}
+            TrainControllerManager.getTrainController(train).enableTrainProtection(TrainProtectionType.ATACS);
+        }
 
 		@Override
 		public GroundUnitType getType() {
@@ -636,8 +637,8 @@ public abstract class TileEntityGroundUnit extends TileEntity {
 
 		@Override
 		protected void onTick(EntityTrainBase train) {
-			TrainControllerManager.getTrainController(train).disableATACS();
-		}
+            TrainControllerManager.getTrainController(train).disableTrainProtection();
+        }
 
 		@Override
 		public GroundUnitType getType() {

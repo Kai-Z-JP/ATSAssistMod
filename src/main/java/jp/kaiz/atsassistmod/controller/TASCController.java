@@ -7,7 +7,7 @@ public class TASCController {
 	private boolean breaking = false;
 	private boolean stopPosition = false;
 
-	private static double DISABLE_DISTANCE = -1D;
+	private static final double DISABLE_DISTANCE = -1D;
 
 	public TASCController() {
 		this.stopDistance = DISABLE_DISTANCE;

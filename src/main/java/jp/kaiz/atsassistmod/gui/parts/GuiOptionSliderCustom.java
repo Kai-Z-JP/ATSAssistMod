@@ -1,4 +1,4 @@
-package jp.kaiz.atsassistmod.gui;
+package jp.kaiz.atsassistmod.gui.parts;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -9,21 +9,20 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiOptionSliderCustom extends GuiButton {
-	public byte nowValue;
-	private float _temp;
-	public boolean dragging;
-	private TrainState.TrainStateType type;
-//	private static final String __OBFID = "CL_00000680";
+    public byte nowValue;
+    private float _temp;
+    public boolean dragging;
+    private final TrainState.TrainStateType type;
 
-	public GuiOptionSliderCustom(int x, int y, int trainStateID, byte trainStateData) {
-		super(100 + trainStateID, x, y, 150, 20, "");
-		this.type = TrainState.getStateType(trainStateID);
-		this.nowValue = trainStateData;
+    public GuiOptionSliderCustom(int x, int y, int trainStateID, byte trainStateData) {
+        super(100 + trainStateID, x, y, 150, 20, "");
+        this.type = TrainState.getStateType(trainStateID);
+        this.nowValue = trainStateData;
 
-		_temp = (float) (this.nowValue - (this.type.min - 1)) / (this.type.max - (this.type.min - 1));
+        _temp = (float) (this.nowValue - (this.type.min - 1)) / (this.type.max - (this.type.min - 1));
 
-		this.displayString = getNormalizedValue();
-	}
+        this.displayString = getNormalizedValue();
+    }
 
 	/**
 	 * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over this button and 2 if it IS hovering over

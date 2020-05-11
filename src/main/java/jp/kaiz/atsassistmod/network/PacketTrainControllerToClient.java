@@ -9,8 +9,8 @@ import jp.kaiz.atsassistmod.controller.TrainController;
 
 public class PacketTrainControllerToClient implements IMessage, IMessageHandler<PacketTrainControllerToClient, IMessage> {
     byte type;
-    int atoI, tascI, atcI, atacsI;
-    boolean atoB, tascB, atacsB;
+    int atoI, tascI, atcI, atacsI, tpType;
+    boolean atoB, tascB;
     long formationID;
 
     public PacketTrainControllerToClient() {
@@ -39,7 +39,7 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
         this.atcI = controller.getSpeedLimit();
 
         //ATACS
-        this.atacsB = controller.isATACS();
+        this.tpType = controller.getTrainProtectionType().id;
         this.atacsI = controller.getATACSSpeedLimit();
     }
 
@@ -50,7 +50,7 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
         if (this.type == 1) {
             this.atoB = buf.readBoolean();
             this.tascB = buf.readBoolean();
-            this.atacsB = buf.readBoolean();
+            this.tpType = buf.readInt();
             this.atoI = buf.readInt();
             this.tascI = buf.readInt();
             this.atcI = buf.readInt();
@@ -65,7 +65,7 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
         if (this.type == 1) {
             buf.writeBoolean(this.atoB);
             buf.writeBoolean(this.tascB);
-            buf.writeBoolean(this.atacsB);
+            buf.writeInt(this.tpType);
             buf.writeInt(this.atoI);
             buf.writeInt(this.tascI);
             buf.writeInt(this.atcI);
@@ -78,7 +78,7 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
         if (message.type == 0) {
             TrainControllerClientManager.removeTCC(message.formationID);
         } else if (message.type == 1) {
-            TrainControllerClientManager.setTCC(message.formationID, message.atoB, message.tascB, message.atacsB, message.atoI, message.tascI, message.atcI, message.atacsI);
+            TrainControllerClientManager.setTCC(message.formationID, message.atoB, message.tascB, message.tpType, message.atoI, message.tascI, message.atcI, message.atacsI);
         }
         return null;
     }

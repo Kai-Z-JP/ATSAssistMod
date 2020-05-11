@@ -4,6 +4,7 @@ import cpw.mods.fml.client.config.GuiCheckBox;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.GroundUnitType;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityGroundUnit;
+import jp.kaiz.atsassistmod.gui.parts.GuiOptionSliderCustom;
 import jp.kaiz.atsassistmod.network.PacketGroundUnitTile;
 import jp.kaiz.atsassistmod.network.PacketGroundUnitTileInit;
 import net.minecraft.client.gui.GuiButton;
@@ -14,32 +15,32 @@ import org.lwjgl.input.Keyboard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroundUnitGUI extends GuiScreen {
+public class GUIGroundUnit extends GuiScreen {
 
-	private TileEntityGroundUnit tile;
-	private List<GuiTextField> textFieldList = new ArrayList<>();
+    private final TileEntityGroundUnit tile;
+    private final List<GuiTextField> textFieldList = new ArrayList<>();
 
-	public GroundUnitGUI(TileEntityGroundUnit tile) {
-		this.tile = tile;
-	}
+    public GUIGroundUnit(TileEntityGroundUnit tile) {
+        this.tile = tile;
+    }
 
-	//文字の描画
-	//横はthis.width
-	//縦はthis.height
-	//this.fontRendererObj.drawString("ここに文字", 横座標, 縦座標, 白なら0xffffff);
-	@Override
-	public void drawScreen(int mouseX, int mouseZ, float partialTick) {
-		this.drawDefaultBackground();
-		this.textFieldList.forEach(GuiTextField::drawTextBox);
-		super.drawScreen(mouseX, mouseZ, partialTick);
+    //文字の描画
+    //横はthis.width
+    //縦はthis.height
+    //this.fontRendererObj.drawString("ここに文字", 横座標, 縦座標, 白なら0xffffff);
+    @Override
+    public void drawScreen(int mouseX, int mouseZ, float partialTick) {
+        super.drawDefaultBackground();
+        this.textFieldList.forEach(GuiTextField::drawTextBox);
+        super.drawScreen(mouseX, mouseZ, partialTick);
 
-		switch (this.tile.getType()) {
-			case None:
-				this.fontRendererObj.drawString("地上子機能選択メニュー",
-						this.width / 4, 20, 0xffffff);
-				this.fontRendererObj.drawString("ATC",
-						this.width / 2 - 170, this.height / 2 - 90, 0xffffff);
-				this.fontRendererObj.drawString("TASC",
+        switch (this.tile.getType()) {
+            case None:
+                this.fontRendererObj.drawString("地上子機能選択メニュー",
+                        this.width / 4, 20, 0xffffff);
+                this.fontRendererObj.drawString("ATC",
+                        this.width / 2 - 170, this.height / 2 - 90, 0xffffff);
+                this.fontRendererObj.drawString("TASC",
 						this.width / 2 - 170, this.height / 2 - 50, 0xffffff);
 				this.fontRendererObj.drawString("ATO",
 						this.width / 2 - 170, this.height / 2 + 15, 0xffffff);
@@ -127,18 +128,18 @@ public class GroundUnitGUI extends GuiScreen {
 	//this.buttonList.add(new GuiButton(id,横座標,縦座標,横長さ,縦長さ,文字列))
 	@Override
 	public void initGui() {
-		super.initGui();
+        super.initGui();
 
-		this.buttonList.clear();
-		this.textFieldList.clear();
-		GroundUnitType type = this.tile.getType();
-		switch (type) {
-			case None:
-				this.buttonList.add(
-						new GuiButton(1, this.width / 2 - 170, this.height / 2 - 75, 100, 20, "速度制限予告"));
+        super.buttonList.clear();
+        this.textFieldList.clear();
+        GroundUnitType type = this.tile.getType();
+        switch (type) {
+            case None:
+                this.buttonList.add(
+                        new GuiButton(1, this.width / 2 - 170, this.height / 2 - 75, 100, 20, "速度制限予告"));
 
-				this.buttonList.add(
-						new GuiButton(2, this.width / 2 - 50, this.height / 2 - 75, 100, 20, "速度制限解除"));
+                this.buttonList.add(
+                        new GuiButton(2, this.width / 2 - 50, this.height / 2 - 75, 100, 20, "速度制限解除"));
 
 
 				this.buttonList.add(
@@ -318,7 +319,6 @@ public class GroundUnitGUI extends GuiScreen {
 		if (button.id == 0 || this.tile.getType() == GroundUnitType.None) {
 			this.sendPacket(button.id);
 			this.mc.theWorld.setBlock(tile.xCoord, tile.yCoord, tile.zCoord, ATSAssistCore.blockGroundUnit, button.id, 3);
-//			this.mc.thePlayer.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, this.mc.theWorld, tile.xCoord, tile.yCoord, tile.zCoord);
 		}
 	}
 

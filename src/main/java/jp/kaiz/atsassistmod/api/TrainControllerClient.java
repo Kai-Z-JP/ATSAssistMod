@@ -1,15 +1,20 @@
 package jp.kaiz.atsassistmod.api;
 
-public class TrainControllerClient {
-    private int atoI, tascI, atcI, atacsI;
-    private boolean atoB, tascB, atacsB;
+import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 
-    public TrainControllerClient(boolean atoB, boolean tascB, boolean atacsB, int atoI, int tascI, int atcI, int atacsI) {
-        this.set(atoB, tascB, atacsB, atoI, tascI, atcI, atacsI);
+public class TrainControllerClient {
+    private int atoI, tascI, atcI, atacsI, tpType;
+    private boolean atoB, tascB;
+
+    public TrainControllerClient() {
+    }
+
+    public TrainControllerClient(boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int atacsI) {
+        this.set(atoB, tascB, tpType, atoI, tascI, atcI, atacsI);
     }
 
 
-    public void set(boolean atoB, boolean tascB, boolean atacsB, int atoI, int tascI, int atcI, int atacsI) {
+    public void set(boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int atacsI) {
         this.atoI = atoI;
         this.tascI = tascI;
         this.atcI = atcI;
@@ -18,7 +23,7 @@ public class TrainControllerClient {
 
         this.atoB = atoB;
         this.tascB = tascB;
-        this.atacsB = atacsB;
+        this.tpType = tpType;
     }
 
     public boolean isATO() {
@@ -30,22 +35,30 @@ public class TrainControllerClient {
     }
 
     public boolean isATACS() {
-        return atacsB;
+        return this.tpType == TrainProtectionType.ATACS.id;
+    }
+
+    public void setTrainProtectionType(TrainProtectionType type) {
+        this.tpType = type.id;
+    }
+
+    public TrainProtectionType getTrainProtectionType() {
+        return TrainProtectionType.getType(this.tpType);
     }
 
     public int getATOSpeed() {
-        return atoI;
+        return this.atoI;
     }
 
     public int getTASCDistance() {
-        return tascI;
+        return this.tascI;
     }
 
     public int getATCSpeed() {
-        return atcI;
+        return this.atcI;
     }
 
     public int getATACSSpeed() {
-        return atacsI;
+        return this.atacsI;
     }
 }

@@ -22,7 +22,7 @@ public class TrainControllerManager {
             return TrainController.NULL;
         }
         if (!trackingTrainMap.containsKey(train.getFormation().id)) {
-            trackingTrainMap.put(train.getFormation().id, new TrainController(train.getEntityId()));
+            trackingTrainMap.put(train.getFormation().id, new TrainController(train));
         }
         return trackingTrainMap.get(train.getFormation().id);
     }

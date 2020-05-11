@@ -9,3 +9,5 @@ tile.ATSAssistMod:groundUnit.7.name=保安装置ブロック(停車検知)
 tile.ATSAssistMod:groundUnit.9.name=保安装置ブロック(ATO:出発信号 制御開始)
 tile.ATSAssistMod:groundUnit.10.name=保安装置ブロック(ATO:制御終了)
 tile.ATSAssistMod:groundUnit.11.name=保安装置ブロック(ATO:目標速度変更)
+
+item.ATSAssistMod:trainProtectionSelector.name=車上保安装置切替SW

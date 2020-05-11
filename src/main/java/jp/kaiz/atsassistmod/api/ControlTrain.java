@@ -2,9 +2,9 @@ package jp.kaiz.atsassistmod.api;
 
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.TASCDataManager;
-import jp.kaiz.atsassistmod.network.PacketATSAssistKey;
-import jp.ngt.ngtlib.util.NGTUtilClient;
+import jp.kaiz.atsassistmod.network.PacketSetNotch;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.HashMap;
@@ -14,31 +14,36 @@ import java.util.Map;
 public class ControlTrain {
 	private static Map<Integer, TASCDataManager> trainData = new HashMap<>();
 
+	@Deprecated
 	public static void setNotch(byte notch) {
 		if (notch <= 5 && notch >= -8) {
-			EntityPlayer player = NGTUtilClient.getMinecraft().thePlayer;
-			ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketATSAssistKey(player, notch));
+			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+			ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketSetNotch(player, notch));
 		}
 	}
 
+	@Deprecated
 	public static void setNotch(int notch) {
 		if (notch <= 5 && notch >= -8) {
 			ControlTrain.setNotch((byte) notch);
 		}
 	}
 
+	@Deprecated
 	public static void setNotch(EntityTrainBase entity, byte notch) {
 		if (notch <= 5 && notch >= -8) {
-			ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketATSAssistKey(entity, notch));
+			ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketSetNotch(entity, notch));
 		}
 	}
 
+	@Deprecated
 	public static void setNotch(EntityTrainBase entity, int notch) {
 		if (notch <= 5 && notch >= -8) {
 			ControlTrain.setNotch(entity, (byte) notch);
 		}
 	}
 
+	@Deprecated
 	public static boolean isTASCBreking(EntityTrainBase entity) {
 		int entityID = entity.getEntityId();
 		if (trainData.containsKey(entityID)) {
@@ -48,6 +53,7 @@ public class ControlTrain {
 		return false;
 	}
 
+	@Deprecated
 	public static boolean TASC(EntityTrainBase entity, int tT) {
 		if (entity == null) {
 			return false;
