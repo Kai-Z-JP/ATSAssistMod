@@ -3,12 +3,12 @@ package jp.kaiz.atsassistmod.block;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import jp.kaiz.atsassistmod.ATSAssistCore;
+import jp.kaiz.atsassistmod.CreativeTabATSAssist;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityGroundUnit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -23,7 +23,7 @@ public class GroundUnit extends BlockContainer {
 
 	public GroundUnit() {
 		super(Material.rock);
-		setCreativeTab(CreativeTabs.tabBlock);
+		setCreativeTab(CreativeTabATSAssist.tabUtils);
 		//modidないとテクスチャおかしくなる
 		setBlockName(ATSAssistCore.MODID + ":" + "groundUnit");
 		setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
