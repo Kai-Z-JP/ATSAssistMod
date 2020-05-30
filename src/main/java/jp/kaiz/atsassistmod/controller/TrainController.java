@@ -253,7 +253,7 @@ public class TrainController implements Runnable {
         } else if (minBrakeNotch == 0) {
             if (this.tascController.isEnable()) {
                 if (this.tascController.isBreaking()) {
-                    if (this.tascController.isStopPosition()) {
+                    if (this.tascController.isStopPosition() || speedH < 1) {
                         train.setNotch(-5);
                         this.brakingControlling = false;
                         this.ATO = false;

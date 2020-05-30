@@ -37,9 +37,9 @@ public class TASCController {
     }
 
     public void disable() {
-        this.enable = false;
         this.stopPosition = false;
         this.breaking = false;
+        this.enable = false;
     }
 
     public boolean isEnable() {

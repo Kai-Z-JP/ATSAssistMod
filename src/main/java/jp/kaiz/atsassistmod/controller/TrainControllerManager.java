@@ -76,6 +76,6 @@ public class TrainControllerManager {
 			ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketTrainControllerToClient(aLong));
 			trackingTrainMap.remove(aLong);
 		}
-		tsm.waitSync();
+//		tsm.waitSync();
 	}
 }

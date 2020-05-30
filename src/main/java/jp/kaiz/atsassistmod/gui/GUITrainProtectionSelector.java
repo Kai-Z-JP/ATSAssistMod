@@ -4,6 +4,7 @@ import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.api.TrainControllerClient;
 import jp.kaiz.atsassistmod.api.TrainControllerClientManager;
 import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
+import jp.kaiz.atsassistmod.network.PacketTrainDriveMode;
 import jp.kaiz.atsassistmod.network.PacketTrainProtectionSetter;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.client.gui.GuiButton;
@@ -154,10 +155,9 @@ public class GUITrainProtectionSelector extends GuiScreen {
         if (button.displayString.isEmpty()) {
             switch (button.id) {
                 case 10:
-                    break;
                 case 11:
-                    break;
                 case 12:
+                    this.sendPacketTrainDrive(button.id);
                     break;
                 case 20:
                     this.sendPacketTrainProtection(TrainProtectionType.NONE);
@@ -180,12 +180,28 @@ public class GUITrainProtectionSelector extends GuiScreen {
             this.tcc = new TrainControllerClient();
         }
         this.tcc.setTrainProtectionType(type);
+        ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketTrainProtectionSetter(type));
         this.player.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_TrainProtectionSelector,
                 this.player.worldObj,
                 MathHelper.ceiling_double_int(this.player.posX),
                 MathHelper.ceiling_double_int(this.player.posY),
                 MathHelper.ceiling_double_int(this.player.posZ));
-        ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketTrainProtectionSetter(type));
+    }
+
+    private void sendPacketTrainDrive(int mode) {
+        if (this.tcc == null) {
+            this.tcc = new TrainControllerClient();
+        }
+        if (mode == 10) {
+            this.tcc.setTASC(false);
+            this.tcc.setATO(false);
+        }
+        ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketTrainDriveMode(mode - 10));
+        this.player.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_TrainProtectionSelector,
+                this.player.worldObj,
+                MathHelper.ceiling_double_int(this.player.posX),
+                MathHelper.ceiling_double_int(this.player.posY),
+                MathHelper.ceiling_double_int(this.player.posZ));
     }
 
     @Override

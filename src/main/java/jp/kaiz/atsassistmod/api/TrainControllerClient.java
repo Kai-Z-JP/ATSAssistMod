@@ -34,6 +34,14 @@ public class TrainControllerClient {
         return tascB;
     }
 
+    public void setATO(boolean b) {
+        this.atoB = b;
+    }
+
+    public void setTASC(boolean b) {
+        this.tascB = b;
+    }
+
     public boolean isATACS() {
         return this.tpType == TrainProtectionType.ATACS.id;
     }

@@ -9,14 +9,11 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
 import jp.kaiz.atsassistmod.block.GroundUnit;
 import jp.kaiz.atsassistmod.block.StationAnnounce;
 import jp.kaiz.atsassistmod.event.ATSAssistEventHandler;
-import jp.kaiz.atsassistmod.gui.ATSAssistGUIHandler;
 import jp.kaiz.atsassistmod.item.ItemBlockWithMetadataCustom;
 import jp.kaiz.atsassistmod.item.TrainProtectionSelector;
-import jp.kaiz.atsassistmod.network.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -25,7 +22,7 @@ public class ATSAssistCore {
     //変更するとブロック消える
     public static final String MODID = "ATSAssistMod";
 
-    public static final String VERSION = "1.4.1_b1.0";
+    public static final String VERSION = "1.4.1_b2.0";
 
     @Mod.Instance(MODID)
     public static ATSAssistCore INSTANCE;
@@ -48,14 +45,8 @@ public class ATSAssistCore {
     //preInit init postInitの順
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        NETWORK_WRAPPER.registerMessage(PacketSetNotch.class, PacketSetNotch.class, 1, Side.SERVER);
-        NETWORK_WRAPPER.registerMessage(PacketGroundUnitTileInit.class, PacketGroundUnitTileInit.class, 2, Side.SERVER);
-        NETWORK_WRAPPER.registerMessage(PacketGroundUnitTileInitToClient.class, PacketGroundUnitTileInit.class, 3, Side.CLIENT);
-        NETWORK_WRAPPER.registerMessage(PacketGroundUnitTile.class, PacketGroundUnitTile.class, 4, Side.SERVER);
-        NETWORK_WRAPPER.registerMessage(PacketTrainControllerToClient.class, PacketTrainControllerToClient.class, 5, Side.CLIENT);
-        NETWORK_WRAPPER.registerMessage(PacketTrainProtectionSetter.class, PacketTrainProtectionSetter.class, 6, Side.SERVER);
-        NETWORK_WRAPPER.registerMessage(PacketSetNotchController.class, PacketSetNotchController.class, 7, Side.SERVER);
-        NetworkRegistry.INSTANCE.registerGuiHandler(this, new ATSAssistGUIHandler());
+        new ATSAssistNetwork().init();
+
         //proxy噛まさなくてもいいかも
         proxy.registerTileEntity();
         proxy.init();
