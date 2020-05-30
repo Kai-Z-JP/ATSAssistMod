@@ -3,6 +3,7 @@ package jp.kaiz.atsassistmod.api;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.TASCDataManager;
 import jp.kaiz.atsassistmod.network.PacketSetNotch;
+import jp.kaiz.atsassistmod.network.PacketSetNotchController;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +27,18 @@ public class ControlTrain {
 	public static void setNotch(int notch) {
 		if (notch <= 5 && notch >= -8) {
 			ControlTrain.setNotch((byte) notch);
+		}
+	}
+
+	public static void setControllerNotch(byte notch) {
+		if (notch <= 5 && notch >= -8) {
+			ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketSetNotchController(notch));
+		}
+	}
+
+	public static void setControllerNotch(int notch) {
+		if (notch <= 5 && notch >= -8) {
+			ControlTrain.setControllerNotch((byte) notch);
 		}
 	}
 

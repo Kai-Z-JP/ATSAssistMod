@@ -92,9 +92,9 @@ public class GUITrainProtectionSelector extends GuiScreen {
         int widthBaseR1 = this.width / 2 + 130;
 
         if (this.tcc == null) {
-            this.buttonList.add(new GuiButton(12, widthBaseL, heightBase + 50, 20, 20, ""));
-            this.buttonList.add(new GuiButton(11, widthBaseL, heightBase + 25, 20, 20, ""));
             this.buttonList.add(new GuiButton(10, widthBaseL, heightBase, 20, 20, "X"));
+            this.buttonList.add(new GuiButton(11, widthBaseL, heightBase + 25, 20, 20, ""));
+            this.buttonList.add(new GuiButton(12, widthBaseL, heightBase + 50, 20, 20, ""));
 
             int buttonIDL = 20;
             this.buttonList.add(new GuiButton(buttonIDL++, widthBaseR0, heightBase, 20, 20, "X"));
@@ -109,18 +109,18 @@ public class GUITrainProtectionSelector extends GuiScreen {
         }
 
         if (this.tcc.isATO()) {
-            this.buttonList.add(new GuiButton(12, widthBaseL, heightBase + 50, 20, 20, "X"));
-            this.buttonList.add(new GuiButton(11, widthBaseL, heightBase + 25, 20, 20, ""));
             this.buttonList.add(new GuiButton(10, widthBaseL, heightBase, 20, 20, ""));
+            this.buttonList.add(new GuiButton(11, widthBaseL, heightBase + 25, 20, 20, ""));
+            this.buttonList.add(new GuiButton(12, widthBaseL, heightBase + 50, 20, 20, "X"));
         } else {
             if (this.tcc.isTASC()) {
-                this.buttonList.add(new GuiButton(12, widthBaseL, heightBase + 50, 20, 20, ""));
-                this.buttonList.add(new GuiButton(11, widthBaseL, heightBase + 25, 20, 20, "X"));
                 this.buttonList.add(new GuiButton(10, widthBaseL, heightBase, 20, 20, ""));
-            } else {
+                this.buttonList.add(new GuiButton(11, widthBaseL, heightBase + 25, 20, 20, "X"));
                 this.buttonList.add(new GuiButton(12, widthBaseL, heightBase + 50, 20, 20, ""));
-                this.buttonList.add(new GuiButton(11, widthBaseL, heightBase + 25, 20, 20, ""));
+            } else {
                 this.buttonList.add(new GuiButton(10, widthBaseL, heightBase, 20, 20, "X"));
+                this.buttonList.add(new GuiButton(11, widthBaseL, heightBase + 25, 20, 20, ""));
+                this.buttonList.add(new GuiButton(12, widthBaseL, heightBase + 50, 20, 20, ""));
             }
         }
 

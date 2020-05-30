@@ -7,10 +7,10 @@ import jp.kaiz.atsassistmod.controller.TrainControllerManager;
 
 
 public class ATSAssistEventHandler {
-	@SubscribeEvent
-	public void onTick(TickEvent.ServerTickEvent event) {
-		if (event.side == Side.SERVER) {
-			TrainControllerManager.onTick();
-		}
-	}
+    @SubscribeEvent
+    public void onTick(TickEvent.ServerTickEvent event) {
+        if (event.side == Side.SERVER) {
+            TrainControllerManager.onTick();
+        }
+    }
 }
