@@ -1,6 +1,5 @@
 package jp.kaiz.atsassistmod.controller;
 
-import jp.kaiz.atsassistmod.controller.trainprotection.ATACSController;
 import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtection;
 import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
@@ -34,13 +33,13 @@ public class TrainController implements Runnable {
 
     public TrainController() {
         this.savedEntityID = -1;
-        this.enableTrainProtection(TrainProtectionType.NONE);
+        this.setTrainProtection(TrainProtectionType.NONE);
     }
 
     public TrainController(EntityTrainBase train) {
         this.savedEntityID = train.getEntityId();
         this.train = train;
-        this.enableTrainProtection(TrainProtectionType.NONE);
+        this.setTrainProtection(TrainProtectionType.NONE);
     }
 
     public void setControllerNotch(byte notch) {
@@ -75,13 +74,13 @@ public class TrainController implements Runnable {
     //ATOの目標速度 制限とは別
     public int getATOSpeedLimit() {
         int minLimit = this.speedLimit.stream().mapToInt(v -> v).min().orElse(this.maxSpeed);
-        return Math.min(this.getATACSSpeedLimit(), Math.min(minLimit, this.maxSpeed));
+        return Math.min(this.getTrainProtectionSpeedLimit(), Math.min(minLimit, this.maxSpeed));
     }
 
     //ATACS速度
-    public int getATACSSpeedLimit() {
+    public int getTrainProtectionSpeedLimit() {
         //未設定の時はInteger.MAX_VALUEを返す
-        return isATACS() ? ((ATACSController) this.tp).getDisplaySpeed() : Integer.MAX_VALUE;
+        return this.tp.getDisplaySpeed();
     }
 
     public void enableATO(int speed) {
@@ -101,7 +100,7 @@ public class TrainController implements Runnable {
         return this.tp.getType() == TrainProtectionType.ATACS;
     }
 
-    public void enableTrainProtection(TrainProtectionType type) {
+    public void setTrainProtection(TrainProtectionType type) {
         try {
             this.tp = type.aClass.newInstance();
             if (this.train != null) {
@@ -110,10 +109,6 @@ public class TrainController implements Runnable {
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
-    }
-
-    public void disableTrainProtection() {
-        this.tp = new TrainProtection();
     }
 
     public TrainProtectionType getTrainProtectionType() {

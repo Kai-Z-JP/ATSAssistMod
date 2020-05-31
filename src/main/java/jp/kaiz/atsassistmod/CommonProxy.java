@@ -23,20 +23,20 @@ public class CommonProxy {
 
 		GameRegistry.registerTileEntity(TileEntityGroundUnit.TASCStopPositionCorrection.class, "TileGU_TASC_StopPosition_Correction");
 
-		GameRegistry.registerTileEntity(TileEntityGroundUnit.TASCStopPosition.class, "TileGU_TASC_StopPosition");
+        GameRegistry.registerTileEntity(TileEntityGroundUnit.TASCStopPosition.class, "TileGU_TASC_StopPosition");
 
-		GameRegistry.registerTileEntity(TileEntityGroundUnit.ATODepartureSignal.class, "TileGU_ATO_Departure_Signal");
+        GameRegistry.registerTileEntity(TileEntityGroundUnit.ATODepartureSignal.class, "TileGU_ATO_Departure_Signal");
 
-		GameRegistry.registerTileEntity(TileEntityGroundUnit.ATODisable.class, "TileGU_ATO_Cancel");
+        GameRegistry.registerTileEntity(TileEntityGroundUnit.ATODisable.class, "TileGU_ATO_Cancel");
 
-		GameRegistry.registerTileEntity(TileEntityGroundUnit.ATOChangeSpeed.class, "TileGU_ATO_Change_Speed");
+        GameRegistry.registerTileEntity(TileEntityGroundUnit.ATOChangeSpeed.class, "TileGU_ATO_Change_Speed");
 
-		GameRegistry.registerTileEntity(TileEntityGroundUnit.TrainStateSet.class, "TileGU_TrainState");
+        GameRegistry.registerTileEntity(TileEntityGroundUnit.TrainStateSet.class, "TileGU_TrainState");
 
-		GameRegistry.registerTileEntity(TileEntityGroundUnit.ATACSEnable.class, "TileGU_ATACS_Enable");
+        GameRegistry.registerTileEntity(TileEntityGroundUnit.ChangeTrainProtection.class, "TileGU_ATACS_Enable");
 
-		GameRegistry.registerTileEntity(TileEntityGroundUnit.ATACSDisable.class, "TileGU_ATACS_Disable");
-	}
+        GameRegistry.registerTileEntity(TileEntityGroundUnit.ATACSDisable.class, "TileGU_ATACS_Disable");
+    }
 
 	public void preInit() {
 

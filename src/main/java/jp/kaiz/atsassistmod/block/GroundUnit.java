@@ -19,16 +19,16 @@ import java.util.stream.IntStream;
 
 public class GroundUnit extends BlockContainer {
 
-	private IIcon[] iicon = new IIcon[16];
+    private final IIcon[] iicon = new IIcon[16];
 
-	public GroundUnit() {
-		super(Material.rock);
-		setCreativeTab(CreativeTabATSAssist.tabUtils);
-		//modidないとテクスチャおかしくなる
-		setBlockName(ATSAssistCore.MODID + ":" + "groundUnit");
-		setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
-		setStepSound(Block.soundTypeStone);
-	}
+    public GroundUnit() {
+        super(Material.rock);
+        setCreativeTab(CreativeTabATSAssist.tabUtils);
+        //modidないとテクスチャおかしくなる
+        setBlockName(ATSAssistCore.MODID + ":" + "groundUnit");
+        setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
+        setStepSound(Block.soundTypeStone);
+    }
 
 //    0:無動作
 //
@@ -45,16 +45,19 @@ public class GroundUnit extends BlockContainer {
 //
 //    13:列車状態変更
 //    7:停車検知
+//
+//	  14:ATACS on
+//	  15:atacs off
 
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float posX, float posY, float posZ) {
-		//ブロックを右クリックした際の動作
-		player.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, player.worldObj, x, y, z);
-		return true;
-	}
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float posX, float posY, float posZ) {
+        //ブロックを右クリックした際の動作
+        player.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, player.worldObj, x, y, z);
+        return true;
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
+    @Override
+    @SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return iicon[meta];
 	}

@@ -17,4 +17,8 @@ public class TrainProtection {
     public TrainProtectionType getType() {
         return TrainProtectionType.NONE;
     }
+
+    public int getDisplaySpeed() {
+        return Integer.MAX_VALUE;
+    }
 }

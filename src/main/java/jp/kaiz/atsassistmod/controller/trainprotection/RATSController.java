@@ -41,4 +41,9 @@ public class RATSController extends TrainProtection {
     public TrainProtectionType getType() {
         return TrainProtectionType.RATS;
     }
+
+    @Override
+    public int getDisplaySpeed() {
+        return this.limitSpeed;
+    }
 }

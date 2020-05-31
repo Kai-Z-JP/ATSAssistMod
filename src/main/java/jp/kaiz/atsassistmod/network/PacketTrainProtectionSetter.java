@@ -30,7 +30,7 @@ public class PacketTrainProtectionSetter implements IMessage, IMessageHandler<Pa
 
     @Override
     public IMessage onMessage(PacketTrainProtectionSetter message, MessageContext ctx) {
-        TrainControllerManager.getTrainController((EntityTrainBase) ctx.getServerHandler().playerEntity.ridingEntity).enableTrainProtection(message.type);
+        TrainControllerManager.getTrainController((EntityTrainBase) ctx.getServerHandler().playerEntity.ridingEntity).setTrainProtection(message.type);
         return null;
     }
 }

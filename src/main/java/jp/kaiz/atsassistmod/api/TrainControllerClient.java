@@ -3,23 +3,23 @@ package jp.kaiz.atsassistmod.api;
 import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 
 public class TrainControllerClient {
-    private int atoI, tascI, atcI, atacsI, tpType;
+    private int atoI, tascI, atcI, tpLimit, tpType;
     private boolean atoB, tascB;
 
     public TrainControllerClient() {
     }
 
-    public TrainControllerClient(boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int atacsI) {
-        this.set(atoB, tascB, tpType, atoI, tascI, atcI, atacsI);
+    public TrainControllerClient(boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int tpLimit) {
+        this.set(atoB, tascB, tpType, atoI, tascI, atcI, tpLimit);
     }
 
 
-    public void set(boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int atacsI) {
+    public void set(boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int tpLimit) {
         this.atoI = atoI;
         this.tascI = tascI;
         this.atcI = atcI;
 
-        this.atacsI = atacsI;
+        this.tpLimit = tpLimit;
 
         this.atoB = atoB;
         this.tascB = tascB;
@@ -67,6 +67,10 @@ public class TrainControllerClient {
     }
 
     public int getATACSSpeed() {
-        return this.atacsI;
+        return this.tpLimit;
+    }
+
+    public int getTrainProtectionSpeed() {
+        return this.tpLimit;
     }
 }

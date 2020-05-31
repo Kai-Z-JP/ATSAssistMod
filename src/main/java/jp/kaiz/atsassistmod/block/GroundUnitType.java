@@ -49,27 +49,27 @@ public enum GroundUnitType {
 		public TileEntityGroundUnit getNewInstance() {
 			return new TileEntityGroundUnit.ATODisable();
 		}
-	}, ATO_Change_Speed(11) {
-		@Override
-		public TileEntityGroundUnit getNewInstance() {
-			return new TileEntityGroundUnit.ATOChangeSpeed();
-		}
-	}, TrainState_Set(13) {
-		@Override
-		public TileEntityGroundUnit getNewInstance() {
-			return new TileEntityGroundUnit.TrainStateSet();
-		}
-	}, ATACS_Enable(14) {
-		@Override
-		public TileEntityGroundUnit getNewInstance() {
-			return new TileEntityGroundUnit.ATACSEnable();
-		}
-	}, ATACS_Disable(15) {
-		@Override
-		public TileEntityGroundUnit getNewInstance() {
-			return new TileEntityGroundUnit.ATACSDisable();
-		}
-	};
+    }, ATO_Change_Speed(11) {
+        @Override
+        public TileEntityGroundUnit getNewInstance() {
+            return new TileEntityGroundUnit.ATOChangeSpeed();
+        }
+    }, TrainState_Set(13) {
+        @Override
+        public TileEntityGroundUnit getNewInstance() {
+            return new TileEntityGroundUnit.TrainStateSet();
+        }
+    }, CHANGE_TP(14) {
+        @Override
+        public TileEntityGroundUnit getNewInstance() {
+            return new TileEntityGroundUnit.ChangeTrainProtection();
+        }
+    }, ATACS_Disable(15) {
+        @Override
+        public TileEntityGroundUnit getNewInstance() {
+            return new TileEntityGroundUnit.ATACSDisable();
+        }
+    };
 
 	public final int id;
 

@@ -8,13 +8,13 @@ import net.minecraft.client.gui.GuiButton;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class GuiOptionSliderCustom extends GuiButton {
+public class GuiOptionSliderTrainState extends GuiButton {
     public byte nowValue;
     private float _temp;
     public boolean dragging;
     private final TrainState.TrainStateType type;
 
-    public GuiOptionSliderCustom(int x, int y, int trainStateID, byte trainStateData) {
+    public GuiOptionSliderTrainState(int x, int y, int trainStateID, byte trainStateData) {
         super(100 + trainStateID, x, y, 150, 20, "");
         this.type = TrainState.getStateType(trainStateID);
         this.nowValue = trainStateData;

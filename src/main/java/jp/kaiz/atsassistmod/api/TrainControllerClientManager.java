@@ -8,11 +8,11 @@ import java.util.Map;
 public class TrainControllerClientManager {
     private static final Map<Long, TrainControllerClient> tcClientMap = new HashMap<>();
 
-    public static void setTCC(long formationID, boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int atacsI) {
+    public static void setTCC(long formationID, boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int tpLimit) {
         if (tcClientMap.containsKey(formationID)) {
-            tcClientMap.get(formationID).set(atoB, tascB, tpType, atoI, tascI, atcI, atacsI);
+            tcClientMap.get(formationID).set(atoB, tascB, tpType, atoI, tascI, atcI, tpLimit);
         } else {
-            TrainControllerClient tcc = new TrainControllerClient(atoB, tascB, tpType, atoI, tascI, atcI, atacsI);
+            TrainControllerClient tcc = new TrainControllerClient(atoB, tascB, tpType, atoI, tascI, atcI, tpLimit);
             tcClientMap.put(formationID, tcc);
         }
     }

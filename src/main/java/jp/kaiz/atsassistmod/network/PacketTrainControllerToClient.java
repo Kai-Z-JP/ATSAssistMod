@@ -9,7 +9,7 @@ import jp.kaiz.atsassistmod.controller.TrainController;
 
 public class PacketTrainControllerToClient implements IMessage, IMessageHandler<PacketTrainControllerToClient, IMessage> {
     byte type;
-    int atoI, tascI, atcI, atacsI, tpType;
+    int atoI, tascI, atcI, tpLimit, tpType;
     boolean atoB, tascB;
     long formationID;
 
@@ -38,9 +38,10 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
         //ATC
         this.atcI = controller.getSpeedLimit();
 
-        //ATACS
+        //TrainProtection
         this.tpType = controller.getTrainProtectionType().id;
-        this.atacsI = controller.getATACSSpeedLimit();
+//        this.tpLimit = controller.getATACSSpeedLimit();
+        this.tpLimit = controller.getTrainProtectionSpeedLimit();
     }
 
     @Override
@@ -54,7 +55,7 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
             this.atoI = buf.readInt();
             this.tascI = buf.readInt();
             this.atcI = buf.readInt();
-            this.atacsI = buf.readInt();
+            this.tpLimit = buf.readInt();
         }
     }
 
@@ -69,7 +70,7 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
             buf.writeInt(this.atoI);
             buf.writeInt(this.tascI);
             buf.writeInt(this.atcI);
-            buf.writeInt(this.atacsI);
+            buf.writeInt(this.tpLimit);
         }
     }
 
@@ -78,7 +79,7 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
         if (message.type == 0) {
             TrainControllerClientManager.removeTCC(message.formationID);
         } else if (message.type == 1) {
-            TrainControllerClientManager.setTCC(message.formationID, message.atoB, message.tascB, message.tpType, message.atoI, message.tascI, message.atcI, message.atacsI);
+            TrainControllerClientManager.setTCC(message.formationID, message.atoB, message.tascB, message.tpType, message.atoI, message.tascI, message.atcI, message.tpLimit);
         }
         return null;
     }

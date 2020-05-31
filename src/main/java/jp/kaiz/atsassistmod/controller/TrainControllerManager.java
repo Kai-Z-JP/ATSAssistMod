@@ -58,7 +58,7 @@ public class TrainControllerManager {
 							thread.setName("Server thread");
 							thread.start();
 //						    entry.getValue().onUpdate(controlCar);
-							ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketTrainControllerToClient(entry.getValue(), fid));
+							ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketTrainControllerToClient(tcs[i], fid));
 							i++;
 							break;
 						} else {

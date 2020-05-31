@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import jp.kaiz.atsassistmod.api.TrainControllerClient;
 import jp.kaiz.atsassistmod.api.TrainControllerClientManager;
+import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.modelpack.cfg.TrainConfig;
 import jp.ngt.rtm.modelpack.modelset.ModelSetVehicleBase;
@@ -49,10 +50,9 @@ public class TrainGuiRender extends GuiScreen {
             int ato = tcc.getATOSpeed();
             int tasc = tcc.getTASCDistance();
             int atc = tcc.getATCSpeed();
-            int atacs = tcc.getATACSSpeed();
             boolean atoStatus = tcc.isATO();
             boolean tascStatus = tcc.isTASC();
-            boolean atacsStatus = tcc.isATACS();
+            TrainProtectionType tpType = tcc.getTrainProtectionType();
 
 
             if (model != null && !model.getConfig().notDisplayCab) {
@@ -82,17 +82,20 @@ public class TrainGuiRender extends GuiScreen {
                     fontrenderer.drawStringWithShadow("Limit: " + atc, k + 160, this.height - 20, 0x00FF00);
                 }
 
-                //ATACS
+                //TrainProtection
 //				fontrenderer.drawStringWithShadow("ATACS: " + atacs, k + 160, this.height - 10, 0x00FF00);
-                if (atacsStatus) {
-                    if (atacs == Integer.MAX_VALUE) {
-                        fontrenderer.drawStringWithShadow("ATACS: ---", k + 160, this.height - 10, 0x00FF00);
-                    } else {
-                        fontrenderer.drawStringWithShadow("ATACS: " + atacs, k + 160, this.height - 10, 0x00FF00);
-                    }
-                } else {
-                    fontrenderer.drawStringWithShadow("ATACS: off", k + 160, this.height - 10, 0x00FF00);
-                }
+                String tpSpeed = tcc.getTrainProtectionSpeed() == Integer.MAX_VALUE ? ": ---" : ": " + tcc.getTrainProtectionSpeed();
+                fontrenderer.drawStringWithShadow(tpType.name + tpSpeed, k + 160, this.height - 10, 0x00FF00);
+
+//                if (atacsStatus) {
+//                    if (atacs == Integer.MAX_VALUE) {
+//                        fontrenderer.drawStringWithShadow("ATACS: ---", k + 160, this.height - 10, 0x00FF00);
+//                    } else {
+//                        fontrenderer.drawStringWithShadow("ATACS: " + atacs, k + 160, this.height - 10, 0x00FF00);
+//                    }
+//                } else {
+//                    fontrenderer.drawStringWithShadow("ATACS: off", k + 160, this.height - 10, 0x00FF00);
+//                }
 
             } else {
                 //cab表示なし
@@ -123,15 +126,18 @@ public class TrainGuiRender extends GuiScreen {
 
                 //ATACS
 //				fontrenderer.drawStringWithShadow("ATACS : " + atacs, 2, this.height - 60, 16777215);
-                if (atacsStatus) {
-                    if (atacs == Integer.MAX_VALUE) {
-                        fontrenderer.drawStringWithShadow("ATACS : ---", 2, this.height - 60, 16777215);
-                    } else {
-                        fontrenderer.drawStringWithShadow("ATACS : " + atacs, 2, this.height - 60, 16777215);
-                    }
-                } else {
-                    fontrenderer.drawStringWithShadow("ATACS : off", 2, this.height - 60, 16777215);
-                }
+                String tpSpeed = tcc.getTrainProtectionSpeed() == Integer.MAX_VALUE ? " : ---" : " : " + tcc.getTrainProtectionSpeed();
+                fontrenderer.drawStringWithShadow(tpType.name + tpSpeed, 2, this.height - 60, 16777215);
+
+//                if (atacsStatus) {
+//                    if (atacs == Integer.MAX_VALUE) {
+//                        fontrenderer.drawStringWithShadow("ATACS : ---", 2, this.height - 60, 16777215);
+//                    } else {
+//                        fontrenderer.drawStringWithShadow("ATACS : " + atacs, 2, this.height - 60, 16777215);
+//                    }
+//                } else {
+//                    fontrenderer.drawStringWithShadow("ATACS : off", 2, this.height - 60, 16777215);
+//                }
             }
         }
     }
