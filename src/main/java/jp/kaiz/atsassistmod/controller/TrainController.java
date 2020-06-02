@@ -26,7 +26,7 @@ public class TrainController implements Runnable {
 
     private final int savedEntityID;
 
-    private byte controllerNotch = 0;
+    private byte controllerNotchA = -1, controllerNotchB = 1;
 
     //null処理めんどいからこれとインスタンス比較で
     public static final TrainController NULL = new TrainController();
@@ -43,7 +43,17 @@ public class TrainController implements Runnable {
     }
 
     public void setControllerNotch(byte notch) {
-        this.controllerNotch = notch;
+        if (notch > 0) {
+            this.controllerNotchA = notch;
+            this.controllerNotchB = 1;
+        } else if (notch < 0) {
+            this.controllerNotchA = 0;
+            this.controllerNotchB = notch;
+
+        } else {
+            this.controllerNotchA = 0;
+            this.controllerNotchB = 1;
+        }
     }
 
     public int getSavedEntityID() {
@@ -94,10 +104,6 @@ public class TrainController implements Runnable {
 
     public boolean isATO() {
         return ATO;
-    }
-
-    public boolean isATACS() {
-        return this.tp.getType() == TrainProtectionType.ATACS;
     }
 
     public void setTrainProtection(TrainProtectionType type) {
@@ -200,18 +206,6 @@ public class TrainController implements Runnable {
             }
         }
 
-        //ControllerNotch マジもんのコントローラー用
-        if (this.train.riddenByEntity == null) {
-            this.controllerNotch = 0;
-        } else {
-            if (this.controllerNotch < 0) {
-                brakeNotch.add((int) this.controllerNotch);
-            } else if (this.controllerNotch > 0) {
-                acceleratorNotch.add((int) this.controllerNotch);
-            }
-        }
-
-
         //保安装置全処理
         this.tp.onTick(train, movedDistance);
         int notch = this.tp.getNotch(speedH);
@@ -223,11 +217,23 @@ public class TrainController implements Runnable {
         //最大ブレーキ(値は小さい)のを計算
         int minBrakeNotch = brakeNotch.stream().mapToInt(v -> v).min().orElse(1);
 
+        //ControllerNotch マジもんのコントローラー用
+        if (this.train.riddenByEntity == null) {
+            this.controllerNotchA = -1;
+            this.controllerNotchB = 1;
+        } else {
+            minBrakeNotch = Math.min(minBrakeNotch, this.controllerNotchB);
+        }
+
 
         //0以上はブレーキ指定なし アクセル許可
         if (minBrakeNotch > 0) {
             //最大アクセルを計算
             int maxAcceleratorNotch = acceleratorNotch.stream().mapToInt(v -> v).max().orElse(-1);
+
+            if (this.train.riddenByEntity != null) {
+                maxAcceleratorNotch = Math.max(maxAcceleratorNotch, this.controllerNotchA);
+            }
 
             if (maxAcceleratorNotch < 0) {
                 if (this.brakingControlling) {
@@ -247,14 +253,23 @@ public class TrainController implements Runnable {
             }
         } else if (minBrakeNotch == 0) {
             if (this.tascController.isEnable()) {
-                if (this.tascController.isBreaking()) {
-                    if (this.tascController.isStopPosition() || speedH < 1) {
-                        train.setNotch(-5);
-                        this.brakingControlling = false;
-                        this.ATO = false;
+                if (this.tascController.isStopPosition()) {
+                    train.setNotch(-5);
+                    this.brakingControlling = false;
+                    this.ATO = false;
+                    if (speedH <= 0F) {
                         this.tascController.disable();
-                        return;
                     }
+                    return;
+//                } else if (speedH < 1) {
+//                    train.setNotch(-5);
+//                    this.brakingControlling = false;
+//                    this.ATO = false;
+//                    this.tascController.setBraking(false);
+//                    if (speedH <= 0F) {
+//                        this.tascController.disable();
+//                    }
+//                    return;
                 }
             }
 
@@ -265,18 +280,27 @@ public class TrainController implements Runnable {
         } else {
             this.acceleratorControlling = false;
             if (this.tascController.isEnable()) {
-                if (this.tascController.isBreaking()) {
-                    if (this.tascController.isStopPosition()) {
-                        train.setNotch(-5);
-                        this.brakingControlling = false;
-                        this.ATO = false;
+                if (this.tascController.isStopPosition()) {
+                    train.setNotch(-5);
+                    this.brakingControlling = false;
+                    this.ATO = false;
+                    if (speedH <= 0F) {
                         this.tascController.disable();
-                        return;
                     }
+                    return;
+//                } else if (speedH < 1) {
+//                    train.setNotch(-5);
+//                    this.brakingControlling = false;
+//                    this.ATO = false;
+//                    this.tascController.setBraking(false);
+//                    if (speedH <= 0F) {
+//                        this.tascController.disable();
+//                    }
+//                    return;
                 }
             }
             this.brakingControlling = true;
-            train.setNotch(minBrakeNotch);
+            this.train.setNotch(minBrakeNotch);
         }
     }
 
