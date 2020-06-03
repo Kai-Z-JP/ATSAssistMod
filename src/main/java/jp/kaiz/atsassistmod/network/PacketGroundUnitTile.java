@@ -15,8 +15,8 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
 	private int z;
 	boolean linkRedStone;
 	boolean lateCancel;
-	private int par1;
-	private int par2;
+	private int speed;
+	private double distance;
 	private byte[] par1ByteArray;
 
 	public PacketGroundUnitTile() {
@@ -35,15 +35,20 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
 		this.lateCancel = lateCancel;
 	}
 
-	public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, int par1) {
+	public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, double distance) {
 		this(tile, linkRedStone);
-		this.par1 = par1;
+		this.distance = distance;
 	}
 
-	public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, int speed, int distance) {
+	public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, int speed) {
 		this(tile, linkRedStone);
-		this.par1 = speed;
-		this.par2 = distance;
+		this.speed = speed;
+	}
+
+	public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, int speed, double distance) {
+		this(tile, linkRedStone);
+		this.speed = speed;
+		this.distance = distance;
 	}
 
 	public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, byte[] par1ByteArray) {
@@ -61,8 +66,8 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
 		switch (this.id) {
 			case 1:
 				//距離とスピード
-				this.par1 = buf.readInt();
-				this.par2 = buf.readInt();
+				this.speed = buf.readInt();
+				this.distance = buf.readDouble();
 				break;
 			case 2:
 				//遅れて実行するか
@@ -70,9 +75,11 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
 				break;
 			case 4://距離のみ
 			case 6://距離のみ
+				this.distance = buf.readDouble();
+				break;
 			case 9://スピードのみ
 			case 11://スピードのみ
-				this.par1 = buf.readInt();
+				this.speed = buf.readInt();
 				break;
 			case 13:
 				this.par1ByteArray = buf.readBytes(12).array();
@@ -97,8 +104,8 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
 		switch (this.id) {
 			case 1:
 				//距離とスピード
-				buf.writeInt(this.par1);
-				buf.writeInt(this.par2);
+				buf.writeInt(this.speed);
+				buf.writeDouble(this.distance);
 				break;
 			case 2:
 				//遅れて実行するか
@@ -106,10 +113,11 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
 				break;
 			case 4://距離のみ
 			case 6://距離のみ
+				buf.writeDouble(this.distance);
+				break;
 			case 9://スピードのみ
 			case 11://スピードのみ
-				//スピードのみ
-				buf.writeInt(this.par1);
+				buf.writeInt(this.speed);
 				break;
 			case 13:
 				buf.writeBytes(this.par1ByteArray);
@@ -132,8 +140,8 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
 		switch (message.id) {
 			case 1:
 				//距離とスピード
-				((TileEntityGroundUnit.Speed) tile).setSpeedLimit(message.par1);
-				((TileEntityGroundUnit.Distance) tile).setDistance(message.par2);
+				((TileEntityGroundUnit.Speed) tile).setSpeedLimit(message.speed);
+				((TileEntityGroundUnit.Distance) tile).setDistance(message.distance);
 				break;
 			case 2:
 				((TileEntityGroundUnit.ATCSpeedLimitCancel) tile).setLateCancel(message.lateCancel);
@@ -141,12 +149,12 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
 			case 4:
 			case 6:
 				//距離のみ
-				((TileEntityGroundUnit.Distance) tile).setDistance(message.par1);
+				((TileEntityGroundUnit.Distance) tile).setDistance(message.distance);
 				break;
 			case 9:
 			case 11:
 				//スピードのみ
-				((TileEntityGroundUnit.Speed) tile).setSpeedLimit(message.par1);
+				((TileEntityGroundUnit.Speed) tile).setSpeedLimit(message.speed);
 				break;
 			case 13:
 				((TileEntityGroundUnit.TrainStateSet) tile).setStates(message.par1ByteArray);

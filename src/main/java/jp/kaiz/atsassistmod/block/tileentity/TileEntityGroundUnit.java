@@ -112,9 +112,9 @@ public abstract class TileEntityGroundUnit extends TileEntity {
     }
 
     public interface Distance {
-        void setDistance(int distance);
+        void setDistance(double distance);
 
-        int getDistance();
+        double getDistance();
     }
 
     public static class None extends TileEntityGroundUnit {
@@ -142,7 +142,7 @@ public abstract class TileEntityGroundUnit extends TileEntity {
 
     public static class ATCSpeedLimitNotice extends TileEntityGroundUnit implements Speed, Distance {
         private int speedLimit;
-        private int distance;
+        private double distance;
 
         @Override
         public void onTick(EntityTrainBase train) {
@@ -153,13 +153,13 @@ public abstract class TileEntityGroundUnit extends TileEntity {
         @Override
         public void readNBT(NBTTagCompound tag) {
             this.speedLimit = tag.getInteger("speedLimit");
-            this.distance = tag.getInteger("distance");
+            this.distance = tag.getDouble("distance");
         }
 
         @Override
         public void writeNBT(NBTTagCompound tag) {
             tag.setInteger("speedLimit", this.speedLimit);
-            tag.setInteger("distance", this.distance);
+            tag.setDouble("distance", this.distance);
         }
 
         @Override
@@ -178,12 +178,12 @@ public abstract class TileEntityGroundUnit extends TileEntity {
         }
 
         @Override
-        public void setDistance(int distance) {
+        public void setDistance(double distance) {
             this.distance = distance;
         }
 
         @Override
-        public int getDistance() {
+        public double getDistance() {
             return this.distance;
         }
     }
@@ -254,7 +254,7 @@ public abstract class TileEntityGroundUnit extends TileEntity {
     }
 
     public static class TASCStopPositionNotice extends TileEntityGroundUnit implements Distance {
-        private int distance;
+        private double distance;
         private byte version;
 
         public TASCStopPositionNotice() {
@@ -263,13 +263,13 @@ public abstract class TileEntityGroundUnit extends TileEntity {
 
         @Override
         public void readNBT(NBTTagCompound tag) {
-            this.distance = tag.getInteger("distance");
+            this.distance = tag.getDouble("distance");
             this.version = tag.getByte("version");
         }
 
         @Override
         public void writeNBT(NBTTagCompound tag) {
-            tag.setInteger("distance", this.distance);
+            tag.setDouble("distance", this.distance);
             tag.setByte("version", this.version);
         }
 
@@ -299,12 +299,12 @@ public abstract class TileEntityGroundUnit extends TileEntity {
         }
 
         @Override
-        public void setDistance(int distance) {
+        public void setDistance(double distance) {
             this.distance = distance;
         }
 
         @Override
-        public int getDistance() {
+        public double getDistance() {
             return this.distance;
         }
     }
@@ -332,7 +332,7 @@ public abstract class TileEntityGroundUnit extends TileEntity {
     }
 
     public static class TASCStopPositionCorrection extends TileEntityGroundUnit implements Distance {
-        private int distance;
+        private double distance;
         private byte version;
 
         public TASCStopPositionCorrection() {
@@ -341,13 +341,13 @@ public abstract class TileEntityGroundUnit extends TileEntity {
 
         @Override
         public void readNBT(NBTTagCompound tag) {
-            this.distance = tag.getInteger("distance");
+            this.distance = tag.getDouble("distance");
             this.version = tag.getByte("version");
         }
 
         @Override
         public void writeNBT(NBTTagCompound tag) {
-            tag.setInteger("distance", this.distance);
+            tag.setDouble("distance", this.distance);
             tag.setByte("version", this.version);
         }
 
@@ -377,12 +377,12 @@ public abstract class TileEntityGroundUnit extends TileEntity {
         }
 
         @Override
-        public void setDistance(int distance) {
+        public void setDistance(double distance) {
             this.distance = distance;
         }
 
         @Override
-        public int getDistance() {
+        public double getDistance() {
             return this.distance;
         }
     }

@@ -1,22 +1,22 @@
 package jp.kaiz.atsassistmod.controller;
 
 public class SpeedOrder {
-	private final int targetSpeedH;
-	private double targetDistance;
-	private boolean enable = false;
-	private boolean breaking = false;
+    private final int targetSpeedH;
+    private double targetDistance;
+    private boolean enable = false;
+    private boolean breaking = false;
 
-	public SpeedOrder(int targetSpeed, int targetDistance) {
-		this.targetSpeedH = targetSpeed;
-		this.targetDistance = targetDistance;
-	}
+    public SpeedOrder(int targetSpeed, double targetDistance) {
+        this.targetSpeedH = targetSpeed;
+        this.targetDistance = targetDistance;
+    }
 
-	public int getTargetSpeed() {
-		return this.targetSpeedH;
-	}
+    public int getTargetSpeed() {
+        return this.targetSpeedH;
+    }
 
-	public void moveDistance(double movedDistance) {
-		if (!enable) {
+    public void moveDistance(double movedDistance) {
+        if (!enable) {
 			if (targetDistance <= 0) {
 				targetDistance = 0;
 				this.enable = true;

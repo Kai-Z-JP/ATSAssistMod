@@ -237,7 +237,7 @@ public class GUIGroundUnit extends GuiScreen {
 
     @Override
     public void keyTyped(char par1, int par2) {
-        if (par2 == 1) {
+        if (par2 == Keyboard.KEY_ESCAPE) {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
             return;
@@ -251,7 +251,16 @@ public class GUIGroundUnit extends GuiScreen {
                 par2 == Keyboard.KEY_RIGHT ||
                 par2 == Keyboard.KEY_BACK ||
                 par2 == Keyboard.KEY_DELETE) {
-            this.textFieldList.forEach(guiTextField -> guiTextField.textboxKeyTyped(par1, par2));
+            this.textFieldList.forEach(textField -> textField.textboxKeyTyped(par1, par2));
+        }
+
+        if (par2 == Keyboard.KEY_PERIOD ||
+                par2 == Keyboard.KEY_DECIMAL) {
+            for (GuiTextField textField : this.textFieldList) {
+                if (textField.getMaxStringLength() == 5) {
+                    textField.textboxKeyTyped(par1, par2);
+                }
+            }
         }
     }
 
@@ -287,8 +296,8 @@ public class GUIGroundUnit extends GuiScreen {
                             new PacketGroundUnitTile(
                                     this.tile,
                                     linkRedStone,
-                                    this.getGuiTextFieldText(0),
-                                    this.getGuiTextFieldText(1)));
+                                    this.getIntGuiTextFieldText(0),
+                                    this.getDoubleGuiTextFieldText(1)));
                     break;
                 case ATC_SpeedLimit_Cancel:
                     ATSAssistCore.NETWORK_WRAPPER.sendToServer(
@@ -299,13 +308,19 @@ public class GUIGroundUnit extends GuiScreen {
                     break;
                 case TASC_StopPotion_Notice:
                 case TASC_StopPotion_Correction:
+                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(
+                            new PacketGroundUnitTile(
+                                    this.tile,
+                                    linkRedStone,
+                                    this.getDoubleGuiTextFieldText(0)));
+                    break;
                 case ATO_Departure_Signal:
                 case ATO_Change_Speed:
                     ATSAssistCore.NETWORK_WRAPPER.sendToServer(
                             new PacketGroundUnitTile(
                                     this.tile,
                                     linkRedStone,
-                                    this.getGuiTextFieldText(0)));
+                                    this.getIntGuiTextFieldText(0)));
                     break;
                 case TASC_Cancel:
                 case TASC_StopPotion:
@@ -369,8 +384,34 @@ public class GUIGroundUnit extends GuiScreen {
         this.textFieldList.add(text);
     }
 
-    private int getGuiTextFieldText(int number) {
-        return ((this.textFieldList.get(number).getText() == null) || !this.textFieldList.get(number).getText().equals("")) ? Integer.parseInt(this.textFieldList.get(number).getText()) : 0;
+    private int getIntGuiTextFieldText(int number) {
+        String str = this.textFieldList.get(number).getText();
+        int i = 0;
+        if (str == null || str.equals("")) {
+            return i;
+        }
+
+        try {
+            i = Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            return i;
+        }
+        return i;
+    }
+
+    private double getDoubleGuiTextFieldText(int number) {
+        String str = this.textFieldList.get(number).getText();
+        double d = 0d;
+        if (str == null || str.equals("")) {
+            return d;
+        }
+
+        try {
+            d = Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            return d;
+        }
+        return d;
     }
 
     @Override
