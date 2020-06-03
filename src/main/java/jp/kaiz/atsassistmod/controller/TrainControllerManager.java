@@ -27,13 +27,6 @@ public class TrainControllerManager {
 		return trackingTrainMap.get(train.getFormation().id);
 	}
 
-	public static boolean containsTrainController(EntityTrainBase train) {
-		if (train == null || train.getFormation() == null) {
-			return false;
-		}
-		return trackingTrainMap.containsKey(train.getFormation().id);
-	}
-
 	//クライアントサイドでは一切処理なし
 	public static void onTick() {
 		if (trackingTrainMap.isEmpty()) {

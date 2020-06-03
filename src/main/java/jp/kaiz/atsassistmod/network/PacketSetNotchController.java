@@ -35,11 +35,7 @@ public class PacketSetNotchController implements IMessage, IMessageHandler<Packe
         if (player.isRiding() && player.ridingEntity instanceof EntityTrainBase) {
             EntityTrainBase train = (EntityTrainBase) player.ridingEntity;
             if (train.isControlCar()) {
-                if (TrainControllerManager.containsTrainController(train)) {
-                    TrainControllerManager.getTrainController(train).setControllerNotch(message.notch);
-                } else {
-                    train.setNotch(message.notch);
-                }
+                TrainControllerManager.getTrainController(train).setControllerNotch(message.notch);
             }
         }
         return null;
