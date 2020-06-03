@@ -28,6 +28,8 @@ public class TrainController implements Runnable {
 
     private byte controllerNotchA = -1, controllerNotchB = 1;
 
+    private boolean controllerControl = false;
+
     //null処理めんどいからこれとインスタンス比較で
     public static final TrainController NULL = new TrainController();
 
@@ -43,13 +45,13 @@ public class TrainController implements Runnable {
     }
 
     public void setControllerNotch(byte notch) {
+        this.controllerControl = true;
         if (notch > 0) {
             this.controllerNotchA = notch;
             this.controllerNotchB = 1;
         } else if (notch < 0) {
             this.controllerNotchA = 0;
             this.controllerNotchB = notch;
-
         } else {
             this.controllerNotchA = 0;
             this.controllerNotchB = 1;
@@ -221,8 +223,15 @@ public class TrainController implements Runnable {
         if (this.train.riddenByEntity == null) {
             this.controllerNotchA = -1;
             this.controllerNotchB = 1;
+            if (this.controllerControl) {
+                this.controllerControl = false;
+                this.brakingControlling = false;
+//                this.acceleratorControlling = false;
+            }
         } else {
-            minBrakeNotch = Math.min(minBrakeNotch, this.controllerNotchB);
+            if (this.controllerControl) {
+                minBrakeNotch = Math.min(minBrakeNotch, this.controllerNotchB);
+            }
         }
 
 
@@ -232,7 +241,9 @@ public class TrainController implements Runnable {
             int maxAcceleratorNotch = acceleratorNotch.stream().mapToInt(v -> v).max().orElse(-1);
 
             if (this.train.riddenByEntity != null) {
-                maxAcceleratorNotch = Math.max(maxAcceleratorNotch, this.controllerNotchA);
+                if (this.controllerControl) {
+                    maxAcceleratorNotch = Math.max(maxAcceleratorNotch, this.controllerNotchA);
+                }
             }
 
             if (maxAcceleratorNotch < 0) {
@@ -243,7 +254,9 @@ public class TrainController implements Runnable {
             } else if (maxAcceleratorNotch == 0) {
                 this.brakingControlling = false;
                 //明示的Notch0
-                this.acceleratorControlling = false;
+                if (!this.controllerControl || this.controllerNotchA != 0) {
+                    this.acceleratorControlling = false;
+                }
 
                 train.setNotch(0);
             } else {
