@@ -11,14 +11,19 @@ public class RATSController extends TrainProtection {
         switch (train.getSignal()) {
             case 2:
                 this.limitSpeed = 30;
+                break;
             case 3:
                 this.limitSpeed = 45;
+                break;
             case 4:
                 this.limitSpeed = 65;
+                break;
             case 5:
                 this.limitSpeed = 95;
+                break;
             default:
                 this.limitSpeed = Integer.MAX_VALUE;
+                break;
         }
     }
 
