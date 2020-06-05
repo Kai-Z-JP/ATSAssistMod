@@ -1,6 +1,6 @@
 package jp.kaiz.atsassistmod.block.tileentity;
 
-import jp.kaiz.atsassistmod.ATSAssistCore;
+import jp.kaiz.atsassistmod.ATSAssistBlock;
 import jp.kaiz.atsassistmod.block.GroundUnitType;
 import jp.kaiz.atsassistmod.controller.SpeedOrder;
 import jp.kaiz.atsassistmod.controller.TrainControllerManager;
@@ -288,7 +288,7 @@ public abstract class TileEntityGroundUnit extends TileEntity {
                     this.markDirty();
                     this.getDescriptionPacket();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-                    this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, ATSAssistCore.blockGroundUnit);
+                    this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, ATSAssistBlock.blockGroundUnit);
                 }
             }
         }
@@ -366,7 +366,7 @@ public abstract class TileEntityGroundUnit extends TileEntity {
                     this.markDirty();
                     this.getDescriptionPacket();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-                    this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, ATSAssistCore.blockGroundUnit);
+                    this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, ATSAssistBlock.blockGroundUnit);
                 }
             }
         }
@@ -684,10 +684,10 @@ public abstract class TileEntityGroundUnit extends TileEntity {
         @Override
         public void updateEntity() {
             if (!worldObj.isRemote) {
-                this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, ATSAssistCore.blockGroundUnit, 14, 3);
+                this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, ATSAssistBlock.blockGroundUnit, 14, 3);
                 ((ChangeTrainProtection) this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord)).setTPType(TrainProtectionType.NONE);
                 this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-                this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, ATSAssistCore.blockGroundUnit);
+                this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, ATSAssistBlock.blockGroundUnit);
             }
         }
 

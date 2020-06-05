@@ -1,6 +1,7 @@
 package jp.kaiz.atsassistmod.gui;
 
 import cpw.mods.fml.client.config.GuiCheckBox;
+import jp.kaiz.atsassistmod.ATSAssistBlock;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.GroundUnitType;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityGroundUnit;
@@ -346,7 +347,7 @@ public class GUIGroundUnit extends GuiScreen {
 
         if (button.id == 0 || this.tile.getType() == GroundUnitType.None) {
             this.sendPacket(button.id);
-            this.mc.theWorld.setBlock(tile.xCoord, tile.yCoord, tile.zCoord, ATSAssistCore.blockGroundUnit, button.id, 3);
+            this.mc.theWorld.setBlock(tile.xCoord, tile.yCoord, tile.zCoord, ATSAssistBlock.blockGroundUnit, button.id, 3);
         }
     }
 
