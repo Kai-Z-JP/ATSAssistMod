@@ -46,7 +46,7 @@ public class GUIGroundUnit extends GuiScreen {
                         this.width / 2 - 170, this.height / 2 - 50, 0xffffff);
                 this.fontRendererObj.drawString("ATO",
                         this.width / 2 - 170, this.height / 2 + 15, 0xffffff);
-                this.fontRendererObj.drawString("ATACS",
+                this.fontRendererObj.drawString("保安装置",
                         this.width / 2 - 170, this.height / 2 + 55, 0xffffff);
                 this.fontRendererObj.drawString("その他",
                         this.width / 2 + 70, this.height / 2 + 55, 0xffffff);
@@ -170,10 +170,10 @@ public class GUIGroundUnit extends GuiScreen {
                         new GuiButton(13, this.width / 2 + 70, this.height / 2 + 70, 100, 20, "列車データ変更"));
 
                 this.buttonList.add(
-                        new GuiButton(14, this.width / 2 - 170, this.height / 2 + 70, 100, 20, "制御開始"));
+                        new GuiButton(14, this.width / 2 - 170, this.height / 2 + 70, 100, 20, "強制変更"));
 
-                this.buttonList.add(
-                        new GuiButton(15, this.width / 2 - 50, this.height / 2 + 70, 100, 20, "制御終了"));
+//                this.buttonList.add(
+//                        new GuiButton(15, this.width / 2 - 50, this.height / 2 + 70, 100, 20, "制御終了"));
 
                 this.buttonList.add(
                         new GuiButton(20, this.width / 2 - 50, this.height - 25, 100, 20, "キャンセル"));
