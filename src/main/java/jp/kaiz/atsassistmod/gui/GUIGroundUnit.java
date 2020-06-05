@@ -4,6 +4,7 @@ import cpw.mods.fml.client.config.GuiCheckBox;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.GroundUnitType;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityGroundUnit;
+import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 import jp.kaiz.atsassistmod.gui.parts.GuiOptionSliderTrainProtection;
 import jp.kaiz.atsassistmod.gui.parts.GuiOptionSliderTrainState;
 import jp.kaiz.atsassistmod.network.PacketGroundUnitTile;
@@ -332,6 +333,11 @@ public class GUIGroundUnit extends GuiScreen {
                                     linkRedStone));
                     break;
                 case CHANGE_TP:
+                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(
+                            new PacketGroundUnitTile(
+                                    this.tile,
+                                    linkRedStone,
+                                    this.getTrainProtection()));
                     break;
             }
             this.mc.displayGuiScreen(null);
@@ -355,6 +361,17 @@ public class GUIGroundUnit extends GuiScreen {
             }
         }
         return bytes;
+    }
+
+    private TrainProtectionType getTrainProtection() {
+        for (Object button : this.buttonList) {
+            if (button instanceof GuiOptionSliderTrainProtection) {
+                if (((GuiButton) button).id == 100) {
+                    return ((GuiOptionSliderTrainProtection) button).nowValue;
+                }
+            }
+        }
+        return TrainProtectionType.NONE;
     }
 
     private void sendPacket(int id) {

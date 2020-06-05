@@ -19,9 +19,9 @@ public class GuiOptionSliderTrainProtection extends GuiButton {
         super(100, x, y, 150, 20, "");
         this.nowValue = type;
 
-        int number = Arrays.asList(TrainProtectionType.values()).indexOf(this.nowValue) + 1;
-        int all = TrainProtectionType.values().length;
-        _temp = ((float) number / (float) all);
+        int number = Arrays.asList(TrainProtectionType.values()).indexOf(this.nowValue);
+        int all = TrainProtectionType.values().length - 1;
+        this._temp = (float) number / (float) all;
 
         this.displayString = this.nowValue.name;
     }
@@ -44,8 +44,8 @@ public class GuiOptionSliderTrainProtection extends GuiButton {
             }
 
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(this.xPosition + (int) (_temp * (float) (this.width - 8)), this.yPosition, 0, 66, 4, 20);
-            this.drawTexturedModalRect(this.xPosition + (int) (_temp * (float) (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
+            this.drawTexturedModalRect(this.xPosition + (int) (this._temp * (float) (this.width - 8)), this.yPosition, 0, 66, 4, 20);
+            this.drawTexturedModalRect(this.xPosition + (int) (this._temp * (float) (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
         }
     }
 
@@ -64,19 +64,19 @@ public class GuiOptionSliderTrainProtection extends GuiButton {
     }
 
     private void get(int mouseX) {
-        _temp = (float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8);
+        this._temp = (float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8);
 
-        if (_temp < 0.0F) {
+        if (this._temp < 0.0F) {
             this.nowValue = TrainProtectionType.values()[0];
-            _temp = 0.0F;
-        } else if (_temp > 1.0F) {
+            this._temp = 0.0F;
+        } else if (this._temp > 1.0F) {
             this.nowValue = Arrays.asList(TrainProtectionType.values()).get(TrainProtectionType.values().length - 1);
-            _temp = 1.0F;
+            this._temp = 1.0F;
         } else {
-            int number = Arrays.asList(TrainProtectionType.values()).indexOf(this.nowValue) + 1;
-            int all = TrainProtectionType.values().length;
-            this.nowValue = TrainProtectionType.values()[(int) ((all - 1) * _temp)];
-            _temp = ((float) number / (float) all);
+            int number = Arrays.asList(TrainProtectionType.values()).indexOf(this.nowValue);
+            int all = TrainProtectionType.values().length - 1;
+            this.nowValue = TrainProtectionType.values()[(int) (all * this._temp)];
+            this._temp = (float) number / (float) all;
         }
 
         this.displayString = this.nowValue.name;
