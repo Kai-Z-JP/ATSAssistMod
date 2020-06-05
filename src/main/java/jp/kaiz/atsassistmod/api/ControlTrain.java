@@ -4,6 +4,7 @@ import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.TASCDataManager;
 import jp.kaiz.atsassistmod.network.PacketSetNotch;
 import jp.kaiz.atsassistmod.network.PacketSetNotchController;
+import jp.kaiz.atsassistmod.network.PacketSetTrainState;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 
 import java.util.HashMap;
@@ -51,6 +52,14 @@ public class ControlTrain {
         if (notch <= 5 && notch >= -8) {
             ControlTrain.setNotch(entity, (byte) notch);
         }
+    }
+
+    public static void setTrainState(int id, byte states) {
+        ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketSetTrainState(id, states));
+    }
+
+    public static void setTrainState(EntityTrainBase train, int id, byte states) {
+        ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketSetTrainState(train.getEntityId(), id, states));
     }
 
     @Deprecated

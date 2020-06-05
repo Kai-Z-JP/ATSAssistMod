@@ -11,6 +11,7 @@ public class ATSAssistNetwork {
     public void init() {
         NETWORK_WRAPPER.registerMessage(PacketSetNotch.class, PacketSetNotch.class, 0, Side.SERVER);
         NETWORK_WRAPPER.registerMessage(PacketSetNotchController.class, PacketSetNotchController.class, 1, Side.SERVER);
+        NETWORK_WRAPPER.registerMessage(PacketSetTrainState.class, PacketSetTrainState.class, 2, Side.SERVER);
 
         NETWORK_WRAPPER.registerMessage(PacketGroundUnitTileInit.class, PacketGroundUnitTileInit.class, 10, Side.SERVER);
         NETWORK_WRAPPER.registerMessage(PacketGroundUnitTileInitToClient.class, PacketGroundUnitTileInit.class, 11, Side.CLIENT);
