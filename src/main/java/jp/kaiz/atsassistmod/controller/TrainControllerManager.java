@@ -42,17 +42,14 @@ public class TrainControllerManager {
 			EntityTrainBase controlCar = null;
 			if (formation != null && formation.size() != 0) {
 				for (FormationEntry formationEntry : formation.entries) {
-					if (formationEntry == null) {
+					if (formationEntry == null || formationEntry.train == null) {
 						continue;
 					}
-					controlCar = formationEntry.train;
-					if (controlCar == null) {
-						continue;
-					}
-					if (controlCar.isControlCar()) {
+					if (formationEntry.train.isControlCar()) {
+						controlCar = formationEntry.train;
 						tcs[i] = entry.getValue();
 						if (controlCar.getEntityId() == tcs[i].getSavedEntityID()) {
-							tcs[i].init(controlCar, tsm);
+							tcs[i].init(tsm);
 
 							Thread thread = new Thread(tcs[i]);
 							thread.setName("Server thread");
@@ -65,7 +62,6 @@ public class TrainControllerManager {
 							i++;
 						}
 					}
-					controlCar = null;
 				}
 				if (controlCar == null) {
 					delList.add(fid);

@@ -134,8 +134,7 @@ public class TrainController implements Runnable {
         }
     }
 
-    public void init(EntityTrainBase train, TCThreadManager tsm) {
-        this.train = train;
+    public void init(TCThreadManager tsm) {
         this.tsm = tsm;
     }
 
