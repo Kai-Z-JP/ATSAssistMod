@@ -168,9 +168,6 @@ public class GUIGroundUnit extends GuiScreenCustom {
 				this.buttonList.add(
 						new GuiButton(14, this.width / 2 - 170, this.height / 2 + 70, 100, 20, "強制変更"));
 
-//                this.buttonList.add(
-//                        new GuiButton(15, this.width / 2 - 50, this.height / 2 + 70, 100, 20, "制御終了"));
-
 				this.buttonList.add(
 						new GuiButton(20, this.width / 2 - 50, this.height - 25, 100, 20, "キャンセル"));
 				break;
