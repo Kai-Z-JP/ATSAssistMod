@@ -8,15 +8,11 @@ import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.entity.train.util.TrainState;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
 import java.util.List;
 
-public abstract class TileEntityGroundUnit extends TileEntity {
+public abstract class TileEntityGroundUnit extends TileEntityCustom {
 	//編成単位での管理
 	protected long formationID;
 	//レッドストーン連動
@@ -45,18 +41,6 @@ public abstract class TileEntityGroundUnit extends TileEntity {
 	}
 
 	protected abstract void writeNBT(NBTTagCompound tag);
-
-	@Override
-	public final Packet getDescriptionPacket() {
-		NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		this.writeToNBT(nbtTagCompound);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTagCompound);
-	}
-
-	@Override
-	public final void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-		this.readFromNBT(pkt.func_148857_g());
-	}
 
 	@Override
 	public void updateEntity() {
