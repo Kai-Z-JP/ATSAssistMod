@@ -34,22 +34,23 @@ public class PacketTrainDriveMode implements IMessage, IMessageHandler<PacketTra
 
     @Override
     public IMessage onMessage(PacketTrainDriveMode message, MessageContext ctx) {
-        switch (message.mode) {
-            case 0:
-                EntityPlayer player = ctx.getServerHandler().playerEntity;
-                if (player.isRiding() && player.ridingEntity instanceof EntityTrainBase) {
-                    EntityTrainBase train = (EntityTrainBase) player.ridingEntity;
-                    if (train.isControlCar()) {
-                        TrainController tc = TrainControllerManager.getTrainController(train);
+        EntityPlayer player = ctx.getServerHandler().playerEntity;
+        if (player.isRiding() && player.ridingEntity instanceof EntityTrainBase) {
+            EntityTrainBase train = (EntityTrainBase) player.ridingEntity;
+            TrainController tc = TrainControllerManager.getTrainController(train);
+            if (train.isControlCar()) {
+                switch (message.mode) {
+                    case 0:
                         tc.disableATO();
                         tc.tascController.disable();
-                    }
+                        break;
+                    case 1:
+                        tc.disableATO();
+                        break;
+                    case 2:
+                        break;
                 }
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
+            }
         }
         return null;
     }
