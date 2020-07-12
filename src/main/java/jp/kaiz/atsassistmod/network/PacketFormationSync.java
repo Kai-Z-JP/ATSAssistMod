@@ -52,13 +52,11 @@ public class PacketFormationSync implements IMessage, IMessageHandler<PacketForm
             Entity entity = ATSAssistCore.proxy.getWorld().getEntityByID(message.entityId);
             if (entity instanceof EntityTrainBase) {
                 entity.readFromNBT(message.nbtData);
-                System.out.println("[Client Thread] Read");
             }
         } else {
             EntityPlayerMP player = ctx.getServerHandler().playerEntity;
             Entity entity = player.worldObj.getEntityByID(message.entityId);
             if (entity instanceof EntityTrainBase) {
-                System.out.println("[Server Thread] Return Packet");
                 return new PacketFormationSync((EntityTrainBase) entity, true);
             }
         }
