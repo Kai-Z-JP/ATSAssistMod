@@ -14,7 +14,7 @@ public class TASCController {
 
     public void changeTargetDistance(double movedDistance) {
         this.stopDistance = Math.max((this.stopDistance - movedDistance), DISABLE_DISTANCE);
-        
+
     }
 
     public void setStopDistance(double stopDistance) {
