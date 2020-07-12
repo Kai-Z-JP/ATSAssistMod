@@ -23,6 +23,9 @@ public class ATSAssistNetwork {
 
         NETWORK_WRAPPER.registerMessage(PacketIFTTT.class, PacketIFTTT.class, 30, Side.SERVER);
 
+        NETWORK_WRAPPER.registerMessage(PacketFormationSync.class, PacketFormationSync.class, 90, Side.SERVER);
+        NETWORK_WRAPPER.registerMessage(PacketFormationSync.class, PacketFormationSync.class, 91, Side.CLIENT);
+
         NetworkRegistry.INSTANCE.registerGuiHandler(ATSAssistCore.INSTANCE, new ATSAssistGUIHandler());
     }
 }
