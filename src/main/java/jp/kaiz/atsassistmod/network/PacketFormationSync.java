@@ -8,7 +8,6 @@ import io.netty.buffer.ByteBuf;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class PacketFormationSync implements IMessage, IMessageHandler<PacketFormationSync, IMessage> {
@@ -54,8 +53,7 @@ public class PacketFormationSync implements IMessage, IMessageHandler<PacketForm
                 entity.readFromNBT(message.nbtData);
             }
         } else {
-            EntityPlayerMP player = ctx.getServerHandler().playerEntity;
-            Entity entity = player.worldObj.getEntityByID(message.entityId);
+            Entity entity = ctx.getServerHandler().playerEntity.worldObj.getEntityByID(message.entityId);
             if (entity instanceof EntityTrainBase) {
                 return new PacketFormationSync((EntityTrainBase) entity, true);
             }
