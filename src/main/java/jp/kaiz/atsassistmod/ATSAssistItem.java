@@ -5,10 +5,10 @@ import jp.kaiz.atsassistmod.item.TrainProtectionSelector;
 import net.minecraft.item.Item;
 
 public class ATSAssistItem {
-    public static Item itemTrainProtectionSelector;
+	public static Item itemTrainProtectionSelector;
 
-    public void preInit(String modid) {
-        ATSAssistItem.itemTrainProtectionSelector = new TrainProtectionSelector();
-        GameRegistry.registerItem(ATSAssistItem.itemTrainProtectionSelector, modid + ":" + "trainProtectionSelector");
-    }
+	public void preInit() {
+		ATSAssistItem.itemTrainProtectionSelector = new TrainProtectionSelector();
+		GameRegistry.registerItem(ATSAssistItem.itemTrainProtectionSelector, ATSAssistCore.MODID + ":" + "trainProtectionSelector");
+	}
 }

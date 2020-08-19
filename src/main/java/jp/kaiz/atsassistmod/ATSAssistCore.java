@@ -24,7 +24,7 @@ public class ATSAssistCore {
     public static final int guiId_GroundUnit;
     public static final int guiId_StationAnnounce;
     public static final int guiId_TrainProtectionSelector;
-    public static final int guiId_DataMapToRS;
+	public static final int guiId_IFTTT;
 
     @SidedProxy(clientSide = "jp.kaiz.atsassistmod.ClientProxy", serverSide = "jp.kaiz.atsassistmod.CommonProxy")
     public static CommonProxy proxy;
@@ -48,10 +48,10 @@ public class ATSAssistCore {
         System.out.println("[ATSAssist]Loading...");
 
         //Block登録
-        new ATSAssistBlock().preInit(MODID);
+	    new ATSAssistBlock().preInit();
 
         //Item登録
-        new ATSAssistItem().preInit(MODID);
+	    new ATSAssistItem().preInit();
 
         proxy.preInit();
     }
@@ -59,7 +59,7 @@ public class ATSAssistCore {
     static {
         guiId_GroundUnit = guiId++;
         guiId_StationAnnounce = guiId++;
-        guiId_TrainProtectionSelector = guiId++;
-        guiId_DataMapToRS = guiId++;
+	    guiId_TrainProtectionSelector = guiId++;
+	    guiId_IFTTT = guiId++;
     }
 }

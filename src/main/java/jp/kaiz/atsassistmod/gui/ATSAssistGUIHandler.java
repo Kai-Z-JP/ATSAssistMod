@@ -22,7 +22,7 @@ public class ATSAssistGUIHandler implements IGuiHandler {
 		} else if (ID == ATSAssistCore.guiId_StationAnnounce) {
 			return new GUIStationAnnounce();
 		} else if (ID == ATSAssistCore.guiId_IFTTT) {
-			return new GUIIFTTT((TileEntityIFTTT) player.worldObj.getTileEntity(x, y, z));
+			return new GUIIFTTTMaterial((TileEntityIFTTT) player.worldObj.getTileEntity(x, y, z));
 		} else if (ID == ATSAssistCore.guiId_TrainProtectionSelector) {
 			EntityTrainBase train;
 			if (player.isRiding() && player.ridingEntity instanceof EntityTrainBase) {
