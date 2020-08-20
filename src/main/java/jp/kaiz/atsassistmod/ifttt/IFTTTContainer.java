@@ -3,13 +3,18 @@ package jp.kaiz.atsassistmod.ifttt;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.ngt.ngtlib.math.Vec3;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
+import jp.ngt.rtm.entity.train.parts.EntityFloor;
 import jp.ngt.rtm.modelpack.state.DataType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.util.AxisAlignedBB;
 
 import java.io.Serializable;
 
 public abstract class IFTTTContainer implements Serializable {
 
 	private static final long serialVersionUID = -2781244534093360974L;
+	protected boolean once;
 
 	public IFTTTContainer() {
 	}
@@ -21,6 +26,14 @@ public abstract class IFTTTContainer implements Serializable {
 	}
 
 	public abstract String[] getExplanation();
+
+	public void setOnce(boolean once) {
+		this.once = once;
+	}
+
+	public boolean isOnce() {
+		return once;
+	}
 
 	public abstract static class This extends IFTTTContainer {
 
@@ -174,12 +187,57 @@ public abstract class IFTTTContainer implements Serializable {
 				}
 			}
 		}
+
+		public abstract static class ATSAssist {
+			public static class CrossingObstacleDetection extends This {
+				private static final long serialVersionUID = -2345201548431087396L;
+				private int[] startCC = new int[]{0, 0, 0};
+				private int[] endCC = new int[]{0, 0, 0};
+
+				public void setStartCC(int x, int y, int z) {
+					this.startCC = new int[]{x, y, z};
+				}
+
+				public int[] getStartCC() {
+					return this.startCC;
+				}
+
+				public void setEndCC(int x, int y, int z) {
+					this.endCC = new int[]{x, y, z};
+				}
+
+				public int[] getEndCC() {
+					return this.endCC;
+				}
+
+				@Override
+				public IFTTTType.IFTTTEnumBase getType() {
+					return IFTTTType.This.ATSAssist.CODD;
+				}
+
+				@Override
+				public String[] getExplanation() {
+					return new String[]{
+							String.format("x:%s, y:%s, z:%s", this.startCC[0], this.startCC[1], this.startCC[2]),
+							String.format("x:%s, y:%s, z:%s", this.endCC[0], this.endCC[1], this.endCC[2])
+					};
+				}
+
+				@Override
+				public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
+					return tile.getWorldObj().getEntitiesWithinAABB(EntityLiving.class.getSuperclass(), AxisAlignedBB.getBoundingBox(
+							this.startCC[0], this.startCC[1], this.startCC[2],
+							this.endCC[0], this.endCC[1], this.endCC[2])).stream().anyMatch(o ->
+							!((((Entity) o).ridingEntity instanceof EntityTrainBase) || (((Entity) o).ridingEntity instanceof EntityFloor)));
+				}
+			}
+		}
 	}
 
 	public abstract static class That extends IFTTTContainer {
 		private static final long serialVersionUID = 3885084343670120809L;
 
-		public abstract void doThat(TileEntityIFTTT tile, EntityTrainBase train);
+		public abstract void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first);
 
 		public abstract static class Minecraft {
 			public static class RedStoneOutput extends That {
@@ -214,7 +272,7 @@ public abstract class IFTTTContainer implements Serializable {
 				}
 
 				@Override
-				public void doThat(TileEntityIFTTT tile, EntityTrainBase train) {
+				public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
 					if (this.isTrainCarsOutput()) {
 						if (train != null) {
 							tile.setRedStoneOutput(train.getFormation().entries.length);
@@ -223,6 +281,37 @@ public abstract class IFTTTContainer implements Serializable {
 						}
 					} else {
 						tile.setRedStoneOutput(this.getOutputLevel());
+					}
+				}
+			}
+
+			public static class ExecuteCommand extends That {
+				private static final long serialVersionUID = -83401892282647225L;
+				private String command = "";
+				private String result = "";
+
+				public void setCommand(String command) {
+					this.command = command;
+				}
+
+				public String getCommand() {
+					return command;
+				}
+
+				@Override
+				public IFTTTType.IFTTTEnumBase getType() {
+					return IFTTTType.That.Minecraft.ExecuteCommand;
+				}
+
+				@Override
+				public String[] getExplanation() {
+					return new String[]{"コマンド: " + this.command};
+				}
+
+				@Override
+				public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
+					if (!this.once || first) {
+						new IFTTTCommandSender(tile).executeCommand(this.command);
 					}
 				}
 			}
@@ -281,7 +370,7 @@ public abstract class IFTTTContainer implements Serializable {
 				}
 
 				@Override
-				public void doThat(TileEntityIFTTT tile, EntityTrainBase train) {
+				public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
 					if (train != null) {
 						try {
 							switch (this.dataType) {

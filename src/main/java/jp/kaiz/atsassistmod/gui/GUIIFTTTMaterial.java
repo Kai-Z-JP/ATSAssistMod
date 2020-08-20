@@ -1,5 +1,6 @@
 package jp.kaiz.atsassistmod.gui;
 
+import cpw.mods.fml.client.config.GuiCheckBox;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.kaiz.atsassistmod.gui.parts.*;
@@ -100,6 +101,20 @@ public class GUIIFTTTMaterial extends GuiScreen {
 						}
 					}
 					break;
+				case 130://単純列検
+					this.fontRendererObj.drawString("IFTTT : This : 踏切障検",
+							this.width / 4, 20, 0xffffff);
+					this.fontRendererObj.drawString("始点",
+							this.width / 2 - 75, this.height / 2 - 25, 0xffffff);
+					this.fontRendererObj.drawString("終点",
+							this.width / 2 - 75, this.height / 2, 0xffffff);
+					this.fontRendererObj.drawString("x",
+							this.width / 2 - 37, this.height / 2 - 45, 0xffffff);
+					this.fontRendererObj.drawString("y",
+							this.width / 2 - 2, this.height / 2 - 45, 0xffffff);
+					this.fontRendererObj.drawString("z",
+							this.width / 2 + 33, this.height / 2 - 45, 0xffffff);
+					break;
 				case 200://IFTTTType.That.Select
 					this.fontRendererObj.drawString("IFTTT : That : 選択",
 							this.width / 4, 20, 0xffffff);
@@ -110,8 +125,8 @@ public class GUIIFTTTMaterial extends GuiScreen {
 					this.fontRendererObj.drawString("ATSAssist",
 							this.width / 2 - 170, this.height / 2 + 40, 0xffffff);
 					break;
-				case 210://DataMap
-					this.fontRendererObj.drawString("IFTTT : That : RedStoneOutput",
+				case 210://RedStoneOutput
+					this.fontRendererObj.drawString("IFTTT : That : RedStone出力",
 							this.width / 4, 20, 0xffffff);
 					this.fontRendererObj.drawString("両数出力",
 							this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
@@ -126,6 +141,20 @@ public class GUIIFTTTMaterial extends GuiScreen {
 					}
 					for (GuiTextField textField : this.textFieldList) {
 						textField.setVisible(!((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput());
+					}
+					break;
+				case 212://ExecuteCommand
+					this.fontRendererObj.drawString("IFTTT : That : コマンド実行",
+							this.width / 4, 20, 0xffffff);
+					this.fontRendererObj.drawString("一度のみ実行",
+							this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
+					this.fontRendererObj.drawString("コマンド",
+							this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
+					for (Object o : this.buttonList) {
+						GuiButton button = (GuiButton) o;
+						if (button.id == 1000) {
+							((GuiCheckBox) button).setIsChecked(this.ifcb.isOnce());
+						}
 					}
 					break;
 				case 221://DataMap
@@ -228,7 +257,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
 			if (id == 100) {//IFTTTType.This.Select
 				this.addSelectButton(IFTTTType.This.Minecraft.values(), this.width / 2 - 170, this.height / 2 - 75);
 				this.addSelectButton(IFTTTType.This.RTM.values(), this.width / 2 - 170, this.height / 2 - 10);
-				this.addSelectButton(IFTTTType.This.ATSAssist.values(), this.width / 2 - 170, this.height / 2 - 55);
+				this.addSelectButton(IFTTTType.This.ATSAssist.values(), this.width / 2 - 170, this.height / 2 + 55);
 				this.buttonList.add(new GuiButton(990, this.width / 2 - 50, this.height - 25, 100, 20, "戻る"));
 			} else if (id == 110) {//RedStoneInput
 				this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
@@ -237,14 +266,26 @@ public class GUIIFTTTMaterial extends GuiScreen {
 			} else if (id == 120) {//単純列検
 				this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 30, 60, 20, ""));
 				this.addDownCommon();
+			} else if (id == 130) {//踏切障検
+				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[0]), this.width / 2 - 50, this.height / 2 - 30, Byte.MAX_VALUE, 30);
+				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[1]), this.width / 2 - 15, this.height / 2 - 30, Byte.MAX_VALUE, 30);
+				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[2]), this.width / 2 + 20, this.height / 2 - 30, Byte.MAX_VALUE, 30);
+				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[0]), this.width / 2 - 50, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[1]), this.width / 2 - 15, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[2]), this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+				this.addDownCommon();
 			} else if (id == 200) {//IFTTTType.This.Select
 				this.addSelectButton(IFTTTType.That.Minecraft.values(), this.width / 2 - 170, this.height / 2 - 75);
 				this.addSelectButton(IFTTTType.That.RTM.values(), this.width / 2 - 170, this.height / 2 - 10);
-				this.addSelectButton(IFTTTType.That.ATSAssist.values(), this.width / 2 - 170, this.height / 2 - 55);
+				this.addSelectButton(IFTTTType.That.ATSAssist.values(), this.width / 2 - 170, this.height / 2 + 55);
 				this.buttonList.add(new GuiButton(990, this.width / 2 - 50, this.height - 25, 100, 20, "戻る"));
 			} else if (id == 210) {//RedStoneOutput
 				this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
 				this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).getOutputLevel()), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
+				this.addDownCommon();
+			} else if (id == 212) {//ExecuteCommand
+				this.buttonList.add(new GuiCheckBox(1000, this.width / 2 + 45, this.height / 2 - 80, "", false));
+				this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).getCommand()), this.width / 2 - 100, this.height / 2 - 30, Byte.MAX_VALUE, 200);
 				this.addDownCommon();
 			} else if (id == 221) {//DataMap
 				this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
@@ -386,8 +427,16 @@ public class GUIIFTTTMaterial extends GuiScreen {
 			this.type = (this.ifcb = new IFTTTContainer.This.RTM.SimpleDetectTrain()).getType();
 			this.ifcbIndex = -1;
 			return;
+		} else if (button.id == 130) {
+			this.type = (this.ifcb = new IFTTTContainer.This.ATSAssist.CrossingObstacleDetection()).getType();
+			this.ifcbIndex = -1;
+			return;
 		} else if (button.id == 210) {
 			this.type = (this.ifcb = new IFTTTContainer.That.Minecraft.RedStoneOutput()).getType();
+			this.ifcbIndex = -1;
+			return;
+		} else if (button.id == 212) {
+			this.type = (this.ifcb = new IFTTTContainer.That.Minecraft.ExecuteCommand()).getType();
 			this.ifcbIndex = -1;
 			return;
 		} else if (button.id == 221) {
@@ -410,8 +459,15 @@ public class GUIIFTTTMaterial extends GuiScreen {
 						break;
 					case 120:
 						break;
+					case 130:
+						((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).setStartCC(this.getIntGuiTextFieldText(0), this.getIntGuiTextFieldText(1), this.getIntGuiTextFieldText(2));
+						((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).setEndCC(this.getIntGuiTextFieldText(3), this.getIntGuiTextFieldText(4), this.getIntGuiTextFieldText(5));
+						break;
 					case 210:
 						((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).setOutputLevel(this.getIntGuiTextFieldText(0));
+						break;
+					case 212:
+						((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).setCommand(this.getStringGuiTextFieldText(0));
 						break;
 					case 221:
 						((IFTTTContainer.That.RTM.DataMap) this.ifcb).setKey(this.getStringGuiTextFieldText(0));
@@ -448,6 +504,14 @@ public class GUIIFTTTMaterial extends GuiScreen {
 						case 1000:
 							((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).
 									setTrainCarsOutput(!((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput());
+							return;
+					}
+					break;
+				case 212:
+					switch (button.id) {
+						case 1000:
+							this.ifcb.
+									setOnce(((GuiCheckBox) button).isChecked());
 							return;
 					}
 					break;

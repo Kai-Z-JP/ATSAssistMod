@@ -77,6 +77,7 @@ public class IFTTTType {
 		}
 
 		public enum ATSAssist implements IFTTTEnumBase {
+			CODD(130, "踏切障検"),
 			;
 
 			private final int id;
@@ -126,7 +127,7 @@ public class IFTTTType {
 		public enum Minecraft implements IFTTTEnumBase {
 			RedStoneOutput(210, "RS信号出力"),
 			PlaySound(211, "音声再生"),
-			Command(212, "コマンド実行"),
+			ExecuteCommand(212, "コマンド実行"),
 			;
 
 			private final int id;

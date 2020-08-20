@@ -13,6 +13,7 @@ import java.util.List;
 public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectricity {
 	//外に出すレッドストーン
 	private int redStoneOutput;
+	private boolean notFirst;
 
 	private List<IFTTTContainer> thisList = new ArrayList<>();
 	private List<IFTTTContainer> thatList = new ArrayList<>();
@@ -21,6 +22,7 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
 	public final void readFromNBT(NBTTagCompound tag) {
 		super.readFromNBT(tag);
 		this.redStoneOutput = tag.getInteger("redStoneOutput");
+		this.notFirst = tag.getBoolean("notFirst");
 		this.thisList = IFTTTUtil.listFromJson(tag.getString("iftttThis"));
 		this.thatList = IFTTTUtil.listFromJson(tag.getString("iftttThat"));
 	}
@@ -29,6 +31,7 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
 	public final void writeToNBT(NBTTagCompound tag) {
 		super.writeToNBT(tag);
 		tag.setInteger("redStoneOutput", this.redStoneOutput);
+		tag.setBoolean("notFirst", this.notFirst);
 		tag.setString("iftttThis", IFTTTUtil.listToString(this.thisList));
 		tag.setString("iftttThat", IFTTTUtil.listToString(this.thatList));
 	}
@@ -44,9 +47,11 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
 			List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
 			EntityTrainBase train = list.isEmpty() ? null : (EntityTrainBase) list.get(0);
 			if (this.thisList.stream().allMatch(iftttContainer -> ((IFTTTContainer.This) iftttContainer).isCondition(this, train))) {
-				this.thatList.forEach(iftttContainer -> ((IFTTTContainer.That) iftttContainer).doThat(this, train));
+				this.thatList.forEach(iftttContainer -> ((IFTTTContainer.That) iftttContainer).doThat(this, train, !this.notFirst));
+				this.notFirst = true;
 			} else {
 				this.setRedStoneOutput(0);
+				this.notFirst = false;
 			}
 		}
 	}
