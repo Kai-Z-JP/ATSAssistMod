@@ -1,8 +1,9 @@
 package jp.kaiz.atsassistmod.ifttt;
 
+import io.netty.buffer.ByteBuf;
 import jp.kaiz.atsassistmod.utils.KaizUtils;
 import net.minecraft.command.ICommandManager;
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
@@ -10,7 +11,7 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 
-public class IFTTTCommandSender implements ICommandSender {
+public class IFTTTCommandSender extends CommandBlockLogic {
 	private final TileEntity tile;
 	private int returnValue;
 
@@ -30,6 +31,21 @@ public class IFTTTCommandSender implements ICommandSender {
 
 	@Override
 	public void addChatMessage(IChatComponent p_145747_1_) {
+	}
+
+	@Override
+	public void func_145756_e() {
+
+	}
+
+	@Override
+	public int func_145751_f() {
+		return 0;
+	}
+
+	@Override
+	public void func_145757_a(ByteBuf p_145757_1_) {
+
 	}
 
 	@Override
