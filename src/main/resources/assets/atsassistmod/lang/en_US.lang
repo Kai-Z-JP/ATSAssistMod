@@ -11,3 +11,5 @@ tile.ATSAssistMod:groundUnit.10.name=保安装置ブロック(ATO:制御終了)
 tile.ATSAssistMod:groundUnit.11.name=保安装置ブロック(ATO:目標速度変更)
 
 item.ATSAssistMod:trainProtectionSelector.name=車上保安装置切替SW
+
+tile.ATSAssistMod:IFTTT.0.name=IFTTTブロック
