@@ -9,6 +9,7 @@ import jp.ngt.rtm.rail.util.RailMap;
 import jp.ngt.rtm.rail.util.RailPosition;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,16 +166,15 @@ public class ATACSController extends TrainProtection {
 		return point;
 	}
 
-	private double getAnotherTrainDistance(double searchDistance) throws Exception {
+	private double getAnotherTrainDistance(double searchDistance) {
 		double distance = 0d;
 		RailPosition _tempRailPosition = this.getRailPositionDestination(this.nowRM);
 		TileEntityLargeRailCore _tempRail = this.savedRail;
-		RailMap _tempMap = this.nowRM;
 		while (true) {
 			if (distance >= searchDistance) {
 				return -1d;
 			}
-			TileEntityLargeRailBase railBase = this.getNextRailBase(_tempRail, _tempRailPosition, _tempMap);
+			TileEntityLargeRailBase railBase = this.getNextRailBase(_tempRail.getWorldObj(), _tempRailPosition);
 			if (railBase == null) {
 				return -1d;
 			}
@@ -204,7 +204,7 @@ public class ATACSController extends TrainProtection {
 					break;
 				}
 			}
-			_tempMap = this.getNearRailMap(_tempRail, railBase);
+			RailMap _tempMap = this.getNearRailMap(_tempRail, railBase);
 			_tempRailPosition = this.getFarRailPotion(_tempRailPosition, _tempMap);
 			distance = distance + _tempMap.getLength();
 		}
@@ -228,36 +228,12 @@ public class ATACSController extends TrainProtection {
 		}
 	}
 
-	private TileEntityLargeRailBase getNextRailBase(TileEntityLargeRailCore rail, RailPosition railPosition, RailMap railMap) throws Exception {
-		TileEntityLargeRailBase nextRail;
-		int x = (int) railPosition.posX;
-		int y = (int) railPosition.posY;
-		int z = (int) railPosition.posZ;
-		for (int dx = -1; dx < 2; dx++) {
-			for (int dz = -1; dz < 2; dz++) {
-				if ((nextRail = getRailBaseFromLocation(x + dx, y, z + dz, rail)) != null) {
-					for (RailMap _RailMap : nextRail.getRailCore().getAllRailMaps()) {
-						if (_RailMap.canConnect(railMap)) {
-							return nextRail;
-						}
-					}
-				}
-			}
-		}
-		return null;
-	}
-
-	private TileEntityLargeRailBase getRailBaseFromLocation(int x, int y, int z, TileEntityLargeRailCore nowRail) throws Exception {
-		TileEntity tile;
-		if ((tile = nowRail.getWorldObj().getTileEntity(x, y, z)) != null) {
-			if (tile instanceof TileEntityLargeRailBase) {
-				TileEntityLargeRailBase anotherRailTile = (TileEntityLargeRailBase) tile;
-				if (anotherRailTile.getRailCore() != nowRail) {
-					return anotherRailTile;
-				}
-			}
-		}
-		return null;
+	private TileEntityLargeRailBase getNextRailBase(World world, RailPosition railPosition) {
+		TileEntity tile = world.getTileEntity(
+				MathHelper.floor_double(railPosition.posX + RailPosition.REVISION[railPosition.direction][0]),
+				railPosition.blockY,
+				MathHelper.floor_double(railPosition.posZ + RailPosition.REVISION[railPosition.direction][1]));
+		return tile instanceof TileEntityLargeRailBase ? (TileEntityLargeRailBase) tile : null;
 	}
 
 	private RailPosition getNearRailPoint(RailMap railMap) {
