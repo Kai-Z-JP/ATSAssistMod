@@ -108,7 +108,7 @@ public abstract class IFTTTContainer implements Serializable {
 
 				@Override
 				public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
-					int power = tile.getWorldObj().getBlockPowerInput(tile.xCoord, tile.yCoord, tile.zCoord);
+					int power = tile.getWorldObj().getStrongestIndirectPower(tile.xCoord, tile.yCoord, tile.zCoord);
 					switch (this.mode) {
 						case ON:
 							return power > 0;

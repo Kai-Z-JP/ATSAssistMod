@@ -117,7 +117,7 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
 	}
 
 	@Override
-	public void setElectricity(int i, int i1, int i2, int i3) {
+	public void setElectricity(int x, int y, int z, int level) {
 
 	}
 }
