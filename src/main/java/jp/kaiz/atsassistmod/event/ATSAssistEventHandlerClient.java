@@ -14,24 +14,24 @@ import net.minecraftforge.event.entity.EntityEvent;
 
 @SideOnly(Side.CLIENT)
 public class ATSAssistEventHandlerClient {
-    private final TrainGuiRender guiRender;
+	private final TrainGuiRender guiRender;
 
-    public ATSAssistEventHandlerClient(Minecraft mc) {
-        this.guiRender = new TrainGuiRender(mc);
-    }
+	public ATSAssistEventHandlerClient(Minecraft mc) {
+		this.guiRender = new TrainGuiRender(mc);
+	}
 
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onRenderGui(RenderGameOverlayEvent.Pre event) {
-        this.guiRender.onRenderGui(event);
-    }
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public void onRenderGui(RenderGameOverlayEvent.Pre event) {
+		this.guiRender.onRenderGui(event);
+	}
 
-    @SubscribeEvent
-    public void onEntityTick(EntityEvent.EnteringChunk event) {
-        if (event.entity instanceof EntityTrainBase) {
-            if (((EntityTrainBase) event.entity).getFormation() == null) {
-                ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketFormationSync((EntityTrainBase) event.entity, false));
-            }
-        }
-    }
+	@SubscribeEvent
+	public void onEntityTick(EntityEvent.EnteringChunk event) {
+		if (event.entity instanceof EntityTrainBase) {
+			if (((EntityTrainBase) event.entity).getFormation() == null) {
+				ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketFormationSync((EntityTrainBase) event.entity, false));
+			}
+		}
+	}
 }
