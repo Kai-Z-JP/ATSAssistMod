@@ -20,7 +20,6 @@ public class TrainController implements Runnable {
     private TrainProtection tp;
 
     private EntityTrainBase train;
-    private TCThreadManager tsm;
 
     private double[] coordinates;
 
@@ -125,17 +124,10 @@ public class TrainController implements Runnable {
 
     public void run() {
         try {
-            this.tsm.addSync();
             this.onUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            this.tsm.delSync();
         }
-    }
-
-    public void init(TCThreadManager tsm) {
-        this.tsm = tsm;
     }
 
 

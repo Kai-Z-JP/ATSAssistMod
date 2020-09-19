@@ -33,9 +33,6 @@ public class TrainControllerManager {
 			return;
 		}
 		List<Long> delList = new ArrayList<>();
-		TrainController[] tcs = new TrainController[trackingTrainMap.size()];
-		TCThreadManager tsm = new TCThreadManager();
-		int i = 0;
 		for (Entry<Long, TrainController> entry : trackingTrainMap.entrySet()) {
 			long fid = entry.getKey();
 			Formation formation = FormationManager.getInstance().getFormation(fid);
@@ -47,19 +44,16 @@ public class TrainControllerManager {
 					}
 					if (formationEntry.train.isControlCar()) {
 						controlCar = formationEntry.train;
-						tcs[i] = entry.getValue();
-						if (controlCar.getEntityId() == tcs[i].getSavedEntityID()) {
-							tcs[i].init(tsm);
-
-							Thread thread = new Thread(tcs[i]);
+						TrainController tcs = entry.getValue();
+						if (controlCar.getEntityId() == tcs.getSavedEntityID()) {
+							Thread thread = new Thread(tcs);
 							thread.setName("Server thread");
 							thread.start();
 //						    entry.getValue().onUpdate(controlCar);
-							ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketTrainControllerToClient(tcs[i], fid));
-							i++;
+							ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketTrainControllerToClient(tcs, fid));
 							break;
 						} else {
-							i++;
+							delList.add(fid);
 						}
 					}
 				}
@@ -72,6 +66,5 @@ public class TrainControllerManager {
 			ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketTrainControllerToClient(aLong));
 			trackingTrainMap.remove(aLong);
 		}
-//		tsm.waitSync();
 	}
 }
