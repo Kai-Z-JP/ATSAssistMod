@@ -19,7 +19,6 @@ public class GuiScreenCustom extends GuiScreen {
     @Override
     public void initGui() {
         super.initGui();
-
         super.buttonList.clear();
         this.textFieldList.clear();
     }

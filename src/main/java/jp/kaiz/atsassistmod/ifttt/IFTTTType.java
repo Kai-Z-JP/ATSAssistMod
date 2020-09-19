@@ -54,7 +54,8 @@ public class IFTTTType {
 			Cars(121, "両数"),
 			Speed(122, "速度"),
 			TrainState(123, "TrainState"),
-			DataMap(124, "DataMap"),
+			TrainDataMap(124, "TrainDataMap"),
+			BlockDataMap(125, "BlockDataMap"),
 			;
 
 			private final int id;
@@ -151,7 +152,8 @@ public class IFTTTType {
 
 		public enum RTM implements IFTTTEnumBase {
 			TrainState(220, "TrainState"),
-			DataMap(221, "DataMap"),
+			TrainDataMap(221, "TrainDataMap"),
+			BlockDataMap(222, "BlockDataMap"),
 			;
 
 			private final int id;

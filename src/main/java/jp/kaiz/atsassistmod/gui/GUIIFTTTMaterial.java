@@ -9,6 +9,7 @@ import jp.kaiz.atsassistmod.ifttt.IFTTTContainer.This.Minecraft.RedStoneInput.Mo
 import jp.kaiz.atsassistmod.ifttt.IFTTTContainer.This.RTM.SimpleDetectTrain.DetectMode;
 import jp.kaiz.atsassistmod.ifttt.IFTTTType;
 import jp.kaiz.atsassistmod.network.PacketIFTTT;
+import jp.kaiz.atsassistmod.utils.ComparisonManager;
 import jp.kaiz.atsassistmod.utils.KaizUtils;
 import jp.ngt.rtm.modelpack.state.DataType;
 import net.minecraft.client.gui.GuiButton;
@@ -98,6 +99,31 @@ public class GUIIFTTTMaterial extends GuiScreen {
 						GuiButton button = (GuiButton) o;
 						if (button.id == 1000) {
 							button.displayString = detectMode.name;
+						}
+					}
+					break;
+				case 124://TrainDataMap
+					this.fontRendererObj.drawString("IFTTT : This : (Train)DataMap",
+							this.width / 4, 20, 0xffffff);
+					this.fontRendererObj.drawString("DataType",
+							this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
+					this.fontRendererObj.drawString("Key",
+							this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
+					this.fontRendererObj.drawString("Value",
+							this.width / 2 - 50, this.height / 2, 0xffffff);
+
+					for (Object o : this.buttonList) {
+						GuiButton button = (GuiButton) o;
+						if (button.id == 1000) {
+							button.displayString = ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getDataType().key;
+						} else if (button.id == 1001) {
+							button.displayString = ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getComparisonType().getName();
+						}
+					}
+
+					for (GuiTextField guiTextField : this.textFieldList) {
+						if (guiTextField.yPosition == this.height / 2 - 5) {
+							guiTextField.setVisible(((Enum) ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getComparisonType()).getDeclaringClass() != ComparisonManager.Boolean.class);
 						}
 					}
 					break;
@@ -266,6 +292,12 @@ public class GUIIFTTTMaterial extends GuiScreen {
 			} else if (id == 120) {//単純列検
 				this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 30, 60, 20, ""));
 				this.addDownCommon();
+			} else if (id == 124) {//TrainDataMap
+				this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
+				this.buttonList.add(new GuiButton(1001, this.width / 2 - 15, this.height / 2 - 5, 30, 20, ""));
+				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getKey()), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
+				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getValue()), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
+				this.addDownCommon();
 			} else if (id == 130) {//踏切障検
 				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[0]), this.width / 2 - 50, this.height / 2 - 30, Byte.MAX_VALUE, 30);
 				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[1]), this.width / 2 - 15, this.height / 2 - 30, Byte.MAX_VALUE, 30);
@@ -427,6 +459,10 @@ public class GUIIFTTTMaterial extends GuiScreen {
 			this.type = (this.ifcb = new IFTTTContainer.This.RTM.SimpleDetectTrain()).getType();
 			this.ifcbIndex = -1;
 			return;
+		} else if (button.id == 124) {
+			this.type = (this.ifcb = new IFTTTContainer.This.RTM.TrainDataMap()).getType();
+			this.ifcbIndex = -1;
+			return;
 		} else if (button.id == 130) {
 			this.type = (this.ifcb = new IFTTTContainer.This.ATSAssist.CrossingObstacleDetection()).getType();
 			this.ifcbIndex = -1;
@@ -458,6 +494,10 @@ public class GUIIFTTTMaterial extends GuiScreen {
 						((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).setValue(this.getIntGuiTextFieldText(0));
 						break;
 					case 120:
+						break;
+					case 124:
+						((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).setKey(this.getStringGuiTextFieldText(0));
+						((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).setValue(this.getStringGuiTextFieldText(1));
 						break;
 					case 130:
 						((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).setStartCC(this.getIntGuiTextFieldText(0), this.getIntGuiTextFieldText(1), this.getIntGuiTextFieldText(2));
@@ -496,6 +536,16 @@ public class GUIIFTTTMaterial extends GuiScreen {
 						case 1000:
 							DetectMode modeType = ((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).getDetectMode();
 							((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).setDetectMode((DetectMode) KaizUtils.getNextEnum(modeType));
+							break;
+					}
+					break;
+				case 124:
+					switch (button.id) {
+						case 1000:
+							((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).nextDataType();
+							break;
+						case 1001:
+							((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).nextComparisonType();
 							break;
 					}
 					break;

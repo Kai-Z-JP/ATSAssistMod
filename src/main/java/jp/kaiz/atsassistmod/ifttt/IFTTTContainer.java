@@ -1,10 +1,13 @@
 package jp.kaiz.atsassistmod.ifttt;
 
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
-import jp.ngt.ngtlib.math.Vec3;
+import jp.kaiz.atsassistmod.utils.ComparisonManager;
+import jp.kaiz.atsassistmod.utils.KaizUtils;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.entity.train.parts.EntityFloor;
+import jp.ngt.rtm.modelpack.state.DataMap;
 import jp.ngt.rtm.modelpack.state.DataType;
+import jp.ngt.rtm.modelpack.state.ResourceState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.AxisAlignedBB;
@@ -186,6 +189,130 @@ public abstract class IFTTTContainer implements Serializable {
 					return false;
 				}
 			}
+
+			public static class TrainDataMap extends This {
+				private static final long serialVersionUID = -8546481139822877274L;
+				private DataType dataType;
+				private String key;
+				private Object value;
+				private ComparisonManager.ComparisonBase comparisonType;
+
+				public TrainDataMap() {
+					this.setDataType(DataType.BOOLEAN);
+					this.key = "";
+					this.value = "";
+				}
+
+				public DataType getDataType() {
+					return dataType;
+				}
+
+				public void setDataType(DataType dataType) {
+					this.dataType = dataType;
+					switch (dataType) {
+						case HEX:
+						case INT:
+							this.comparisonType = ComparisonManager.Integer.EQUAL;
+							break;
+						case DOUBLE:
+							this.comparisonType = ComparisonManager.Double.EQUAL;
+							break;
+						case STRING:
+							this.comparisonType = ComparisonManager.String.EQUAL;
+							break;
+						case VEC:
+							this.comparisonType = ComparisonManager.Vec3.EQUAL;
+							break;
+						case BOOLEAN:
+						default:
+							this.comparisonType = ComparisonManager.Boolean.TRUE;
+							break;
+					}
+				}
+
+				public void nextDataType() {
+					this.setDataType((DataType) KaizUtils.getNextEnum(this.dataType));
+				}
+
+				public void nextComparisonType() {
+					this.comparisonType = (ComparisonManager.ComparisonBase)
+							KaizUtils.getNextEnum((Enum) this.comparisonType);
+				}
+
+				public ComparisonManager.ComparisonBase getComparisonType() {
+					return this.comparisonType;
+				}
+
+				public String getKey() {
+					return key;
+				}
+
+				public void setKey(String key) {
+					this.key = key;
+				}
+
+				public Object getValue() {
+					return value;
+				}
+
+				public void setValue(String value) {
+					this.value = this.comparisonType.parseT(value);
+				}
+
+				@Override
+				public String getTitle() {
+					return this.getType().getName() + " " + this.dataType.key;
+				}
+
+				@Override
+				public IFTTTType.IFTTTEnumBase getType() {
+					return IFTTTType.This.RTM.TrainDataMap;
+				}
+
+				@Override
+				public String[] getExplanation() {
+					return new String[]{
+							"Key: " + this.key,
+							"Value" + this.comparisonType.getName() + ((this.dataType == (DataType.BOOLEAN)) ? "" : this.value)
+					};
+				}
+
+				@Override
+				public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
+					if (train != null) {
+						ResourceState resourceState = train.getResourceState();
+						if (resourceState == null) {
+							return false;
+						}
+						DataMap dataMap = resourceState.getDataMap();
+						Object dv;
+						switch (this.dataType) {
+							case HEX:
+								dv = dataMap.getHex(this.key);
+								break;
+							case INT:
+								dv = dataMap.getInt(this.key);
+								break;
+							case DOUBLE:
+								dv = dataMap.getDouble(this.key);
+								break;
+							case STRING:
+								dv = dataMap.getString(this.key);
+								break;
+							case VEC:
+								dv = dataMap.getVec(this.key);
+								break;
+							case BOOLEAN:
+								dv = dataMap.getBoolean(this.key);
+								break;
+							default:
+								return false;
+						}
+						return this.comparisonType.isTrue(dv, this.value);
+					}
+					return false;
+				}
+			}
 		}
 
 		public abstract static class ATSAssist {
@@ -218,8 +345,8 @@ public abstract class IFTTTContainer implements Serializable {
 				@Override
 				public String[] getExplanation() {
 					return new String[]{
-							String.format("x:%s, y:%s, z:%s", this.startCC[0], this.startCC[1], this.startCC[2]),
-							String.format("x:%s, y:%s, z:%s", this.endCC[0], this.endCC[1], this.endCC[2])
+							java.lang.String.format("x:%s, y:%s, z:%s", this.startCC[0], this.startCC[1], this.startCC[2]),
+							java.lang.String.format("x:%s, y:%s, z:%s", this.endCC[0], this.endCC[1], this.endCC[2])
 					};
 				}
 
@@ -356,7 +483,7 @@ public abstract class IFTTTContainer implements Serializable {
 
 				@Override
 				public IFTTTType.IFTTTEnumBase getType() {
-					return IFTTTType.That.RTM.DataMap;
+					return IFTTTType.That.RTM.TrainDataMap;
 				}
 
 				@Override
@@ -372,27 +499,32 @@ public abstract class IFTTTContainer implements Serializable {
 				@Override
 				public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
 					if (train != null) {
+						ResourceState resourceState = train.getResourceState();
+						if (resourceState == null) {
+							return;
+						}
+						jp.ngt.rtm.modelpack.state.DataMap dataMap = resourceState.getDataMap();
 						try {
 							switch (this.dataType) {
 								case BOOLEAN:
-									train.getResourceState().dataMap.setBoolean(this.key, Boolean.parseBoolean(this.value), 1);
+									dataMap.setBoolean(this.key, Boolean.parseBoolean(this.value), 1);
 									break;
 								case DOUBLE:
-									train.getResourceState().dataMap.setDouble(this.key, Double.parseDouble(this.value), 1);
+									dataMap.setDouble(this.key, Double.parseDouble(this.value), 1);
 									break;
 								case INT:
-									train.getResourceState().dataMap.setInt(this.key, Integer.parseInt(this.value), 1);
+									dataMap.setInt(this.key, Integer.parseInt(this.value), 1);
 									break;
 								case STRING:
-									train.getResourceState().dataMap.setString(this.key, this.value, 1);
+									dataMap.setString(this.key, this.value, 1);
 									break;
 								case VEC:
 									String[] vecs = this.value.split(",");
-									train.getResourceState().dataMap.setVec(this.key,
-											new Vec3(Double.parseDouble(vecs[0]), Double.parseDouble(vecs[1]), Double.parseDouble(vecs[2])), 1);
+									dataMap.setVec(this.key,
+											new jp.ngt.ngtlib.math.Vec3(Double.parseDouble(vecs[0]), Double.parseDouble(vecs[1]), Double.parseDouble(vecs[2])), 1);
 									break;
 								case HEX:
-									train.getResourceState().dataMap.setHex(this.key, Integer.parseInt(this.value), 1);
+									dataMap.setHex(this.key, Integer.parseInt(this.value), 1);
 									break;
 								default:
 									break;

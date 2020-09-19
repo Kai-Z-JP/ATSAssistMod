@@ -8,7 +8,7 @@ import java.util.List;
 
 public class KaizUtils {
 	public static Enum getNextEnum(Enum e) {
-		List enumList = EnumUtils.getEnumList(e.getClass());
+		List enumList = EnumUtils.getEnumList(e.getDeclaringClass());
 		int index = enumList.indexOf(e);
 		return (Enum) enumList.get(enumList.size() > index + 1 ? index + 1 : 0);
 	}
