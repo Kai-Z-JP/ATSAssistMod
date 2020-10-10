@@ -6,7 +6,9 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import jp.kaiz.atsassistmod.ATSAssistCore;
+import jp.ngt.rtm.RTMCore;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
+import jp.ngt.rtm.network.PacketFormation;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -55,7 +57,9 @@ public class PacketFormationSync implements IMessage, IMessageHandler<PacketForm
 		} else {
 			Entity entity = ctx.getServerHandler().playerEntity.worldObj.getEntityByID(message.entityId);
 			if (entity instanceof EntityTrainBase) {
-				return new PacketFormationSync((EntityTrainBase) entity, true);
+				RTMCore.NETWORK_WRAPPER.sendTo(new PacketFormation(((EntityTrainBase) entity).getFormation()), ctx.getServerHandler().playerEntity);
+
+//				return new PacketFormationSync((EntityTrainBase) entity, true);
 			}
 		}
 		return null;

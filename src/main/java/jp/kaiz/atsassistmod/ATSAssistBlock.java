@@ -12,11 +12,8 @@ public class ATSAssistBlock {
 
     public void preInit() {
         //Block登録
-        blockGroundUnit = new GroundUnit();
-        GameRegistry.registerBlock(blockGroundUnit, ItemBlockWithMetadataCustom.class, "tile" + "." + ATSAssistCore.MODID + ":" + "groundUnit");
-        blockIFTTT = new IFTTT();
-        GameRegistry.registerBlock(blockIFTTT, ItemBlockWithMetadataCustom.class, "tile" + "." + ATSAssistCore.MODID + ":" + "IFTTT");
-        blockStationAnnounce = new StationAnnounce();
-        GameRegistry.registerBlock(blockStationAnnounce, ItemBlockWithMetadataCustom.class, "tile" + "." + ATSAssistCore.MODID + ":" + "stationAnnounceBase");
+        GameRegistry.registerBlock(blockGroundUnit = new GroundUnit(), ItemBlockWithMetadataCustom.class, "tile" + "." + ATSAssistCore.MODID + ":" + "groundUnit");
+        GameRegistry.registerBlock(blockIFTTT = new IFTTT(), ItemBlockWithMetadataCustom.class, "tile" + "." + ATSAssistCore.MODID + ":" + "IFTTT");
+        GameRegistry.registerBlock(blockStationAnnounce = new StationAnnounce(), ItemBlockWithMetadataCustom.class, "tile" + "." + ATSAssistCore.MODID + ":" + "stationAnnounceBase");
     }
 }

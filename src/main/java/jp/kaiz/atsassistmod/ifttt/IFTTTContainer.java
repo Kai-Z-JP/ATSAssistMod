@@ -8,6 +8,7 @@ import jp.ngt.rtm.entity.train.parts.EntityFloor;
 import jp.ngt.rtm.modelpack.state.DataMap;
 import jp.ngt.rtm.modelpack.state.DataType;
 import jp.ngt.rtm.modelpack.state.ResourceState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.AxisAlignedBB;
@@ -141,9 +142,9 @@ public abstract class IFTTTContainer implements Serializable {
 				private static final long serialVersionUID = -6173509528806558810L;
 
 				public enum DetectMode {
-					All("全車"),
-					FirstCar("先頭"),
-					LastCar("最後尾");
+					All(I18n.format("ATSAssistMod.IFTTT.DeteceMode.0")),
+					FirstCar(I18n.format("ATSAssistMod.IFTTT.DeteceMode.1")),
+					LastCar(I18n.format("ATSAssistMod.IFTTT.DeteceMode.2"));
 
 					public final String name;
 
@@ -173,7 +174,7 @@ public abstract class IFTTTContainer implements Serializable {
 
 				@Override
 				public String[] getExplanation() {
-					return new String[]{"検知モード: " + this.detectMode.name};
+					return new String[]{I18n.format("ATSAssistMod.IFTTT.DeteceMode.name") + ": " + this.detectMode.name};
 				}
 
 				@Override
@@ -184,7 +185,7 @@ public abstract class IFTTTContainer implements Serializable {
 						case FirstCar:
 							return train != null && train.isControlCar();
 						case LastCar:
-							return train != null && (train.getFormation().size() == 1 || !train.isControlCar() && (train.getConnectedTrain(0) == null || train.getConnectedTrain(1) == null));
+							return train != null && (train.getFormation().size() == 1 || (!train.isControlCar() && (train.getConnectedTrain(0) == null || train.getConnectedTrain(1) == null)));
 					}
 					return false;
 				}
@@ -395,7 +396,7 @@ public abstract class IFTTTContainer implements Serializable {
 
 				@Override
 				public String[] getExplanation() {
-					return new String[]{"出力: " + (this.isTrainCarsOutput() ? "編成両数" : this.outputLevel)};
+					return new String[]{"Output: " + (this.isTrainCarsOutput() ? "編成両数" : this.outputLevel)};
 				}
 
 				@Override
@@ -432,7 +433,7 @@ public abstract class IFTTTContainer implements Serializable {
 
 				@Override
 				public String[] getExplanation() {
-					return new String[]{"コマンド: " + this.command};
+					return new String[]{I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.1") + ": " + this.command};
 				}
 
 				@Override

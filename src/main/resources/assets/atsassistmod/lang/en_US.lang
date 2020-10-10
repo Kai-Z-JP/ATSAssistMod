@@ -1,15 +1,170 @@
-#めんどいから全部日本語でいいだろ
-tile.ATSAssistMod:groundUnit.0.name=保安装置ブロック(無動作)
-tile.ATSAssistMod:groundUnit.1.name=保安装置ブロック(ATC:制限予告)
-tile.ATSAssistMod:groundUnit.2.name=保安装置ブロック(ATC:制限解除)
-tile.ATSAssistMod:groundUnit.4.name=保安装置ブロック(TASC:距離設定 制御開始)
-tile.ATSAssistMod:groundUnit.5.name=保安装置ブロック(TASC:制御終了)
-tile.ATSAssistMod:groundUnit.6.name=保安装置ブロック(TASC:距離補正)
-tile.ATSAssistMod:groundUnit.7.name=保安装置ブロック(停車検知)
-tile.ATSAssistMod:groundUnit.9.name=保安装置ブロック(ATO:出発信号 制御開始)
-tile.ATSAssistMod:groundUnit.10.name=保安装置ブロック(ATO:制御終了)
-tile.ATSAssistMod:groundUnit.11.name=保安装置ブロック(ATO:目標速度変更)
+#For translators. I think it's easier to understand the meaning of the text if you refer to the Japanese version.
 
-item.ATSAssistMod:trainProtectionSelector.name=車上保安装置切替SW
+tile.ATSAssistMod:GroundUnit.0.name=TrainProtection Block(None)
+tile.ATSAssistMod:GroundUnit.1.name=TrainProtection Block(ATC:Speed limit notice)
+tile.ATSAssistMod:GroundUnit.2.name=TrainProtection Block(ATC:Speed limit cancel)
+tile.ATSAssistMod:GroundUnit.4.name=TrainProtection Block(TASC:Distance setting & Control start)
+tile.ATSAssistMod:GroundUnit.5.name=TrainProtection Block(TASC:Control end)
+tile.ATSAssistMod:GroundUnit.6.name=TrainProtection Block(TASC:Distance correction)
+tile.ATSAssistMod:GroundUnit.7.name=TrainProtection Block(Stop detection)
+tile.ATSAssistMod:GroundUnit.9.name=TrainProtection Block(ATO:Departure signal & Control start)
+tile.ATSAssistMod:GroundUnit.10.name=TrainProtection Block(ATO:Control end)
+tile.ATSAssistMod:GroundUnit.11.name=TrainProtection Block(ATO:Change target speed)
 
-tile.ATSAssistMod:IFTTT.0.name=IFTTTブロック
+item.ATSAssistMod:TrainProtectionSelector.name=On-ride Train Protection change SW
+
+tile.ATSAssistMod:IFTTT.0.name=IFTTT block
+
+ATSAssistMod.trainprotection.none=None
+ATSAssistMod.trainprotection.station_premises=StaPre
+ATSAssistMod.trainprotection.atacs=ATACS
+ATSAssistMod.trainprotection.atsps=ATS-Ps
+ATSAssistMod.trainprotection.rats=R-ATS
+ATSAssistMod.trainprotection.rnats=Rn-ATS
+
+ATSAssistMod.gui.TrainProtectionSelector.text.0=Operation SW
+ATSAssistMod.gui.TrainProtectionSelector.text.1=Manual
+ATSAssistMod.gui.TrainProtectionSelector.text.2=TASC
+ATSAssistMod.gui.TrainProtectionSelector.text.3=TASC/ATO
+ATSAssistMod.gui.TrainProtectionSelector.text.4=Hide the HUD
+ATSAssistMod.gui.TrainProtectionSelector.text.5=TrainProtection SW
+
+ATSAssistMod.gui.GroudUnitMenu.common.text.0=Link to redstone input
+ATSAssistMod.gui.GroudUnitMenu.common.button.0=Reset
+ATSAssistMod.gui.GroudUnitMenu.common.button.21=Confirm
+ATSAssistMod.gui.GroudUnitMenu.common.button.20=Cancel
+
+ATSAssistMod.gui.GroudUnitMenu.0.title=Ground unit selection menu
+ATSAssistMod.gui.GroudUnitMenu.0.text.0=ATC
+ATSAssistMod.gui.GroudUnitMenu.0.text.1=TASC
+ATSAssistMod.gui.GroudUnitMenu.0.text.2=ATO
+ATSAssistMod.gui.GroudUnitMenu.0.text.3=Train Protection
+ATSAssistMod.gui.GroudUnitMenu.0.text.4=Other
+ATSAssistMod.gui.GroudUnitMenu.0.button.1=Speed limit notice
+ATSAssistMod.gui.GroudUnitMenu.0.button.2=Speed limit release
+ATSAssistMod.gui.GroudUnitMenu.0.button.4=Distance setting & Control start
+ATSAssistMod.gui.GroudUnitMenu.0.button.5=Control end
+ATSAssistMod.gui.GroudUnitMenu.0.button.6=Distance correction
+ATSAssistMod.gui.GroudUnitMenu.0.button.7=Stop detection
+ATSAssistMod.gui.GroudUnitMenu.0.button.9=Departure signal & Control start
+ATSAssistMod.gui.GroudUnitMenu.0.button.10=Control end
+ATSAssistMod.gui.GroudUnitMenu.0.button.11=Change target speed
+ATSAssistMod.gui.GroudUnitMenu.0.button.13=Change vehicle state
+ATSAssistMod.gui.GroudUnitMenu.0.button.14=Forced change
+ATSAssistMod.gui.GroudUnitMenu.0.button.20=Cancel
+
+ATSAssistMod.gui.GroudUnitMenu.1.title=Ground unit menu : ATC (ATO) : Speed limit notice
+ATSAssistMod.gui.GroudUnitMenu.1.text.0=Speed limit (km/h)
+ATSAssistMod.gui.GroudUnitMenu.1.text.1=Distance to start limit (m)
+
+ATSAssistMod.gui.GroudUnitMenu.2.title=Ground unit menu : ATC (ATO) : Speed limit release
+ATSAssistMod.gui.GroudUnitMenu.2.text.0=Cancel at the end
+
+ATSAssistMod.gui.GroudUnitMenu.4.title=Ground unit menu : TASC : Distance setting & Control start
+ATSAssistMod.gui.GroudUnitMenu.4.text.0=Stop position
+ATSAssistMod.gui.GroudUnitMenu.4.text.1=Criteria as first
+
+ATSAssistMod.gui.GroudUnitMenu.5.title=Ground unit menu : TASC : Control end
+
+ATSAssistMod.gui.GroudUnitMenu.6.title=Ground unit menu : TASC : Distance correction
+ATSAssistMod.gui.GroudUnitMenu.6.text.0=Stop position
+ATSAssistMod.gui.GroudUnitMenu.6.text.1=Criteria as first
+
+ATSAssistMod.gui.GroudUnitMenu.7.title=Ground unit menu : Stop detection
+ATSAssistMod.gui.GroudUnitMenu.7.text.0=detect when not only in front
+
+ATSAssistMod.gui.GroudUnitMenu.9.title=Ground unit menu : ATO : Departure signal & Control start
+ATSAssistMod.gui.GroudUnitMenu.9.text.0=Target speed
+
+ATSAssistMod.gui.GroudUnitMenu.10.title=Ground unit menu : ATO : Control end
+
+ATSAssistMod.gui.GroudUnitMenu.11.title=Ground unit menu : ATO : Change target speed
+ATSAssistMod.gui.GroudUnitMenu.11.text.0=Target speed
+
+ATSAssistMod.gui.GroudUnitMenu.13.title=Ground unit menu : TrainState : Change vehicle state
+ATSAssistMod.gui.GroudUnitMenu.13.text.0=detect when not only in front
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.0.state=Direction
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.1.state=Notch
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.2.state=Signal
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.3.state=Door
+ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.0=Both sides Close
+ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.1=Right side Open
+ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.2=Left side Open
+ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.3=Both sides Open
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.4.state.0=Headlight
+ATSAssistMod.gui.GroudUnitMenu.13.slider.4.state.1=Headlight|Taillight
+ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.0=OF
+ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.1=ON
+ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.2=ON
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.5.state=Pantograph
+ATSAssistMod.gui.GroudUnitMenu.13.slider.5.data.0=DOWN
+ATSAssistMod.gui.GroudUnitMenu.13.slider.5.data.1=UP
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.6.state=Chunk loader
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.7.state=Rollsign
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.8.state=Announce
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.9.state=Handle
+ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.0=Front
+ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.1=Off
+ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.2=Back
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.10.state=Interiorlight
+ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.0=OFF
+ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.1=ON
+ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.2=Rainbow
+
+ATSAssistMod.gui.GroudUnitMenu.13.slider.notchange=Not changed
+
+ATSAssistMod.gui.GroudUnitMenu.14.title=Ground unit menu : Train Protection : Forced change
+
+ATSAssistMod.gui.GroudUnitMenu.15.title=Ground unit menu : ATACS : Control end
+
+ATSAssistMod.IFTTTType.0=Error
+ATSAssistMod.IFTTTType.100=Select
+ATSAssistMod.IFTTTType.110=RS Input
+ATSAssistMod.IFTTTType.111=Minecraft Time
+ATSAssistMod.IFTTTType.112=Ambient light
+ATSAssistMod.IFTTTType.120=On Train
+ATSAssistMod.IFTTTType.121=Car(s)
+ATSAssistMod.IFTTTType.122=Speed
+ATSAssistMod.IFTTTType.123=TrainState
+ATSAssistMod.IFTTTType.124=TrainDataMap
+ATSAssistMod.IFTTTType.125=BlockDataMap
+ATSAssistMod.IFTTTType.130=Crossing inspection
+ATSAssistMod.IFTTTType.200=Select
+ATSAssistMod.IFTTTType.210=RS Output
+ATSAssistMod.IFTTTType.211=Play sound
+ATSAssistMod.IFTTTType.212=Execute command
+ATSAssistMod.IFTTTType.220=TrainState
+ATSAssistMod.IFTTTType.221=TrainDataMap
+ATSAssistMod.IFTTTType.222=BlockDataMap
+
+ATSAssistMod.IFTTT.DeteceMode.name=Detect Mode
+ATSAssistMod.IFTTT.DeteceMode.0=All
+ATSAssistMod.IFTTT.DeteceMode.1=First
+ATSAssistMod.IFTTT.DeteceMode.2=Last
+
+ATSAssistMod.gui.IFTTTMaterial.130.0=Start
+ATSAssistMod.gui.IFTTTMaterial.130.1=End
+
+ATSAssistMod.gui.IFTTTMaterial.210.0=Number of formation output
+ATSAssistMod.gui.IFTTTMaterial.210.1=Output level
+
+ATSAssistMod.gui.IFTTTMaterial.210.button.enable=Enable
+ATSAssistMod.gui.IFTTTMaterial.210.button.disable=Disable
+
+ATSAssistMod.gui.IFTTTMaterial.212.0=Run only once
+ATSAssistMod.gui.IFTTTMaterial.212.1=Command
+
+ATSAssistMod.gui.IFTTTMaterial.common.button.91.0=Add
+ATSAssistMod.gui.IFTTTMaterial.common.button.91.1=Change
+ATSAssistMod.gui.IFTTTMaterial.common.button.990=Back

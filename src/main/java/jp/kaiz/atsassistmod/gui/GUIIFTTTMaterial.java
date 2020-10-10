@@ -15,6 +15,7 @@ import jp.ngt.rtm.modelpack.state.DataType;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.resources.I18n;
 import org.apache.commons.lang3.SerializationUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -56,16 +57,17 @@ public class GUIIFTTTMaterial extends GuiScreen {
 			this.drawTexturedModalRect(0, 0, 0, 0, 256, 256);
 			GL11.glPopMatrix();
 		} else {
+			this.fontRendererObj.drawString("IFTTT : " + (this.type instanceof IFTTTContainer.This ? "This" : "That") + " : " + this.type.getName(),
+					this.width / 4, 20, 0xffffff);
 			switch (this.type.getId()) {
 				case 100://IFTTTType.This.Select
-//					GL11.glPushMatrix();
+				case 200://IFTTTType.That.Select
+					//					GL11.glPushMatrix();
 //					GL11.glTranslatef((this.width - tw) / 2f, (this.height - th) / 2f, 1.0F);
 //					GL11.glScalef(tw / 256f, tw / 256f, 1.0F);
 //					this.mc.getTextureManager().bindTexture(GuiTextureManager.ThisBaseLayer.texture);
 //					this.drawTexturedModalRect(0, 0, 0, 0, 256, 256);
 //					GL11.glPopMatrix();
-					this.fontRendererObj.drawString("IFTTT : This : 選択",
-							this.width / 4, 20, 0xffffff);
 					this.fontRendererObj.drawString("Minecraft",
 							this.width / 2 - 170, this.height / 2 - 90, 0xffffff);
 					this.fontRendererObj.drawString("RTM",
@@ -74,8 +76,6 @@ public class GUIIFTTTMaterial extends GuiScreen {
 							this.width / 2 - 170, this.height / 2 + 40, 0xffffff);
 					break;
 				case 110://RedStoneInput
-					this.fontRendererObj.drawString("IFTTT : This : RedStoneInput",
-							this.width / 4, 20, 0xffffff);
 					this.fontRendererObj.drawString("Input",
 							this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
 					ModeType modeType = ((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).getMode();
@@ -90,9 +90,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
 					}
 					break;
 				case 120://単純列検
-					this.fontRendererObj.drawString("IFTTT : This : 単純列車検知",
-							this.width / 4, 20, 0xffffff);
-					this.fontRendererObj.drawString("動作モード",
+					this.fontRendererObj.drawString(I18n.format("ATSAssistMod.IFTTT.DeteceMode.name"),
 							this.width / 2 - 75, this.height / 2 - 25, 0xffffff);
 					DetectMode detectMode = ((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).getDetectMode();
 					for (Object o : this.buttonList) {
@@ -103,8 +101,6 @@ public class GUIIFTTTMaterial extends GuiScreen {
 					}
 					break;
 				case 124://TrainDataMap
-					this.fontRendererObj.drawString("IFTTT : This : (Train)DataMap",
-							this.width / 4, 20, 0xffffff);
 					this.fontRendererObj.drawString("DataType",
 							this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
 					this.fontRendererObj.drawString("Key",
@@ -127,12 +123,10 @@ public class GUIIFTTTMaterial extends GuiScreen {
 						}
 					}
 					break;
-				case 130://単純列検
-					this.fontRendererObj.drawString("IFTTT : This : 踏切障検",
-							this.width / 4, 20, 0xffffff);
-					this.fontRendererObj.drawString("始点",
+				case 130://踏切障検
+					this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.130.0"),
 							this.width / 2 - 75, this.height / 2 - 25, 0xffffff);
-					this.fontRendererObj.drawString("終点",
+					this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.130.1"),
 							this.width / 2 - 75, this.height / 2, 0xffffff);
 					this.fontRendererObj.drawString("x",
 							this.width / 2 - 37, this.height / 2 - 45, 0xffffff);
@@ -141,28 +135,17 @@ public class GUIIFTTTMaterial extends GuiScreen {
 					this.fontRendererObj.drawString("z",
 							this.width / 2 + 33, this.height / 2 - 45, 0xffffff);
 					break;
-				case 200://IFTTTType.That.Select
-					this.fontRendererObj.drawString("IFTTT : That : 選択",
-							this.width / 4, 20, 0xffffff);
-					this.fontRendererObj.drawString("Minecraft",
-							this.width / 2 - 170, this.height / 2 - 90, 0xffffff);
-					this.fontRendererObj.drawString("RTM",
-							this.width / 2 - 170, this.height / 2 - 25, 0xffffff);
-					this.fontRendererObj.drawString("ATSAssist",
-							this.width / 2 - 170, this.height / 2 + 40, 0xffffff);
-					break;
 				case 210://RedStoneOutput
-					this.fontRendererObj.drawString("IFTTT : That : RedStone出力",
-							this.width / 4, 20, 0xffffff);
-					this.fontRendererObj.drawString("両数出力",
+					this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.0"),
 							this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
-					this.fontRendererObj.drawString("出力レベル",
+					this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.1"),
 							this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
 
 					for (Object o : this.buttonList) {
 						GuiButton button = (GuiButton) o;
 						if (button.id == 1000) {
-							button.displayString = ((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput() ? "有効" : "無効";
+							button.displayString =
+									I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.button." + (((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput() ? "enable" : "disable"));
 						}
 					}
 					for (GuiTextField textField : this.textFieldList) {
@@ -170,11 +153,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
 					}
 					break;
 				case 212://ExecuteCommand
-					this.fontRendererObj.drawString("IFTTT : That : コマンド実行",
-							this.width / 4, 20, 0xffffff);
-					this.fontRendererObj.drawString("一度のみ実行",
+					this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.0"),
 							this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
-					this.fontRendererObj.drawString("コマンド",
+					this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.1"),
 							this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
 					for (Object o : this.buttonList) {
 						GuiButton button = (GuiButton) o;
@@ -184,8 +165,6 @@ public class GUIIFTTTMaterial extends GuiScreen {
 					}
 					break;
 				case 221://DataMap
-					this.fontRendererObj.drawString("IFTTT : That : DataMap",
-							this.width / 4, 20, 0xffffff);
 					this.fontRendererObj.drawString("DataType",
 							this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
 					this.fontRendererObj.drawString("Key",
@@ -284,7 +263,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
 				this.addSelectButton(IFTTTType.This.Minecraft.values(), this.width / 2 - 170, this.height / 2 - 75);
 				this.addSelectButton(IFTTTType.This.RTM.values(), this.width / 2 - 170, this.height / 2 - 10);
 				this.addSelectButton(IFTTTType.This.ATSAssist.values(), this.width / 2 - 170, this.height / 2 + 55);
-				this.buttonList.add(new GuiButton(990, this.width / 2 - 50, this.height - 25, 100, 20, "戻る"));
+				this.buttonList.add(new GuiButton(990, this.width / 2 - 50, this.height - 25, 100, 20, I18n.format("ATSAssistMod.gui.IFTTTMaterial.common.button.990")));
 			} else if (id == 110) {//RedStoneInput
 				this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
 				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).getValue()), this.width / 2 + 30, this.height / 2 - 30, 2, 30);
@@ -310,7 +289,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
 				this.addSelectButton(IFTTTType.That.Minecraft.values(), this.width / 2 - 170, this.height / 2 - 75);
 				this.addSelectButton(IFTTTType.That.RTM.values(), this.width / 2 - 170, this.height / 2 - 10);
 				this.addSelectButton(IFTTTType.That.ATSAssist.values(), this.width / 2 - 170, this.height / 2 + 55);
-				this.buttonList.add(new GuiButton(990, this.width / 2 - 50, this.height - 25, 100, 20, "戻る"));
+				this.buttonList.add(new GuiButton(990, this.width / 2 - 50, this.height - 25, 100, 20, I18n.format("ATSAssistMod.gui.IFTTTMaterial.common.button.990")));
 			} else if (id == 210) {//RedStoneOutput
 				this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
 				this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).getOutputLevel()), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
@@ -329,8 +308,8 @@ public class GUIIFTTTMaterial extends GuiScreen {
 	}
 
 	private void addDownCommon() {
-		this.buttonList.add(new GuiButton(91, this.width / 2 - 110, this.height - 30, 100, 20, this.ifcbIndex == -1 ? "追加" : "変更"));
-		this.buttonList.add(new GuiButton(990, this.width / 2 + 10, this.height - 30, 100, 20, "戻る"));
+		this.buttonList.add(new GuiButton(91, this.width / 2 - 110, this.height - 30, 100, 20, I18n.format("ATSAssistMod.gui.IFTTTMaterial.common.button.91." + (this.ifcbIndex == -1 ? 0 : 1))));
+		this.buttonList.add(new GuiButton(990, this.width / 2 + 10, this.height - 30, 100, 20, I18n.format("ATSAssistMod.gui.IFTTTMaterial.common.button.990")));
 	}
 
 	private void addSelectButton(IFTTTType.IFTTTEnumBase[] e, int baseWidth, int baseHeight) {

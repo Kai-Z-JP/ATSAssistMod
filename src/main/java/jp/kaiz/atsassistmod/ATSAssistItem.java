@@ -10,9 +10,7 @@ public class ATSAssistItem {
 	public static Item itemDataMapEditor;
 
 	public void preInit() {
-		ATSAssistItem.itemTrainProtectionSelector = new TrainProtectionSelector();
-		GameRegistry.registerItem(ATSAssistItem.itemTrainProtectionSelector, ATSAssistCore.MODID + ":" + "trainProtectionSelector");
-		ATSAssistItem.itemDataMapEditor = new DataMapEditor();
-		GameRegistry.registerItem(ATSAssistItem.itemDataMapEditor, ATSAssistCore.MODID + ":" + "itemDataMapEditor");
+		GameRegistry.registerItem(itemTrainProtectionSelector = new TrainProtectionSelector(), ATSAssistCore.MODID + ":" + "trainProtectionSelector");
+		GameRegistry.registerItem(itemDataMapEditor = new DataMapEditor(), ATSAssistCore.MODID + ":" + "itemDataMapEditor");
 	}
 }

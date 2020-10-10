@@ -54,7 +54,7 @@ public class ATACSController extends TrainProtection {
 					double nowRailLength = this.nowRM.getLength();
 					double trainDistance = this.otherTrainDistance + nowRailLength - this.movedDistance;
 
-					if (this.setPatternSpeed(trainDistance)) {
+					if (this.setPatternSpeed(trainDistance, 0)) {
 
 					} else {
 						this.count--;
@@ -73,7 +73,7 @@ public class ATACSController extends TrainProtection {
 					double nowRailLength = this.nowRM.getLength();
 					trainDistance = trainDistance + nowRailLength - this.movedDistance;
 
-					if (this.setPatternSpeed(trainDistance)) {
+					if (this.setPatternSpeed(trainDistance, nowRailLength - this.movedDistance)) {
 						this.count = 0;
 					}
 				}
@@ -81,8 +81,8 @@ public class ATACSController extends TrainProtection {
 		}
 	}
 
-	private boolean setPatternSpeed(double trainDistance) {
-		if (trainDistance < 1d) {
+	private boolean setPatternSpeed(double trainDistance, double d0) {
+		if (trainDistance - d0 < 1d) {
 			return true;
 		}
 

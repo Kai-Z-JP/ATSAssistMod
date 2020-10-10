@@ -13,8 +13,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
-import java.util.Random;
-
 public class ATSAssistGUIHandler implements IGuiHandler {
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -48,7 +46,7 @@ public class ATSAssistGUIHandler implements IGuiHandler {
 				if (resourceState != null) {
 					DataMap dataMap = resourceState.dataMap;
 					if (dataMap != null) {
-						dataMap.setString("test" + new Random().nextInt(), "test", 1);
+//						dataMap.setString("test" + new Random().nextInt(), "test", 1);
 						return new GUIDataMapEditor((IModelSelector) tileEntity, dataMap);
 					}
 				}

@@ -25,8 +25,8 @@ public class GroundUnit extends BlockContainer {
         super(Material.rock);
         setCreativeTab(CreativeTabATSAssist.tabUtils);
         //modidないとテクスチャおかしくなる
-        setBlockName(ATSAssistCore.MODID + ":" + "groundUnit");
-        setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
+        setBlockName(ATSAssistCore.MODID + ":" + "GroundUnit");
+	    setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
         setStepSound(Block.soundTypeStone);
     }
 

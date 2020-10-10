@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 public class TrainProtectionSelector extends Item {
     public TrainProtectionSelector() {
         setCreativeTab(CreativeTabATSAssist.tabUtils);
-        setUnlocalizedName(ATSAssistCore.MODID + ":" + "trainProtectionSelector");
+	    setUnlocalizedName(ATSAssistCore.MODID + ":" + "TrainProtectionSelector");
     }
 
     @Override

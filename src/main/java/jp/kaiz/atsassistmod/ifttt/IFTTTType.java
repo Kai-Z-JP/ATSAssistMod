@@ -1,17 +1,16 @@
 package jp.kaiz.atsassistmod.ifttt;
 
+import net.minecraft.client.resources.I18n;
+
 public class IFTTTType {
 
 	public enum This implements IFTTTEnumBase {
-		Select(100, "選択");
-
+		Select(100);
 
 		private final int id;
-		private final String name;
 
-		This(int id, String name) {
+		This(int id) {
 			this.id = id;
-			this.name = name;
 		}
 
 		@Override
@@ -19,100 +18,69 @@ public class IFTTTType {
 			return id;
 		}
 
-		@Override
-		public String getName() {
-			return name;
-		}
-
 		public enum Minecraft implements IFTTTEnumBase {
-			RedStoneInput(110, "RS信号入力"),
-			Time(111, "Minecraft時間"),
-			Light(112, "周辺光"),
+			RedStoneInput(110),
+			Time(111),
+			Light(112),
 			;
 
 			private final int id;
-			private final String name;
 
-			Minecraft(int id, String name) {
+			Minecraft(int id) {
 				this.id = id;
-				this.name = name;
 			}
 
 			@Override
 			public int getId() {
 				return id;
-			}
-
-			@Override
-			public String getName() {
-				return name;
 			}
 		}
 
 		public enum RTM implements IFTTTEnumBase {
-			OnTrain(120, "単純車両検知"),
-			Cars(121, "両数"),
-			Speed(122, "速度"),
-			TrainState(123, "TrainState"),
-			TrainDataMap(124, "TrainDataMap"),
-			BlockDataMap(125, "BlockDataMap"),
+			OnTrain(120),
+			Cars(121),
+			Speed(122),
+			TrainState(123),
+			TrainDataMap(124),
+			BlockDataMap(125),
 			;
 
 			private final int id;
-			private final String name;
 
-			RTM(int id, String name) {
+			RTM(int id) {
 				this.id = id;
-				this.name = name;
 			}
 
 			@Override
 			public int getId() {
 				return id;
-			}
-
-			@Override
-			public String getName() {
-				return name;
 			}
 		}
 
 		public enum ATSAssist implements IFTTTEnumBase {
-			CODD(130, "踏切障検"),
+			CODD(130),
 			;
 
 			private final int id;
-			private final String name;
 
-			ATSAssist(int id, String name) {
+			ATSAssist(int id) {
 				this.id = id;
-				this.name = name;
 			}
-
 
 			@Override
 			public int getId() {
 				return id;
 			}
-
-			@Override
-			public String getName() {
-				return name;
-			}
 		}
-
-
 	}
 
 	public enum That implements IFTTTEnumBase {
-		Select(200, "選択");
+		Select(200);
 
 		private final int id;
-		private final String name;
 
-		That(int id, String name) {
+		That(int id) {
 			this.id = id;
-			this.name = name;
 		}
 
 		@Override
@@ -120,58 +88,39 @@ public class IFTTTType {
 			return id;
 		}
 
-		@Override
-		public String getName() {
-			return name;
-		}
-
 		public enum Minecraft implements IFTTTEnumBase {
-			RedStoneOutput(210, "RS信号出力"),
-			PlaySound(211, "音声再生"),
-			ExecuteCommand(212, "コマンド実行"),
+			RedStoneOutput(210),
+			PlaySound(211),
+			ExecuteCommand(212),
 			;
 
 			private final int id;
-			private final String name;
 
-			Minecraft(int id, String name) {
+			Minecraft(int id) {
 				this.id = id;
-				this.name = name;
 			}
 
 			@Override
 			public int getId() {
 				return id;
-			}
-
-			@Override
-			public String getName() {
-				return name;
 			}
 		}
 
 		public enum RTM implements IFTTTEnumBase {
-			TrainState(220, "TrainState"),
-			TrainDataMap(221, "TrainDataMap"),
-			BlockDataMap(222, "BlockDataMap"),
+			TrainState(220),
+			TrainDataMap(221),
+			BlockDataMap(222),
 			;
 
 			private final int id;
-			private final String name;
 
-			RTM(int id, String name) {
+			RTM(int id) {
 				this.id = id;
-				this.name = name;
 			}
 
 			@Override
 			public int getId() {
 				return id;
-			}
-
-			@Override
-			public String getName() {
-				return name;
 			}
 		}
 
@@ -179,21 +128,14 @@ public class IFTTTType {
 			;
 
 			private final int id;
-			private final String name;
 
-			ATSAssist(int id, String name) {
+			ATSAssist(int id) {
 				this.id = id;
-				this.name = name;
 			}
 
 			@Override
 			public int getId() {
 				return id;
-			}
-
-			@Override
-			public String getName() {
-				return name;
 			}
 		}
 	}
@@ -201,7 +143,9 @@ public class IFTTTType {
 	public interface IFTTTEnumBase {
 		int getId();
 
-		String getName();
+		default String getName() {
+			return I18n.format("ATSAssistMod.IFTTTType." + this.getId());
+		}
 	}
 
 	public static IFTTTEnumBase getType(int par1) {

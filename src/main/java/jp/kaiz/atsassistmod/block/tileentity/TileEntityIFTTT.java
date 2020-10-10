@@ -43,8 +43,8 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
 		}
 		if (!this.worldObj.isRemote) {
 			AxisAlignedBB detect = AxisAlignedBB.getBoundingBox(
-					this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 3, this.zCoord + 1);
-			List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
+					this.xCoord - 1, this.yCoord, this.zCoord - 1, this.xCoord + 2, this.yCoord + 3, this.zCoord + 2);
+			List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class.getSuperclass(), detect);
 			EntityTrainBase train = list.isEmpty() ? null : (EntityTrainBase) list.get(0);
 			if (this.thisList.stream().allMatch(iftttContainer -> ((IFTTTContainer.This) iftttContainer).isCondition(this, train))) {
 				this.thatList.forEach(iftttContainer -> ((IFTTTContainer.That) iftttContainer).doThat(this, train, !this.notFirst));
