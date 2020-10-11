@@ -9,8 +9,8 @@
 
 ## What is this
 
-Free software ATSAssist can easily build a railway signaling equipment.  
-RTM内で簡単に保安装置を構築できるようにするmodです。
+Free software ATSAssist can easily build a railway signaling equipment.  \
+RTM内で簡単に保安装置を構築できるようにするmodです。\
 RTM 내에서 간단하게 보안장치를 구현할 수 있도록 하는 모드입니다.
 
 ## Download
