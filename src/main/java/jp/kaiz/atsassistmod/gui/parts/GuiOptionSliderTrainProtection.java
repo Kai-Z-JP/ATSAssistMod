@@ -23,7 +23,7 @@ public class GuiOptionSliderTrainProtection extends GuiButton {
         int all = TrainProtectionType.values().length - 1;
         this._temp = (float) number / (float) all;
 
-        this.displayString = this.nowValue.name;
+        this.displayString = this.nowValue.getDisplayName();
     }
 
     /**
@@ -79,7 +79,7 @@ public class GuiOptionSliderTrainProtection extends GuiButton {
             this._temp = (float) number / (float) all;
         }
 
-        this.displayString = this.nowValue.name;
+        this.displayString = this.nowValue.getDisplayName();
     }
 
     /**

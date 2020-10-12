@@ -61,21 +61,21 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
 	    int widthBaseR1 = this.width / 2 + 80;
 
 	    //TASC/ATO
-	    this.fontRendererObj.drawStringWithShadow(/*"運転切替"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.0"), widthBaseL + 20, heightBase - 25, 0xffffff);
-	    this.fontRendererObj.drawStringWithShadow(/*"手動"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.1"), widthBaseL, heightBase, 0xffffff);
-	    this.fontRendererObj.drawStringWithShadow(/*"TASC"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.2"), widthBaseL, heightBase + 25, 0xffffff);
-	    this.fontRendererObj.drawStringWithShadow(/*"TASC/ATO"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.3"), widthBaseL, heightBase + 50, 0xffffff);
+        this.fontRendererObj.drawStringWithShadow(/*"運転切替"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.0"), widthBaseL + 20, heightBase - 25, 0xffffff);
+        this.fontRendererObj.drawStringWithShadow(/*"手動"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.1"), widthBaseL, heightBase, 0xffffff);
+        this.fontRendererObj.drawStringWithShadow(/*"TASC"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.2"), widthBaseL, heightBase + 25, 0xffffff);
+        this.fontRendererObj.drawStringWithShadow(/*"TASC/ATO"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.3"), widthBaseL, heightBase + 50, 0xffffff);
 
-	    this.fontRendererObj.drawStringWithShadow(/*"HUD非表示"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.4"), widthBaseL, heightBase + 100, 0xffffff);
+        this.fontRendererObj.drawStringWithShadow(/*"HUD非表示"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.4"), widthBaseL, heightBase + 100, 0xffffff);
 
-	    //保安装置
-	    this.fontRendererObj.drawStringWithShadow(/*"保安装置切替"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.5"), widthBaseR0 + 50, heightBase - 25, 0xffffff);
-	    //開放
-	    this.fontRendererObj.drawStringWithShadow(TrainProtectionType.NONE.name, widthBaseR0, heightBase, 0xffffff);
-	    //開放
-	    this.fontRendererObj.drawStringWithShadow(TrainProtectionType.STATION_PREMISES.name, widthBaseR0, heightBase + 25, 0xffffff);
-	    for (TrainProtectionType type : this.validTPList) {
-            this.fontRendererObj.drawStringWithShadow(type.name, widthBaseR1, heightBase, 0xffffff);
+        //保安装置
+        this.fontRendererObj.drawStringWithShadow(/*"保安装置切替"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.5"), widthBaseR0 + 50, heightBase - 25, 0xffffff);
+        //開放
+        this.fontRendererObj.drawStringWithShadow(TrainProtectionType.NONE.getDisplayName(), widthBaseR0, heightBase, 0xffffff);
+        //開放
+        this.fontRendererObj.drawStringWithShadow(TrainProtectionType.STATION_PREMISES.getDisplayName(), widthBaseR0, heightBase + 25, 0xffffff);
+        for (TrainProtectionType type : this.validTPList) {
+            this.fontRendererObj.drawStringWithShadow(type.getDisplayName(), widthBaseR1, heightBase, 0xffffff);
             heightBase = heightBase + 25;
         }
 

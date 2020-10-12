@@ -142,14 +142,18 @@ public abstract class IFTTTContainer implements Serializable {
 				private static final long serialVersionUID = -6173509528806558810L;
 
 				public enum DetectMode {
-					All(I18n.format("ATSAssistMod.IFTTT.DeteceMode.0")),
-					FirstCar(I18n.format("ATSAssistMod.IFTTT.DeteceMode.1")),
-					LastCar(I18n.format("ATSAssistMod.IFTTT.DeteceMode.2"));
+					All("ATSAssistMod.IFTTT.DeteceMode.0"),
+					FirstCar("ATSAssistMod.IFTTT.DeteceMode.1"),
+					LastCar("ATSAssistMod.IFTTT.DeteceMode.2");
 
-					public final String name;
+					private final String name;
 
 					DetectMode(String name) {
 						this.name = name;
+					}
+
+					public String getDisplayName() {
+						return I18n.format(this.name);
 					}
 				}
 

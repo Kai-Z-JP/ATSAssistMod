@@ -72,7 +72,7 @@ public class TrainGuiRender extends GuiScreen {
 				fontrenderer.drawStringWithShadow("Limit: " + limitSpeed, k + 160, this.height - 20, 0x00FF00);
 
 				//TrainProtection
-				fontrenderer.drawStringWithShadow(tpType.name + ": " + tpSpeed, k + 160, this.height - 10, 0x00FF00);
+				fontrenderer.drawStringWithShadow(tpType.getDisplayName() + ": " + tpSpeed, k + 160, this.height - 10, 0x00FF00);
 
 			} else {
 				//cab表示なし
@@ -87,7 +87,7 @@ public class TrainGuiRender extends GuiScreen {
 				fontrenderer.drawStringWithShadow("Limit : " + limitSpeed, 2, this.height - 70, 16777215);
 
 				//TrainProtection
-				fontrenderer.drawStringWithShadow(tpType.name + " : " + tpSpeed, 2, this.height - 60, 16777215);
+				fontrenderer.drawStringWithShadow(tpType.getDisplayName() + " : " + tpSpeed, 2, this.height - 60, 16777215);
 			}
 		}
 	}

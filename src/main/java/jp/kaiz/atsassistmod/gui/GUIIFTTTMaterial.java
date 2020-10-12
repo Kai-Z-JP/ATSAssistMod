@@ -96,7 +96,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
 					for (Object o : this.buttonList) {
 						GuiButton button = (GuiButton) o;
 						if (button.id == 1000) {
-							button.displayString = detectMode.name;
+							button.displayString = detectMode.getDisplayName();
 						}
 					}
 					break;
