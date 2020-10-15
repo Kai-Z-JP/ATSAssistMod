@@ -358,8 +358,9 @@ public abstract class IFTTTContainer implements Serializable {
 				@Override
 				public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
 					return tile.getWorldObj().getEntitiesWithinAABB(EntityLiving.class.getSuperclass(), AxisAlignedBB.getBoundingBox(
-							this.startCC[0], this.startCC[1], this.startCC[2],
-							this.endCC[0], this.endCC[1], this.endCC[2])).stream().anyMatch(o ->
+							Math.min(this.startCC[0], this.endCC[0]), Math.min(this.startCC[1], this.endCC[1]), Math.min(this.startCC[2], this.endCC[2]),
+							Math.max(this.startCC[0], this.endCC[0]), Math.max(this.startCC[1], this.endCC[1]), Math.max(this.startCC[2], this.endCC[2])
+					)).stream().anyMatch(o ->
 							!((((Entity) o).ridingEntity instanceof EntityTrainBase) || (((Entity) o).ridingEntity instanceof EntityFloor)));
 				}
 			}
