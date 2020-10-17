@@ -6,7 +6,7 @@ import net.minecraft.client.gui.GuiTextField;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiScreenCustom extends GuiScreen {
+public abstract class GuiScreenCustom extends GuiScreen {
     protected final List<GuiTextField> textFieldList = new ArrayList<>();
 
     @Override
