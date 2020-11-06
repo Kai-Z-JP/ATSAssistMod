@@ -55,7 +55,7 @@ jobs:
                     # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
                     tag_name: ${{ github.ref }}
                     # The name of the release. For example, `Release v1.0.1`
-                    release_name: ${{(contains(${{ github.ref }}, "beta") && "Pre-Release") || "Release"}} ${{GITHUB_REF##*/}}
+                        release_name: Pre-Release ${{ github.ref }}
                     draft: true
                     prerelease: true
 
