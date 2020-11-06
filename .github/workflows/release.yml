@@ -40,7 +40,7 @@ jobs:
                 uses: actions/upload-artifact@v2
                 with:
                     # optional, default is artifact
-                    name: ATSAssistMod-${{ $SHA8 }}.jar
+                    name: ATSAssistMod-$SHA8.jar
                     # A file, directory or wildcard pattern that describes what to upload
                     path: build/libs/ATSAssistMod-latest.jar
 
@@ -51,7 +51,7 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 with:
                     # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
-                    tag_name: ${{ github.GITHUB_REF }}
+                    tag_name: ${{ github.ref }}
                     # The name of the release. For example, `Release v1.0.1`
                     release_name: ((contains(${{ github.ref }}, "beta") && Pre-Release) || Release) ${{ github.ref }}
                     draft: true
