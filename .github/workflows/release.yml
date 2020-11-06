@@ -39,7 +39,7 @@ jobs:
                 uses: actions/upload-artifact@v2
                 with:
                     # optional, default is artifact
-                    name: ATSAssistMod-$(echo ${GITHUB_SHA} | cut -c1-8).jar
+                    name: ATSAssistMod-${{ github.sha }}.jar
                     # A file, directory or wildcard pattern that describes what to upload
                     path: build/libs/ATSAssistMod-latest.jar
 
