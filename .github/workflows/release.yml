@@ -22,9 +22,6 @@ jobs:
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             -   uses: actions/checkout@v2
-            -   uses: benjlevesque/short-sha@v1.1
-                id: short-sha
-
             -   name: Set up JDK 1.8
                 uses: actions/setup-java@master
                 with:
@@ -42,7 +39,7 @@ jobs:
                 uses: actions/upload-artifact@v2
                 with:
                     # optional, default is artifact
-                    name: ATSAssistMod-${{ steps.short-sha.outputs.sha }}.jar
+                    name: ATSAssistMod-$(echo ${GITHUB_SHA} | cut -c1-8).jar
                     # A file, directory or wildcard pattern that describes what to upload
                     path: build/libs/ATSAssistMod-latest.jar
 
