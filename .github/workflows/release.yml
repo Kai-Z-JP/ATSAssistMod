@@ -17,10 +17,6 @@ jobs:
     build:
         # The type of runner that the job will run on
         runs-on: ubuntu-latest
-
-        env:
-            SHA7: ${GITHUB_SHA:7}
-            TAG: ${GITHUB_REF}
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -42,7 +38,7 @@ jobs:
                 uses: actions/upload-artifact@v2
                 with:
                     # optional, default is artifact
-                    name: ATSAssistMod-$SHA7.jar
+                    name: ATSAssistMod-${GITHUB_SHA::8}.jar
                     # A file, directory or wildcard pattern that describes what to upload
                     path: build/libs/ATSAssistMod-latest.jar
 
@@ -55,7 +51,7 @@ jobs:
                     # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
                     tag_name: $TAG
                     # The name of the release. For example, `Release v1.0.1`
-                    release_name: ((contains($TAG, "beta") && Pre-Release) || Release) $TAG
+                    release_name: ((contains(${GITHUB_REF}, "beta") && Pre-Release) || Release) ${GITHUB_REF}
                     draft: true
                     prerelease: true
 
@@ -67,8 +63,8 @@ jobs:
                     # The URL for uploading assets to the release
                     upload_url: ${{ steps.create_release.outputs.upload_url }}
                     # The path to the asset you want to upload
-                    asset_path: ./build/libs/ATSAssistMod$TAG.jar
+                    asset_path: ./build/libs/ATSAssistMod${GITHUB_REF}.jar
                     # The name of the asset you want to upload
-                    asset_name: ATSAssistMod-$TAG.jar
+                    asset_name: ATSAssistMod-${GITHUB_REF}.jar
                     # The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
                     asset_content_type: application/zip
