@@ -4,7 +4,6 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import jp.kaiz.atsassistmod.ATSAssistBlock;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.kaiz.atsassistmod.ifttt.IFTTTContainer;
 import jp.kaiz.atsassistmod.ifttt.IFTTTUtil;
@@ -63,7 +62,7 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
 		tile.markDirty();
 		tile.getDescriptionPacket();
 		world.markBlockForUpdate(message.x, message.y, message.z);
-		world.notifyBlockChange(message.x, message.y, message.z, ATSAssistBlock.blockIFTTT);
+		world.notifyBlockChange(message.x, message.y, message.z, tile.getBlockType());
 		return null;
 	}
 }

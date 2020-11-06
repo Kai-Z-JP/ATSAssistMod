@@ -450,6 +450,10 @@ public class GUIIFTTTMaterial extends GuiScreen {
 			this.type = (this.ifcb = new IFTTTContainer.That.Minecraft.RedStoneOutput()).getType();
 			this.ifcbIndex = -1;
 			return;
+		} else if (button.id == 211) {
+			this.type = (this.ifcb = new IFTTTContainer.That.Minecraft.PlaySound()).getType();
+			this.ifcbIndex = -1;
+			return;
 		} else if (button.id == 212) {
 			this.type = (this.ifcb = new IFTTTContainer.That.Minecraft.ExecuteCommand()).getType();
 			this.ifcbIndex = -1;

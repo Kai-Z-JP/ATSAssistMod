@@ -59,7 +59,7 @@ public class IFTTTType {
 
 		public enum ATSAssist implements IFTTTEnumBase {
 			CODD(130),
-			;
+			JavaScript(131);
 
 			private final int id;
 
@@ -110,6 +110,7 @@ public class IFTTTType {
 			TrainState(220),
 			TrainDataMap(221),
 			BlockDataMap(222),
+			Signal(223),
 			;
 
 			private final int id;
@@ -125,7 +126,7 @@ public class IFTTTType {
 		}
 
 		public enum ATSAssist implements IFTTTEnumBase {
-			;
+			JavaScript(230);
 
 			private final int id;
 
