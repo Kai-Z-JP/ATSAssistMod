@@ -39,7 +39,7 @@ jobs:
                 uses: actions/upload-artifact@v2
                 with:
                     # optional, default is artifact
-                    name: ATSAssistMod-latest.jar
+                    name: ATSAssistMod-${{ github.ref }}.jar
                     # A file, directory or wildcard pattern that describes what to upload
                     path: build/libs/ATSAssistMod-latest.jar
 
@@ -52,7 +52,7 @@ jobs:
                     # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
                     tag_name: ${{ github.ref }}
                     # The name of the release. For example, `Release v1.0.1`
-                    release_name: ((prerelease && Pre-Release) || Release) ${{ github.ref }}
+                    release_name: ((contains(${{ github.ref }}, "beta") && Pre-Release) || Release) ${{ github.ref }}
                     draft: true
                     prerelease: true
 
@@ -66,6 +66,6 @@ jobs:
                     # The path to the asset you want to upload
                     asset_path: ./build/libs/ATSAssistMod${{ github.ref }}.jar
                     # The name of the asset you want to upload
-                    asset_name: ATSAssistMod${{ github.ref }}.jar
+                    asset_name: ATSAssistMod-${{ github.ref }}.jar
                     # The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
                     asset_content_type: application/zip
