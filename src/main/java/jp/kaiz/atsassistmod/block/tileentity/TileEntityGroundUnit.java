@@ -205,7 +205,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
 			if (!this.worldObj.isRemote) {
 				if (!this.linkRedStone || this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)) {//レッドストーン確認
 					AxisAlignedBB detect = AxisAlignedBB.getBoundingBox(
-							this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 3, this.zCoord + 1);
+							this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 4, this.zCoord + 1);
 					List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
 					if (!list.isEmpty()) {
 						EntityTrainBase train = (EntityTrainBase) list.get(0);
