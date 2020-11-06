@@ -31,8 +31,7 @@ jobs:
                 run: chmod +x ./gradlew
 
             -   name: Build with Gradle
-                run: |
-                    ./gradlew build
+                run: ./gradlew build
 
             -   name: Upload build artifact
                 # タグ以外が push された場合のみ実行される
