@@ -258,13 +258,13 @@ public class TrainController implements Runnable {
         } else if (minBrakeNotch == 0) {
             if (this.tascController.isEnable()) {
                 if (this.tascController.isStopPosition()) {
-                    train.setNotch(-5);
+//                    train.setNotch(-6);
                     this.brakingControlling = false;
                     this.ATO = false;
                     if (speedH <= 0F) {
                         this.tascController.disable();
+                        return;
                     }
-                    return;
 //                } else if (speedH < 1) {
 //                    train.setNotch(-5);
 //                    this.brakingControlling = false;
@@ -285,13 +285,13 @@ public class TrainController implements Runnable {
             this.acceleratorControlling = false;
             if (this.tascController.isEnable()) {
                 if (this.tascController.isStopPosition()) {
-                    train.setNotch(-5);
+//                    train.setNotch(-6);
                     this.brakingControlling = false;
                     this.ATO = false;
                     if (speedH <= 0F) {
                         this.tascController.disable();
+                        return;
                     }
-                    return;
 //                } else if (speedH < 1) {
 //                    train.setNotch(-5);
 //                    this.brakingControlling = false;
