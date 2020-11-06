@@ -13,7 +13,6 @@ import jp.ngt.rtm.entity.train.parts.EntityVehiclePart;
 import jp.ngt.rtm.entity.vehicle.EntityVehicleBase;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 @SideOnly(Side.CLIENT)
@@ -31,19 +30,15 @@ public class ATSAssistEventHandlerClient {
 	}
 
 	@SubscribeEvent
-	public void onEntityEnteringChunk(EntityEvent.EnteringChunk event) {
-		if (event.entity instanceof EntityTrainBase) {
-			if (((EntityTrainBase) event.entity).getFormation() == null) {
-				ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketFormationSync((EntityTrainBase) event.entity, false));
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public void onEntityJoinWorld(EntityJoinWorldEvent event) {
 		if (event.entity instanceof EntityVehicleBase || event.entity instanceof EntityBogie || event.entity instanceof EntityVehiclePart) {
 			event.entity.renderDistanceWeight = 16 * ATSAssistCore.proxy.getMinecraft().gameSettings.renderDistanceChunks;
 			event.entity.ignoreFrustumCheck = true;
+		}
+		if (event.entity instanceof EntityTrainBase) {
+			if (((EntityTrainBase) event.entity).getFormation() == null) {
+				ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketFormationSync((EntityTrainBase) event.entity, false));
+			}
 		}
 	}
 }
