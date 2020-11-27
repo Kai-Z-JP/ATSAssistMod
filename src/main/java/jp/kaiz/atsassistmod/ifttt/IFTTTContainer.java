@@ -197,6 +197,72 @@ public abstract class IFTTTContainer implements Serializable {
                 }
             }
 
+            public static class Speed extends This {
+//                private static final long serialVersionUID = -6173509528806558810L;   // なにこれ
+
+                public enum ModeType {
+                    GREATER_EQUAL(">=", true),
+                    LESS_EQUAL("<=", true);
+                    public final String name;
+                    public final boolean needStr;
+
+                    ModeType(String name, boolean needStr) {
+                        this.name = name;
+                        this.needStr = needStr;
+                    }
+                }
+
+                private int value;
+                private ModeType mode;
+
+                public Speed() {
+                    this.value = 0;
+                    this.mode = ModeType.GREATER_EQUAL;
+                }
+
+                public ModeType getMode() {
+                    return this.mode;
+                }
+
+                public int getValue() {
+                    return this.value;
+                }
+
+                public void setMode(ModeType mode) {
+                    this.mode = mode;
+                }
+
+                public void setValue(int value) {
+                    this.value = value;
+                }
+
+                @Override
+                public IFTTTType.IFTTTEnumBase getType() {
+                    return IFTTTType.This.RTM.Speed;
+                }
+
+                @Override
+                public String[] getExplanation() {
+                    return new String[]{"Speed" + this.mode.name + this.value};
+                }
+
+                @Override
+                public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
+                    if(train != null && train.isControlCar()) {
+                        int trainSpeed = Math.round(train.getSpeed() * 72);
+                        switch (this.mode) {
+                            case GREATER_EQUAL:
+                                return trainSpeed >= this.value;
+                            case LESS_EQUAL:
+                                return trainSpeed <= this.value;
+                            default:
+                                return false;
+                        }
+                    }
+                    return false;
+                }
+            }
+
             public static class TrainDataMap extends This {
                 private static final long serialVersionUID = -8546481139822877274L;
                 private DataType dataType;
@@ -352,8 +418,8 @@ public abstract class IFTTTContainer implements Serializable {
                 @Override
                 public String[] getExplanation() {
                     return new String[]{
-                            java.lang.String.format("x:%s, y:%s, z:%s", this.startCC[0], this.startCC[1], this.startCC[2]),
-                            java.lang.String.format("x:%s, y:%s, z:%s", this.endCC[0], this.endCC[1], this.endCC[2])
+                            String.format("x:%s, y:%s, z:%s", this.startCC[0], this.startCC[1], this.startCC[2]),
+                            String.format("x:%s, y:%s, z:%s", this.endCC[0], this.endCC[1], this.endCC[2])
                     };
                 }
 
