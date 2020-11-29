@@ -17,28 +17,28 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 @SideOnly(Side.CLIENT)
 public class ATSAssistEventHandlerClient {
-	private final TrainGuiRender guiRender;
+    private final TrainGuiRender guiRender;
 
-	public ATSAssistEventHandlerClient(Minecraft mc) {
-		this.guiRender = new TrainGuiRender(mc);
-	}
+    public ATSAssistEventHandlerClient(Minecraft mc) {
+        this.guiRender = new TrainGuiRender(mc);
+    }
 
 
-	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public void onRenderGui(RenderGameOverlayEvent.Pre event) {
-		this.guiRender.onRenderGui(event);
-	}
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onRenderGui(RenderGameOverlayEvent.Pre event) {
+        this.guiRender.onRenderGui(event);
+    }
 
-	@SubscribeEvent
-	public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-		if (event.entity instanceof EntityVehicleBase || event.entity instanceof EntityBogie || event.entity instanceof EntityVehiclePart) {
-			event.entity.renderDistanceWeight = 16 * ATSAssistCore.proxy.getMinecraft().gameSettings.renderDistanceChunks;
-			event.entity.ignoreFrustumCheck = true;
-		}
-		if (event.entity instanceof EntityTrainBase) {
-			if (((EntityTrainBase) event.entity).getFormation() == null) {
-				ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketFormationSync((EntityTrainBase) event.entity, false));
-			}
-		}
-	}
+    @SubscribeEvent
+    public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+        if (event.entity instanceof EntityVehicleBase || event.entity instanceof EntityBogie || event.entity instanceof EntityVehiclePart) {
+            event.entity.renderDistanceWeight = 16 * ATSAssistCore.proxy.getMinecraft().gameSettings.renderDistanceChunks;
+            event.entity.ignoreFrustumCheck = true;
+        }
+        if (event.entity instanceof EntityTrainBase) {
+            if (((EntityTrainBase) event.entity).getFormation() == null) {
+                ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketFormationSync((EntityTrainBase) event.entity, false));
+            }
+        }
+    }
 }

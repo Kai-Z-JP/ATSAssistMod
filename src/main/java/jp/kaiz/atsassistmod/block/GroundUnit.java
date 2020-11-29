@@ -27,7 +27,7 @@ public class GroundUnit extends BlockContainer {
         //modidないとテクスチャおかしくなる
         setBlockName(ATSAssistCore.MODID + ":" + "GroundUnit");
 	    setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
-        setStepSound(Block.soundTypeStone);
+	    setStepSound(Block.soundTypeStone);
     }
 
 //    0:無動作
@@ -52,12 +52,12 @@ public class GroundUnit extends BlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float posX, float posY, float posZ) {
         //ブロックを右クリックした際の動作
-        player.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, player.worldObj, x, y, z);
-        return true;
+	    player.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, player.worldObj, x, y, z);
+	    return true;
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
+	@Override
+	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return iicon[meta];
 	}

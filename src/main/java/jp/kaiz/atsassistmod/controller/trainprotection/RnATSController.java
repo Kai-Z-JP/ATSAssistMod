@@ -63,16 +63,16 @@ public class RnATSController extends TrainProtection {
 		if (overSpeed > 5) {
 			return -7;
 		} else if (overSpeed > 0) {
-            return -4;
-        } else {
-            return 1;
-        }
-    }
+			return -4;
+		} else {
+			return 1;
+		}
+	}
 
-    @Override
-    public TrainProtectionType getType() {
-        return TrainProtectionType.RnATS;
-    }
+	@Override
+	public TrainProtectionType getType() {
+		return TrainProtectionType.RnATS;
+	}
 
     @Override
     public int getDisplaySpeed() {
