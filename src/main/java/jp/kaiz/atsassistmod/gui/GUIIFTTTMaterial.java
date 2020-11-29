@@ -459,6 +459,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
 		} else if (button.id == 122) {
 			this.type = (this.ifcb = new IFTTTContainer.This.RTM.Speed()).getType();
 			this.ifcbIndex = -1;
+			return;
 		} else if (button.id == 124) {
 			this.type = (this.ifcb = new IFTTTContainer.This.RTM.TrainDataMap()).getType();
 			this.ifcbIndex = -1;
