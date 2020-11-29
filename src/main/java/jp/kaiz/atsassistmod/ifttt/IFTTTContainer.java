@@ -198,38 +198,25 @@ public abstract class IFTTTContainer implements Serializable {
             }
 
             public static class Speed extends This {
-//                private static final long serialVersionUID = -6173509528806558810L;   // なにこれ
-
-                public enum ModeType {
-                    GREATER_EQUAL(">=", true),
-                    LESS_EQUAL("<=", true);
-                    public final String name;
-                    public final boolean needStr;
-
-                    ModeType(String name, boolean needStr) {
-                        this.name = name;
-                        this.needStr = needStr;
-                    }
-                }
-
+                private static final long serialVersionUID = 6976046959593179672L;
                 private int value;
-                private ModeType mode;
+                private ComparisonManager.Integer comparisonType;
 
                 public Speed() {
                     this.value = 0;
-                    this.mode = ModeType.GREATER_EQUAL;
+                    this.comparisonType = ComparisonManager.Integer.GREATER_EQUAL;
                 }
 
-                public ModeType getMode() {
-                    return this.mode;
+                public ComparisonManager.Integer getMode() {
+                    return this.comparisonType;
                 }
 
                 public int getValue() {
                     return this.value;
                 }
 
-                public void setMode(ModeType mode) {
-                    this.mode = mode;
+                public void setMode(ComparisonManager.Integer mode) {
+                    this.comparisonType = mode;
                 }
 
                 public void setValue(int value) {
@@ -243,23 +230,12 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public String[] getExplanation() {
-                    return new String[]{"Speed" + this.mode.name + this.value};
+                    return new String[]{"Speed" + this.comparisonType.getName() + this.value};
                 }
 
                 @Override
                 public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
-                    if(train != null && train.isControlCar()) {
-                        int trainSpeed = Math.round(train.getSpeed() * 72);
-                        switch (this.mode) {
-                            case GREATER_EQUAL:
-                                return trainSpeed >= this.value;
-                            case LESS_EQUAL:
-                                return trainSpeed <= this.value;
-                            default:
-                                return false;
-                        }
-                    }
-                    return false;
+                    return train != null && this.comparisonType.isTrue(Math.round(train.getSpeed() * 72), this.value);
                 }
             }
 

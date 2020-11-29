@@ -103,15 +103,12 @@ public class GUIIFTTTMaterial extends GuiScreen {
 				case 122://速度
 					this.fontRendererObj.drawString("Speed",
 							this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
-					IFTTTContainer.This.RTM.Speed.ModeType modeType2 = ((IFTTTContainer.This.RTM.Speed) this.ifcb).getMode();
+					ComparisonManager.Integer modeType2 = ((IFTTTContainer.This.RTM.Speed) this.ifcb).getMode();
 					for (Object o : this.buttonList) {
 						GuiButton button = (GuiButton) o;
 						if (button.id == 1000) {
-							button.displayString = modeType2.name;
+							button.displayString = modeType2.getName();
 						}
-					}
-					for (GuiTextField textField : this.textFieldList) {
-						textField.setVisible(modeType2.needStr);
 					}
 					break;
 				case 124://TrainDataMap
@@ -459,7 +456,6 @@ public class GUIIFTTTMaterial extends GuiScreen {
 		} else if (button.id == 122) {
 			this.type = (this.ifcb = new IFTTTContainer.This.RTM.Speed()).getType();
 			this.ifcbIndex = -1;
-			return;
 		} else if (button.id == 124) {
 			this.type = (this.ifcb = new IFTTTContainer.This.RTM.TrainDataMap()).getType();
 			this.ifcbIndex = -1;
@@ -550,8 +546,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
 				case 122:
 					switch (button.id) {
 						case 1000:
-							IFTTTContainer.This.RTM.Speed.ModeType modeType = ((IFTTTContainer.This.RTM.Speed) this.ifcb).getMode();
-							((IFTTTContainer.This.RTM.Speed) this.ifcb).setMode((IFTTTContainer.This.RTM.Speed.ModeType) KaizUtils.getNextEnum(modeType));
+							ComparisonManager.Integer modeType = ((IFTTTContainer.This.RTM.Speed) this.ifcb).getMode();
+							((IFTTTContainer.This.RTM.Speed) this.ifcb).setMode(
+									modeType == ComparisonManager.Integer.GREATER_EQUAL ? ComparisonManager.Integer.LESS_EQUAL : ComparisonManager.Integer.GREATER_EQUAL);
 							break;
 					}
 					break;
