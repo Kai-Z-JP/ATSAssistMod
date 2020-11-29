@@ -145,6 +145,7 @@ ATSAssistMod.IFTTTType.212=コマンド実行
 ATSAssistMod.IFTTTType.220=TrainState
 ATSAssistMod.IFTTTType.221=TrainDataMap
 ATSAssistMod.IFTTTType.222=BlockDataMap
+ATSAssistMod.IFTTTType.223=信号
 
 ATSAssistMod.IFTTT.DeteceMode.name=動作モード
 ATSAssistMod.IFTTT.DeteceMode.0=全車

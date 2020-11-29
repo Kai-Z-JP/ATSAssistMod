@@ -16,6 +16,8 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
 
+import java.util.List;
+
 public class GUIGroundUnit extends GuiScreenCustom {
 
 	private final TileEntityGroundUnit tile;
@@ -314,11 +316,7 @@ public class GUIGroundUnit extends GuiScreenCustom {
 
 		if (par2 == Keyboard.KEY_PERIOD ||
 				par2 == Keyboard.KEY_DECIMAL) {
-			for (GuiTextField textField : this.textFieldList) {
-				if (textField.getMaxStringLength() == 5) {
-					textField.textboxKeyTyped(par1, par2);
-				}
-			}
+			this.textFieldList.stream().filter(textField -> textField.getMaxStringLength() == 5).forEach(textField -> textField.textboxKeyTyped(par1, par2));
 		}
 	}
 
@@ -398,26 +396,12 @@ public class GUIGroundUnit extends GuiScreenCustom {
 
 	private byte[] getTrainStateBytes() {
 		byte[] bytes = new byte[12];
-		for (Object button : this.buttonList) {
-			if (button instanceof GuiOptionSliderTrainState) {
-				if (((GuiButton) button).id >= 100 && ((GuiButton) button).id <= 111) {
-					GuiOptionSliderTrainState slider = (GuiOptionSliderTrainState) button;
-					bytes[slider.id - 100] = slider.nowValue;
-				}
-			}
-		}
+		((List<GuiButton>) this.buttonList).stream().filter(GuiOptionSliderTrainState.class::isInstance).filter(button -> button.id >= 100 && button.id <= 111).map(GuiOptionSliderTrainState.class::cast).forEach(slider -> bytes[slider.id - 100] = slider.nowValue);
 		return bytes;
 	}
 
 	private TrainProtectionType getTrainProtection() {
-		for (Object button : this.buttonList) {
-			if (button instanceof GuiOptionSliderTrainProtection) {
-				if (((GuiButton) button).id == 100) {
-					return ((GuiOptionSliderTrainProtection) button).nowValue;
-				}
-			}
-		}
-		return TrainProtectionType.NONE;
+		return ((List<GuiButton>) this.buttonList).stream().filter(GuiOptionSliderTrainProtection.class::isInstance).filter(button -> button.id == 100).findFirst().map(button -> ((GuiOptionSliderTrainProtection) button).nowValue).orElse(TrainProtectionType.NONE);
 	}
 
 	private void sendPacket(int id) {

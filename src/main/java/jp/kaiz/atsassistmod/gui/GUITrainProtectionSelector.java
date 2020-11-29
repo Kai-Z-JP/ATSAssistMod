@@ -53,14 +53,14 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
     //this.fontRendererObj.drawString("ここに文字", 横座標, 縦座標, 白なら0xffffff);
     @Override
     public void drawScreen(int mouseX, int mouseZ, float partialTick) {
-	    this.drawDefaultBackground();
-	    super.drawScreen(mouseX, mouseZ, partialTick);
-	    int heightBase = this.height / 2 - 50;
-	    int widthBaseL = this.width / 2 - 130;
-	    int widthBaseR0 = this.width / 2 - 10;
-	    int widthBaseR1 = this.width / 2 + 80;
+        this.drawDefaultBackground();
+        super.drawScreen(mouseX, mouseZ, partialTick);
+        int heightBase = this.height / 2 - 50;
+        int widthBaseL = this.width / 2 - 130;
+        int widthBaseR0 = this.width / 2 - 10;
+        int widthBaseR1 = this.width / 2 + 80;
 
-	    //TASC/ATO
+        //TASC/ATO
         this.fontRendererObj.drawStringWithShadow(/*"運転切替"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.0"), widthBaseL + 20, heightBase - 25, 0xffffff);
         this.fontRendererObj.drawStringWithShadow(/*"手動"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.1"), widthBaseL, heightBase, 0xffffff);
         this.fontRendererObj.drawStringWithShadow(/*"TASC"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.2"), widthBaseL, heightBase + 25, 0xffffff);
@@ -80,8 +80,7 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
         }
 
 
-        for (Object o : this.buttonList) {
-            GuiButton button = (GuiButton) o;
+        for (GuiButton button : (List<GuiButton>) this.buttonList) {
             switch (button.id) {
                 case 10:
                     button.displayString = this.tcc == null ? "X" : !this.tcc.isTASC() & !this.tcc.isATO() ? "X" : "";

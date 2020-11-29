@@ -197,6 +197,48 @@ public abstract class IFTTTContainer implements Serializable {
                 }
             }
 
+            public static class Speed extends This {
+                private static final long serialVersionUID = 6976046959593179672L;
+                private int value;
+                private ComparisonManager.Integer comparisonType;
+
+                public Speed() {
+                    this.value = 0;
+                    this.comparisonType = ComparisonManager.Integer.GREATER_EQUAL;
+                }
+
+                public ComparisonManager.Integer getMode() {
+                    return this.comparisonType;
+                }
+
+                public int getValue() {
+                    return this.value;
+                }
+
+                public void setMode(ComparisonManager.Integer mode) {
+                    this.comparisonType = mode;
+                }
+
+                public void setValue(int value) {
+                    this.value = value;
+                }
+
+                @Override
+                public IFTTTType.IFTTTEnumBase getType() {
+                    return IFTTTType.This.RTM.Speed;
+                }
+
+                @Override
+                public String[] getExplanation() {
+                    return new String[]{"Speed" + this.comparisonType.getName() + this.value};
+                }
+
+                @Override
+                public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
+                    return train != null && this.comparisonType.isTrue(Math.round(train.getSpeed() * 72), this.value);
+                }
+            }
+
             public static class TrainDataMap extends This {
                 private static final long serialVersionUID = -8546481139822877274L;
                 private DataType dataType;
@@ -352,8 +394,8 @@ public abstract class IFTTTContainer implements Serializable {
                 @Override
                 public String[] getExplanation() {
                     return new String[]{
-                            java.lang.String.format("x:%s, y:%s, z:%s", this.startCC[0], this.startCC[1], this.startCC[2]),
-                            java.lang.String.format("x:%s, y:%s, z:%s", this.endCC[0], this.endCC[1], this.endCC[2])
+                            String.format("x:%s, y:%s, z:%s", this.startCC[0], this.startCC[1], this.startCC[2]),
+                            String.format("x:%s, y:%s, z:%s", this.endCC[0], this.endCC[1], this.endCC[2])
                     };
                 }
 
