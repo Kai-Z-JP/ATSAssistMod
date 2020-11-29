@@ -100,6 +100,17 @@ public class GUIIFTTTMaterial extends GuiScreen {
 						}
 					}
 					break;
+				case 122://速度
+					this.fontRendererObj.drawString("Speed",
+							this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
+					ComparisonManager.Integer modeType2 = ((IFTTTContainer.This.RTM.Speed) this.ifcb).getMode();
+					for (Object o : this.buttonList) {
+						GuiButton button = (GuiButton) o;
+						if (button.id == 1000) {
+							button.displayString = modeType2.getName();
+						}
+					}
+					break;
 				case 124://TrainDataMap
 					this.fontRendererObj.drawString("DataType",
 							this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
@@ -271,6 +282,10 @@ public class GUIIFTTTMaterial extends GuiScreen {
 			} else if (id == 120) {//単純列検
 				this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 30, 60, 20, ""));
 				this.addDownCommon();
+			} else if (id == 122) {//速度
+				this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
+				this.addGuiTextField(String.valueOf(((IFTTTContainer.This.RTM.Speed) this.ifcb).getValue()), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
+				this.addDownCommon();
 			} else if (id == 124) {//TrainDataMap
 				this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
 				this.buttonList.add(new GuiButton(1001, this.width / 2 - 15, this.height / 2 - 5, 30, 20, ""));
@@ -438,6 +453,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
 			this.type = (this.ifcb = new IFTTTContainer.This.RTM.SimpleDetectTrain()).getType();
 			this.ifcbIndex = -1;
 			return;
+		} else if (button.id == 122) {
+			this.type = (this.ifcb = new IFTTTContainer.This.RTM.Speed()).getType();
+			this.ifcbIndex = -1;
 		} else if (button.id == 124) {
 			this.type = (this.ifcb = new IFTTTContainer.This.RTM.TrainDataMap()).getType();
 			this.ifcbIndex = -1;
@@ -477,6 +495,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
 						((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).setValue(this.getIntGuiTextFieldText(0));
 						break;
 					case 120:
+						break;
+					case 122:
+						((IFTTTContainer.This.RTM.Speed) this.ifcb).setValue(this.getIntGuiTextFieldText(0));
 						break;
 					case 124:
 						((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).setKey(this.getStringGuiTextFieldText(0));
@@ -519,6 +540,15 @@ public class GUIIFTTTMaterial extends GuiScreen {
 						case 1000:
 							DetectMode modeType = ((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).getDetectMode();
 							((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).setDetectMode((DetectMode) KaizUtils.getNextEnum(modeType));
+							break;
+					}
+					break;
+				case 122:
+					switch (button.id) {
+						case 1000:
+							ComparisonManager.Integer modeType = ((IFTTTContainer.This.RTM.Speed) this.ifcb).getMode();
+							((IFTTTContainer.This.RTM.Speed) this.ifcb).setMode(
+									modeType == ComparisonManager.Integer.GREATER_EQUAL ? ComparisonManager.Integer.LESS_EQUAL : ComparisonManager.Integer.GREATER_EQUAL);
 							break;
 					}
 					break;
