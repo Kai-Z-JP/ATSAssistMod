@@ -80,8 +80,7 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
         }
 
 
-        for (Object o : this.buttonList) {
-            GuiButton button = (GuiButton) o;
+        for (GuiButton button : (List<GuiButton>) this.buttonList) {
             switch (button.id) {
                 case 10:
                     button.displayString = this.tcc == null ? "X" : !this.tcc.isTASC() & !this.tcc.isATO() ? "X" : "";

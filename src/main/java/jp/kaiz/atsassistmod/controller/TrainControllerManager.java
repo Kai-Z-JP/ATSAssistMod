@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class TrainControllerManager {
 	private static final Map<Long, TrainController> trackingTrainMap = new HashMap<>();
@@ -33,8 +32,8 @@ public class TrainControllerManager {
 			return;
 		}
 		List<Long> delList = new ArrayList<>();
-		for (Entry<Long, TrainController> entry : trackingTrainMap.entrySet()) {
-			long fid = entry.getKey();
+		trackingTrainMap.forEach((key, tcs) -> {
+			long fid = key;
 			Formation formation = FormationManager.getInstance().getFormation(fid);
 			EntityTrainBase controlCar = null;
 			if (formation != null && formation.size() != 0) {
@@ -42,9 +41,8 @@ public class TrainControllerManager {
 					if (formationEntry == null || formationEntry.train == null) {
 						continue;
 					}
-					if (formationEntry.train.isControlCar()) {
+					if (!formationEntry.train.isControlCar()) {
 						controlCar = formationEntry.train;
-						TrainController tcs = entry.getValue();
 						if (controlCar.getEntityId() == tcs.getSavedEntityID()) {
 							Thread thread = new Thread(tcs);
 							thread.setName("Server thread");
@@ -61,10 +59,10 @@ public class TrainControllerManager {
 					delList.add(fid);
 				}
 			}
-		}
-		for (Long aLong : delList) {
+		});
+		delList.forEach(aLong -> {
 			ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketTrainControllerToClient(aLong));
 			trackingTrainMap.remove(aLong);
-		}
+		});
 	}
 }

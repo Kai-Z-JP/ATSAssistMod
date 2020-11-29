@@ -148,7 +148,7 @@ public class TrainController implements Runnable {
 
         List<SpeedOrder> removeList = new ArrayList<>();
         //制限速度
-        for (SpeedOrder speedOrder : this.speedOrderList) {
+        this.speedOrderList.forEach(speedOrder -> {
             if (speedOrder.isEnable()) {
                 //制限速度区間に入った時
                 this.speedLimit.add(speedOrder.getTargetSpeed());
@@ -160,7 +160,7 @@ public class TrainController implements Runnable {
                     brakeNotch.add(speedOrder.getNeedNotch(speedH));
                 }
             }
-        }
+        });
 
         this.speedOrderList.removeAll(removeList);
 

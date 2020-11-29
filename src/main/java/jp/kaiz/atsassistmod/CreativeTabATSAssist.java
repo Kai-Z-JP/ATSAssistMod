@@ -15,7 +15,7 @@ public class CreativeTabATSAssist extends CreativeTabs {
     @Override
     @SideOnly(Side.CLIENT)
     public Item getTabIconItem() {
-        return Item.getItemFromBlock(ATSAssistBlock.blockGroundUnit);
+        return Item.getItemFromBlock(ATSAssistBlock.blockIFTTT);
     }
 
 

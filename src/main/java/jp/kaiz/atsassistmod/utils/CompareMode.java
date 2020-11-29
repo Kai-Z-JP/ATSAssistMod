@@ -1,5 +1,7 @@
 package jp.kaiz.atsassistmod.utils;
 
+import java.util.Arrays;
+
 public enum CompareMode {
 	EQUAL(0, "=="),
 	GREATER_THAN(1, ">"),
@@ -17,11 +19,6 @@ public enum CompareMode {
 	}
 
 	public static CompareMode getType(int id) {
-		for (CompareMode type : CompareMode.values()) {
-			if (type.id == id) {
-				return type;
-			}
-		}
-		return EQUAL;
+		return Arrays.stream(CompareMode.values()).filter(type -> type.id == id).findFirst().orElse(EQUAL);
 	}
 }

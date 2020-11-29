@@ -24,9 +24,6 @@ public class ATSAssistAPIHandlerServer {
 
 
 	private EntityTrainBase getRidingTrain(EntityPlayer player) {
-		if (player.isRiding() && player.ridingEntity instanceof EntityTrainBase) {
-			return (EntityTrainBase) player.ridingEntity;
-		}
-		return null;
+		return player.isRiding() && player.ridingEntity instanceof EntityTrainBase ? (EntityTrainBase) player.ridingEntity : null;
 	}
 }
