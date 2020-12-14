@@ -146,6 +146,7 @@ ATSAssistMod.IFTTTType.212=명령어 실행
 ATSAssistMod.IFTTTType.220=TrainState
 ATSAssistMod.IFTTTType.221=TrainDataMap
 ATSAssistMod.IFTTTType.222=BlockDataMap
+ATSAssistMod.IFTTTType.223=신호
 
 ATSAssistMod.IFTTT.DeteceMode.name=동작 모드
 ATSAssistMod.IFTTT.DeteceMode.0=모든 차량
