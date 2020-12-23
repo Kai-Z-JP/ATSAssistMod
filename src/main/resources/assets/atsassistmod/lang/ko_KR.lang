@@ -1,4 +1,3 @@
-#翻訳者の方へ。 英語版より日本語版を参照していただいたほうが文意がわかりやすいと思います。
 #역전핸들 관련 참고자료 http://www.kric.go.kr/servlet/ContentDownloadServlet?type=pdf&object_id=0900271a8021cc65
 tile.ATSAssistMod:GroundUnit.0.name=보안장치 블록(동작 없음)
 tile.ATSAssistMod:GroundUnit.1.name=보안장치 블록(ATC 제한예고)
@@ -139,6 +138,7 @@ ATSAssistMod.IFTTTType.123=TrainState
 ATSAssistMod.IFTTTType.124=TrainDataMap
 ATSAssistMod.IFTTTType.125=BlockDataMap
 ATSAssistMod.IFTTTType.130=건널목 장애 검사
+ATSAssistMod.IFTTTType.131=JavaScript
 ATSAssistMod.IFTTTType.200=선택
 ATSAssistMod.IFTTTType.210=RS신호 입출력
 ATSAssistMod.IFTTTType.211=음성 재생
@@ -146,6 +146,8 @@ ATSAssistMod.IFTTTType.212=명령어 실행
 ATSAssistMod.IFTTTType.220=TrainState
 ATSAssistMod.IFTTTType.221=TrainDataMap
 ATSAssistMod.IFTTTType.222=BlockDataMap
+ATSAssistMod.IFTTTType.223=신호
+ATSAssistMod.IFTTTType.230=JavaScript
 
 ATSAssistMod.IFTTT.DeteceMode.name=동작 모드
 ATSAssistMod.IFTTT.DeteceMode.0=모든 차량
