@@ -10,58 +10,58 @@ import jp.kaiz.atsassistmod.block.tileentity.TileEntityGroundUnit;
 import net.minecraft.world.World;
 
 public class PacketGroundUnitTileInit implements IMessage, IMessageHandler<PacketGroundUnitTileInit, IMessage> {
-	public int x, y, z;
-	public int id;
+    public int x, y, z;
+    public int id;
 
 
-	public PacketGroundUnitTileInit() {
-	}
+    public PacketGroundUnitTileInit() {
+    }
 
-	public PacketGroundUnitTileInit(int id, TileEntityGroundUnit tileEntity) {
-		this.x = tileEntity.xCoord;
-		this.y = tileEntity.yCoord;
-		this.z = tileEntity.zCoord;
-		this.id = id;
-	}
+    public PacketGroundUnitTileInit(int id, TileEntityGroundUnit tileEntity) {
+        this.x = tileEntity.xCoord;
+        this.y = tileEntity.yCoord;
+        this.z = tileEntity.zCoord;
+        this.id = id;
+    }
 
-	public PacketGroundUnitTileInit(int x, int y, int z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.id = -1;
-	}
+    public PacketGroundUnitTileInit(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.id = -1;
+    }
 
-	@Override
-	public void fromBytes(ByteBuf buf) {
-		this.x = buf.readInt();
-		this.y = buf.readInt();
-		this.z = buf.readInt();
-		this.id = buf.readInt();
-	}
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.x = buf.readInt();
+        this.y = buf.readInt();
+        this.z = buf.readInt();
+        this.id = buf.readInt();
+    }
 
-	@Override
-	public void toBytes(ByteBuf buf) {
-		buf.writeInt(this.x);
-		buf.writeInt(this.y);
-		buf.writeInt(this.z);
-		buf.writeInt(this.id);
-	}
+    @Override
+    public void toBytes(ByteBuf buf) {
+        buf.writeInt(this.x);
+        buf.writeInt(this.y);
+        buf.writeInt(this.z);
+        buf.writeInt(this.id);
+    }
 
-	@Override
-	public IMessage onMessage(PacketGroundUnitTileInit message, MessageContext ctx) {
-		if (message.id == -1) {
-			World world = ATSAssistCore.proxy.getWorld();
-			ATSAssistCore.proxy.getPlayer().openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, world, message.x, message.y, message.z);
-			return null;
-		} else {
-			World world = ctx.getServerHandler().playerEntity.worldObj;
-			world.setBlock(message.x, message.y, message.z, ATSAssistBlock.blockGroundUnit, message.id, 3);
-			TileEntityGroundUnit tile = (TileEntityGroundUnit) world.getTileEntity(message.x, message.y, message.z);
-			tile.markDirty();
-			tile.getDescriptionPacket();
-			world.markBlockForUpdate(message.x, message.y, message.z);
-			world.notifyBlockChange(message.x, message.y, message.z, ATSAssistBlock.blockGroundUnit);
-			return new PacketGroundUnitTileInit(message.x, message.y, message.z);
-		}
-	}
+    @Override
+    public IMessage onMessage(PacketGroundUnitTileInit message, MessageContext ctx) {
+        if (message.id == -1) {
+            World world = ATSAssistCore.proxy.getWorld();
+            ATSAssistCore.proxy.getPlayer().openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, world, message.x, message.y, message.z);
+            return null;
+        } else {
+            World world = ctx.getServerHandler().playerEntity.worldObj;
+            world.setBlock(message.x, message.y, message.z, ATSAssistBlock.blockGroundUnit, message.id, 3);
+            TileEntityGroundUnit tile = (TileEntityGroundUnit) world.getTileEntity(message.x, message.y, message.z);
+            tile.markDirty();
+            tile.getDescriptionPacket();
+            world.markBlockForUpdate(message.x, message.y, message.z);
+            world.notifyBlockChange(message.x, message.y, message.z, ATSAssistBlock.blockGroundUnit);
+            return new PacketGroundUnitTileInit(message.x, message.y, message.z);
+        }
+    }
 }
