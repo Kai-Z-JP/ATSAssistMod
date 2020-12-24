@@ -12,14 +12,14 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {
 
-	@Override
-	public void preInit() {
-		ATSAssistEventHandlerClient handler = new ATSAssistEventHandlerClient(this.getMinecraft());
-		MinecraftForge.EVENT_BUS.register(handler);
-	}
+    @Override
+    public void preInit() {
+        ATSAssistEventHandlerClient handler = new ATSAssistEventHandlerClient(this.getMinecraft());
+        MinecraftForge.EVENT_BUS.register(handler);
+    }
 
-	@Override
-	public void init() {
+    @Override
+    public void init() {
 //        try {
 //            ATSAssistSoundManager asm = new ATSAssistSoundManager();
 //            SoundHandler soundHandler = Minecraft.getMinecraft().getSoundHandler();
@@ -37,21 +37,21 @@ public class ClientProxy extends CommonProxy {
 //        } catch (NoSuchFieldException | IllegalAccessException e) {
 //            e.printStackTrace();
 //        }
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustom.class, new TileEntityBeamRenderer());
-	}
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCustom.class, new TileEntityBeamRenderer());
+    }
 
-	@Override
-	public World getWorld() {
-		return this.getMinecraft().theWorld;
-	}
+    @Override
+    public World getWorld() {
+        return this.getMinecraft().theWorld;
+    }
 
-	@Override
-	public EntityPlayer getPlayer() {
-		return this.getMinecraft().thePlayer;
-	}
+    @Override
+    public EntityPlayer getPlayer() {
+        return this.getMinecraft().thePlayer;
+    }
 
-	@Override
-	public Minecraft getMinecraft() {
-		return FMLClientHandler.instance().getClient();
-	}
+    @Override
+    public Minecraft getMinecraft() {
+        return FMLClientHandler.instance().getClient();
+    }
 }

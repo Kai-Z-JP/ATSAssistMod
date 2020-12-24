@@ -26,8 +26,8 @@ public class GroundUnit extends BlockContainer {
         setCreativeTab(CreativeTabATSAssist.tabUtils);
         //modidないとテクスチャおかしくなる
         setBlockName(ATSAssistCore.MODID + ":" + "GroundUnit");
-	    setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
-	    setStepSound(Block.soundTypeStone);
+        setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
+        setStepSound(Block.soundTypeStone);
     }
 
 //    0:無動作
@@ -52,58 +52,58 @@ public class GroundUnit extends BlockContainer {
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float posX, float posY, float posZ) {
         //ブロックを右クリックした際の動作
-	    player.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, player.worldObj, x, y, z);
-	    return true;
+        player.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, player.worldObj, x, y, z);
+        return true;
     }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta) {
-		return iicon[meta];
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta) {
+        return iicon[meta];
+    }
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister register) {
-		IntStream.range(0, 16).forEach(i -> this.iicon[i] = register.registerIcon(this.getTextureName() + "_" + i));
-	}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister register) {
+        IntStream.range(0, 16).forEach(i -> this.iicon[i] = register.registerIcon(this.getTextureName() + "_" + i));
+    }
 
-	@Override
-	public boolean hasTileEntity(int metadata) {
-		return true;
-	}
+    @Override
+    public boolean hasTileEntity(int metadata) {
+        return true;
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int metadata) {
-		return GroundUnitType.getType(metadata).getNewInstance();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int metadata) {
+        return GroundUnitType.getType(metadata).getNewInstance();
+    }
 
-	@Override
-	public boolean canProvidePower() {
-		return true;
-	}
+    @Override
+    public boolean canProvidePower() {
+        return true;
+    }
 
-	@Override
-	public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int direction) {
-		return 0;
-	}
+    @Override
+    public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int direction) {
+        return 0;
+    }
 
-	@Override
-	public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int direction) {
-		return this.isProvidingStrongPower(world, x, y, z, direction);
-	}
+    @Override
+    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int direction) {
+        return this.isProvidingStrongPower(world, x, y, z, direction);
+    }
 
-	@Override
-	public boolean hasComparatorInputOverride() {
-		return true;
-	}
+    @Override
+    public boolean hasComparatorInputOverride() {
+        return true;
+    }
 
-	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
-		return ((TileEntityGroundUnit) world.getTileEntity(x, y, z)).getRedStoneOutput();
-	}
+    @Override
+    public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
+        return ((TileEntityGroundUnit) world.getTileEntity(x, y, z)).getRedStoneOutput();
+    }
 
-	//メタデータによりドロップ品を変える 変えないほうが便利かも
+    //メタデータによりドロップ品を変える 変えないほうが便利かも
 //	@Override
 //	public int damageDropped(int meta) {
 //		return meta;

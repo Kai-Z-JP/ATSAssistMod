@@ -4,7 +4,7 @@ import jp.kaiz.atsassistmod.gui.GuiTextureManager;
 
 public class GuiButtonDelete extends GuiSmallButtonBase {
 
-	public GuiButtonDelete(int id, int xPos, int yPos) {
-		super(id, xPos, yPos, "Del", GuiTextureManager.DeleteButton.texture);
-	}
+    public GuiButtonDelete(int id, int xPos, int yPos) {
+        super(id, xPos, yPos, "Del", GuiTextureManager.DeleteButton.texture);
+    }
 }
