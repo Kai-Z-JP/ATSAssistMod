@@ -18,6 +18,7 @@ public class TrainControllerManager {
 
     public static TrainController getTrainController(EntityTrainBase train) {
         if (train == null || train.getFormation() == null) {
+            System.out.println("null!");
             return TrainController.NULL;
         }
         if (!trackingTrainMap.containsKey(train.getFormation().id)) {
@@ -41,13 +42,12 @@ public class TrainControllerManager {
                     if (formationEntry == null || formationEntry.train == null) {
                         continue;
                     }
-                    if (!formationEntry.train.isControlCar()) {
+                    if (formationEntry.train.isControlCar()) {
                         controlCar = formationEntry.train;
                         if (controlCar.getEntityId() == tcs.getSavedEntityID()) {
                             Thread thread = new Thread(tcs);
                             thread.setName("Server thread");
                             thread.start();
-//						    entry.getValue().onUpdate(controlCar);
                             ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketTrainControllerToClient(tcs, fid));
                             break;
                         } else {
