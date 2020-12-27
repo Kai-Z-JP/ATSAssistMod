@@ -18,7 +18,6 @@ public class TrainControllerManager {
 
     public static TrainController getTrainController(EntityTrainBase train) {
         if (train == null || train.getFormation() == null) {
-            System.out.println("null!");
             return TrainController.NULL;
         }
         if (!trackingTrainMap.containsKey(train.getFormation().id)) {
