@@ -807,7 +807,7 @@ public abstract class IFTTTContainer implements Serializable {
                             ScriptUtil.doScriptFunction(scriptEngine, "doThat", tile, train, first);
                             this.error = false;
                         } catch (RuntimeException e) {
-                            System.out.printf("[ATSA Notice] World: %s X:%s Y:%s Z:%s IFTTTBlock Script Error!", tile.getWorldObj().getProviderName(), tile.xCoord, tile.yCoord, tile.zCoord);
+                            System.out.printf("[ATSA Notice] X:%s Y:%s Z:%s IFTTTBlock Script Error!", tile.xCoord, tile.yCoord, tile.zCoord);
 
                             ((List<EntityPlayerMP>) tile.getWorldObj().playerEntities)
                                     .stream()
