@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import java.io.Serializable;
 
 public abstract class IFTTTContainer implements Serializable {
+    //Serializeが戻せなくなるからクラス名変更禁止
 
     private static final long serialVersionUID = -2781244534093360974L;
     protected boolean once;
@@ -194,6 +195,48 @@ public abstract class IFTTTContainer implements Serializable {
                             return train != null && (train.getFormation().size() == 1 || (!train.isControlCar() && (train.getConnectedTrain(0) == null || train.getConnectedTrain(1) == null)));
                     }
                     return false;
+                }
+            }
+
+            public static class Cars extends This {
+                private static final long serialVersionUID = -2131617513036808484L;
+                private int value;
+                private ComparisonManager.Integer comparisonType;
+
+                public Cars() {
+                    this.value = 0;
+                    this.comparisonType = ComparisonManager.Integer.GREATER_EQUAL;
+                }
+
+                public ComparisonManager.Integer getMode() {
+                    return this.comparisonType;
+                }
+
+                public int getValue() {
+                    return this.value;
+                }
+
+                public void setMode(ComparisonManager.Integer mode) {
+                    this.comparisonType = mode;
+                }
+
+                public void setValue(int value) {
+                    this.value = value;
+                }
+
+                @Override
+                public IFTTTType.IFTTTEnumBase getType() {
+                    return IFTTTType.This.RTM.Cars;
+                }
+
+                @Override
+                public String[] getExplanation() {
+                    return new String[]{"Cars" + this.comparisonType.getName() + this.value};
+                }
+
+                @Override
+                public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
+                    return train != null && train.getFormation() != null && this.comparisonType.isTrue(train.getFormation().size(), this.value);
                 }
             }
 
@@ -630,6 +673,36 @@ public abstract class IFTTTContainer implements Serializable {
                             }
                         } catch (Exception ignored) {
                         }
+                    }
+                }
+            }
+
+            public static class TrainSignal extends That {
+                private static final long serialVersionUID = 7174373529070856419L;
+                private int signal;
+
+                @Override
+                public IFTTTType.IFTTTEnumBase getType() {
+                    return IFTTTType.That.RTM.Signal;
+                }
+
+                @Override
+                public String[] getExplanation() {
+                    return new String[]{"SetSignal:" + this.signal};
+                }
+
+                public int getSignal() {
+                    return this.signal;
+                }
+
+                public void setSignal(int signal) {
+                    this.signal = signal;
+                }
+
+                @Override
+                public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
+                    if (train != null) {
+                        train.setSignal(this.signal);
                     }
                 }
             }
