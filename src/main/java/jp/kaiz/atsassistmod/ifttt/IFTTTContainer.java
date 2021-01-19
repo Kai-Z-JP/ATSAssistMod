@@ -813,7 +813,7 @@ public abstract class IFTTTContainer implements Serializable {
                                     .findFirst()
                                     .ifPresent(playerMP -> {
                                         playerMP.addChatMessage(new ChatComponentText("文法は以下を参考にしてください。"));
-                                        playerMP.addChatMessage(new ChatComponentText("https://github.com/Kai-Z-JP/ATSAssistMod/blob/master/MANUAL.md"));
+                                        playerMP.addChatMessage(new ChatComponentText("https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md"));
                                         playerMP.addChatMessage(new ChatComponentText("[ATSA Notice] World: %s X:%s Y:%s Z:%s Script Error!"));
                                         playerMP.addChatMessage(new ChatComponentText(e.getMessage()));
                                         playerMP.addChatMessage(new ChatComponentText(e.getCause().getMessage()));
