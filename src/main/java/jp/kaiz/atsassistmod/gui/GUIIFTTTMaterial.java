@@ -164,6 +164,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.fontRendererObj.drawString("SignalLevel",
                             this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
                     break;
+                case 230://JS
+                    this.fontRendererObj.drawString("Script Text",
+                            this.width / 2 - 100, this.height / 2 - 40, 0xffffff);
             }
         }
         super.drawScreen(mouseX, mouseZ, partialTick);
@@ -305,6 +308,10 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     break;
                 case 223: //TrainSignal
                     this.addGuiTextField(String.valueOf(((IFTTTContainer.That.RTM.TrainSignal) this.ifcb).getSignal()), this.width / 2 + 30, this.height / 2 - 30, 3, 50);
+                    this.addDownCommon();
+                    break;
+                case 230: //JS
+                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getJSText()), this.width / 2 - 100, this.height / 2 - 30, Integer.MAX_VALUE - 1, 200);
                     this.addDownCommon();
                     break;
             }
@@ -449,6 +456,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
             case 223:
                 this.changeIFC(new IFTTTContainer.This.That.RTM.TrainSignal());
                 return;
+            case 230:
+                this.changeIFC(new IFTTTContainer.This.That.ATSAssist.JavaScript());
+                return;
         }
 
         switch (button.id) {
@@ -496,6 +506,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
                         break;
                     case 223:
                         ((IFTTTContainer.That.RTM.TrainSignal) this.ifcb).setSignal(this.getIntGuiTextFieldText(0));
+                        break;
+                    case 230:
+                        ((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).setJSText(this.getStringGuiTextFieldText(0));
                         break;
                     default:
                         return;

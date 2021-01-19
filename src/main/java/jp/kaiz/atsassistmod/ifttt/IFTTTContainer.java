@@ -6,6 +6,7 @@ import jp.kaiz.atsassistmod.network.PacketPlaySoundIFTTT;
 import jp.kaiz.atsassistmod.sound.ATSASoundPlayer;
 import jp.kaiz.atsassistmod.utils.ComparisonManager;
 import jp.kaiz.atsassistmod.utils.KaizUtils;
+import jp.ngt.ngtlib.io.ScriptUtil;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.entity.train.parts.EntityFloor;
 import jp.ngt.rtm.modelpack.state.DataMap;
@@ -14,11 +15,16 @@ import jp.ngt.rtm.modelpack.state.ResourceState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
 
+import javax.script.ScriptEngine;
 import java.io.Serializable;
+import java.util.List;
+import java.util.UUID;
 
 public abstract class IFTTTContainer implements Serializable {
     //Serializeが戻せなくなるからクラス名変更禁止
@@ -755,6 +761,68 @@ public abstract class IFTTTContainer implements Serializable {
                 public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
                     if (train != null) {
                         train.setSignal(this.signal);
+                    }
+                }
+            }
+        }
+
+        public abstract static class ATSAssist {
+
+            public static class JavaScript extends That {
+                private static final long serialVersionUID = 1661419614469936838L;
+                private transient ScriptEngine scriptEngine;
+                private String jsText;
+                private boolean error;
+                private UUID uuid;
+
+                public String getJSText() {
+                    return jsText;
+                }
+
+                public void setJSText(String jsText) {
+                    this.uuid = net.minecraft.client.Minecraft.getMinecraft().thePlayer.getUniqueID();
+                    this.jsText = jsText;
+                    this.error = false;
+                }
+
+                @Override
+                public IFTTTType.IFTTTEnumBase getType() {
+                    return IFTTTType.That.ATSAssist.JavaScript;
+                }
+
+                @Override
+                public String[] getExplanation() {
+                    return error ? new String[]{"Script Error!"} : new String[]{""};
+                }
+
+                @Override
+                public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
+                    if (!this.error) {
+                        try {
+                            if (scriptEngine == null) {
+                                scriptEngine = ScriptUtil.doScript(jsText);
+                            }
+                            ScriptUtil.doScriptFunction(scriptEngine, "doThat", tile, train, first);
+                            this.error = false;
+                        } catch (RuntimeException e) {
+                            System.out.printf("[ATSA Notice] World: %s X:%s Y:%s Z:%s IFTTTBlock Script Error!", tile.getWorldObj().getProviderName(), tile.xCoord, tile.yCoord, tile.zCoord);
+
+                            ((List<EntityPlayerMP>) tile.getWorldObj().playerEntities)
+                                    .stream()
+                                    .filter(playerMP -> playerMP.getUniqueID().equals(uuid))
+                                    .findFirst()
+                                    .ifPresent(playerMP -> {
+                                        playerMP.addChatMessage(new ChatComponentText("[ATSA Notice] World: %s X:%s Y:%s Z:%s Script Error!"));
+                                        playerMP.addChatMessage(new ChatComponentText(e.getMessage()));
+                                        playerMP.addChatMessage(new ChatComponentText(e.getCause().getMessage()));
+                                    });
+                            e.printStackTrace();
+
+                            this.error = true;
+                            tile.markDirty();
+                            tile.getWorldObj().markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+                            tile.getWorldObj().notifyBlockChange(tile.xCoord, tile.yCoord, tile.zCoord, tile.getBlockType());
+                        }
                     }
                 }
             }
