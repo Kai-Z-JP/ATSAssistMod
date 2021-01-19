@@ -500,7 +500,7 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public String[] getExplanation() {
-                    return new String[]{"Output: " + (this.isTrainCarsOutput() ? "編成両数" : this.outputLevel)};
+                    return new String[]{I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.1") + ": " + (this.isTrainCarsOutput() ? I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.0") : this.outputLevel)};
                 }
 
                 @Override
