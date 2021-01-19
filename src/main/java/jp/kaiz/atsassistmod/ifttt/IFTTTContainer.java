@@ -16,9 +16,11 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.event.ClickEvent;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.util.ResourceLocation;
 
 import javax.script.ScriptEngine;
@@ -813,7 +815,7 @@ public abstract class IFTTTContainer implements Serializable {
                                     .findFirst()
                                     .ifPresent(playerMP -> {
                                         playerMP.addChatMessage(new ChatComponentText("文法は以下を参考にしてください。"));
-                                        playerMP.addChatMessage(new ChatComponentText("https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md"));
+                                        playerMP.addChatMessage(new ChatComponentText("https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md").setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md"))));
                                         playerMP.addChatMessage(new ChatComponentText("[ATSA Notice] World: %s X:%s Y:%s Z:%s Script Error!"));
                                         playerMP.addChatMessage(new ChatComponentText(e.getMessage()));
                                         playerMP.addChatMessage(new ChatComponentText(e.getCause().getMessage()));
