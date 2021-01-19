@@ -12,6 +12,11 @@
 ```js
 importPackage(Packages.jp.kaiz.atsassistmod.api);
 
+/**
+ * @param {TileEntityIFTTT} tile
+ * @param {EntityTrainBase} train nullが入る場合があります
+ * @param {boolean} first 初回の場合trueになります
+ */
 function doThat(tile, train, first) {
     ControlTrain.logger("test");
 }
