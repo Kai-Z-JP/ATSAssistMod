@@ -7,10 +7,9 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.kaiz.atsassistmod.ifttt.IFTTTContainer;
-import net.minecraft.client.Minecraft;
+import jp.ngt.ngtlib.util.NGTUtilClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 
 public class PacketPlaySoundIFTTT implements IMessage, IMessageHandler<PacketPlaySoundIFTTT, IMessage> {
     private boolean finish;
@@ -82,8 +81,7 @@ public class PacketPlaySoundIFTTT implements IMessage, IMessageHandler<PacketPla
 
     @Override
     public IMessage onMessage(PacketPlaySoundIFTTT message, MessageContext ctx) {
-        World world = Minecraft.getMinecraft().theWorld;
-        TileEntity tile = world.getTileEntity(message.tilePosX, message.tilePosY, message.tilePosZ);
+        TileEntity tile = NGTUtilClient.getMinecraft().theWorld.getTileEntity(message.tilePosX, message.tilePosY, message.tilePosZ);
         if (tile instanceof TileEntityIFTTT) {
             ((TileEntityIFTTT) tile).getThatList().stream()
                     .filter(IFTTTContainer.That.Minecraft.PlaySound.class::isInstance)
