@@ -812,6 +812,7 @@ public abstract class IFTTTContainer implements Serializable {
                                     .filter(playerMP -> playerMP.getUniqueID().equals(uuid))
                                     .findFirst()
                                     .ifPresent(playerMP -> {
+                                        playerMP.addChatMessage(new ChatComponentText("コード間違えてますよ！！！！！wwwwwwww"));
                                         playerMP.addChatMessage(new ChatComponentText("[ATSA Notice] World: %s X:%s Y:%s Z:%s Script Error!"));
                                         playerMP.addChatMessage(new ChatComponentText(e.getMessage()));
                                         playerMP.addChatMessage(new ChatComponentText(e.getCause().getMessage()));
