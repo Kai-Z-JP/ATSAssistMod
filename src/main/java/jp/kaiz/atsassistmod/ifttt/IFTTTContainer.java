@@ -190,9 +190,9 @@ public abstract class IFTTTContainer implements Serializable {
                         case All:
                             return train != null;
                         case FirstCar:
-                            return train != null && train.isControlCar();
+                            return train != null && (train.getFormation().size() == 1 || train.getConnectedTrain(train.getTrainDirection()) == null);
                         case LastCar:
-                            return train != null && (train.getFormation().size() == 1 || (!train.isControlCar() && (train.getConnectedTrain(0) == null || train.getConnectedTrain(1) == null)));
+                            return train != null && (train.getFormation().size() == 1 || train.getConnectedTrain(1 - train.getTrainDirection()) == null);
                     }
                     return false;
                 }
