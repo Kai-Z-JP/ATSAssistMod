@@ -564,7 +564,7 @@ public abstract class IFTTTContainer implements Serializable {
                 @Override
                 public String[] getExplanation() {
                     this.createResourceLocation();
-                    return this.sound == null ? new String[]{""} : new String[]{this.sound.getResourcePath(), this.sound.getResourceDomain()};
+                    return this.sound == null ? new String[]{""} : new String[]{this.sound.getResourceDomain(), this.sound.getResourcePath()};
                 }
 
                 @Override
