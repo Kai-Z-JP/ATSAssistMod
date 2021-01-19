@@ -807,7 +807,7 @@ public abstract class IFTTTContainer implements Serializable {
                             ScriptUtil.doScriptFunction(scriptEngine, "doThat", tile, train, first);
                             this.error = false;
                         } catch (RuntimeException e) {
-                            System.out.printf("[ATSA Notice] World: %s X:%s Y:%s Z:%s IFTTTBlock Script Error!", tile.getWorldObj().getProviderName(), tile.xCoord, tile.yCoord, tile.zCoord);
+                            System.out.printf("[ATSA Notice] World: %s X:%s Y:%s Z:%s IFTTTBlock Script Error!", tile.getWorldObj().getWorldInfo().getWorldName(), tile.xCoord, tile.yCoord, tile.zCoord);
 
                             ((List<EntityPlayerMP>) tile.getWorldObj().playerEntities)
                                     .stream()
@@ -816,7 +816,7 @@ public abstract class IFTTTContainer implements Serializable {
                                     .ifPresent(playerMP -> {
                                         playerMP.addChatMessage(new ChatComponentText("文法は以下を参考にしてください。"));
                                         playerMP.addChatMessage(new ChatComponentText("https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md").setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md"))));
-                                        playerMP.addChatMessage(new ChatComponentText(String.format("[ATSA Notice] World: %s X:%s Y:%s Z:%s Script Error!", tile.getWorldObj().getProviderName(), tile.xCoord, tile.yCoord, tile.zCoord)));
+                                        playerMP.addChatMessage(new ChatComponentText(String.format("[ATSA Notice] World: %s X:%s Y:%s Z:%s Script Error!", tile.getWorldObj().getWorldInfo().getWorldName(), tile.xCoord, tile.yCoord, tile.zCoord)));
                                         playerMP.addChatMessage(new ChatComponentText(e.getMessage()));
                                         playerMP.addChatMessage(new ChatComponentText(e.getCause().getMessage()));
                                     });
