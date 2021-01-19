@@ -16,4 +16,9 @@ public class ATSAMovingSoundTileEntity extends MovingSoundTileEntity {
         this.yPosF = (float) pos[1] + 0.5F;
         this.zPosF = (float) pos[2] + 0.5F;
     }
+
+    @Override
+    public void setVolume(float par1) {
+        this.volume = par1;
+    }
 }

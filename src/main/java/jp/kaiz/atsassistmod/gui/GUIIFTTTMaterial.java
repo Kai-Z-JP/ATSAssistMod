@@ -113,11 +113,11 @@ public class GUIIFTTTMaterial extends GuiScreen {
                             this.width / 2 - 75, this.height / 2 - 25, 0xffffff);
                     this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.130.1"),
                             this.width / 2 - 75, this.height / 2, 0xffffff);
-                    this.fontRendererObj.drawString("x",
-                            this.width / 2 - 37, this.height / 2 - 45, 0xffffff);
-                    this.fontRendererObj.drawString("y",
+                    this.fontRendererObj.drawString("X",
+                            this.width / 2 - 40, this.height / 2 - 45, 0xffffff);
+                    this.fontRendererObj.drawString("Y",
                             this.width / 2 - 2, this.height / 2 - 45, 0xffffff);
-                    this.fontRendererObj.drawString("z",
+                    this.fontRendererObj.drawString("Z",
                             this.width / 2 + 33, this.height / 2 - 45, 0xffffff);
                     break;
                 case 210://RedStoneOutput
@@ -128,6 +128,21 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString =
                             I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.button." + (((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput() ? "enable" : "disable")));
                     this.textFieldList.forEach(textField -> textField.setVisible(!((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput()));
+                    break;
+                case 211://PlaySound
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.0"),
+                            this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.1"),
+                            this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.2"),
+                            this.width / 2 - 72, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("X",
+                            this.width / 2 - 37, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("Y",
+                            this.width / 2 - 2, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("Z",
+                            this.width / 2 + 33, this.height / 2 - 25, 0xffffff);
+                    ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> ((GuiCheckBox) button).setIsChecked(this.ifcb.isOnce()));
                     break;
                 case 212://ExecuteCommand
                     this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.0"),
@@ -266,6 +281,15 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 case 210: //RedStoneOutput
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
                     this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).getOutputLevel()), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
+                    this.addDownCommon();
+                    break;
+                case 211: //PlaySound
+                    this.buttonList.add(new GuiCheckBox(1000, this.width / 2 + 45, this.height / 2 - 80, "", false));
+                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getSoundName()), this.width / 2 - 50, this.height / 2 - 55, Byte.MAX_VALUE, 100);
+                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getRadius()), this.width / 2 - 85, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[0]), this.width / 2 - 50, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[1]), this.width / 2 - 15, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[2]), this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addDownCommon();
                     break;
                 case 212: //ExecuteCommand
@@ -414,7 +438,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 this.changeIFC(new IFTTTContainer.This.That.Minecraft.RedStoneOutput());
                 return;
             case 211:
-                this.changeIFC(new IFTTTContainer.This.That.Minecraft.PlaySound());
+                this.changeIFC(new IFTTTContainer.This.That.Minecraft.PlaySound(tile));
                 return;
             case 212:
                 this.changeIFC(new IFTTTContainer.This.That.Minecraft.ExecuteCommand());
@@ -457,6 +481,11 @@ public class GUIIFTTTMaterial extends GuiScreen {
                         break;
                     case 210:
                         ((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).setOutputLevel(this.getIntGuiTextFieldText(0));
+                        break;
+                    case 211:
+                        ((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).setSoundName(this.getStringGuiTextFieldText(0));
+                        ((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).setRadius(this.getIntGuiTextFieldText(1));
+                        ((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).setPos(this.getIntGuiTextFieldText(2), this.getIntGuiTextFieldText(3), this.getIntGuiTextFieldText(4));
                         break;
                     case 212:
                         ((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).setCommand(this.getStringGuiTextFieldText(0));
@@ -529,6 +558,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                             return;
                     }
                     break;
+                case 211:
                 case 212:
                     switch (button.id) {
                         case 1000:

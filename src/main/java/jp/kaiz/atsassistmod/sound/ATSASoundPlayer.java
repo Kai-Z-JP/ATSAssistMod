@@ -13,7 +13,7 @@ public class ATSASoundPlayer {
     public void playSound(TileEntity tile, ResourceLocation src, boolean repeat) {
     }
 
-    public void playSound(TileEntity tile, int[] pos, ResourceLocation src, boolean repeat) {
+    public void playSound(TileEntity tile, int[] pos, ResourceLocation src, boolean repeat, float volume) {
     }
 
     public void stopSound() {
@@ -41,16 +41,16 @@ public class ATSASoundPlayer {
         }
 
         @Override
-        public void playSound(TileEntity tile, int[] pos, ResourceLocation src, boolean repeat) {
+        public void playSound(TileEntity tile, int[] pos, ResourceLocation src, boolean repeat, float volume) {
             if (pos == null) {
-                this.playSound(tile, src, repeat);
+//                this.playSound(tile, src, repeat);
                 return;
             }
             if (this.sound != null) {
                 this.stopSound();
             }
             this.sound = new ATSAMovingSoundTileEntity(tile, pos, src, repeat);
-            this.sound.setVolume(10.0F);
+            this.sound.setVolume(volume);
             NGTUtilClient.playSound(this.sound);
         }
 

@@ -108,7 +108,7 @@ public class IFTTTType {
         }
 
         public enum RTM implements IFTTTEnumBase {
-            TrainState(220),
+//            TrainState(220),
             TrainDataMap(221),
             //            BlockDataMap(222),
             Signal(223),
@@ -127,7 +127,7 @@ public class IFTTTType {
         }
 
         public enum ATSAssist implements IFTTTEnumBase {
-//            JavaScript(230),
+            JavaScript(230),
             ;
 
             private final int id;

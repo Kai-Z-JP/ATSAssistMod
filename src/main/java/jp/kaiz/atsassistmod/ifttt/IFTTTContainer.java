@@ -1,6 +1,8 @@
 package jp.kaiz.atsassistmod.ifttt;
 
+import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
+import jp.kaiz.atsassistmod.network.PacketPlaySoundIFTTT;
 import jp.kaiz.atsassistmod.sound.ATSASoundPlayer;
 import jp.kaiz.atsassistmod.utils.ComparisonManager;
 import jp.kaiz.atsassistmod.utils.KaizUtils;
@@ -12,6 +14,7 @@ import jp.ngt.rtm.modelpack.state.ResourceState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
 
@@ -459,6 +462,9 @@ public abstract class IFTTTContainer implements Serializable {
 
         public abstract void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first);
 
+        public void finish(TileEntityIFTTT tile, EntityTrainBase train) {
+        }
+
         public abstract static class Minecraft {
             public static class RedStoneOutput extends That {
                 private static final long serialVersionUID = -4456412974039197107L;
@@ -507,29 +513,39 @@ public abstract class IFTTTContainer implements Serializable {
 
             public static class PlaySound extends That {
                 private static final long serialVersionUID = -6941622798294195533L;
-                private ResourceLocation sound;
+                private String soundName;
                 private int[] pos;
-                private final ATSASoundPlayer soundPlayer = ATSASoundPlayer.create();
+                private int radius = 1;
+
+                private transient ATSASoundPlayer soundPlayer;
+                private transient ResourceLocation sound;
+
+                public PlaySound(TileEntity tile) {
+                    this.pos = new int[]{tile.xCoord, tile.yCoord, tile.zCoord};
+                }
 
                 public void setSoundName(String soundName) {
-                    if (soundName != null && soundName.length() > 0) {
-                        if (soundName.matches(":.*")) {
-                            String[] sa = soundName.split(":");
-                            this.sound = new ResourceLocation(sa[0], sa[1]);
-                        }
-                    }
+                    this.soundName = soundName;
                 }
 
                 public String getSoundName() {
-                    return this.sound.toString();
+                    return this.soundName;
                 }
 
-                public void setPos(int[] pos) {
-                    this.pos = pos;
+                public void setPos(int x, int y, int z) {
+                    this.pos = new int[]{x, y, z};
                 }
 
                 public int[] getPos() {
                     return pos;
+                }
+
+                public void setRadius(int radius) {
+                    this.radius = radius;
+                }
+
+                public int getRadius() {
+                    return radius;
                 }
 
                 @Override
@@ -539,17 +555,53 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public String[] getExplanation() {
-                    return new String[]{I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.1") + ": " + this.sound.toString()};
+                    this.createResourceLocation();
+                    return this.sound == null ? new String[]{""} : new String[]{this.sound.getResourcePath(), this.sound.getResourceDomain()};
                 }
 
                 @Override
                 public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
-                    if (this.sound != null && this.pos != null) {
-                        if (this.once && first) {
-                            this.soundPlayer.playSound(tile, this.pos, this.sound, false);
-                        } else if (!this.once) {
-                            this.soundPlayer.playSound(tile, this.pos, this.sound, true);
+                    this.createResourceLocation();
+                    if (this.sound != null) {
+                        if (first) {
+                            ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketPlaySoundIFTTT(tile, pos, this.sound, !this.once));
                         }
+                    }
+                }
+
+                public void createResourceLocation() {
+                    if (this.soundName != null) {
+                        if (this.sound == null || !this.sound.toString().equals(this.soundName)) {
+                            if (this.soundName.matches(".*:.*")) {
+                                String[] sa = this.soundName.split(":");
+                                this.sound = new ResourceLocation(sa[0], sa[1]);
+                            }
+                        }
+                    } else {
+                        this.sound = null;
+                    }
+                }
+
+                public void playSound(TileEntityIFTTT tile) {
+                    this.createResourceLocation();
+                    if (this.sound != null && this.pos != null && (this.once || this.soundPlayer == null || !this.soundPlayer.isPlaying())) {
+                        if (this.soundPlayer == null) {
+                            this.soundPlayer = ATSASoundPlayer.create();
+                        }
+                        this.soundPlayer.playSound(tile, this.pos, this.sound, !this.once, this.radius / 16f);
+                    }
+                }
+
+                public void finishSound() {
+                    if (!this.once && this.soundPlayer != null) {
+                        this.soundPlayer.stopSound();
+                    }
+                }
+
+                @Override
+                public void finish(TileEntityIFTTT tile, EntityTrainBase train) {
+                    if (!this.once) {
+                        ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketPlaySoundIFTTT(tile));
                     }
                 }
             }
