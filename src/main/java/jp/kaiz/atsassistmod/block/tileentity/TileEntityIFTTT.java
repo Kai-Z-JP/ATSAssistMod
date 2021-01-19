@@ -49,7 +49,8 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
             if (this.thisList.stream().allMatch(iftttContainer -> ((IFTTTContainer.This) iftttContainer).isCondition(this, train))) {
                 this.thatList.forEach(iftttContainer -> ((IFTTTContainer.That) iftttContainer).doThat(this, train, !this.notFirst));
                 this.notFirst = true;
-            } else {
+            } else if (notFirst) {
+                this.thatList.forEach(iftttContainer -> ((IFTTTContainer.That) iftttContainer).finish(this, train));
                 this.setRedStoneOutput(0);
                 this.notFirst = false;
             }

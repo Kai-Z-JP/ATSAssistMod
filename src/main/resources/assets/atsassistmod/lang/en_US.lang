@@ -165,6 +165,10 @@ ATSAssistMod.gui.IFTTTMaterial.210.1=Output level
 ATSAssistMod.gui.IFTTTMaterial.210.button.enable=Enable
 ATSAssistMod.gui.IFTTTMaterial.210.button.disable=Disable
 
+ATSAssistMod.gui.IFTTTMaterial.211.0=Play only once
+ATSAssistMod.gui.IFTTTMaterial.211.1=Sound name
+ATSAssistMod.gui.IFTTTMaterial.211.2=Radius
+
 ATSAssistMod.gui.IFTTTMaterial.212.0=Run only once
 ATSAssistMod.gui.IFTTTMaterial.212.1=Command
 

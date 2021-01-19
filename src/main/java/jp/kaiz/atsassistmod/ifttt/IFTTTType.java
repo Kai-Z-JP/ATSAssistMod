@@ -20,8 +20,8 @@ public class IFTTTType {
 
         public enum Minecraft implements IFTTTEnumBase {
             RedStoneInput(110),
-            Time(111),
-            Light(112),
+//            Time(111),
+//            Light(112),
             ;
 
             private final int id;
@@ -40,9 +40,9 @@ public class IFTTTType {
             OnTrain(120),
             Cars(121),
             Speed(122),
-            TrainState(123),
+            //            TrainState(123),
             TrainDataMap(124),
-            BlockDataMap(125),
+//            BlockDataMap(125),
             ;
 
             private final int id;
@@ -59,7 +59,8 @@ public class IFTTTType {
 
         public enum ATSAssist implements IFTTTEnumBase {
             CODD(130),
-            JavaScript(131);
+//            JavaScript(131)
+            ;
 
             private final int id;
 
@@ -107,9 +108,9 @@ public class IFTTTType {
         }
 
         public enum RTM implements IFTTTEnumBase {
-            TrainState(220),
+//            TrainState(220),
             TrainDataMap(221),
-            BlockDataMap(222),
+            //            BlockDataMap(222),
             Signal(223),
             ;
 
@@ -126,7 +127,8 @@ public class IFTTTType {
         }
 
         public enum ATSAssist implements IFTTTEnumBase {
-            JavaScript(230);
+            JavaScript(230),
+            ;
 
             private final int id;
 

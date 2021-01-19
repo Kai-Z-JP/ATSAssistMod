@@ -163,6 +163,10 @@ ATSAssistMod.gui.IFTTTMaterial.210.1=출력 레벨
 ATSAssistMod.gui.IFTTTMaterial.210.button.enable=활성화
 ATSAssistMod.gui.IFTTTMaterial.210.button.disable=비활성화
 
+ATSAssistMod.gui.IFTTTMaterial.211.0=한 번만 재생
+ATSAssistMod.gui.IFTTTMaterial.211.1=음성 이름
+ATSAssistMod.gui.IFTTTMaterial.211.2=반경
+
 ATSAssistMod.gui.IFTTTMaterial.212.0=한 번만 실행
 ATSAssistMod.gui.IFTTTMaterial.212.1=명령어
 

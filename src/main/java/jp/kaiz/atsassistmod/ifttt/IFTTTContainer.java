@@ -1,9 +1,12 @@
 package jp.kaiz.atsassistmod.ifttt;
 
+import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
+import jp.kaiz.atsassistmod.network.PacketPlaySoundIFTTT;
 import jp.kaiz.atsassistmod.sound.ATSASoundPlayer;
 import jp.kaiz.atsassistmod.utils.ComparisonManager;
 import jp.kaiz.atsassistmod.utils.KaizUtils;
+import jp.ngt.ngtlib.io.ScriptUtil;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.entity.train.parts.EntityFloor;
 import jp.ngt.rtm.modelpack.state.DataMap;
@@ -12,12 +15,21 @@ import jp.ngt.rtm.modelpack.state.ResourceState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
 import net.minecraft.util.ResourceLocation;
 
+import javax.script.ScriptEngine;
 import java.io.Serializable;
+import java.util.List;
+import java.util.UUID;
 
 public abstract class IFTTTContainer implements Serializable {
+    //Serializeが戻せなくなるからクラス名変更禁止
 
     private static final long serialVersionUID = -2781244534093360974L;
     protected boolean once;
@@ -189,11 +201,53 @@ public abstract class IFTTTContainer implements Serializable {
                         case All:
                             return train != null;
                         case FirstCar:
-                            return train != null && train.isControlCar();
+                            return train != null && (train.getFormation().size() == 1 || train.getConnectedTrain(train.getTrainDirection()) == null);
                         case LastCar:
-                            return train != null && (train.getFormation().size() == 1 || (!train.isControlCar() && (train.getConnectedTrain(0) == null || train.getConnectedTrain(1) == null)));
+                            return train != null && (train.getFormation().size() == 1 || train.getConnectedTrain(1 - train.getTrainDirection()) == null);
                     }
                     return false;
+                }
+            }
+
+            public static class Cars extends This {
+                private static final long serialVersionUID = -2131617513036808484L;
+                private int value;
+                private ComparisonManager.Integer comparisonType;
+
+                public Cars() {
+                    this.value = 0;
+                    this.comparisonType = ComparisonManager.Integer.GREATER_EQUAL;
+                }
+
+                public ComparisonManager.Integer getMode() {
+                    return this.comparisonType;
+                }
+
+                public int getValue() {
+                    return this.value;
+                }
+
+                public void setMode(ComparisonManager.Integer mode) {
+                    this.comparisonType = mode;
+                }
+
+                public void setValue(int value) {
+                    this.value = value;
+                }
+
+                @Override
+                public IFTTTType.IFTTTEnumBase getType() {
+                    return IFTTTType.This.RTM.Cars;
+                }
+
+                @Override
+                public String[] getExplanation() {
+                    return new String[]{"Cars" + this.comparisonType.getName() + this.value};
+                }
+
+                @Override
+                public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
+                    return train != null && train.getFormation() != null && this.comparisonType.isTrue(train.getFormation().size(), this.value);
                 }
             }
 
@@ -416,6 +470,9 @@ public abstract class IFTTTContainer implements Serializable {
 
         public abstract void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first);
 
+        public void finish(TileEntityIFTTT tile, EntityTrainBase train) {
+        }
+
         public abstract static class Minecraft {
             public static class RedStoneOutput extends That {
                 private static final long serialVersionUID = -4456412974039197107L;
@@ -445,7 +502,7 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public String[] getExplanation() {
-                    return new String[]{"Output: " + (this.isTrainCarsOutput() ? "編成両数" : this.outputLevel)};
+                    return new String[]{I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.1") + ": " + (this.isTrainCarsOutput() ? I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.0") : this.outputLevel)};
                 }
 
                 @Override
@@ -464,29 +521,39 @@ public abstract class IFTTTContainer implements Serializable {
 
             public static class PlaySound extends That {
                 private static final long serialVersionUID = -6941622798294195533L;
-                private ResourceLocation sound;
+                private String soundName;
                 private int[] pos;
-                private final ATSASoundPlayer soundPlayer = ATSASoundPlayer.create();
+                private int radius = 1;
+
+                private transient ATSASoundPlayer soundPlayer;
+                private transient ResourceLocation sound;
+
+                public PlaySound(TileEntity tile) {
+                    this.pos = new int[]{tile.xCoord, tile.yCoord, tile.zCoord};
+                }
 
                 public void setSoundName(String soundName) {
-                    if (soundName != null && soundName.length() > 0) {
-                        if (soundName.matches(":.*")) {
-                            String[] sa = soundName.split(":");
-                            this.sound = new ResourceLocation(sa[0], sa[1]);
-                        }
-                    }
+                    this.soundName = soundName;
                 }
 
                 public String getSoundName() {
-                    return this.sound.toString();
+                    return this.soundName;
                 }
 
-                public void setPos(int[] pos) {
-                    this.pos = pos;
+                public void setPos(int x, int y, int z) {
+                    this.pos = new int[]{x, y, z};
                 }
 
                 public int[] getPos() {
                     return pos;
+                }
+
+                public void setRadius(int radius) {
+                    this.radius = radius;
+                }
+
+                public int getRadius() {
+                    return radius;
                 }
 
                 @Override
@@ -496,17 +563,53 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public String[] getExplanation() {
-                    return new String[]{I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.1") + ": " + this.sound.toString()};
+                    this.createResourceLocation();
+                    return this.sound == null ? new String[]{""} : new String[]{this.sound.getResourcePath(), this.sound.getResourceDomain()};
                 }
 
                 @Override
                 public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
-                    if (this.sound != null && this.pos != null) {
-                        if (this.once && first) {
-                            this.soundPlayer.playSound(tile, this.pos, this.sound, false);
-                        } else if (!this.once) {
-                            this.soundPlayer.playSound(tile, this.pos, this.sound, true);
+                    this.createResourceLocation();
+                    if (this.sound != null) {
+                        if (first) {
+                            ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketPlaySoundIFTTT(tile, pos, this.sound, !this.once));
                         }
+                    }
+                }
+
+                public void createResourceLocation() {
+                    if (this.soundName != null) {
+                        if (this.sound == null || !this.sound.toString().equals(this.soundName)) {
+                            if (this.soundName.matches(".*:.*")) {
+                                String[] sa = this.soundName.split(":");
+                                this.sound = new ResourceLocation(sa[0], sa[1]);
+                            }
+                        }
+                    } else {
+                        this.sound = null;
+                    }
+                }
+
+                public void playSound(TileEntityIFTTT tile) {
+                    this.createResourceLocation();
+                    if (this.sound != null && this.pos != null && (this.once || this.soundPlayer == null || !this.soundPlayer.isPlaying())) {
+                        if (this.soundPlayer == null) {
+                            this.soundPlayer = ATSASoundPlayer.create();
+                        }
+                        this.soundPlayer.playSound(tile, this.pos, this.sound, !this.once, this.radius / 16f);
+                    }
+                }
+
+                public void finishSound() {
+                    if (!this.once && this.soundPlayer != null) {
+                        this.soundPlayer.stopSound();
+                    }
+                }
+
+                @Override
+                public void finish(TileEntityIFTTT tile, EntityTrainBase train) {
+                    if (!this.once) {
+                        ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketPlaySoundIFTTT(tile));
                     }
                 }
             }
@@ -629,6 +732,100 @@ public abstract class IFTTTContainer implements Serializable {
                                     break;
                             }
                         } catch (Exception ignored) {
+                        }
+                    }
+                }
+            }
+
+            public static class TrainSignal extends That {
+                private static final long serialVersionUID = 7174373529070856419L;
+                private int signal;
+
+                @Override
+                public IFTTTType.IFTTTEnumBase getType() {
+                    return IFTTTType.That.RTM.Signal;
+                }
+
+                @Override
+                public String[] getExplanation() {
+                    return new String[]{"SetSignal:" + this.signal};
+                }
+
+                public int getSignal() {
+                    return this.signal;
+                }
+
+                public void setSignal(int signal) {
+                    this.signal = signal;
+                }
+
+                @Override
+                public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
+                    if (train != null) {
+                        train.setSignal(this.signal);
+                    }
+                }
+            }
+        }
+
+        public abstract static class ATSAssist {
+
+            public static class JavaScript extends That {
+                private static final long serialVersionUID = 1661419614469936838L;
+                private transient ScriptEngine scriptEngine;
+                private String jsText;
+                private boolean error;
+                private UUID uuid;
+
+                public String getJSText() {
+                    return jsText;
+                }
+
+                public void setJSText(String jsText) {
+                    this.uuid = net.minecraft.client.Minecraft.getMinecraft().thePlayer.getUniqueID();
+                    this.jsText = jsText;
+                    this.error = false;
+                }
+
+                @Override
+                public IFTTTType.IFTTTEnumBase getType() {
+                    return IFTTTType.That.ATSAssist.JavaScript;
+                }
+
+                @Override
+                public String[] getExplanation() {
+                    return error ? new String[]{"Script Error!"} : new String[]{""};
+                }
+
+                @Override
+                public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
+                    if (!this.error) {
+                        try {
+                            if (scriptEngine == null) {
+                                scriptEngine = ScriptUtil.doScript(jsText);
+                            }
+                            ScriptUtil.doScriptFunction(scriptEngine, "doThat", tile, train, first);
+                            this.error = false;
+                        } catch (RuntimeException e) {
+                            System.out.printf("[ATSA Notice] World: %s X:%s Y:%s Z:%s IFTTTBlock Script Error!", tile.getWorldObj().getProviderName(), tile.xCoord, tile.yCoord, tile.zCoord);
+
+                            ((List<EntityPlayerMP>) tile.getWorldObj().playerEntities)
+                                    .stream()
+                                    .filter(playerMP -> playerMP.getUniqueID().equals(uuid))
+                                    .findFirst()
+                                    .ifPresent(playerMP -> {
+                                        playerMP.addChatMessage(new ChatComponentText("文法は以下を参考にしてください。"));
+                                        playerMP.addChatMessage(new ChatComponentText("https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md").setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md"))));
+                                        playerMP.addChatMessage(new ChatComponentText(String.format("[ATSA Notice] World: %s X:%s Y:%s Z:%s Script Error!", tile.getWorldObj().getProviderName(), tile.xCoord, tile.yCoord, tile.zCoord)));
+                                        playerMP.addChatMessage(new ChatComponentText(e.getMessage()));
+                                        playerMP.addChatMessage(new ChatComponentText(e.getCause().getMessage()));
+                                    });
+                            e.printStackTrace();
+
+                            this.error = true;
+                            tile.markDirty();
+                            tile.getWorldObj().markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+                            tile.getWorldObj().notifyBlockChange(tile.xCoord, tile.yCoord, tile.zCoord, tile.getBlockType());
                         }
                     }
                 }

@@ -132,7 +132,7 @@ ATSAssistMod.IFTTTType.110=RS信号入力
 ATSAssistMod.IFTTTType.111=Minecraft時間
 ATSAssistMod.IFTTTType.112=周辺光
 ATSAssistMod.IFTTTType.120=単純列車検知
-ATSAssistMod.IFTTTType.121=車両
+ATSAssistMod.IFTTTType.121=両数
 ATSAssistMod.IFTTTType.122=速度
 ATSAssistMod.IFTTTType.123=TrainState
 ATSAssistMod.IFTTTType.124=TrainDataMap
@@ -160,6 +160,10 @@ ATSAssistMod.gui.IFTTTMaterial.210.1=出力レベル
 
 ATSAssistMod.gui.IFTTTMaterial.210.button.enable=有効
 ATSAssistMod.gui.IFTTTMaterial.210.button.disable=無効
+
+ATSAssistMod.gui.IFTTTMaterial.211.0=一度のみ再生
+ATSAssistMod.gui.IFTTTMaterial.211.1=音声名
+ATSAssistMod.gui.IFTTTMaterial.211.2=半径
 
 ATSAssistMod.gui.IFTTTMaterial.212.0=一度のみ実行
 ATSAssistMod.gui.IFTTTMaterial.212.1=コマンド
