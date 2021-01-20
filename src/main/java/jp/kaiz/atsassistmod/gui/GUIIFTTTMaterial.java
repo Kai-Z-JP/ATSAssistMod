@@ -311,7 +311,8 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.addDownCommon();
                     break;
                 case 230: //JS
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getJSText()), this.width / 2 - 100, this.height / 2 - 30, Integer.MAX_VALUE - 1, 200);
+                    this.buttonList.add(new GuiButton(1000, this.width / 2 + 80, this.height / 2 - 30, 20, 20, "V"));
+                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getJSText()), this.width / 2 - 100, this.height / 2 - 30, Integer.MAX_VALUE - 1, 175);
                     this.addDownCommon();
                     break;
             }
@@ -584,6 +585,15 @@ public class GUIIFTTTMaterial extends GuiScreen {
                         case 1000:
                             DataType dataType = ((IFTTTContainer.That.RTM.DataMap) this.ifcb).getDataType();
                             ((IFTTTContainer.That.RTM.DataMap) this.ifcb).setDataType((DataType) KaizUtils.getNextEnum(dataType));
+                            break;
+                    }
+                    break;
+                case 230:
+                    switch (button.id) {
+                        case 1000:
+                            String clipBoard = GuiScreen.getClipboardString();
+                            ((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).setJSText(clipBoard);
+                            this.textFieldList.get(0).setText(clipBoard);
                             break;
                     }
                     break;
