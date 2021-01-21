@@ -564,7 +564,7 @@ public abstract class IFTTTContainer implements Serializable {
                 @Override
                 public String[] getExplanation() {
                     this.createResourceLocation();
-                    return this.sound == null ? new String[]{""} : new String[]{this.sound.getResourcePath(), this.sound.getResourceDomain()};
+                    return this.sound == null ? new String[]{""} : new String[]{this.sound.getResourceDomain(), this.sound.getResourcePath()};
                 }
 
                 @Override
@@ -818,7 +818,9 @@ public abstract class IFTTTContainer implements Serializable {
                                         playerMP.addChatMessage(new ChatComponentText("https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md").setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md"))));
                                         playerMP.addChatMessage(new ChatComponentText(String.format("[ATSA Notice] World: %s X:%s Y:%s Z:%s Script Error!", tile.getWorldObj().getWorldInfo().getWorldName(), tile.xCoord, tile.yCoord, tile.zCoord)));
                                         playerMP.addChatMessage(new ChatComponentText(e.getMessage()));
-                                        playerMP.addChatMessage(new ChatComponentText(e.getCause().getMessage()));
+                                        if (e.getCause() != null) {
+                                            playerMP.addChatMessage(new ChatComponentText(e.getCause().getMessage()));
+                                        }
                                     });
                             e.printStackTrace();
 
