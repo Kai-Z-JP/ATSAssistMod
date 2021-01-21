@@ -36,8 +36,14 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
         tag.setString("iftttThat", IFTTTUtil.listToString(this.thatList));
     }
 
+    private int tick;
+
     @Override
     public void updateEntity() {
+        ++this.tick;
+        if (this.tick == Integer.MAX_VALUE) {
+            this.tick = 0;
+        }
         if (this.thisList.isEmpty() || this.thatList.isEmpty()) {
             return;
         }
@@ -55,6 +61,10 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
                 this.notFirst = false;
             }
         }
+    }
+
+    public int getTick() {
+        return this.tick;
     }
 
     public int getRedStoneOutput() {
