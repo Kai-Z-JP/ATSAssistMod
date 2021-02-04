@@ -2,6 +2,7 @@ package jp.kaiz.atsassistmod.block.tileentity;
 
 import jp.kaiz.atsassistmod.ifttt.IFTTTContainer;
 import jp.kaiz.atsassistmod.ifttt.IFTTTUtil;
+import jp.ngt.ngtlib.util.NGTUtil;
 import jp.ngt.rtm.electric.IProvideElectricity;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -65,6 +66,10 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
 
     public int getTick() {
         return this.tick;
+    }
+
+    public int getServerTick() {
+        return this.worldObj.isRemote ? this.getTick() : NGTUtil.getServer().getTickCounter();
     }
 
     public int getRedStoneOutput() {
