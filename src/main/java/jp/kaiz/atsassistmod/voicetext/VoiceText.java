@@ -1,9 +1,14 @@
 package jp.kaiz.atsassistmod.voicetext;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import jp.kaiz.atsassistmod.ATSAssistCore;
+import jp.kaiz.atsassistmod.utils.KaizUtils;
 import net.minecraft.util.MathHelper;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -65,17 +70,22 @@ public class VoiceText {
         return this;
     }
 
+    @SideOnly(Side.CLIENT)
     public void playSound() {
         new Thread(() -> {
             AudioInputStream ais = this.getAudioInputStream();
             if (ais != null) {
-                try {
-                    Clip clip = AudioSystem.getClip();
-                    clip.open(ais);
-                    clip.start();
-                } catch (LineUnavailableException | IOException e) {
-                    e.printStackTrace();
-                }
+                KaizUtils.playSound(ais);
+            }
+        }).start();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void playSound(float x, float y, float z, float volume) {
+        new Thread(() -> {
+            AudioInputStream ais = this.getAudioInputStream();
+            if (ais != null) {
+                KaizUtils.playSound(ais, x, y, z, volume);
             }
         }).start();
     }
@@ -89,6 +99,10 @@ public class VoiceText {
             baos.write(("text=" + this.text).getBytes(StandardCharsets.UTF_8));
             baos.write('&');
             baos.write(("speaker=" + this.speaker.toString()).getBytes());
+            if (this.format != null) {
+                baos.write('&');
+                baos.write(("format=" + this.format).getBytes());
+            }
             if (this.emotion != null) {
                 baos.write('&');
                 baos.write(("emotion=" + this.emotion.toString()).getBytes());
@@ -130,6 +144,7 @@ public class VoiceText {
             conn.getOutputStream().write(bytes);
 
             if (conn.getResponseCode() != 200) {
+                System.out.println(conn.getResponseMessage());
                 return null;
             }
 
