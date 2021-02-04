@@ -17,6 +17,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import org.apache.commons.lang3.SerializationUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -166,7 +167,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     break;
                 case 230://JS
                     this.fontRendererObj.drawString("Script Text",
-                            this.width / 2 - 100, this.height / 2 - 40, 0xffffff);
+                            this.width / 2 - 100, this.height / 2 - 70, 0xffffff);
             }
         }
         super.drawScreen(mouseX, mouseZ, partialTick);
@@ -242,7 +243,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     break;
                 case 110: //RedStoneInput
                     this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).getValue()), this.width / 2 + 30, this.height / 2 - 30, 2, 30);
+                    this.addGuiTextField(((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 30, 2, 30);
                     this.addDownCommon();
                     break;
                 case 120: //単純列検
@@ -251,28 +252,28 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     break;
                 case 121: //両数
                     this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.RTM.Cars) this.ifcb).getValue()), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
+                    this.addGuiTextField(((IFTTTContainer.This.RTM.Cars) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
                     break;
                 case 122: //速度
                     this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.RTM.Speed) this.ifcb).getValue()), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
+                    this.addGuiTextField(((IFTTTContainer.This.RTM.Speed) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
                     break;
                 case 124: //TrainDataMap
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
                     this.buttonList.add(new GuiButton(1001, this.width / 2 - 15, this.height / 2 - 5, 30, 20, ""));
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getKey()), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getValue()), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
+                    this.addGuiTextField(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getKey(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
+                    this.addGuiTextField(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
                     break;
                 case 130: //踏切障検
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[0]), this.width / 2 - 50, this.height / 2 - 30, Byte.MAX_VALUE, 30);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[1]), this.width / 2 - 15, this.height / 2 - 30, Byte.MAX_VALUE, 30);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[2]), this.width / 2 + 20, this.height / 2 - 30, Byte.MAX_VALUE, 30);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[0]), this.width / 2 - 50, this.height / 2 - 5, Byte.MAX_VALUE, 30);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[1]), this.width / 2 - 15, this.height / 2 - 5, Byte.MAX_VALUE, 30);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[2]), this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[0], this.width / 2 - 50, this.height / 2 - 30, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[1], this.width / 2 - 15, this.height / 2 - 30, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[2], this.width / 2 + 20, this.height / 2 - 30, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[0], this.width / 2 - 50, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[1], this.width / 2 - 15, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[2], this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addDownCommon();
                     break;
                 case 200: //IFTTTType.This.Select
@@ -283,36 +284,36 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     break;
                 case 210: //RedStoneOutput
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).getOutputLevel()), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
+                    this.addGuiTextField(((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).getOutputLevel(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
                     break;
                 case 211: //PlaySound
                     this.buttonList.add(new GuiCheckBox(1000, this.width / 2 + 45, this.height / 2 - 80, "", false));
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getSoundName()), this.width / 2 - 50, this.height / 2 - 55, Byte.MAX_VALUE, 100);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getRadius()), this.width / 2 - 85, this.height / 2 - 5, Byte.MAX_VALUE, 30);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[0]), this.width / 2 - 50, this.height / 2 - 5, Byte.MAX_VALUE, 30);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[1]), this.width / 2 - 15, this.height / 2 - 5, Byte.MAX_VALUE, 30);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[2]), this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getSoundName(), this.width / 2 - 50, this.height / 2 - 55, Byte.MAX_VALUE, 100);
+                    this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getRadius(), this.width / 2 - 85, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[0], this.width / 2 - 50, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[1], this.width / 2 - 15, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[2], this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addDownCommon();
                     break;
                 case 212: //ExecuteCommand
                     this.buttonList.add(new GuiCheckBox(1000, this.width / 2 + 45, this.height / 2 - 80, "", false));
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).getCommand()), this.width / 2 - 100, this.height / 2 - 30, Byte.MAX_VALUE, 200);
+                    this.addGuiTextField(((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).getCommand(), this.width / 2 - 100, this.height / 2 - 30, Byte.MAX_VALUE, 200);
                     this.addDownCommon();
                     break;
                 case 221: //DataMap
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getKey()), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getValue()), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
+                    this.addGuiTextField(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getKey(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
+                    this.addGuiTextField(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
                     break;
                 case 223: //TrainSignal
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.RTM.TrainSignal) this.ifcb).getSignal()), this.width / 2 + 30, this.height / 2 - 30, 3, 50);
+                    this.addGuiTextField(((IFTTTContainer.That.RTM.TrainSignal) this.ifcb).getSignal(), this.width / 2 + 30, this.height / 2 - 30, 3, 50);
                     this.addDownCommon();
                     break;
                 case 230: //JS
-                    this.buttonList.add(new GuiButton(1000, this.width / 2 + 80, this.height / 2 - 30, 20, 20, "V"));
-                    this.addGuiTextField(String.valueOf(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getJSText()), this.width / 2 - 100, this.height / 2 - 30, Integer.MAX_VALUE - 1, 175);
+                    this.buttonList.add(new GuiButton(1000, this.width / 2 + 80, this.height / 2 - 60, 20, 20, "V"));
+                    this.addGuiTextField(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getJSText(), this.width / 2 - 100, this.height / 2 - 60, Integer.MAX_VALUE - 1, 175);
                     this.addDownCommon();
                     break;
             }
@@ -337,32 +338,25 @@ public class GUIIFTTTMaterial extends GuiScreen {
         }
     }
 
-    private void addGuiTextField(String str, int xPosition, int yPosition, int maxLength, int width) {
+    private void addGuiTextField(Object str, int xPosition, int yPosition, int maxLength, int width) {
         GuiTextField text = new GuiTextField(this.fontRendererObj, xPosition, yPosition, width, 20);
         text.setFocused(false);
         text.setMaxStringLength(maxLength);
-        text.setText(str);
+        text.setText(String.valueOf(str));
         this.textFieldList.add(text);
     }
 
-    private int getIntGuiTextFieldText(int number) {
-        String str = this.textFieldList.get(number).getText();
+    public int getTextFieldInt(int number) {
         int i = 0;
-        if (str == null || str.isEmpty()) {
-            return i;
-        }
-
         try {
-            i = Integer.parseInt(str);
-        } catch (NumberFormatException e) {
-            return i;
+            i = Integer.parseInt(this.getTextFieldText(number));
+        } catch (NumberFormatException ignored) {
         }
         return i;
     }
 
-    private String getStringGuiTextFieldText(int number) {
-        String str = this.textFieldList.get(number).getText();
-        return str == null || str.isEmpty() ? "" : str;
+    public String getTextFieldText(int number) {
+        return StringUtils.defaultString(this.textFieldList.get(number).getText());
     }
 
     @Override
@@ -470,50 +464,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 this.mc.displayGuiScreen(null);
                 return;
             case 91:
-                switch (this.type.getId()) {
-                    case 110:
-                        ((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).setValue(this.getIntGuiTextFieldText(0));
-                        break;
-                    case 120:
-                        break;
-                    case 121:
-                        ((IFTTTContainer.This.RTM.Cars) this.ifcb).setValue(this.getIntGuiTextFieldText(0));
-                        break;
-                    case 122:
-                        ((IFTTTContainer.This.RTM.Speed) this.ifcb).setValue(this.getIntGuiTextFieldText(0));
-                        break;
-                    case 124:
-                        ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).setKey(this.getStringGuiTextFieldText(0));
-                        ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).setValue(this.getStringGuiTextFieldText(1));
-                        break;
-                    case 130:
-                        ((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).setStartCC(this.getIntGuiTextFieldText(0), this.getIntGuiTextFieldText(1), this.getIntGuiTextFieldText(2));
-                        ((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).setEndCC(this.getIntGuiTextFieldText(3), this.getIntGuiTextFieldText(4), this.getIntGuiTextFieldText(5));
-                        break;
-                    case 210:
-                        ((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).setOutputLevel(this.getIntGuiTextFieldText(0));
-                        break;
-                    case 211:
-                        ((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).setSoundName(this.getStringGuiTextFieldText(0));
-                        ((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).setRadius(this.getIntGuiTextFieldText(1));
-                        ((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).setPos(this.getIntGuiTextFieldText(2), this.getIntGuiTextFieldText(3), this.getIntGuiTextFieldText(4));
-                        break;
-                    case 212:
-                        ((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).setCommand(this.getStringGuiTextFieldText(0));
-                        break;
-                    case 221:
-                        ((IFTTTContainer.That.RTM.DataMap) this.ifcb).setKey(this.getStringGuiTextFieldText(0));
-                        ((IFTTTContainer.That.RTM.DataMap) this.ifcb).setValue(this.getStringGuiTextFieldText(1));
-                        break;
-                    case 223:
-                        ((IFTTTContainer.That.RTM.TrainSignal) this.ifcb).setSignal(this.getIntGuiTextFieldText(0));
-                        break;
-                    case 230:
-                        ((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).setJSText(this.getStringGuiTextFieldText(0));
-                        break;
-                    default:
-                        return;
-                }
+                this.ifcb.setFromGui(this);
                 ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketIFTTT(this.tile, this.ifcb, this.ifcbIndex, 0));
                 this.mc.displayGuiScreen(null);
                 return;
