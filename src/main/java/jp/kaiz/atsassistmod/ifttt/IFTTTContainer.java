@@ -2,6 +2,7 @@ package jp.kaiz.atsassistmod.ifttt;
 
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
+import jp.kaiz.atsassistmod.gui.GUIIFTTTMaterial;
 import jp.kaiz.atsassistmod.network.PacketPlaySoundIFTTT;
 import jp.kaiz.atsassistmod.sound.ATSASoundPlayer;
 import jp.kaiz.atsassistmod.utils.ComparisonManager;
@@ -44,6 +45,8 @@ public abstract class IFTTTContainer implements Serializable {
     }
 
     public abstract String[] getExplanation();
+
+    public abstract void setFromGui(GUIIFTTTMaterial gui);
 
     public void setOnce(boolean once) {
         this.once = once;
@@ -125,6 +128,11 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setValue(gui.getTextFieldInt(0));
+                }
+
+                @Override
                 public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
                     int power = tile.getWorldObj().getStrongestIndirectPower(tile.xCoord, tile.yCoord, tile.zCoord);
                     switch (this.mode) {
@@ -196,6 +204,10 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                }
+
+                @Override
                 public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
                     switch (this.detectMode) {
                         case All:
@@ -246,6 +258,11 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setValue(gui.getTextFieldInt(0));
+                }
+
+                @Override
                 public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
                     return train != null && train.getFormation() != null && this.comparisonType.isTrue(train.getFormation().size(), this.value);
                 }
@@ -285,6 +302,11 @@ public abstract class IFTTTContainer implements Serializable {
                 @Override
                 public String[] getExplanation() {
                     return new String[]{"Speed" + this.comparisonType.getName() + this.value};
+                }
+
+                @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setValue(gui.getTextFieldInt(0));
                 }
 
                 @Override
@@ -381,6 +403,12 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setKey(gui.getTextFieldText(0));
+                    this.setValue(gui.getTextFieldText(1));
+                }
+
+                @Override
                 public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
                     if (train != null) {
                         ResourceState resourceState = train.getResourceState();
@@ -454,6 +482,12 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setStartCC(gui.getTextFieldInt(0), gui.getTextFieldInt(1), gui.getTextFieldInt(2));
+                    this.setEndCC(gui.getTextFieldInt(3), gui.getTextFieldInt(4), gui.getTextFieldInt(5));
+                }
+
+                @Override
                 public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
                     return tile.getWorldObj().getEntitiesWithinAABB(EntityLiving.class.getSuperclass(), AxisAlignedBB.getBoundingBox(
                             Math.min(this.startCC[0], this.endCC[0]), Math.min(this.startCC[1], this.endCC[1]), Math.min(this.startCC[2], this.endCC[2]),
@@ -503,6 +537,11 @@ public abstract class IFTTTContainer implements Serializable {
                 @Override
                 public String[] getExplanation() {
                     return new String[]{I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.1") + ": " + (this.isTrainCarsOutput() ? I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.0") : this.outputLevel)};
+                }
+
+                @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setOutputLevel(gui.getTextFieldInt(0));
                 }
 
                 @Override
@@ -565,6 +604,13 @@ public abstract class IFTTTContainer implements Serializable {
                 public String[] getExplanation() {
                     this.createResourceLocation();
                     return this.sound == null ? new String[]{""} : new String[]{this.sound.getResourceDomain(), this.sound.getResourcePath()};
+                }
+
+                @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setSoundName(gui.getTextFieldText(0));
+                    this.setRadius(gui.getTextFieldInt(1));
+                    this.setPos(gui.getTextFieldInt(2), gui.getTextFieldInt(3), gui.getTextFieldInt(4));
                 }
 
                 @Override
@@ -638,6 +684,11 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setCommand(gui.getTextFieldText(0));
+                }
+
+                @Override
                 public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
                     if (!this.once || first) {
                         new IFTTTCommandSender(tile).executeCommand(this.command);
@@ -699,6 +750,12 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setKey(gui.getTextFieldText(0));
+                    this.setValue(gui.getTextFieldText(1));
+                }
+
+                @Override
                 public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
                     if (train != null) {
                         ResourceState resourceState = train.getResourceState();
@@ -751,6 +808,11 @@ public abstract class IFTTTContainer implements Serializable {
                     return new String[]{"SetSignal:" + this.signal};
                 }
 
+                @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setSignal(gui.getTextFieldInt(0));
+                }
+
                 public int getSignal() {
                     return this.signal;
                 }
@@ -787,6 +849,8 @@ public abstract class IFTTTContainer implements Serializable {
                     this.error = false;
                 }
 
+                //setJSField
+
                 @Override
                 public IFTTTType.IFTTTEnumBase getType() {
                     return IFTTTType.That.ATSAssist.JavaScript;
@@ -798,15 +862,21 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.setJSText(gui.getTextFieldText(0));
+                }
+
+                @Override
                 public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
                     if (!this.error) {
                         try {
                             if (scriptEngine == null) {
                                 scriptEngine = ScriptUtil.doScript(jsText);
                             }
+//                            scriptEngine.put("key","value");
                             ScriptUtil.doScriptFunction(scriptEngine, "doThat", tile, train, first);
                             this.error = false;
-                        } catch (RuntimeException e) {
+                        } catch (Throwable e) {
                             System.out.printf("[ATSA Notice] World: %s X:%s Y:%s Z:%s IFTTTBlock Script Error!", tile.getWorldObj().getWorldInfo().getWorldName(), tile.xCoord, tile.yCoord, tile.zCoord);
 
                             ((List<EntityPlayerMP>) tile.getWorldObj().playerEntities)
@@ -830,6 +900,10 @@ public abstract class IFTTTContainer implements Serializable {
                             tile.getWorldObj().notifyBlockChange(tile.xCoord, tile.yCoord, tile.zCoord, tile.getBlockType());
                         }
                     }
+                }
+
+                public enum FieldType {
+                    Boolean, String, Integer, IntArray, Double;
                 }
             }
         }

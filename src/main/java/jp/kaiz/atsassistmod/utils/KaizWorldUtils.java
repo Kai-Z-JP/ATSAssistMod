@@ -13,7 +13,15 @@ public class KaizWorldUtils {
         return world.getTileEntity(x, y, z);
     }
 
-    public int getBlockMeta(World world, int x, int y, int z) {
+    public static int getBlockMeta(World world, int x, int y, int z) {
         return world.getBlockMetadata(x, y, z);
+    }
+
+    public static void playSound(World world, String soundName, double x, double y, double z, float volume, float pitch) {
+        world.playSoundEffect(x, y, z, soundName, volume, pitch);
+    }
+
+    public static void setBlock(World world, int x, int y, int z, int id) {
+        world.setBlock(x, y, z, Block.getBlockById(id));
     }
 }

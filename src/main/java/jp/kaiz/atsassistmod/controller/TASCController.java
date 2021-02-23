@@ -51,7 +51,6 @@ public class TASCController {
     public int getNeedNotch(float nowSpeedH) {
         double deceleration = this.getReqDeceleration(nowSpeedH);
 
-
         if (this.isStopPosition()) {
             this.breaking = true;
             return deceleration <= 0 ? -7 : 5;
@@ -79,13 +78,13 @@ public class TASCController {
 //			return -2;
 //		} else if (deceleration > 0.08 && this.breaking) {
 //			return -1;
-        } else if (deceleration > 0 && this.breaking) {
+        } else if (deceleration >= 0 && this.breaking) {
             this.breaking = false;
-            return 0;
+            return 1;
         } else if (this.breaking) {
             return -6;
         } else {
-            return 1;
+            return 0;
         }
     }
 

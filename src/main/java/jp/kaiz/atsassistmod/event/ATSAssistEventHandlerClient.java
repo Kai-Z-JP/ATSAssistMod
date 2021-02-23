@@ -23,7 +23,6 @@ public class ATSAssistEventHandlerClient {
         this.guiRender = new TrainGuiRender(mc);
     }
 
-
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onRenderGui(RenderGameOverlayEvent.Pre event) {
         this.guiRender.onRenderGui(event);

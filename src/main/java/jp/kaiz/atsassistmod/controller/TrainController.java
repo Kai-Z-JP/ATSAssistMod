@@ -29,6 +29,8 @@ public class TrainController implements Runnable {
 
     private boolean controllerControl = false;
 
+    private boolean emergencyBrake = false;
+
     //null処理めんどいからこれとインスタンス比較で
     public static final TrainController NULL = new TrainController();
 
@@ -41,6 +43,13 @@ public class TrainController implements Runnable {
         this.savedEntityID = train.getEntityId();
         this.train = train;
         this.setTrainProtection(TrainProtectionType.NONE);
+    }
+
+    public void setEB() {
+        this.emergencyBrake = true;
+        if (this.train != null) {
+            this.train.setNotch(-8);
+        }
     }
 
     public void setControllerNotch(byte notch) {
@@ -136,6 +145,17 @@ public class TrainController implements Runnable {
         if (train == null) {
             return;
         }
+
+        if (this.emergencyBrake) {
+            int notchLevel = this.train.getNotch();
+            if (notchLevel != -8) {
+                this.emergencyBrake = false;
+                this.brakingControlling = false;
+            } else {
+                return;
+            }
+        }
+
         //移動距離
         double movedDistance = this.getMovedDistance();
 
@@ -195,6 +215,7 @@ public class TrainController implements Runnable {
         if (this.tascController.isEnable()) {
             int needNotch = this.tascController.getNeedNotch(speedH);
             if (this.tascController.isBreaking()) {
+                this.disableATO();
                 brakeNotch.add(needNotch);
             }
         }

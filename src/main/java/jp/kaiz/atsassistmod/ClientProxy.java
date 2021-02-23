@@ -2,8 +2,10 @@ package jp.kaiz.atsassistmod;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityCustom;
 import jp.kaiz.atsassistmod.event.ATSAssistEventHandlerClient;
+import jp.kaiz.atsassistmod.event.ATSAssistKeyHandler;
 import jp.kaiz.atsassistmod.render.TileEntityBeamRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +18,7 @@ public class ClientProxy extends CommonProxy {
     public void preInit() {
         ATSAssistEventHandlerClient handler = new ATSAssistEventHandlerClient(this.getMinecraft());
         MinecraftForge.EVENT_BUS.register(handler);
+        FMLCommonHandler.instance().bus().register(new ATSAssistKeyHandler());
     }
 
     @Override
