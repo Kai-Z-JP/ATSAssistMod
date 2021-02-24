@@ -1,5 +1,7 @@
 package jp.kaiz.atsassistmod.ifttt;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.kaiz.atsassistmod.gui.GUIIFTTTMaterial;
@@ -46,6 +48,7 @@ public abstract class IFTTTContainer implements Serializable {
 
     public abstract String[] getExplanation();
 
+    @SideOnly(Side.CLIENT)
     public abstract void setFromGui(GUIIFTTTMaterial gui);
 
     public void setOnce(boolean once) {
@@ -128,6 +131,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setValue(gui.getTextFieldInt(0));
                 }
@@ -204,6 +208,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                 }
 
@@ -258,6 +263,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setValue(gui.getTextFieldInt(0));
                 }
@@ -305,6 +311,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setValue(gui.getTextFieldInt(0));
                 }
@@ -403,6 +410,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setKey(gui.getTextFieldText(0));
                     this.setValue(gui.getTextFieldText(1));
@@ -482,6 +490,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setStartCC(gui.getTextFieldInt(0), gui.getTextFieldInt(1), gui.getTextFieldInt(2));
                     this.setEndCC(gui.getTextFieldInt(3), gui.getTextFieldInt(4), gui.getTextFieldInt(5));
@@ -540,6 +549,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setOutputLevel(gui.getTextFieldInt(0));
                 }
@@ -607,6 +617,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setSoundName(gui.getTextFieldText(0));
                     this.setRadius(gui.getTextFieldInt(1));
@@ -684,6 +695,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setCommand(gui.getTextFieldText(0));
                 }
@@ -750,6 +762,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setKey(gui.getTextFieldText(0));
                     this.setValue(gui.getTextFieldText(1));
@@ -809,6 +822,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setSignal(gui.getTextFieldInt(0));
                 }
@@ -862,6 +876,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.setJSText(gui.getTextFieldText(0));
                 }
