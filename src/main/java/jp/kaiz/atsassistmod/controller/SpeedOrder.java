@@ -3,12 +3,14 @@ package jp.kaiz.atsassistmod.controller;
 public class SpeedOrder {
     private final int targetSpeedH;
     private double targetDistance;
+    private final boolean autoBrake;
     private boolean enable = false;
     private boolean breaking = false;
 
-    public SpeedOrder(int targetSpeed, double targetDistance) {
+    public SpeedOrder(int targetSpeed, double targetDistance, boolean autoBrake) {
         this.targetSpeedH = targetSpeed;
         this.targetDistance = targetDistance;
+        this.autoBrake = autoBrake;
     }
 
     public int getTargetSpeed() {
@@ -28,6 +30,10 @@ public class SpeedOrder {
 
     public boolean isEnable() {
         return enable;
+    }
+
+    public boolean isAutoBrake() {
+        return autoBrake;
     }
 
     public int getNeedNotch(float nowSpeedH) {

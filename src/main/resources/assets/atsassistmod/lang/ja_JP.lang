@@ -40,9 +40,6 @@ ATSAssistMod.gui.GroudUnitMenu.0.text.2=ATO
 ATSAssistMod.gui.GroudUnitMenu.0.text.3=保安装置
 ATSAssistMod.gui.GroudUnitMenu.0.text.4=その他
 
-ATSAssistMod.gui.GroudUnitMenu.1.title=地上子機能 : ATC(ATO) : 速度制限予告
-ATSAssistMod.gui.GroudUnitMenu.1.text.0=速度制限    (km/h)
-ATSAssistMod.gui.GroudUnitMenu.1.text.1=制限開始の距離 (m)
 ATSAssistMod.gui.GroudUnitMenu.0.button.1=速度制限予告
 ATSAssistMod.gui.GroudUnitMenu.0.button.2=速度制限解除
 ATSAssistMod.gui.GroudUnitMenu.0.button.4=停車位置予告
@@ -55,6 +52,11 @@ ATSAssistMod.gui.GroudUnitMenu.0.button.11=目標速度変更
 ATSAssistMod.gui.GroudUnitMenu.0.button.13=列車データ変更
 ATSAssistMod.gui.GroudUnitMenu.0.button.14=強制変更
 ATSAssistMod.gui.GroudUnitMenu.0.button.20=キャンセル
+
+ATSAssistMod.gui.GroudUnitMenu.1.title=地上子機能 : ATC(ATO) : 速度制限予告
+ATSAssistMod.gui.GroudUnitMenu.1.text.0=速度制限    (km/h)
+ATSAssistMod.gui.GroudUnitMenu.1.text.1=制限開始の距離 (m)
+ATSAssistMod.gui.GroudUnitMenu.1.text.2=自動的に減速する
 
 ATSAssistMod.gui.GroudUnitMenu.2.title=地上子機能 : ATC(ATO) : 速度制限解除
 ATSAssistMod.gui.GroudUnitMenu.2.text.0=編成最後尾で解除

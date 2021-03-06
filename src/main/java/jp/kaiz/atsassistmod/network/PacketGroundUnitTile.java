@@ -14,12 +14,13 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
     private int x;
     private int y;
     private int z;
-    boolean linkRedStone;
-    boolean useTrainDistance;
+    private boolean linkRedStone;
+    private boolean useTrainDistance;
     private int speed;
     private int par0;
     private double distance;
     private byte[] par1ByteArray;
+    private boolean autoBrake;
 
     public PacketGroundUnitTile() {
     }
@@ -48,10 +49,11 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
         this.speed = speed;
     }
 
-    public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, int speed, double distance) {
+    public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, int speed, double distance, boolean autoBrake) {
         this(tile, linkRedStone);
         this.speed = speed;
         this.distance = distance;
+        this.autoBrake = autoBrake;
     }
 
     public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, byte[] par1ByteArray) {
@@ -76,6 +78,7 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
                 //距離とスピード
                 this.speed = buf.readInt();
                 this.distance = buf.readDouble();
+                this.autoBrake = buf.readBoolean();
                 break;
             case 2:
                 //遅れて実行するか
@@ -116,6 +119,7 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
                 //距離とスピード
                 buf.writeInt(this.speed);
                 buf.writeDouble(this.distance);
+                buf.writeBoolean(this.autoBrake);
                 break;
             case 2:
                 //遅れて実行するか
@@ -154,6 +158,7 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
                 //距離とスピード
                 ((TileEntityGroundUnit.Speed) tile).setSpeedLimit(message.speed);
                 ((TileEntityGroundUnit.Distance) tile).setDistance(message.distance);
+                ((TileEntityGroundUnit.ATCSpeedLimitNotice) tile).setAutoBrake(message.autoBrake);
                 break;
             case 2:
                 ((TileEntityGroundUnit.TrainDistance) tile).setUseTrainDistance(message.useTrainDistance);

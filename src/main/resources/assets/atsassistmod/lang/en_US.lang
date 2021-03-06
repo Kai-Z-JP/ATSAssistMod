@@ -56,6 +56,7 @@ ATSAssistMod.gui.GroudUnitMenu.0.button.20=Cancel
 ATSAssistMod.gui.GroudUnitMenu.1.title=Ground unit menu : ATC (ATO) : Speed limit notice
 ATSAssistMod.gui.GroudUnitMenu.1.text.0=Speed limit (km/h)
 ATSAssistMod.gui.GroudUnitMenu.1.text.1=Distance to start limit (m)
+ATSAssistMod.gui.GroudUnitMenu.1.text.2=Auto braking
 
 ATSAssistMod.gui.GroudUnitMenu.2.title=Ground unit menu : ATC (ATO) : Speed limit release
 ATSAssistMod.gui.GroudUnitMenu.2.text.0=Cancel at the end
