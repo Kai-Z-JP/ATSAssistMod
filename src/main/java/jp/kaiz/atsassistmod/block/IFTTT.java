@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class IFTTT extends BlockContainer implements IBlockConnective {
@@ -55,21 +54,6 @@ public class IFTTT extends BlockContainer implements IBlockConnective {
     @Override
     public TileEntity createNewTileEntity(World world, int metadata) {
         return new TileEntityIFTTT();
-    }
-
-    @Override
-    public boolean canProvidePower() {
-        return true;
-    }
-
-    @Override
-    public int isProvidingStrongPower(IBlockAccess world, int x, int y, int z, int direction) {
-        return 0;
-    }
-
-    @Override
-    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int direction) {
-        return this.isProvidingStrongPower(world, x, y, z, direction);
     }
 
     @Override
