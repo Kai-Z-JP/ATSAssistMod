@@ -3,9 +3,14 @@ package jp.kaiz.atsassistmod.controller;
 public class SpeedOrder {
     private final int targetSpeedH;
     private double targetDistance;
-    private final boolean autoBrake;
+    private boolean autoBrake;
     private boolean enable = false;
     private boolean breaking = false;
+
+    public SpeedOrder(int targetSpeed, double targetDistance) {
+        this.targetSpeedH = targetSpeed;
+        this.targetDistance = targetDistance;
+    }
 
     public SpeedOrder(int targetSpeed, double targetDistance, boolean autoBrake) {
         this.targetSpeedH = targetSpeed;
