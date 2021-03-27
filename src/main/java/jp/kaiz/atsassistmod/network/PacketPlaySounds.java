@@ -6,7 +6,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
-import jp.kaiz.atsassistmod.sound.ATSAOrderedSoundPlayer;
+import jp.kaiz.atsassistmod.utils.KaizUtils;
 import jp.ngt.ngtlib.util.NGTUtilClient;
 import net.minecraft.tileentity.TileEntity;
 
@@ -82,7 +82,7 @@ public class PacketPlaySounds implements IMessage, IMessageHandler<PacketPlaySou
     public IMessage onMessage(PacketPlaySounds message, MessageContext ctx) {
         TileEntity tile = NGTUtilClient.getMinecraft().theWorld.getTileEntity(message.tilePosX, message.tilePosY, message.tilePosZ);
         if (tile instanceof TileEntityIFTTT) {
-            ATSAOrderedSoundPlayer.playSounds(tile, message.posList, message.sourceList, message.volume);
+            KaizUtils.playSounds(tile, message.posList, message.sourceList, message.volume);
         }
         return null;
     }
