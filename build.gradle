@@ -15,7 +15,7 @@ buildscript {
 	}
 	dependencies {
 		classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-		classpath "com.wynprice.cursemaven:CurseMaven:1.2.3"
+		classpath "com.wynprice.cursemaven:CurseMaven:2.1.5"
 	}
 }
 
