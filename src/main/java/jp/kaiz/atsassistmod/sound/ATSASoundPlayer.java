@@ -2,7 +2,6 @@ package jp.kaiz.atsassistmod.sound;
 
 import jp.ngt.ngtlib.util.NGTUtil;
 import jp.ngt.ngtlib.util.NGTUtilClient;
-import jp.ngt.rtm.sound.MovingSoundTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
@@ -28,29 +27,22 @@ public class ATSASoundPlayer {
     }
 
     private static class ATSASoundPlayerClient extends ATSASoundPlayer {
-        private MovingSoundTileEntity sound;
+        private ATSAMovingSoundTileEntity sound;
 
         @Override
         public void playSound(TileEntity tile, ResourceLocation src, boolean repeat) {
-            if (this.sound != null) {
-                this.stopSound();
-            }
-            this.sound = new ATSAMovingSoundTileEntity(tile, src, repeat);
-            this.sound.setVolume(10.0F);
+            this.stopSound();
+            this.sound = new ATSAMovingSoundTileEntity(tile, src, repeat, 10.0F);
             NGTUtilClient.playSound(this.sound);
         }
 
         @Override
         public void playSound(TileEntity tile, int[] pos, ResourceLocation src, boolean repeat, float volume) {
             if (pos == null) {
-//                this.playSound(tile, src, repeat);
                 return;
             }
-            if (this.sound != null) {
-                this.stopSound();
-            }
-            this.sound = new ATSAMovingSoundTileEntity(tile, pos, src, repeat);
-            this.sound.setVolume(volume);
+            this.stopSound();
+            this.sound = new ATSAMovingSoundTileEntity(tile, pos, src, repeat, volume);
             NGTUtilClient.playSound(this.sound);
         }
 

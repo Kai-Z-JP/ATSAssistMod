@@ -133,10 +133,11 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
     public static class ATCSpeedLimitNotice extends TileEntityGroundUnit implements Speed, Distance {
         private int speedLimit;
         private double distance;
+        private boolean autoBrake;
 
         @Override
         public void onTick(EntityTrainBase train) {
-            SpeedOrder speedOrder = new SpeedOrder(this.speedLimit, this.distance);
+            SpeedOrder speedOrder = new SpeedOrder(this.speedLimit, this.distance, this.autoBrake);
             TrainControllerManager.getTrainController(train).addSpeedOrder(speedOrder);
         }
 
@@ -144,12 +145,14 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
         public void readNBT(NBTTagCompound tag) {
             this.speedLimit = tag.getInteger("speedLimit");
             this.distance = tag.getDouble("distance");
+            this.autoBrake = tag.getBoolean("autoBrake");
         }
 
         @Override
         public void writeNBT(NBTTagCompound tag) {
             tag.setInteger("speedLimit", this.speedLimit);
             tag.setDouble("distance", this.distance);
+            tag.setBoolean("autoBrake", this.autoBrake);
         }
 
         @Override
@@ -175,6 +178,14 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
         @Override
         public double getDistance() {
             return this.distance;
+        }
+
+        public void setAutoBrake(boolean autoBrake) {
+            this.autoBrake = autoBrake;
+        }
+
+        public boolean isAutoBrake() {
+            return autoBrake;
         }
     }
 

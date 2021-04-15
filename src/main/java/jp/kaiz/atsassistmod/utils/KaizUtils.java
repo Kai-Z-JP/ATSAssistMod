@@ -2,10 +2,12 @@ package jp.kaiz.atsassistmod.utils;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
+import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.ngt.ngtlib.util.NGTUtil;
 import jp.ngt.ngtlib.util.NGTUtilClient;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.audio.SoundManager;
+import net.minecraft.tileentity.TileEntity;
 import org.apache.commons.lang3.EnumUtils;
 import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;
@@ -15,6 +17,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -61,5 +64,21 @@ public class KaizUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static void playSounds(TileEntity tile, List<int[]> posList, List<Object> orderList, float volume) {
+        if (posList != null && orderList != null) {
+            ATSAssistCore.proxy.playSounds(tile, posList, orderList, volume);
+        }
+
+    }
+
+    public static void playSounds(TileEntity tile, int[][] posArray, Object[] orderArray, float volume) {
+        if (posArray == null || orderArray == null) {
+            return;
+        }
+
+        playSounds(tile, Arrays.asList(posArray), Arrays.asList(orderArray), volume);
     }
 }

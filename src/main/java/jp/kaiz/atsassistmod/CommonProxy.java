@@ -3,9 +3,13 @@ package jp.kaiz.atsassistmod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityGroundUnit;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
+import jp.kaiz.atsassistmod.network.PacketPlaySounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class CommonProxy {
 
@@ -58,5 +62,9 @@ public class CommonProxy {
 
     public Minecraft getMinecraft() {
         return null;
+    }
+
+    public void playSounds(TileEntity tile, List<int[]> posList, List<Object> orderList, float volume) {
+        ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketPlaySounds(tile, posList, orderList, volume));
     }
 }

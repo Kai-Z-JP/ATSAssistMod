@@ -1,7 +1,6 @@
 package jp.kaiz.atsassistmod.item;
 
 import jp.kaiz.atsassistmod.ATSAssistCore;
-import jp.kaiz.atsassistmod.CreativeTabATSAssist;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,7 +8,6 @@ import net.minecraft.world.World;
 
 public class DataMapEditor extends Item {
     public DataMapEditor() {
-        setCreativeTab(CreativeTabATSAssist.tabUtils);
         setUnlocalizedName(ATSAssistCore.MODID + ":" + "itemDataMapEditor");
     }
 
