@@ -18,12 +18,10 @@ buildscript {
 		classpath('com.anatawa12.forge:ForgeGradle:1.2-1.0.+') {
 			changing = true
 		}
-		classpath "com.wynprice.cursemaven:CurseMaven:1.2.3"
 	}
 }
 
 apply plugin: 'forge'
-apply plugin: "com.wynprice.cursemaven"
 
 version = "latest"
 group = "jp.kaiz.atsassistmod" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -32,6 +30,12 @@ archivesBaseName = "ATSAssistMod"
 minecraft {
 	version = "1.7.10-10.13.4.1614-1.7.10"
 	runDir = "eclipse"
+}
+
+repositories {
+	maven {
+		url "https://www.cursemaven.com"
+	}
 }
 
 dependencies {
@@ -47,8 +51,8 @@ dependencies {
 	// for more info...
 	// http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
 	// http://www.gradle.org/docs/current/userguide/dependency_management.html
-	compile curse.resolve("ngtlib", "2940833")
-	compile curse.resolve("realtrainmod", "3039063")
+	compile  "curse.maven:ngtlib-288989:2940833"
+	compile  "curse.maven:realtrainmod-288988:3039063"
 }
 
 processResources {
