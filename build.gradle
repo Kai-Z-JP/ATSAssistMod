@@ -1,7 +1,6 @@
 buildscript {
 	repositories {
 		mavenCentral()
-		jcenter()
 		maven {
 			name = "forge"
 			url = "https://files.minecraftforge.net/maven"
@@ -9,9 +8,6 @@ buildscript {
 		maven {
 			name = "sonatype"
 			url = "https://oss.sonatype.org/content/repositories/snapshots/"
-		}
-		maven {
-			url "https://plugins.gradle.org/m2/"
 		}
 	}
 	dependencies {
