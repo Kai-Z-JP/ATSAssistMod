@@ -49,11 +49,12 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
         this.speed = speed;
     }
 
-    public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, int speed, double distance, boolean autoBrake) {
+    public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, int speed, double distance, boolean autoBrake, boolean useTrainDistance) {
         this(tile, linkRedStone);
         this.speed = speed;
         this.distance = distance;
         this.autoBrake = autoBrake;
+        this.useTrainDistance = useTrainDistance;
     }
 
     public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone, byte[] par1ByteArray) {
@@ -79,6 +80,7 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
                 this.speed = buf.readInt();
                 this.distance = buf.readDouble();
                 this.autoBrake = buf.readBoolean();
+                this.useTrainDistance = buf.readBoolean();
                 break;
             case 2:
                 //遅れて実行するか
@@ -120,6 +122,7 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
                 buf.writeInt(this.speed);
                 buf.writeDouble(this.distance);
                 buf.writeBoolean(this.autoBrake);
+                buf.writeBoolean(this.useTrainDistance);
                 break;
             case 2:
                 //遅れて実行するか
@@ -159,6 +162,7 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
                 ((TileEntityGroundUnit.Speed) tile).setSpeedLimit(message.speed);
                 ((TileEntityGroundUnit.Distance) tile).setDistance(message.distance);
                 ((TileEntityGroundUnit.ATCSpeedLimitNotice) tile).setAutoBrake(message.autoBrake);
+                ((TileEntityGroundUnit.TrainDistance) tile).setUseTrainDistance(message.useTrainDistance);
                 break;
             case 2:
                 ((TileEntityGroundUnit.TrainDistance) tile).setUseTrainDistance(message.useTrainDistance);

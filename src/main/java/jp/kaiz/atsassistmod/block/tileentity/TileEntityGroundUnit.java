@@ -130,14 +130,15 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
         }
     }
 
-    public static class ATCSpeedLimitNotice extends TileEntityGroundUnit implements Speed, Distance {
+    public static class ATCSpeedLimitNotice extends TileEntityGroundUnit implements Speed, Distance, TrainDistance {
         private int speedLimit;
         private double distance;
         private boolean autoBrake;
+        private boolean useTrainDistance;
 
         @Override
         public void onTick(EntityTrainBase train) {
-            SpeedOrder speedOrder = new SpeedOrder(this.speedLimit, this.distance, this.autoBrake);
+            SpeedOrder speedOrder = new SpeedOrder(this.speedLimit, this.isUseTrainDistance() ? this.distance - train.getModelSet().getConfig().trainDistance : this.distance, this.autoBrake);
             TrainControllerManager.getTrainController(train).addSpeedOrder(speedOrder);
         }
 
@@ -146,6 +147,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
             this.speedLimit = tag.getInteger("speedLimit");
             this.distance = tag.getDouble("distance");
             this.autoBrake = tag.getBoolean("autoBrake");
+            this.useTrainDistance = tag.getBoolean("trainDistance");
         }
 
         @Override
@@ -153,6 +155,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
             tag.setInteger("speedLimit", this.speedLimit);
             tag.setDouble("distance", this.distance);
             tag.setBoolean("autoBrake", this.autoBrake);
+            tag.setBoolean("trainDistance", this.useTrainDistance);
         }
 
         @Override
@@ -186,6 +189,16 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
 
         public boolean isAutoBrake() {
             return autoBrake;
+        }
+
+        @Override
+        public void setUseTrainDistance(boolean useTrainDistance) {
+            this.useTrainDistance = useTrainDistance;
+        }
+
+        @Override
+        public boolean isUseTrainDistance() {
+            return this.useTrainDistance;
         }
     }
 

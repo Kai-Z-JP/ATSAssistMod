@@ -68,6 +68,9 @@ public class GUIGroundUnit extends GuiScreenCustom {
                 this.fontRendererObj.drawString(/*"自動的に減速する",*/
                         I18n.format("ATSAssistMod.gui.GroudUnitMenu.1.text.2"),
                         this.width / 2 - 100, this.height / 2 + 25, 0xffffff);
+                this.fontRendererObj.drawString(/*"距離基準を車両先頭に",*/
+                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.6.text.1"),
+                        this.width / 2 - 100, this.height / 2 + 50, 0xffffff);
                 break;
             case ATC_SpeedLimit_Cancel:
                 this.fontRendererObj.drawString(/*"地上子機能 : ATC(ATO) : 速度制限解除",*/
@@ -238,6 +241,9 @@ public class GUIGroundUnit extends GuiScreenCustom {
                 GuiCheckBox checkBox = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 + 25, "", false);
                 checkBox.setIsChecked(((TileEntityGroundUnit.ATCSpeedLimitNotice) tile).isAutoBrake());
                 this.buttonList.add(checkBox);
+                GuiCheckBox checkBox3 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 + 50, "", false);
+                checkBox3.setIsChecked(((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance());
+                this.buttonList.add(checkBox3);
                 break;
             case ATC_SpeedLimit_Cancel:
                 this.addDownCommon();
@@ -348,7 +354,8 @@ public class GUIGroundUnit extends GuiScreenCustom {
                                     linkRedStone,
                                     this.getIntGuiTextFieldText(0),
                                     this.getDoubleGuiTextFieldText(1),
-                                    ((GuiCheckBox) this.buttonList.get(4)).isChecked()));
+                                    ((GuiCheckBox) this.buttonList.get(4)).isChecked(),
+                                    ((GuiCheckBox) this.buttonList.get(5)).isChecked()));
                     break;
                 case ATC_SpeedLimit_Cancel:
                     ATSAssistCore.NETWORK_WRAPPER.sendToServer(
