@@ -215,28 +215,20 @@ public class GUIGroundUnit extends GuiScreenCustom {
                 this.addDownCommon();
                 this.addGuiTextField(0, String.valueOf(((TileEntityGroundUnit.Speed) tile).getSpeedLimit()), 3);
                 this.addGuiTextField(1, String.valueOf(((TileEntityGroundUnit.Distance) tile).getDistance()), 5);
-                GuiCheckBox checkBox0 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 + 25, "", false);
-                checkBox0.setIsChecked(((TileEntityGroundUnit.ATCSpeedLimitNotice) tile).isAutoBrake());
-                this.buttonList.add(checkBox0);
-                GuiCheckBox checkBox1 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 + 50, "", false);
-                checkBox1.setIsChecked(((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance());
-                this.buttonList.add(checkBox1);
+                this.buttonList.add(new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 + 25, "", ((TileEntityGroundUnit.ATCSpeedLimitNotice) tile).isAutoBrake()));
+                this.buttonList.add(new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 + 50, "", ((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance()));
                 break;
             }
             case ATC_SpeedLimit_Cancel: {
                 this.addDownCommon();
-                GuiCheckBox checkBox0 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 - 25, "", false);
-                checkBox0.setIsChecked(((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance());
-                this.buttonList.add(checkBox0);
+                this.buttonList.add(new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 - 25, "", ((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance()));
                 break;
             }
             case TASC_StopPotion_Correction:
             case TASC_StopPotion_Notice: {
                 this.addDownCommon();
                 this.addGuiTextField(0, String.valueOf(((TileEntityGroundUnit.Distance) tile).getDistance()), 5);
-                GuiCheckBox checkBox0 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2, "", false);
-                checkBox0.setIsChecked(((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance());
-                this.buttonList.add(checkBox0);
+                this.buttonList.add(new GuiCheckBox(31, this.width / 2 + 45, this.height / 2, "", ((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance()));
                 break;
             }
             case TASC_Cancel:
@@ -258,9 +250,7 @@ public class GUIGroundUnit extends GuiScreenCustom {
                 break;
             }
             case TrainState_Set: {
-                GuiCheckBox checkBox0 = new GuiCheckBox(100, this.width / 2 + 145, this.height / 2 - 45, "", false);
-                checkBox0.setIsChecked(tile.isLinkRedStone());
-                this.buttonList.add(checkBox0);
+                this.buttonList.add(new GuiCheckBox(100, this.width / 2 + 145, this.height / 2 - 45, "", tile.isLinkRedStone()));
 
                 this.buttonList.addAll(Arrays.asList(
                         new GuiButton(0, this.width / 4 + 160, 15, 50, 20, /*"リセット"*/
@@ -317,64 +307,61 @@ public class GUIGroundUnit extends GuiScreenCustom {
             return;
         } else if (button.id == 21) {
             boolean linkRedStone = ((GuiCheckBox) this.buttonList.get(0)).isChecked();
+            PacketGroundUnitTile packet = null;
             switch (this.tile.getType()) {
                 case TrainState_Set:
-                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(
-                            new PacketGroundUnitTile(
-                                    this.tile,
-                                    linkRedStone,
-                                    this.getTrainStateBytes()));
+                    packet = new PacketGroundUnitTile(
+                            this.tile,
+                            linkRedStone,
+                            this.getTrainStateBytes());
                     break;
                 case ATC_SpeedLimit_Notice:
-                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(
-                            new PacketGroundUnitTile(
-                                    this.tile,
-                                    linkRedStone,
-                                    this.getIntGuiTextFieldText(0),
-                                    this.getDoubleGuiTextFieldText(1),
-                                    ((GuiCheckBox) this.buttonList.get(4)).isChecked(),
-                                    ((GuiCheckBox) this.buttonList.get(5)).isChecked()));
+                    packet = new PacketGroundUnitTile(
+                            this.tile,
+                            linkRedStone,
+                            this.getIntGuiTextFieldText(0),
+                            this.getDoubleGuiTextFieldText(1),
+                            ((GuiCheckBox) this.buttonList.get(4)).isChecked(),
+                            ((GuiCheckBox) this.buttonList.get(5)).isChecked());
                     break;
                 case ATC_SpeedLimit_Cancel:
-                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(
-                            new PacketGroundUnitTile(
-                                    this.tile,
-                                    linkRedStone,
-                                    ((GuiCheckBox) this.buttonList.get(4)).isChecked()));
+                    packet = new PacketGroundUnitTile(
+                            this.tile,
+                            linkRedStone,
+                            ((GuiCheckBox) this.buttonList.get(4)).isChecked());
                     break;
                 case TASC_StopPotion_Notice:
                 case TASC_StopPotion_Correction:
-                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(
-                            new PacketGroundUnitTile(
-                                    this.tile,
-                                    linkRedStone,
-                                    this.getDoubleGuiTextFieldText(0),
-                                    ((GuiCheckBox) this.buttonList.get(4)).isChecked()));
+                    packet = new PacketGroundUnitTile(
+                            this.tile,
+                            linkRedStone,
+                            this.getDoubleGuiTextFieldText(0),
+                            ((GuiCheckBox) this.buttonList.get(4)).isChecked());
                     break;
                 case ATO_Departure_Signal:
                 case ATO_Change_Speed:
-                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(
-                            new PacketGroundUnitTile(
-                                    this.tile,
-                                    linkRedStone,
-                                    this.getIntGuiTextFieldText(0)));
+                    packet = new PacketGroundUnitTile(
+                            this.tile,
+                            linkRedStone,
+                            this.getIntGuiTextFieldText(0));
                     break;
                 case TASC_Cancel:
                 case TASC_StopPotion:
                 case ATO_Cancel:
                 case ATACS_Disable:
-                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(
-                            new PacketGroundUnitTile(
-                                    this.tile,
-                                    linkRedStone));
+                    packet = new PacketGroundUnitTile(
+                            this.tile,
+                            linkRedStone);
                     break;
                 case CHANGE_TP:
-                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(
-                            new PacketGroundUnitTile(
-                                    this.tile,
-                                    linkRedStone,
-                                    this.getTrainProtection()));
+                    packet = new PacketGroundUnitTile(
+                            this.tile,
+                            linkRedStone,
+                            this.getTrainProtection());
                     break;
+            }
+            if (packet != null) {
+                ATSAssistCore.NETWORK_WRAPPER.sendToServer(packet);
             }
             this.mc.displayGuiScreen(null);
             return;
