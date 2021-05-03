@@ -235,39 +235,45 @@ public class GUIIFTTTMaterial extends GuiScreen {
             this.addAddButton(200, this.width / 2 - 73, this.height / 2 + 19, i1, thatSize);
         } else {
             switch (this.type.getId()) {
-                case 100: //IFTTTType.This.Select
+                case 100: {//IFTTTType.This.Select
                     this.addSelectButton(IFTTTType.This.Minecraft.values(), this.width / 2 - 170, this.height / 2 - 75);
                     this.addSelectButton(IFTTTType.This.RTM.values(), this.width / 2 - 170, this.height / 2 - 10);
                     this.addSelectButton(IFTTTType.This.ATSAssist.values(), this.width / 2 - 170, this.height / 2 + 55);
                     this.buttonList.add(new GuiButton(990, this.width / 2 - 50, this.height - 25, 100, 20, I18n.format("ATSAssistMod.gui.IFTTTMaterial.common.button.990")));
                     break;
-                case 110: //RedStoneInput
+                }
+                case 110: {//RedStoneInput
                     this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 30, 2, 30);
                     this.addDownCommon();
                     break;
-                case 120: //単純列検
+                }
+                case 120: {//単純列検
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 30, 60, 20, ""));
                     this.addDownCommon();
                     break;
-                case 121: //両数
+                }
+                case 121: {//両数
                     this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.This.RTM.Cars) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
                     break;
-                case 122: //速度
+                }
+                case 122: {//速度
                     this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.This.RTM.Speed) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
                     break;
-                case 124: //TrainDataMap
+                }
+                case 124: {//TrainDataMap
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
                     this.buttonList.add(new GuiButton(1001, this.width / 2 - 15, this.height / 2 - 5, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getKey(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addGuiTextField(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
                     break;
-                case 130: //踏切障検
+                }
+                case 130: {//踏切障検
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[0], this.width / 2 - 50, this.height / 2 - 30, Byte.MAX_VALUE, 30);
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[1], this.width / 2 - 15, this.height / 2 - 30, Byte.MAX_VALUE, 30);
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[2], this.width / 2 + 20, this.height / 2 - 30, Byte.MAX_VALUE, 30);
@@ -276,18 +282,21 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[2], this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addDownCommon();
                     break;
-                case 200: //IFTTTType.This.Select
+                }
+                case 200: {//IFTTTType.This.Select
                     this.addSelectButton(IFTTTType.That.Minecraft.values(), this.width / 2 - 170, this.height / 2 - 75);
                     this.addSelectButton(IFTTTType.That.RTM.values(), this.width / 2 - 170, this.height / 2 - 10);
                     this.addSelectButton(IFTTTType.That.ATSAssist.values(), this.width / 2 - 170, this.height / 2 + 55);
                     this.buttonList.add(new GuiButton(990, this.width / 2 - 50, this.height - 25, 100, 20, I18n.format("ATSAssistMod.gui.IFTTTMaterial.common.button.990")));
                     break;
-                case 210: //RedStoneOutput
+                }
+                case 210: {//RedStoneOutput
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).getOutputLevel(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
                     break;
-                case 211: //PlaySound
+                }
+                case 211: {//PlaySound
                     this.buttonList.add(new GuiCheckBox(1000, this.width / 2 + 45, this.height / 2 - 80, "", false));
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getSoundName(), this.width / 2 - 50, this.height / 2 - 55, Byte.MAX_VALUE, 100);
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getRadius(), this.width / 2 - 85, this.height / 2 - 5, Byte.MAX_VALUE, 30);
@@ -296,26 +305,31 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[2], this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addDownCommon();
                     break;
-                case 212: //ExecuteCommand
+                }
+                case 212: {//ExecuteCommand
                     this.buttonList.add(new GuiCheckBox(1000, this.width / 2 + 45, this.height / 2 - 80, "", false));
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).getCommand(), this.width / 2 - 100, this.height / 2 - 30, Byte.MAX_VALUE, 200);
                     this.addDownCommon();
                     break;
-                case 221: //DataMap
+                }
+                case 221: {//DataMap
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getKey(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addGuiTextField(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
                     break;
-                case 223: //TrainSignal
+                }
+                case 223: {//TrainSignal
                     this.addGuiTextField(((IFTTTContainer.That.RTM.TrainSignal) this.ifcb).getSignal(), this.width / 2 + 30, this.height / 2 - 30, 3, 50);
                     this.addDownCommon();
                     break;
-                case 230: //JS
+                }
+                case 230: {//JS
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 80, this.height / 2 - 60, 20, 20, "V"));
                     this.addGuiTextField(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getJSText(), this.width / 2 - 100, this.height / 2 - 60, Integer.MAX_VALUE - 1, 175);
                     this.addDownCommon();
                     break;
+                }
             }
         }
     }
