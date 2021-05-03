@@ -16,6 +16,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class GUIGroundUnit extends GuiScreenCustom {
@@ -172,129 +173,105 @@ public class GUIGroundUnit extends GuiScreenCustom {
         GroundUnitType type = this.tile.getType();
         switch (type) {
             case None:
-                this.buttonList.add(
+                this.buttonList.addAll(Arrays.asList(
                         new GuiButton(1, this.width / 2 - 170, this.height / 2 - 75, 100, 20,/* "速度制限予告"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.1")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(2, this.width / 2 - 50, this.height / 2 - 75, 100, 20, /*"速度制限解除"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.2")
-                        ));
-
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(4, this.width / 2 - 170, this.height / 2 - 35, 100, 20, /*"停車位置予告"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.4")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(5, this.width / 2 - 50, this.height / 2 - 35, 100, 20, /*"制御終了"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.5")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(6, this.width / 2 - 170, this.height / 2 - 10, 100, 20, /*"停車距離補正"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.6")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(7, this.width / 2 - 50, this.height / 2 - 10, 100, 20, /*"停車検知"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.7")
-                        ));
-
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(9, this.width / 2 - 170, this.height / 2 + 30, 100, 20, /*"出発信号"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.9")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(10, this.width / 2 - 50, this.height / 2 + 30, 100, 20, /*"制御終了"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.10")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(11, this.width / 2 + 70, this.height / 2 + 30, 100, 20, /*"目標速度変更"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.11")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(13, this.width / 2 + 70, this.height / 2 + 70, 100, 20, /*"列車データ変更"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.13")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(14, this.width / 2 - 170, this.height / 2 + 70, 100, 20, /*"強制変更"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.14")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(20, this.width / 2 - 50, this.height - 25, 100, 20, /*"キャンセル"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.20")
-                        ));
+                        )));
                 break;
-            case ATC_SpeedLimit_Notice:
+            case ATC_SpeedLimit_Notice: {
                 this.addDownCommon();
                 this.addGuiTextField(0, String.valueOf(((TileEntityGroundUnit.Speed) tile).getSpeedLimit()), 3);
                 this.addGuiTextField(1, String.valueOf(((TileEntityGroundUnit.Distance) tile).getDistance()), 5);
-                GuiCheckBox checkBox = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 + 25, "", false);
-                checkBox.setIsChecked(((TileEntityGroundUnit.ATCSpeedLimitNotice) tile).isAutoBrake());
-                this.buttonList.add(checkBox);
-                GuiCheckBox checkBox3 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 + 50, "", false);
-                checkBox3.setIsChecked(((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance());
-                this.buttonList.add(checkBox3);
+                GuiCheckBox checkBox0 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 + 25, "", false);
+                checkBox0.setIsChecked(((TileEntityGroundUnit.ATCSpeedLimitNotice) tile).isAutoBrake());
+                this.buttonList.add(checkBox0);
+                GuiCheckBox checkBox1 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 + 50, "", false);
+                checkBox1.setIsChecked(((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance());
+                this.buttonList.add(checkBox1);
                 break;
-            case ATC_SpeedLimit_Cancel:
+            }
+            case ATC_SpeedLimit_Cancel: {
                 this.addDownCommon();
                 GuiCheckBox checkBox0 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 - 25, "", false);
                 checkBox0.setIsChecked(((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance());
                 this.buttonList.add(checkBox0);
                 break;
+            }
             case TASC_StopPotion_Correction:
-            case TASC_StopPotion_Notice:
+            case TASC_StopPotion_Notice: {
                 this.addDownCommon();
                 this.addGuiTextField(0, String.valueOf(((TileEntityGroundUnit.Distance) tile).getDistance()), 5);
-                GuiCheckBox checkBox1 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2, "", false);
-                checkBox1.setIsChecked(((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance());
-                this.buttonList.add(checkBox1);
+                GuiCheckBox checkBox0 = new GuiCheckBox(31, this.width / 2 + 45, this.height / 2, "", false);
+                checkBox0.setIsChecked(((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance());
+                this.buttonList.add(checkBox0);
                 break;
+            }
             case TASC_Cancel:
             case TASC_StopPotion:
             case ATO_Cancel:
-            case ATACS_Disable:
+            case ATACS_Disable: {
                 this.addDownCommon();
                 break;
+            }
             case ATO_Departure_Signal:
-            case ATO_Change_Speed:
+            case ATO_Change_Speed: {
                 this.addDownCommon();
                 this.addGuiTextField(0, String.valueOf(((TileEntityGroundUnit.Speed) tile).getSpeedLimit()), 3);
                 break;
-
-            case CHANGE_TP:
+            }
+            case CHANGE_TP: {
                 this.addDownCommon();
                 this.buttonList.add(new GuiOptionSliderTrainProtection(this.width / 2 - 75, this.height / 2 - 25, ((TileEntityGroundUnit.ChangeTrainProtection) tile).getTPType()));
                 break;
+            }
+            case TrainState_Set: {
+                GuiCheckBox checkBox0 = new GuiCheckBox(100, this.width / 2 + 145, this.height / 2 - 45, "", false);
+                checkBox0.setIsChecked(tile.isLinkRedStone());
+                this.buttonList.add(checkBox0);
 
-            case TrainState_Set:
-                GuiCheckBox checkBox2 = new GuiCheckBox(100, this.width / 2 + 145, this.height / 2 - 45, "", false);
-                checkBox2.setIsChecked(tile.isLinkRedStone());
-                this.buttonList.add(checkBox2);
-
-                this.buttonList.add(
+                this.buttonList.addAll(Arrays.asList(
                         new GuiButton(0, this.width / 4 + 160, 15, 50, 20, /*"リセット"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.0")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(21, this.width / 2 - 110, this.height - 30, 100, 20, /*"決定"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.21")
-                        ));
-
-                this.buttonList.add(
+                        ),
                         new GuiButton(20, this.width / 2 + 10, this.height - 30, 100, 20, /*"キャンセル"*/
                                 I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.20")
-                        ));
+                        )));
 
                 for (int i = 0; i < 12; i++) {
                     if (i == 3) {
@@ -304,6 +281,7 @@ public class GUIGroundUnit extends GuiScreenCustom {
                     this.buttonList.add(new GuiOptionSliderTrainState(this.width / 2 - 160 + 170 * (i % 2), this.height / 2 - 75 + 25 * (i / 2), i, tileTS.getStates()[i]));
                 }
                 break;
+            }
         }
     }
 
@@ -427,19 +405,14 @@ public class GUIGroundUnit extends GuiScreenCustom {
         checkBox.setIsChecked(tile.isLinkRedStone());
         this.buttonList.add(checkBox);
 
-        this.buttonList.add(
+        this.buttonList.addAll(Arrays.asList(
                 new GuiButton(0, this.width / 4 + 160, 15, 50, 20, /*"リセット"*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.0")
-                ));
-
-        this.buttonList.add(
+                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.0")),
                 new GuiButton(21, this.width / 2 - 110, this.height - 30, 100, 20, /*"決定"*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.21")));
-
-        this.buttonList.add(
+                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.21")),
                 new GuiButton(20, this.width / 2 + 10, this.height - 30, 100, 20, /*"キャンセル"*/
                         I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.20")
-                ));
+                )));
     }
 
     private void addGuiTextField(int number, String str, int maxLength) {
