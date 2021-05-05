@@ -44,9 +44,11 @@ public class TrainControllerManager {
                     if (formationEntry.train.isControlCar()) {
                         controlCar = formationEntry.train;
                         if (controlCar.getEntityId() == tcs.getSavedEntityID()) {
-                            Thread thread = new Thread(tcs);
-                            thread.setName("Server thread");
-                            thread.start();
+                            try {
+                                tcs.onUpdate();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                             ATSAssistCore.NETWORK_WRAPPER.sendToAll(new PacketTrainControllerToClient(tcs, fid));
                             break;
                         } else {

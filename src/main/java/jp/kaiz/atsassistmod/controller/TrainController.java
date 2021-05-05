@@ -7,7 +7,7 @@ import jp.ngt.rtm.entity.train.EntityTrainBase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainController implements Runnable {
+public class TrainController {
     private final List<SpeedOrder> speedOrderList = new ArrayList<>();
     private final List<Integer> speedLimit = new ArrayList<>();
     private int maxSpeed = 0;
@@ -130,15 +130,6 @@ public class TrainController implements Runnable {
     public TrainProtectionType getTrainProtectionType() {
         return this.tp.getType();
     }
-
-    public void run() {
-        try {
-            this.onUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     //Tick毎の処理
     public void onUpdate() throws Exception {
