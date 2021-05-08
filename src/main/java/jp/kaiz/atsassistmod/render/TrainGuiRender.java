@@ -72,22 +72,26 @@ public class TrainGuiRender extends GuiScreen {
                 fontrenderer.drawStringWithShadow("Limit: " + limitSpeed, k + 160, this.height - 20, 0x00FF00);
 
                 //TrainProtection
-                fontrenderer.drawStringWithShadow(tpType.getDisplayName() + ": " + tpSpeed, k + 160, this.height - 10, 0x00FF00);
+                if (tpType != TrainProtectionType.NONE) {
+                    fontrenderer.drawStringWithShadow(tpType.getDisplayName() + ": " + tpSpeed, k + 160, this.height - 10, 0x00FF00);
+                }
 
             } else {
+                int fixHeight = 50;
                 //cab表示なし
-
-                //ATO
-                fontrenderer.drawStringWithShadow("ATO : " + atoSpeed, 2, this.height - 90, 16777215);
-
-                //TASC
-                fontrenderer.drawStringWithShadow("TASC : " + tascSpeed, 2, this.height - 80, 16777215);
+                //TrainProtection
+                if (tpType != TrainProtectionType.NONE) {
+                    fontrenderer.drawStringWithShadow(tpType.getDisplayName() + " : " + tpSpeed, 2, this.height - (fixHeight += 10), 16777215);
+                }
 
                 //Limit
-                fontrenderer.drawStringWithShadow("Limit : " + limitSpeed, 2, this.height - 70, 16777215);
+                fontrenderer.drawStringWithShadow("Limit : " + limitSpeed, 2, this.height - (fixHeight += 10), 16777215);
 
-                //TrainProtection
-                fontrenderer.drawStringWithShadow(tpType.getDisplayName() + " : " + tpSpeed, 2, this.height - 60, 16777215);
+                //TASC
+                fontrenderer.drawStringWithShadow("TASC : " + tascSpeed, 2, this.height - (fixHeight += 10), 16777215);
+
+                //ATO
+                fontrenderer.drawStringWithShadow("ATO : " + atoSpeed, 2, this.height - (fixHeight += 10), 16777215);
             }
         }
     }
