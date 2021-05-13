@@ -38,128 +38,128 @@ public class GUIGroundUnit extends GuiScreenCustom {
         switch (this.tile.getType()) {
             case None:
                 this.fontRendererObj.drawString(/*"地上子機能選択メニュー",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.title"),
                         this.width / 4, 20, 0xffffff);
                 this.fontRendererObj.drawString(/*"ATC",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.text.0"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.text.0"),
                         this.width / 2 - 170, this.height / 2 - 90, 0xffffff);
                 this.fontRendererObj.drawString(/*"TASC",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.text.1"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.text.1"),
                         this.width / 2 - 170, this.height / 2 - 50, 0xffffff);
                 this.fontRendererObj.drawString(/*"ATO",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.text.2"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.text.2"),
                         this.width / 2 - 170, this.height / 2 + 15, 0xffffff);
                 this.fontRendererObj.drawString(/*"保安装置",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.text.3"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.text.3"),
                         this.width / 2 - 170, this.height / 2 + 55, 0xffffff);
                 this.fontRendererObj.drawString(/*"その他",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.text.4"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.text.4"),
                         this.width / 2 + 70, this.height / 2 + 55, 0xffffff);
                 return;
             case ATC_SpeedLimit_Notice:
                 this.fontRendererObj.drawString(/*"地上子機能 : ATC(ATO) : 速度制限予告",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.1.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.1.title"),
                         this.width / 4, 20, 0xffffff);
                 this.fontRendererObj.drawString(/*"速度制限    (km/h)",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.1.text.0"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.1.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
                 this.fontRendererObj.drawString(/*"制限開始の距離 (m)",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.1.text.1"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.1.text.1"),
                         this.width / 2 - 100, this.height / 2, 0xffffff);
                 this.fontRendererObj.drawString(/*"自動的に減速する",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.1.text.2"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.1.text.2"),
                         this.width / 2 - 100, this.height / 2 + 25, 0xffffff);
                 this.fontRendererObj.drawString(/*"距離基準を車両先頭に",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.6.text.1"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.6.text.1"),
                         this.width / 2 - 100, this.height / 2 + 50, 0xffffff);
                 break;
             case ATC_SpeedLimit_Cancel:
                 this.fontRendererObj.drawString(/*"地上子機能 : ATC(ATO) : 速度制限解除",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.2.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.2.title"),
                         this.width / 4, 20, 0xffffff);
 
                 this.fontRendererObj.drawString(/*"編成最後尾で解除",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.2.text.0"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.2.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
                 break;
             case TASC_StopPotion_Notice:
                 this.fontRendererObj.drawString(/*"地上子機能 : TASC : 距離設定 制御開始",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.4.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.4.title"),
                         this.width / 4, 20, 0xffffff);
                 this.fontRendererObj.drawString(/*"停車位置までの距離",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.4.text.0"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.4.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
                 this.fontRendererObj.drawString(/*"距離基準を車両先頭に",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.4.text.1"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.4.text.1"),
                         this.width / 2 - 100, this.height / 2, 0xffffff);
                 break;
             case TASC_Cancel:
                 this.fontRendererObj.drawString(/*"地上子機能 : TASC : 制御終了",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.5.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.5.title"),
                         this.width / 4, 20, 0xffffff);
                 break;
             case TASC_StopPotion_Correction:
                 this.fontRendererObj.drawString(/*"地上子機能 : TASC : 距離補正",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.6.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.6.title"),
                         this.width / 4, 20, 0xffffff);
                 this.fontRendererObj.drawString(/*"停車位置までの距離",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.6.text.0"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.6.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
                 this.fontRendererObj.drawString(/*"距離基準を車両先頭に",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.6.text.1"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.6.text.1"),
                         this.width / 2 - 100, this.height / 2, 0xffffff);
                 break;
             case TASC_StopPotion:
                 this.fontRendererObj.drawString(/*"地上子機能 : 停車検知",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.7.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.7.title"),
                         this.width / 4, 20, 0xffffff);
                 this.fontRendererObj.drawString(/*"逆転ハンドル前以外でも検知",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.7.text.0"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.7.text.0"),
                         this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
                 return;
             case ATO_Departure_Signal:
                 this.fontRendererObj.drawString(/*"地上子機能 : ATO : 出発信号 制御開始",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.9.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.9.title"),
                         this.width / 4, 20, 0xffffff);
                 this.fontRendererObj.drawString(/*"目標速度",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.9.text.0"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.9.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
                 break;
             case ATO_Cancel:
                 this.fontRendererObj.drawString(/*"地上子機能 : ATO : 制御終了",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.10.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.10.title"),
                         this.width / 4, 20, 0xffffff);
                 break;
             case ATO_Change_Speed:
                 this.fontRendererObj.drawString(/*"地上子機能 : ATO : 目標速度変更",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.11.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.11.title"),
                         this.width / 4, 20, 0xffffff);
                 this.fontRendererObj.drawString(/*"目標速度",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.11.text.0"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.11.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
                 break;
             case TrainState_Set:
                 this.fontRendererObj.drawString(/*"地上子機能 : TrainState : 車両状態変更",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.title"),
                         this.width / 4, 20, 0xffffff);
                 this.fontRendererObj.drawString(/*"逆転ハンドル前以外でも有効",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.text.0"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.text.0"),
                         this.width / 2 + 10, this.height / 2 - 45, 0xffffff);
                 return;
             case CHANGE_TP:
                 this.fontRendererObj.drawString(/*"地上子機能 : 保安装置 : 強制変更",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.14.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.14.title"),
                         this.width / 4, 20, 0xffffff);
                 break;
             case ATACS_Disable:
                 this.fontRendererObj.drawString(/*"地上子機能 : ATACS : 制御終了",*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.15.title"),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.15.title"),
                         this.width / 4, 20, 0xffffff);
                 break;
         }
 
         this.fontRendererObj.drawString(/*"レッドストーン連動",*/
-                I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.text.0"),
+                I18n.format("ATSAssistMod.gui.GroundUnitMenu.common.text.0"),
                 this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
     }
 
@@ -175,40 +175,40 @@ public class GUIGroundUnit extends GuiScreenCustom {
             case None:
                 this.buttonList.addAll(Arrays.asList(
                         new GuiButton(1, this.width / 2 - 170, this.height / 2 - 75, 100, 20,/* "速度制限予告"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.1")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.1")
                         ),
                         new GuiButton(2, this.width / 2 - 50, this.height / 2 - 75, 100, 20, /*"速度制限解除"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.2")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.2")
                         ),
                         new GuiButton(4, this.width / 2 - 170, this.height / 2 - 35, 100, 20, /*"停車位置予告"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.4")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.4")
                         ),
                         new GuiButton(5, this.width / 2 - 50, this.height / 2 - 35, 100, 20, /*"制御終了"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.5")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.5")
                         ),
                         new GuiButton(6, this.width / 2 - 170, this.height / 2 - 10, 100, 20, /*"停車距離補正"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.6")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.6")
                         ),
                         new GuiButton(7, this.width / 2 - 50, this.height / 2 - 10, 100, 20, /*"停車検知"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.7")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.7")
                         ),
                         new GuiButton(9, this.width / 2 - 170, this.height / 2 + 30, 100, 20, /*"出発信号"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.9")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.9")
                         ),
                         new GuiButton(10, this.width / 2 - 50, this.height / 2 + 30, 100, 20, /*"制御終了"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.10")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.10")
                         ),
                         new GuiButton(11, this.width / 2 + 70, this.height / 2 + 30, 100, 20, /*"目標速度変更"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.11")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.11")
                         ),
                         new GuiButton(13, this.width / 2 + 70, this.height / 2 + 70, 100, 20, /*"列車データ変更"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.13")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.13")
                         ),
                         new GuiButton(14, this.width / 2 - 170, this.height / 2 + 70, 100, 20, /*"強制変更"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.14")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.14")
                         ),
                         new GuiButton(20, this.width / 2 - 50, this.height - 25, 100, 20, /*"キャンセル"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.0.button.20")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.20")
                         )));
                 break;
             case ATC_SpeedLimit_Notice: {
@@ -254,13 +254,13 @@ public class GUIGroundUnit extends GuiScreenCustom {
 
                 this.buttonList.addAll(Arrays.asList(
                         new GuiButton(0, this.width / 4 + 160, 15, 50, 20, /*"リセット"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.0")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.common.button.0")
                         ),
                         new GuiButton(21, this.width / 2 - 110, this.height - 30, 100, 20, /*"決定"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.21")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.common.button.21")
                         ),
                         new GuiButton(20, this.width / 2 + 10, this.height - 30, 100, 20, /*"キャンセル"*/
-                                I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.20")
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.common.button.20")
                         )));
 
                 for (int i = 0; i < 12; i++) {
@@ -394,11 +394,11 @@ public class GUIGroundUnit extends GuiScreenCustom {
 
         this.buttonList.addAll(Arrays.asList(
                 new GuiButton(0, this.width / 4 + 160, 15, 50, 20, /*"リセット"*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.0")),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.common.button.0")),
                 new GuiButton(21, this.width / 2 - 110, this.height - 30, 100, 20, /*"決定"*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.21")),
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.common.button.21")),
                 new GuiButton(20, this.width / 2 + 10, this.height - 30, 100, 20, /*"キャンセル"*/
-                        I18n.format("ATSAssistMod.gui.GroudUnitMenu.common.button.20")
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.common.button.20")
                 )));
     }
 

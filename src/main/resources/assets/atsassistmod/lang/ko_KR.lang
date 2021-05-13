@@ -28,104 +28,104 @@ ATSAssistMod.gui.TrainProtectionSelector.text.3=TASC/ATO
 ATSAssistMod.gui.TrainProtectionSelector.text.4=HUD 비표시
 ATSAssistMod.gui.TrainProtectionSelector.text.5=보안장치 전환
 
-ATSAssistMod.gui.GroudUnitMenu.common.text.0=레드스톤 연동
-ATSAssistMod.gui.GroudUnitMenu.common.button.0=초기 화면으로
-ATSAssistMod.gui.GroudUnitMenu.common.button.21=적용하고 닫기
-ATSAssistMod.gui.GroudUnitMenu.common.button.20=그냥 닫기
+ATSAssistMod.gui.GroundUnitMenu.common.text.0=레드스톤 연동
+ATSAssistMod.gui.GroundUnitMenu.common.button.0=초기 화면으로
+ATSAssistMod.gui.GroundUnitMenu.common.button.21=적용하고 닫기
+ATSAssistMod.gui.GroundUnitMenu.common.button.20=그냥 닫기
 
-ATSAssistMod.gui.GroudUnitMenu.0.title=지상자 기능 선택 메뉴
-ATSAssistMod.gui.GroudUnitMenu.0.text.0=ATC
-ATSAssistMod.gui.GroudUnitMenu.0.text.1=TASC
-ATSAssistMod.gui.GroudUnitMenu.0.text.2=ATO
-ATSAssistMod.gui.GroudUnitMenu.0.text.3=보안장치
-ATSAssistMod.gui.GroudUnitMenu.0.text.4=기타
+ATSAssistMod.gui.GroundUnitMenu.0.title=지상자 기능 선택 메뉴
+ATSAssistMod.gui.GroundUnitMenu.0.text.0=ATC
+ATSAssistMod.gui.GroundUnitMenu.0.text.1=TASC
+ATSAssistMod.gui.GroundUnitMenu.0.text.2=ATO
+ATSAssistMod.gui.GroundUnitMenu.0.text.3=보안장치
+ATSAssistMod.gui.GroundUnitMenu.0.text.4=기타
 
-ATSAssistMod.gui.GroudUnitMenu.1.title=지상자 기능: ATC(ATO) 속도제한 예고
-ATSAssistMod.gui.GroudUnitMenu.1.text.0=속도제한    (km/h)
-ATSAssistMod.gui.GroudUnitMenu.1.text.1=제한시작까지의 거리 (m)
-ATSAssistMod.gui.GroudUnitMenu.0.button.1=속도제한 예고
-ATSAssistMod.gui.GroudUnitMenu.0.button.2=속도제한 해제
-ATSAssistMod.gui.GroudUnitMenu.0.button.4=정차위치 예고
-ATSAssistMod.gui.GroudUnitMenu.0.button.5=제어종료
-ATSAssistMod.gui.GroudUnitMenu.0.button.6=정차위치까지의 거리 수정
-ATSAssistMod.gui.GroudUnitMenu.0.button.7=정차검지
-ATSAssistMod.gui.GroudUnitMenu.0.button.9=출발신호
-ATSAssistMod.gui.GroudUnitMenu.0.button.10=제어종료
-ATSAssistMod.gui.GroudUnitMenu.0.button.11=목표속도 변경
-ATSAssistMod.gui.GroudUnitMenu.0.button.13=열차 상태 변경
-ATSAssistMod.gui.GroudUnitMenu.0.button.14=강제변경
-ATSAssistMod.gui.GroudUnitMenu.0.button.20=닫기
+ATSAssistMod.gui.GroundUnitMenu.1.title=지상자 기능: ATC(ATO) 속도제한 예고
+ATSAssistMod.gui.GroundUnitMenu.1.text.0=속도제한    (km/h)
+ATSAssistMod.gui.GroundUnitMenu.1.text.1=제한시작까지의 거리 (m)
+ATSAssistMod.gui.GroundUnitMenu.0.button.1=속도제한 예고
+ATSAssistMod.gui.GroundUnitMenu.0.button.2=속도제한 해제
+ATSAssistMod.gui.GroundUnitMenu.0.button.4=정차위치 예고
+ATSAssistMod.gui.GroundUnitMenu.0.button.5=제어종료
+ATSAssistMod.gui.GroundUnitMenu.0.button.6=정차위치까지의 거리 수정
+ATSAssistMod.gui.GroundUnitMenu.0.button.7=정차검지
+ATSAssistMod.gui.GroundUnitMenu.0.button.9=출발신호
+ATSAssistMod.gui.GroundUnitMenu.0.button.10=제어종료
+ATSAssistMod.gui.GroundUnitMenu.0.button.11=목표속도 변경
+ATSAssistMod.gui.GroundUnitMenu.0.button.13=열차 상태 변경
+ATSAssistMod.gui.GroundUnitMenu.0.button.14=강제변경
+ATSAssistMod.gui.GroundUnitMenu.0.button.20=닫기
 
-ATSAssistMod.gui.GroudUnitMenu.2.title=지상자 기능: ATC(ATO) 속도제한 해제
-ATSAssistMod.gui.GroudUnitMenu.2.text.0=후미차량까지 통과 후 해제
+ATSAssistMod.gui.GroundUnitMenu.2.title=지상자 기능: ATC(ATO) 속도제한 해제
+ATSAssistMod.gui.GroundUnitMenu.2.text.0=후미차량까지 통과 후 해제
 
-ATSAssistMod.gui.GroudUnitMenu.4.title=지상자 기능: TASC 거리설정, 제어시작
-ATSAssistMod.gui.GroudUnitMenu.4.text.0=정차위치까지의 거리
-ATSAssistMod.gui.GroudUnitMenu.4.text.1=차량 선두를 기준으로
+ATSAssistMod.gui.GroundUnitMenu.4.title=지상자 기능: TASC 거리설정, 제어시작
+ATSAssistMod.gui.GroundUnitMenu.4.text.0=정차위치까지의 거리
+ATSAssistMod.gui.GroundUnitMenu.4.text.1=차량 선두를 기준으로
 
-ATSAssistMod.gui.GroudUnitMenu.5.title=지상자 기능: TASC 제어종료
+ATSAssistMod.gui.GroundUnitMenu.5.title=지상자 기능: TASC 제어종료
 
-ATSAssistMod.gui.GroudUnitMenu.6.title=지상자 기능: TASC 거리수정
-ATSAssistMod.gui.GroudUnitMenu.6.text.0=정차위치까지의 거리
-ATSAssistMod.gui.GroudUnitMenu.6.text.1=차량 선두를 기준으로
+ATSAssistMod.gui.GroundUnitMenu.6.title=지상자 기능: TASC 거리수정
+ATSAssistMod.gui.GroundUnitMenu.6.text.0=정차위치까지의 거리
+ATSAssistMod.gui.GroundUnitMenu.6.text.1=차량 선두를 기준으로
 
-ATSAssistMod.gui.GroudUnitMenu.7.title=지상자 기능: 정차검지
-ATSAssistMod.gui.GroudUnitMenu.7.text.0=역전핸들이 F위치가 아닐 때에도 검지
+ATSAssistMod.gui.GroundUnitMenu.7.title=지상자 기능: 정차검지
+ATSAssistMod.gui.GroundUnitMenu.7.text.0=역전핸들이 F위치가 아닐 때에도 검지
 
-ATSAssistMod.gui.GroudUnitMenu.9.title=지상자 기능: ATO 출발신호, 제어시작
-ATSAssistMod.gui.GroudUnitMenu.9.text.0=목표속도
+ATSAssistMod.gui.GroundUnitMenu.9.title=지상자 기능: ATO 출발신호, 제어시작
+ATSAssistMod.gui.GroundUnitMenu.9.text.0=목표속도
 
-ATSAssistMod.gui.GroudUnitMenu.10.title=지상자 기능: ATO 제어종료
+ATSAssistMod.gui.GroundUnitMenu.10.title=지상자 기능: ATO 제어종료
 
-ATSAssistMod.gui.GroudUnitMenu.11.title=지상자 기능: ATO 목표속도 변경
-ATSAssistMod.gui.GroudUnitMenu.11.text.0=목표속도
+ATSAssistMod.gui.GroundUnitMenu.11.title=지상자 기능: ATO 목표속도 변경
+ATSAssistMod.gui.GroundUnitMenu.11.text.0=목표속도
 
-ATSAssistMod.gui.GroudUnitMenu.13.title=지상자 기능: TrainState 열차 상태 변경
-ATSAssistMod.gui.GroudUnitMenu.13.text.0=역전핸들이 F위치가 아닐 때에도 검지
+ATSAssistMod.gui.GroundUnitMenu.13.title=지상자 기능: TrainState 열차 상태 변경
+ATSAssistMod.gui.GroundUnitMenu.13.text.0=역전핸들이 F위치가 아닐 때에도 검지
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.0.state=방향
+ATSAssistMod.gui.GroundUnitMenu.13.slider.0.state=방향
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.1.state=놋치
+ATSAssistMod.gui.GroundUnitMenu.13.slider.1.state=놋치
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.2.state=신호
+ATSAssistMod.gui.GroundUnitMenu.13.slider.2.state=신호
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.3.state=출입문
-ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.0=양쪽 닫힘
-ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.1=오른쪽 열림
-ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.2=왼쪽 열림
-ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.3=양쪽 열림
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.state=출입문
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.0=양쪽 닫힘
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.1=오른쪽 열림
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.2=왼쪽 열림
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.3=양쪽 열림
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.4.state.0=전조등
-ATSAssistMod.gui.GroudUnitMenu.13.slider.4.state.1=전조등, 미등
-ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.0=OF
-ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.1=ON
-ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.2=ON
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.0=전조등
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.1=전조등, 미등
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.0=OF
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.1=ON
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.2=ON
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.5.state=팬터그래프
-ATSAssistMod.gui.GroudUnitMenu.13.slider.5.data.0=하강
-ATSAssistMod.gui.GroudUnitMenu.13.slider.5.data.1=상승
+ATSAssistMod.gui.GroundUnitMenu.13.slider.5.state=팬터그래프
+ATSAssistMod.gui.GroundUnitMenu.13.slider.5.data.0=하강
+ATSAssistMod.gui.GroundUnitMenu.13.slider.5.data.1=상승
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.6.state=청크로더
+ATSAssistMod.gui.GroundUnitMenu.13.slider.6.state=청크로더
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.7.state=행선안내기
+ATSAssistMod.gui.GroundUnitMenu.13.slider.7.state=행선안내기
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.8.state=차내방송
+ATSAssistMod.gui.GroundUnitMenu.13.slider.8.state=차내방송
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.9.state=역전핸들
-ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.0=F(전진)
-ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.1=N(차단)
-ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.2=R(후진)
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.state=역전핸들
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.0=F(전진)
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.1=N(차단)
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.2=R(후진)
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.10.state=실내등
-ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.0=OFF
-ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.1=ON
-ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.2=Rainbow
+ATSAssistMod.gui.GroundUnitMenu.13.slider.10.state=실내등
+ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.0=OFF
+ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.1=ON
+ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.2=Rainbow
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.notchange=그대로
+ATSAssistMod.gui.GroundUnitMenu.13.slider.notchange=그대로
 
-ATSAssistMod.gui.GroudUnitMenu.14.title=지상자 기능: 보안장치 강제변경
+ATSAssistMod.gui.GroundUnitMenu.14.title=지상자 기능: 보안장치 강제변경
 
-ATSAssistMod.gui.GroudUnitMenu.15.title=지상자 기능: ATACS 제어종료
+ATSAssistMod.gui.GroundUnitMenu.15.title=지상자 기능: ATACS 제어종료
 
 ATSAssistMod.IFTTTType.100=선택
 ATSAssistMod.IFTTTType.110=RS신호 입력
@@ -149,10 +149,10 @@ ATSAssistMod.IFTTTType.222=BlockDataMap
 ATSAssistMod.IFTTTType.223=신호
 ATSAssistMod.IFTTTType.230=JavaScript
 
-ATSAssistMod.IFTTT.DeteceMode.name=동작 모드
-ATSAssistMod.IFTTT.DeteceMode.0=모든 차량
-ATSAssistMod.IFTTT.DeteceMode.1=선두차량
-ATSAssistMod.IFTTT.DeteceMode.2=후미차량
+ATSAssistMod.IFTTT.DetectMode.name=동작 모드
+ATSAssistMod.IFTTT.DetectMode.0=모든 차량
+ATSAssistMod.IFTTT.DetectMode.1=선두차량
+ATSAssistMod.IFTTT.DetectMode.2=후미차량
 
 ATSAssistMod.gui.IFTTTMaterial.130.0=시점
 ATSAssistMod.gui.IFTTTMaterial.130.1=종점

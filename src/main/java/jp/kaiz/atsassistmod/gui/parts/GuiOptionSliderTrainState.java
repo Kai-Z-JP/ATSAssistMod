@@ -92,117 +92,117 @@ public class GuiOptionSliderTrainState extends GuiButton {
         switch (this.type) {
             case State_TrainDir:
 //				state = "方向";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.0.state");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.0.state");
                 break;
             case State_Notch:
 //				state = "ノッチ";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.1.state");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.1.state");
                 break;
             case State_Signal:
 //				state = "信号";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.2.state");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.2.state");
                 break;
             case State_Door:
 //				state = "ドア";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.3.state");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.3.state");
                 switch (this.nowValue) {
                     case 0:
 //						data = "両側 閉";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.0");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.0");
                         break;
                     case 1:
 //						data = "右側 開";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.1");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.1");
                         break;
                     case 2:
 //						data = "左側 開";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.2");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.2");
                         break;
                     case 3:
 //						data = "両側 開";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.3");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.3");
                         break;
                 }
                 break;
             case State_Light:
 //				state = "前照灯";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.4.state.0");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.0");
                 switch (this.nowValue) {
                     case 0:
 //						data = "オフ";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.0");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.0");
                         break;
                     case 1:
 //						data = "オン";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.1");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.1");
                         break;
                     case 2:
 //						state = "前照灯・尾灯";
 //						data = "オン";
-                        state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.4.state.1");
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.2");
+                        state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.1");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.2");
                         break;
                 }
                 break;
             case State_Pantograph:
 //				state = "パンタグラフ";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.5.state");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.5.state");
                 switch (this.nowValue) {
                     case 0:
 //						data = "下げ";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.5.data.0");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.5.data.0");
                         break;
                     case 1:
 //						data = "上げ";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.5.data.1");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.5.data.1");
                         break;
                 }
                 break;
             case State_ChunkLoader:
 //				state = "チャンクローダー";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.6.state");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.6.state");
                 break;
             case State_Destination:
 //				state = "方向幕";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.7.state");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.7.state");
                 break;
             case State_Announcement:
 //				state = "車内放送";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.8.state");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.8.state");
                 break;
             case State_Direction:
 //				state = "逆転ハンドル";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.9.state");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.9.state");
                 switch (this.nowValue) {
                     case 0:
 //						data = "前";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.0");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.0");
                         break;
                     case 1:
 //						data = "切";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.1");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.1");
                         break;
                     case 2:
 //						data = "後";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.2");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.2");
                         break;
                 }
                 break;
             case State_InteriorLight:
 //				state = "車内灯";
-                state = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.10.state");
+                state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.10.state");
                 switch (this.nowValue) {
                     case 0:
 //						data = "OFF";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.0");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.0");
                         break;
                     case 1:
 //						data = "ON";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.1");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.1");
                         break;
                     case 2:
 //						data = "Rainbow";
-                        data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.2");
+                        data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.2");
                         break;
                 }
                 break;
@@ -212,7 +212,7 @@ public class GuiOptionSliderTrainState extends GuiButton {
         }
         if (this.nowValue < this.type.min) {
 //			data = "変更なし";
-            data = I18n.format("ATSAssistMod.gui.GroudUnitMenu.13.slider.notchange");
+            data = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.notchange");
         }
         return state + ":" + data;
     }

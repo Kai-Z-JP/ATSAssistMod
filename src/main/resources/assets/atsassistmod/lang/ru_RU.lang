@@ -31,104 +31,104 @@ ATSAssistMod.gui.TrainProtectionSelector.text.3=ЗПМ/АУП
 ATSAssistMod.gui.TrainProtectionSelector.text.4=Спрятать HUD
 ATSAssistMod.gui.TrainProtectionSelector.text.5=Поездно-защитный SW
 
-ATSAssistMod.gui.GroudUnitMenu.common.text.0=Соеденить редстоун вход
-ATSAssistMod.gui.GroudUnitMenu.common.button.0=Сброс
-ATSAssistMod.gui.GroudUnitMenu.common.button.21=Подтвердить
-ATSAssistMod.gui.GroudUnitMenu.common.button.20=Отменить
+ATSAssistMod.gui.GroundUnitMenu.common.text.0=Соеденить редстоун вход
+ATSAssistMod.gui.GroundUnitMenu.common.button.0=Сброс
+ATSAssistMod.gui.GroundUnitMenu.common.button.21=Подтвердить
+ATSAssistMod.gui.GroundUnitMenu.common.button.20=Отменить
 
-ATSAssistMod.gui.GroudUnitMenu.0.title=Меню выбора наземного блока
-ATSAssistMod.gui.GroudUnitMenu.0.text.0=АУПС
-ATSAssistMod.gui.GroudUnitMenu.0.text.1=ЗПМ
-ATSAssistMod.gui.GroudUnitMenu.0.text.2=АУП
-ATSAssistMod.gui.GroudUnitMenu.0.text.3=Поездная защита
-ATSAssistMod.gui.GroudUnitMenu.0.text.4=Остальное
-ATSAssistMod.gui.GroudUnitMenu.0.button.1=Уведомление об ограничении скорости
-ATSAssistMod.gui.GroudUnitMenu.0.button.2=Освобождение от ограничения скорости
-ATSAssistMod.gui.GroudUnitMenu.0.button.4=Установка расстояния и контроль запуска
-ATSAssistMod.gui.GroudUnitMenu.0.button.5=Конец управления
-ATSAssistMod.gui.GroudUnitMenu.0.button.6=Коррекция расстояния
-ATSAssistMod.gui.GroudUnitMenu.0.button.7=Остановить обнаружение
-ATSAssistMod.gui.GroudUnitMenu.0.button.9=Сигнал отправления и контрольный пуск
-ATSAssistMod.gui.GroudUnitMenu.0.button.10=Конец управления
-ATSAssistMod.gui.GroudUnitMenu.0.button.11=Изменение целевой скорости
-ATSAssistMod.gui.GroudUnitMenu.0.button.13=Изменение состояния транспортного средства
-ATSAssistMod.gui.GroudUnitMenu.0.button.14=Принудительные изменения
-ATSAssistMod.gui.GroudUnitMenu.0.button.20=Отменить
+ATSAssistMod.gui.GroundUnitMenu.0.title=Меню выбора наземного блока
+ATSAssistMod.gui.GroundUnitMenu.0.text.0=АУПС
+ATSAssistMod.gui.GroundUnitMenu.0.text.1=ЗПМ
+ATSAssistMod.gui.GroundUnitMenu.0.text.2=АУП
+ATSAssistMod.gui.GroundUnitMenu.0.text.3=Поездная защита
+ATSAssistMod.gui.GroundUnitMenu.0.text.4=Остальное
+ATSAssistMod.gui.GroundUnitMenu.0.button.1=Уведомление об ограничении скорости
+ATSAssistMod.gui.GroundUnitMenu.0.button.2=Освобождение от ограничения скорости
+ATSAssistMod.gui.GroundUnitMenu.0.button.4=Установка расстояния и контроль запуска
+ATSAssistMod.gui.GroundUnitMenu.0.button.5=Конец управления
+ATSAssistMod.gui.GroundUnitMenu.0.button.6=Коррекция расстояния
+ATSAssistMod.gui.GroundUnitMenu.0.button.7=Остановить обнаружение
+ATSAssistMod.gui.GroundUnitMenu.0.button.9=Сигнал отправления и контрольный пуск
+ATSAssistMod.gui.GroundUnitMenu.0.button.10=Конец управления
+ATSAssistMod.gui.GroundUnitMenu.0.button.11=Изменение целевой скорости
+ATSAssistMod.gui.GroundUnitMenu.0.button.13=Изменение состояния транспортного средства
+ATSAssistMod.gui.GroundUnitMenu.0.button.14=Принудительные изменения
+ATSAssistMod.gui.GroundUnitMenu.0.button.20=Отменить
 
-ATSAssistMod.gui.GroudUnitMenu.1.title=Меню наземного блока : АУПС (АУП) : Уведомление об ограничении скорости
-ATSAssistMod.gui.GroudUnitMenu.1.text.0=Лимит скорости (км/ч)
-ATSAssistMod.gui.GroudUnitMenu.1.text.1=Расстояние до стартового предела (м)
+ATSAssistMod.gui.GroundUnitMenu.1.title=Меню наземного блока : АУПС (АУП) : Уведомление об ограничении скорости
+ATSAssistMod.gui.GroundUnitMenu.1.text.0=Лимит скорости (км/ч)
+ATSAssistMod.gui.GroundUnitMenu.1.text.1=Расстояние до стартового предела (м)
 
-ATSAssistMod.gui.GroudUnitMenu.2.title=Меню наземного блока : АУПС (АУП) : Освобождение ограничения скорости
-ATSAssistMod.gui.GroudUnitMenu.2.text.0=Отмена в конце
+ATSAssistMod.gui.GroundUnitMenu.2.title=Меню наземного блока : АУПС (АУП) : Освобождение ограничения скорости
+ATSAssistMod.gui.GroundUnitMenu.2.text.0=Отмена в конце
 
-ATSAssistMod.gui.GroudUnitMenu.4.title=Меню наземного блока : ЗПМ : Установка расстояния и контроль запуска
-ATSAssistMod.gui.GroudUnitMenu.4.text.0=Стоп-позиция
-ATSAssistMod.gui.GroudUnitMenu.4.text.1=Как первый критерий
+ATSAssistMod.gui.GroundUnitMenu.4.title=Меню наземного блока : ЗПМ : Установка расстояния и контроль запуска
+ATSAssistMod.gui.GroundUnitMenu.4.text.0=Стоп-позиция
+ATSAssistMod.gui.GroundUnitMenu.4.text.1=Как первый критерий
 
-ATSAssistMod.gui.GroudUnitMenu.5.title=Меню наземного блока : ЗПМ : Конец управления
+ATSAssistMod.gui.GroundUnitMenu.5.title=Меню наземного блока : ЗПМ : Конец управления
 
-ATSAssistMod.gui.GroudUnitMenu.6.title=Меню наземного блока : ЗПМ : Коррекция расстояния
-ATSAssistMod.gui.GroudUnitMenu.6.text.0=Стоп-позиция
-ATSAssistMod.gui.GroudUnitMenu.6.text.1=Как первый критерий
+ATSAssistMod.gui.GroundUnitMenu.6.title=Меню наземного блока : ЗПМ : Коррекция расстояния
+ATSAssistMod.gui.GroundUnitMenu.6.text.0=Стоп-позиция
+ATSAssistMod.gui.GroundUnitMenu.6.text.1=Как первый критерий
 
-ATSAssistMod.gui.GroudUnitMenu.7.title=Меню наземного блока : Остановить обнаружение
-ATSAssistMod.gui.GroudUnitMenu.7.text.0=Обнаруживать не только спереди
+ATSAssistMod.gui.GroundUnitMenu.7.title=Меню наземного блока : Остановить обнаружение
+ATSAssistMod.gui.GroundUnitMenu.7.text.0=Обнаруживать не только спереди
 
-ATSAssistMod.gui.GroudUnitMenu.9.title=Меню наземного блока : АУП : Сигнал отправления и контрольный пуск
-ATSAssistMod.gui.GroudUnitMenu.9.text.0=Целевая скорость
+ATSAssistMod.gui.GroundUnitMenu.9.title=Меню наземного блока : АУП : Сигнал отправления и контрольный пуск
+ATSAssistMod.gui.GroundUnitMenu.9.text.0=Целевая скорость
 
-ATSAssistMod.gui.GroudUnitMenu.10.title=Меню наземного блока : АУП : Конец управления
+ATSAssistMod.gui.GroundUnitMenu.10.title=Меню наземного блока : АУП : Конец управления
 
-ATSAssistMod.gui.GroudUnitMenu.11.title=Меню наземного блока : АУП : Изменение целевой скорости
-ATSAssistMod.gui.GroudUnitMenu.11.text.0=Целевая скорость
+ATSAssistMod.gui.GroundUnitMenu.11.title=Меню наземного блока : АУП : Изменение целевой скорости
+ATSAssistMod.gui.GroundUnitMenu.11.text.0=Целевая скорость
 
-ATSAssistMod.gui.GroudUnitMenu.13.title=Меню наземного блока : Состояние поезда : Изменение состояния транспортного средства
-ATSAssistMod.gui.GroudUnitMenu.13.text.0=Обнаруживать не только спереди
+ATSAssistMod.gui.GroundUnitMenu.13.title=Меню наземного блока : Состояние поезда : Изменение состояния транспортного средства
+ATSAssistMod.gui.GroundUnitMenu.13.text.0=Обнаруживать не только спереди
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.0.state=Направление
+ATSAssistMod.gui.GroundUnitMenu.13.slider.0.state=Направление
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.1.state=Ступень
+ATSAssistMod.gui.GroundUnitMenu.13.slider.1.state=Ступень
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.2.state=Светофор
+ATSAssistMod.gui.GroundUnitMenu.13.slider.2.state=Светофор
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.3.state=Двери
-ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.0=Закрытие с обоих сторон
-ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.1=Открытие с правой стороны
-ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.2=Открытие с левой стороны
-ATSAssistMod.gui.GroudUnitMenu.13.slider.3.data.3=Открытие с обоих сторон
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.state=Двери
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.0=Закрытие с обоих сторон
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.1=Открытие с правой стороны
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.2=Открытие с левой стороны
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.3=Открытие с обоих сторон
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.4.state.0=Фары
-ATSAssistMod.gui.GroudUnitMenu.13.slider.4.state.1=Фары|Задние сигналы
-ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.0=Выкл
-ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.1=Вкл фары
-ATSAssistMod.gui.GroudUnitMenu.13.slider.4.data.2=Вкл всё
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.0=Фары
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.1=Фары|Задние сигналы
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.0=Выкл
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.1=Вкл фары
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.2=Вкл всё
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.5.state=Токоприёмние
-ATSAssistMod.gui.GroudUnitMenu.13.slider.5.data.0=Вниз
-ATSAssistMod.gui.GroudUnitMenu.13.slider.5.data.1=Вверх
+ATSAssistMod.gui.GroundUnitMenu.13.slider.5.state=Токоприёмние
+ATSAssistMod.gui.GroundUnitMenu.13.slider.5.data.0=Вниз
+ATSAssistMod.gui.GroundUnitMenu.13.slider.5.data.1=Вверх
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.6.state=Загрузщик чанков
+ATSAssistMod.gui.GroundUnitMenu.13.slider.6.state=Загрузщик чанков
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.7.state=Маршрутоуказатель
+ATSAssistMod.gui.GroundUnitMenu.13.slider.7.state=Маршрутоуказатель
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.8.state=Уведомление
+ATSAssistMod.gui.GroundUnitMenu.13.slider.8.state=Уведомление
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.9.state=Положение вагона в составе
-ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.0=Перед
-ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.1=Середина (выкл)
-ATSAssistMod.gui.GroudUnitMenu.13.slider.9.data.2=Сзади
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.state=Положение вагона в составе
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.0=Перед
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.1=Середина (выкл)
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.2=Сзади
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.10.state=Свет в салоне
-ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.0=Выкл
-ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.1=Вкл
-ATSAssistMod.gui.GroudUnitMenu.13.slider.10.data.2=Радужный
+ATSAssistMod.gui.GroundUnitMenu.13.slider.10.state=Свет в салоне
+ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.0=Выкл
+ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.1=Вкл
+ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.2=Радужный
 
-ATSAssistMod.gui.GroudUnitMenu.13.slider.notchange=Не изменено
+ATSAssistMod.gui.GroundUnitMenu.13.slider.notchange=Не изменено
 
-ATSAssistMod.gui.GroudUnitMenu.14.title=Меню наземного блока : Поездная защита : Принудительные изменения
+ATSAssistMod.gui.GroundUnitMenu.14.title=Меню наземного блока : Поездная защита : Принудительные изменения
 
-ATSAssistMod.gui.GroudUnitMenu.15.title=Меню наземного блока : ATACS : Конец управления
+ATSAssistMod.gui.GroundUnitMenu.15.title=Меню наземного блока : ATACS : Конец управления
 
 ATSAssistMod.IFTTTType.0=Ошибка
 ATSAssistMod.IFTTTType.100=Выбрно
@@ -153,10 +153,10 @@ ATSAssistMod.IFTTTType.222=Карта данных блока
 ATSAssistMod.IFTTTType.223=Светофор
 ATSAssistMod.IFTTTType.230=JavaScript
 
-ATSAssistMod.IFTTT.DeteceMode.name=Режим Обнаружения
-ATSAssistMod.IFTTT.DeteceMode.0=Всё
-ATSAssistMod.IFTTT.DeteceMode.1=Первый
-ATSAssistMod.IFTTT.DeteceMode.2=Последний
+ATSAssistMod.IFTTT.DetectMode.name=Режим Обнаружения
+ATSAssistMod.IFTTT.DetectMode.0=Всё
+ATSAssistMod.IFTTT.DetectMode.1=Первый
+ATSAssistMod.IFTTT.DetectMode.2=Последний
 
 ATSAssistMod.gui.IFTTTMaterial.130.0=Начало
 ATSAssistMod.gui.IFTTTMaterial.130.1=Конец

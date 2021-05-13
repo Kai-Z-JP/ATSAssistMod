@@ -15,6 +15,8 @@ import jp.ngt.rtm.entity.train.parts.EntityFloor;
 import jp.ngt.rtm.modelpack.state.DataMap;
 import jp.ngt.rtm.modelpack.state.DataType;
 import jp.ngt.rtm.modelpack.state.ResourceState;
+import jp.ngt.rtm.rail.BlockLargeRailBase;
+import jp.ngt.rtm.rail.TileEntityLargeRailBase;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -25,6 +27,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 
 import javax.script.ScriptEngine;
 import java.io.Serializable;
@@ -168,9 +171,10 @@ public abstract class IFTTTContainer implements Serializable {
                 private static final long serialVersionUID = -6173509528806558810L;
 
                 public enum DetectMode {
-                    All("ATSAssistMod.IFTTT.DeteceMode.0"),
-                    FirstCar("ATSAssistMod.IFTTT.DeteceMode.1"),
-                    LastCar("ATSAssistMod.IFTTT.DeteceMode.2");
+                    All("ATSAssistMod.IFTTT.DetectMode.0"),
+                    FirstCar("ATSAssistMod.IFTTT.DetectMode.1"),
+                    LastCar("ATSAssistMod.IFTTT.DetectMode.2"),
+                    OnRail("ATSAssistMod.IFTTT.DetectMode.3");
 
                     private final String name;
 
