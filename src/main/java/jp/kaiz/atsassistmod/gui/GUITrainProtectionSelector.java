@@ -6,6 +6,7 @@ import jp.kaiz.atsassistmod.api.TrainControllerClient;
 import jp.kaiz.atsassistmod.api.TrainControllerClientManager;
 import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 import jp.kaiz.atsassistmod.gui.parts.GuiScreenCustom;
+import jp.kaiz.atsassistmod.network.PacketManualDrive;
 import jp.kaiz.atsassistmod.network.PacketTrainDriveMode;
 import jp.kaiz.atsassistmod.network.PacketTrainProtectionSetter;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
@@ -14,6 +15,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GUITrainProtectionSelector extends GuiScreenCustom {
@@ -56,15 +58,17 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
         this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseZ, partialTick);
         int heightBase = this.height / 2 - 50;
-        int widthBaseL = this.width / 2 - 130;
+        int widthBaseL = this.width / 2 - 135;
         int widthBaseR0 = this.width / 2 - 10;
         int widthBaseR1 = this.width / 2 + 80;
 
         //TASC/ATO
         this.fontRendererObj.drawStringWithShadow(/*"運転切替"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.0"), widthBaseL + 20, heightBase - 25, 0xffffff);
-        this.fontRendererObj.drawStringWithShadow(/*"手動"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.1"), widthBaseL, heightBase, 0xffffff);
-        this.fontRendererObj.drawStringWithShadow(/*"TASC"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.2"), widthBaseL, heightBase + 25, 0xffffff);
-        this.fontRendererObj.drawStringWithShadow(/*"TASC/ATO"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.3"), widthBaseL, heightBase + 50, 0xffffff);
+        this.fontRendererObj.drawStringWithShadow(/*"運転モード: "*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.7"), widthBaseL, heightBase, 0xffffff);
+        this.fontRendererObj.drawStringWithShadow(/*"((手動)/(TASC)/(TASC/ATO))"*/
+                I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text." + (this.tcc != null ? this.tcc.isATO() ? 3 : this.tcc.isTASC() ? 2 : 1 : 1)
+                ), widthBaseL + 55, heightBase, 0xffffff);
+        this.fontRendererObj.drawStringWithShadow(/*手動運転固定*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.6"), widthBaseL, heightBase + 25, 0xffffff);
 
         this.fontRendererObj.drawStringWithShadow(/*"HUD非表示"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.4"), widthBaseL, heightBase + 100, 0xffffff);
 
@@ -78,7 +82,6 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
             this.fontRendererObj.drawStringWithShadow(type.getDisplayName(), widthBaseR1, heightBase, 0xffffff);
             heightBase = heightBase + 25;
         }
-
 
         for (GuiButton button : (List<GuiButton>) this.buttonList) {
             switch (button.id) {
@@ -120,28 +123,22 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
         int widthBaseL = this.width / 2 - 80;
         int widthBaseR0 = this.width / 2 + 40;
         int widthBaseR1 = this.width / 2 + 130;
-        GuiCheckBox checkBox0 = new GuiCheckBox(100, widthBaseL + 3, heightBase + 103, "", false);
-        checkBox0.setIsChecked(this.tcc != null && this.tcc.isDontShowHUD());
 
-        this.buttonList.add(checkBox0);
-
-        this.buttonList.add(new GuiButton(10, widthBaseL, heightBase, 20, 20, ""));
-        this.buttonList.add(new GuiButton(11, widthBaseL, heightBase + 25, 20, 20, ""));
-        this.buttonList.add(new GuiButton(12, widthBaseL, heightBase + 50, 20, 20, ""));
+        this.buttonList.addAll(Arrays.asList(
+                new GuiCheckBox(100, widthBaseL + 3, heightBase + 103, "", this.tcc != null && this.tcc.isDontShowHUD()),
+                new GuiCheckBox(101, widthBaseL + 3, heightBase + 28, "", this.tcc != null && this.tcc.isManualDrive())
+        ));
 
         int buttonIDL = 20;
-        this.buttonList.add(new GuiButton(buttonIDL++, widthBaseR0, heightBase, 20, 20, ""));
-        this.buttonList.add(new GuiButton(buttonIDL++, widthBaseR0, heightBase + 25, 20, 20, ""));
+        this.buttonList.addAll(Arrays.asList(
+                new GuiButton(buttonIDL++, widthBaseR0, heightBase, 20, 20, ""),
+                new GuiButton(buttonIDL++, widthBaseR0, heightBase + 25, 20, 20, "")));
 
         int buttonIDR = 30;
         for (TrainProtectionType type : this.validTPList) {
             this.buttonList.add(new GuiButton(buttonIDR++, widthBaseR1, heightBase, 20, 20, ""));
             heightBase += 25;
         }
-    }
-
-    private GuiButton getTrainProtectionButton(TrainProtectionType type, int id, int width, int height) {
-        return type == this.tcc.getTrainProtectionType() ? new GuiButton(id, width, height, 20, 20, "X") : new GuiButton(id, width, height, 20, 20, "");
     }
 
     @Override
@@ -168,6 +165,9 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
                 case 100:
                     this.tcc = this.tcc == null ? TrainControllerClientManager.createTCC(this.train) : TrainControllerClientManager.getTCC(this.train);
                     this.tcc.setDontShowHUD(((GuiCheckBox) button).isChecked());
+                    break;
+                case 101:
+                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketManualDrive(((GuiCheckBox) button).isChecked()));
                     break;
             }
         }

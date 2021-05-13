@@ -6,16 +6,17 @@ public class TrainControllerClient {
     private int atoI, tascI, atcI, tpLimit, tpType;
     private boolean atoB, tascB;
     private boolean dontShowHUD;
+    private boolean manualDrive;
 
     public TrainControllerClient() {
     }
 
-    public TrainControllerClient(boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int tpLimit) {
-        this.set(atoB, tascB, tpType, atoI, tascI, atcI, tpLimit);
+    public TrainControllerClient(boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int tpLimit, boolean manualDrive) {
+        this.set(atoB, tascB, tpType, atoI, tascI, atcI, tpLimit, manualDrive);
     }
 
 
-    public void set(boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int tpLimit) {
+    public void set(boolean atoB, boolean tascB, int tpType, int atoI, int tascI, int atcI, int tpLimit, boolean manualDrive) {
         this.atoI = atoI;
         this.tascI = tascI;
         this.atcI = atcI;
@@ -25,6 +26,8 @@ public class TrainControllerClient {
         this.atoB = atoB;
         this.tascB = tascB;
         this.tpType = tpType;
+
+        this.manualDrive = manualDrive;
     }
 
     public boolean isATO() {
@@ -81,5 +84,9 @@ public class TrainControllerClient {
 
     public boolean isDontShowHUD() {
         return this.dontShowHUD;
+    }
+
+    public boolean isManualDrive() {
+        return this.manualDrive;
     }
 }

@@ -12,6 +12,7 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
     int atoI, tascI, atcI, tpLimit, tpType;
     boolean atoB, tascB;
     long formationID;
+    boolean manualDrive;
 
     public PacketTrainControllerToClient() {
     }
@@ -42,6 +43,8 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
         this.tpType = controller.getTrainProtectionType().id;
 //        this.tpLimit = controller.getATACSSpeedLimit();
         this.tpLimit = controller.getTrainProtectionSpeedLimit();
+
+        this.manualDrive = controller.isManualDrive();
     }
 
     @Override
@@ -56,6 +59,7 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
             this.tascI = buf.readInt();
             this.atcI = buf.readInt();
             this.tpLimit = buf.readInt();
+            this.manualDrive = buf.readBoolean();
         }
     }
 
@@ -71,6 +75,7 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
             buf.writeInt(this.tascI);
             buf.writeInt(this.atcI);
             buf.writeInt(this.tpLimit);
+            buf.writeBoolean(this.manualDrive);
         }
     }
 
@@ -79,7 +84,16 @@ public class PacketTrainControllerToClient implements IMessage, IMessageHandler<
         if (message.type == 0) {
             TrainControllerClientManager.removeTCC(message.formationID);
         } else if (message.type == 1) {
-            TrainControllerClientManager.setTCC(message.formationID, message.atoB, message.tascB, message.tpType, message.atoI, message.tascI, message.atcI, message.tpLimit);
+            TrainControllerClientManager.setTCC(
+                    message.formationID,
+                    message.atoB,
+                    message.tascB,
+                    message.tpType,
+                    message.atoI,
+                    message.tascI,
+                    message.atcI,
+                    message.tpLimit,
+                    message.manualDrive);
         }
         return null;
     }

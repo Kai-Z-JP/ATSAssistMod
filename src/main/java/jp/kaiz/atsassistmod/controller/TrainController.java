@@ -31,6 +31,8 @@ public class TrainController {
 
     private boolean emergencyBrake = false;
 
+    private boolean manualDrive = false;
+
     //null処理めんどいからこれとインスタンス比較で
     public static final TrainController NULL = new TrainController();
 
@@ -50,6 +52,14 @@ public class TrainController {
         if (this.train != null) {
             this.train.setNotch(-8);
         }
+    }
+
+    public void setManualDrive(boolean manualDrive) {
+        this.manualDrive = manualDrive;
+    }
+
+    public boolean isManualDrive() {
+        return this.manualDrive;
     }
 
     public void setControllerNotch(byte notch) {
@@ -137,16 +147,6 @@ public class TrainController {
             return;
         }
 
-        if (this.emergencyBrake) {
-            int notchLevel = this.train.getNotch();
-            if (notchLevel != -8) {
-                this.emergencyBrake = false;
-                this.brakingControlling = false;
-            } else {
-                return;
-            }
-        }
-
         //移動距離
         double movedDistance = this.getMovedDistance();
 
@@ -167,7 +167,7 @@ public class TrainController {
             } else {
                 speedOrder.moveDistance(movedDistance);
                 //ATO有効時予告に基づきブレーキノッチ追加
-                if (speedOrder.isAutoBrake() || this.ATO) {
+                if (speedOrder.isAutoBrake() || (this.ATO && !this.isManualDrive())) {
                     brakeNotch.add(speedOrder.getNeedNotch(speedH));
                 }
             }
@@ -186,7 +186,7 @@ public class TrainController {
             }
         } else {
             //ATO有効時
-            if (this.ATO) {
+            if (this.ATO && !this.isManualDrive()) {
                 //10km/h下回っていたら加速 制限時速より2km/h下まで加速で解除
                 if (!this.acceleratorControlling) {
                     if ((this.getATOSpeedLimit() - speedH) > 10) {
@@ -207,7 +207,9 @@ public class TrainController {
             int needNotch = this.tascController.getNeedNotch(speedH);
             if (this.tascController.isBreaking()) {
                 this.disableATO();
-                brakeNotch.add(needNotch);
+                if (!this.isManualDrive()) {
+                    brakeNotch.add(needNotch);
+                }
             }
         }
 
@@ -216,6 +218,15 @@ public class TrainController {
         int notch = this.tp.getNotch(speedH);
         brakeNotch.add(notch);
 
+        if (this.emergencyBrake) {
+            int notchLevel = this.train.getNotch();
+            if (notchLevel != -8) {
+                this.emergencyBrake = false;
+                this.brakingControlling = false;
+            } else {
+                return;
+            }
+        }
 
         //ノッチ制御最終処理
 
@@ -252,7 +263,7 @@ public class TrainController {
             if (maxAcceleratorNotch < 0) {
                 if (this.brakingControlling) {
                     this.brakingControlling = false;
-                    train.setNotch(0);
+                    this.train.setNotch(0);
                 }
             } else if (maxAcceleratorNotch == 0) {
                 this.brakingControlling = false;
@@ -261,11 +272,11 @@ public class TrainController {
                     this.acceleratorControlling = false;
                 }
 
-                train.setNotch(0);
+                this.train.setNotch(0);
             } else {
                 this.brakingControlling = false;
                 this.acceleratorControlling = true;
-                train.setNotch(maxAcceleratorNotch);
+                this.train.setNotch(maxAcceleratorNotch);
             }
         } else if (minBrakeNotch == 0) {
             if (this.tascController.isEnable()) {
@@ -275,7 +286,9 @@ public class TrainController {
                     this.ATO = false;
                     if (speedH <= 0F) {
                         this.tascController.disable();
-                        return;
+                        if (!this.isManualDrive()) {
+                            return;
+                        }
                     }
 //                } else if (speedH < 1) {
 //                    train.setNotch(-5);
@@ -292,7 +305,7 @@ public class TrainController {
             this.acceleratorControlling = false;
             //明示的Notch0
             this.brakingControlling = false;
-            train.setNotch(0);
+            this.train.setNotch(0);
         } else {
             this.acceleratorControlling = false;
             if (this.tascController.isEnable()) {
@@ -302,7 +315,9 @@ public class TrainController {
                     this.ATO = false;
                     if (speedH <= 0F) {
                         this.tascController.disable();
-                        return;
+                        if (!this.isManualDrive()) {
+                            return;
+                        }
                     }
 //                } else if (speedH < 1) {
 //                    train.setNotch(-5);
@@ -317,6 +332,15 @@ public class TrainController {
             }
             this.brakingControlling = true;
             this.train.setNotch(minBrakeNotch);
+        }
+
+        if (this.tascController.isEnable()) {
+            if (this.tascController.isStopPosition()) {
+                this.ATO = false;
+                if (this.isManualDrive()) {
+                    this.tascController.disable();
+                }
+            }
         }
     }
 

@@ -62,11 +62,12 @@ public class TrainGuiRender extends GuiScreen {
                 //cab表示あり
                 int k = this.width / 2;
 
+                int color = tcc.isManualDrive() ? 0xFF0000 : 0x00FF00;
                 //ATO
-                fontrenderer.drawStringWithShadow("ATO : " + atoSpeed, k + 160, this.height - 40, 0x00FF00);
+                fontrenderer.drawStringWithShadow("ATO : " + atoSpeed, k + 160, this.height - 40, color);
 
                 //TASC
-                fontrenderer.drawStringWithShadow("TASC : " + tascSpeed, k + 160, this.height - 30, 0x00FF00);
+                fontrenderer.drawStringWithShadow("TASC : " + tascSpeed, k + 160, this.height - 30, color);
 
                 //Limit
                 fontrenderer.drawStringWithShadow("Limit: " + limitSpeed, k + 160, this.height - 20, 0x00FF00);
@@ -78,6 +79,8 @@ public class TrainGuiRender extends GuiScreen {
 
             } else {
                 int fixHeight = 50;
+
+                int color = tcc.isManualDrive() ? 0xFF0000 : 16777215;
                 //cab表示なし
                 //TrainProtection
                 if (tpType != TrainProtectionType.NONE) {
@@ -88,10 +91,10 @@ public class TrainGuiRender extends GuiScreen {
                 fontrenderer.drawStringWithShadow("Limit : " + limitSpeed, 2, this.height - (fixHeight += 10), 16777215);
 
                 //TASC
-                fontrenderer.drawStringWithShadow("TASC : " + tascSpeed, 2, this.height - (fixHeight += 10), 16777215);
+                fontrenderer.drawStringWithShadow("TASC : " + tascSpeed, 2, this.height - (fixHeight += 10), color);
 
                 //ATO
-                fontrenderer.drawStringWithShadow("ATO : " + atoSpeed, 2, this.height - (fixHeight += 10), 16777215);
+                fontrenderer.drawStringWithShadow("ATO : " + atoSpeed, 2, this.height - (fixHeight += 10), color);
             }
         }
     }

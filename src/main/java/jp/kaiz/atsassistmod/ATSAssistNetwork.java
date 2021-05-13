@@ -21,6 +21,7 @@ public class ATSAssistNetwork {
         NETWORK_WRAPPER.registerMessage(PacketTrainControllerToClient.class, PacketTrainControllerToClient.class, 20, Side.CLIENT);
         NETWORK_WRAPPER.registerMessage(PacketTrainProtectionSetter.class, PacketTrainProtectionSetter.class, 21, Side.SERVER);
         NETWORK_WRAPPER.registerMessage(PacketTrainDriveMode.class, PacketTrainDriveMode.class, 22, Side.SERVER);
+        NETWORK_WRAPPER.registerMessage(PacketManualDrive.class, PacketManualDrive.class, 23, Side.SERVER);
 
         NETWORK_WRAPPER.registerMessage(PacketIFTTT.class, PacketIFTTT.class, 30, Side.SERVER);
         NETWORK_WRAPPER.registerMessage(PacketPlaySoundIFTTT.class, PacketPlaySoundIFTTT.class, 32, Side.CLIENT);
