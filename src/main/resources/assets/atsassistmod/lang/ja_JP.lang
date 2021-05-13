@@ -155,6 +155,7 @@ ATSAssistMod.IFTTT.DetectMode.name=動作モード
 ATSAssistMod.IFTTT.DetectMode.0=全車
 ATSAssistMod.IFTTT.DetectMode.1=先頭車
 ATSAssistMod.IFTTT.DetectMode.2=最後尾
+ATSAssistMod.IFTTT.DetectMode.3=レール内
 
 ATSAssistMod.gui.IFTTTMaterial.130.0=始点
 ATSAssistMod.gui.IFTTTMaterial.130.1=終点
