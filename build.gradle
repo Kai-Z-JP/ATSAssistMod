@@ -83,7 +83,7 @@ targetCompatibility = "1.8"
 tasks.embedJarInJar {
 	dependsOn tasks.reobf
 	target = "FMLInCpw"
-	basePackage = "com.github.com.Kai_Z_JP.KaizPatch.jarInJar"
+	basePackage = "jp.kaiz.atsassistmod.JarInJar"
 }
 
 tasks.assemble {
