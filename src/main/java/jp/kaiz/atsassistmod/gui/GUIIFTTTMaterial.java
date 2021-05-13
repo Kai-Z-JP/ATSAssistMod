@@ -78,7 +78,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.textFieldList.forEach(textField -> textField.setVisible(modeType.needStr));
                     break;
                 case 120://単純列検
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.IFTTT.DeteceMode.name"),
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.IFTTT.DetectMode.name"),
                             this.width / 2 - 75, this.height / 2 - 25, 0xffffff);
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString = ((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).getDetectMode().getDisplayName());
                     break;

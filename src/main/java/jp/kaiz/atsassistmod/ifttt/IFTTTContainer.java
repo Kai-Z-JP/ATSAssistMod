@@ -208,7 +208,7 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public String[] getExplanation() {
-                    return new String[]{I18n.format("ATSAssistMod.IFTTT.DeteceMode.name") + ": " + I18n.format(this.detectMode.name)};
+                    return new String[]{I18n.format("ATSAssistMod.IFTTT.DetectMode.name") + ": " + I18n.format(this.detectMode.name)};
                 }
 
                 @Override
