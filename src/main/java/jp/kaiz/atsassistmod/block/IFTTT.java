@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class IFTTT extends BlockContainer implements IBlockConnective {
@@ -69,5 +70,10 @@ public class IFTTT extends BlockContainer implements IBlockConnective {
     @Override
     public boolean canConnect(World world, int i, int i1, int i2) {
         return true;
+    }
+
+    @Override
+    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+        return false;
     }
 }

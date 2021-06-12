@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.stream.IntStream;
@@ -85,6 +86,11 @@ public class GroundUnit extends BlockContainer {
     @Override
     public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
         return ((TileEntityGroundUnit) world.getTileEntity(x, y, z)).getRedStoneOutput();
+    }
+    
+    @Override
+    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+        return false;
     }
 
     //メタデータによりドロップ品を変える 変えないほうが便利かも
