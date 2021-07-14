@@ -23,6 +23,10 @@ public class ATSATileEntityWrapper {
         return this.tileEntity.zCoord;
     }
 
+    public int[] getPos() {
+        return new int[]{this.getX(), this.getY(), this.getZ()};
+    }
+
     public World getWorld() {
         return this.tileEntity.getWorldObj();
     }
