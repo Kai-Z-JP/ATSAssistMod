@@ -74,25 +74,24 @@ public class ClientProxy extends CommonProxy {
         new Thread(() -> {
             SoundHandler soundHandler = NGTUtilClient.getMinecraft().getSoundHandler();
             orderList.stream().filter(Objects::nonNull).map(Object::toString).forEach(order -> {
-                        try {
-                            if (order.contains(":")) {
-                                String[] domainPath = order.split(":");
-                                ResourceLocation src = new ResourceLocation(domainPath[0], domainPath[1]);
+                try {
+                    if (order.contains(":")) {
+                        String[] domainPath = order.split(":");
+                        ResourceLocation src = new ResourceLocation(domainPath[0], domainPath[1]);
 
-                                List<ISound> trackList = new ArrayList<>();
-                                posList.stream().filter(Objects::nonNull).map(pos -> new ATSAMovingSoundTileEntity(tile, pos, src, false, volume)).forEach(trackList::add);
-                                trackList.forEach(soundHandler::playSound);
-                                Thread.sleep(10L);
-                                while (soundHandler.isSoundPlaying(trackList.get(0))) {
-                                }
-                            } else if (NumberUtils.isNumber(order)) {
-                                Thread.sleep((long) (1000L * Double.parseDouble(order)));
-                            }
-                        } catch (Throwable e) {
-                            e.printStackTrace();
+                        List<ISound> trackList = new ArrayList<>();
+                        posList.stream().filter(Objects::nonNull).map(pos -> new ATSAMovingSoundTileEntity(tile, pos, src, false, volume)).forEach(trackList::add);
+                        trackList.forEach(soundHandler::playSound);
+                        Thread.sleep(10L);
+                        while (soundHandler.isSoundPlaying(trackList.get(0))) {
                         }
+                    } else if (NumberUtils.isNumber(order)) {
+                        Thread.sleep((long) (1000L * Double.parseDouble(order)));
                     }
-            );
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+            });
         }).start();
     }
 }
