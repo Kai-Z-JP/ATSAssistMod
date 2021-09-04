@@ -656,7 +656,7 @@ public abstract class IFTTTContainer implements Serializable {
                 public void createResourceLocation() {
                     if (this.soundName != null) {
                         if (this.sound == null || !this.sound.toString().equals(this.soundName)) {
-                            if (this.soundName.matches(".*:.*")) {
+                            if (this.soundName.matches(".*:.+")) {
                                 String[] sa = this.soundName.split(":");
                                 this.sound = new ResourceLocation(sa[0], sa[1]);
                             }
