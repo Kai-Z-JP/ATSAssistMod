@@ -5,7 +5,7 @@ import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 public class TrainControllerClient {
     private int atoI, tascI, atcI, tpLimit, tpType;
     private boolean atoB, tascB;
-    private boolean dontShowHUD;
+    private boolean notShowHud;
     private boolean manualDrive;
 
     public TrainControllerClient() {
@@ -54,8 +54,8 @@ public class TrainControllerClient {
         this.tpType = type.id;
     }
 
-    public void setDontShowHUD(boolean dontShowHUD) {
-        this.dontShowHUD = dontShowHUD;
+    public void setNotShowHud(boolean notShowHud) {
+        this.notShowHud = notShowHud;
     }
 
     public TrainProtectionType getTrainProtectionType() {
@@ -82,8 +82,8 @@ public class TrainControllerClient {
         return this.tpLimit;
     }
 
-    public boolean isDontShowHUD() {
-        return this.dontShowHUD;
+    public boolean isNotShowHud() {
+        return this.notShowHud;
     }
 
     public boolean isManualDrive() {

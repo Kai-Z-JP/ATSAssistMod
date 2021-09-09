@@ -44,7 +44,7 @@ public class TrainGuiRender extends GuiScreen {
     private void renderTrainGui(EntityTrainBase train) {
         TrainControllerClient tcc;
         if ((tcc = TrainControllerClientManager.getTCC(train)) != null) {
-            if (tcc.isDontShowHUD()) {
+            if (tcc.isNotShowHud()) {
                 return;
             }
             FontRenderer fontrenderer = this.mc.fontRenderer;

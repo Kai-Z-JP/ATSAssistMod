@@ -125,7 +125,7 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
         int widthBaseR1 = this.width / 2 + 130;
 
         this.buttonList.addAll(Arrays.asList(
-                new GuiCheckBox(100, widthBaseL + 3, heightBase + 103, "", this.tcc != null && this.tcc.isDontShowHUD()),
+                new GuiCheckBox(100, widthBaseL + 3, heightBase + 103, "", this.tcc != null && this.tcc.isNotShowHud()),
                 new GuiCheckBox(101, widthBaseL + 3, heightBase + 28, "", this.tcc != null && this.tcc.isManualDrive())
         ));
 
@@ -164,7 +164,7 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
                     break;
                 case 100:
                     this.tcc = this.tcc == null ? TrainControllerClientManager.createTCC(this.train) : TrainControllerClientManager.getTCC(this.train);
-                    this.tcc.setDontShowHUD(((GuiCheckBox) button).isChecked());
+                    this.tcc.setNotShowHud(((GuiCheckBox) button).isChecked());
                     break;
                 case 101:
                     ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketManualDrive(((GuiCheckBox) button).isChecked()));
