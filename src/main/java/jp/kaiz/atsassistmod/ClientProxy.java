@@ -19,9 +19,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ClientProxy extends CommonProxy {
 
@@ -29,6 +29,7 @@ public class ClientProxy extends CommonProxy {
     public void preInit() {
         ATSAssistEventHandlerClient handler = new ATSAssistEventHandlerClient(this.getMinecraft());
         MinecraftForge.EVENT_BUS.register(handler);
+        FMLCommonHandler.instance().bus().register(handler);
         FMLCommonHandler.instance().bus().register(new ATSAssistKeyHandler());
     }
 
@@ -74,25 +75,26 @@ public class ClientProxy extends CommonProxy {
         new Thread(() -> {
             SoundHandler soundHandler = NGTUtilClient.getMinecraft().getSoundHandler();
             orderList.stream().filter(Objects::nonNull).map(Object::toString).forEach(order -> {
-                        try {
-                            if (order.contains(":")) {
-                                String[] domainPath = order.split(":");
-                                ResourceLocation src = new ResourceLocation(domainPath[0], domainPath[1]);
+                try {
+                    if (order.contains(":")) {
+                        String[] domainPath = order.split(":");
+                        ResourceLocation src = new ResourceLocation(domainPath[0], domainPath[1]);
 
-                                List<ISound> trackList = new ArrayList<>();
-                                posList.stream().filter(Objects::nonNull).map(pos -> new ATSAMovingSoundTileEntity(tile, pos, src, false, volume)).forEach(trackList::add);
-                                trackList.forEach(soundHandler::playSound);
-                                Thread.sleep(10L);
-                                while (soundHandler.isSoundPlaying(trackList.get(0))) {
-                                }
-                            } else if (NumberUtils.isNumber(order)) {
-                                Thread.sleep((long) (1000L * Double.parseDouble(order)));
-                            }
-                        } catch (Throwable e) {
-                            e.printStackTrace();
+                        List<ISound> trackList = posList.stream()
+                                .filter(Objects::nonNull)
+                                .map(pos -> new ATSAMovingSoundTileEntity(tile, pos, src, false, volume))
+                                .collect(Collectors.toList());
+                        ATSAssistEventHandlerClient.soundList.addAll(trackList);
+                        Thread.sleep(50L);
+                        while (soundHandler.isSoundPlaying(trackList.get(0))) {
                         }
+                    } else if (NumberUtils.isNumber(order)) {
+                        Thread.sleep((long) (1000L * Double.parseDouble(order)));
                     }
-            );
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+            });
         }).start();
     }
 }
