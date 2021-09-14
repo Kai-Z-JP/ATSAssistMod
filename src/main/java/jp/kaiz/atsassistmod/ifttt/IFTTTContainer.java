@@ -226,9 +226,6 @@ public abstract class IFTTTContainer implements Serializable {
                         case LastCar:
                             return train != null && (train.getFormation().size() == 1 || train.getConnectedTrain(1 - train.getTrainDirection()) == null);
                         case OnRail:
-                            if (train != null) {
-                                return true;
-                            }
                             World world = tile.getWorldObj();
                             int x = tile.xCoord;
                             int y = tile.yCoord;
