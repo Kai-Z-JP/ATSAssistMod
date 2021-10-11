@@ -17,7 +17,7 @@ buildscript {
 	}
 }
 plugins {
-	id "com.anatawa12.jarInJar" version "1.0.1"
+	id "com.anatawa12.jarInJar" version "1.0.3"
 }
 
 apply plugin: 'forge'
