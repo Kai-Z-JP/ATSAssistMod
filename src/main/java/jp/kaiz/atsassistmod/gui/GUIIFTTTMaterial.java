@@ -315,7 +315,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     break;
                 }
                 case 221: {//DataMap
-                    this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
+                    this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 20, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getKey(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addGuiTextField(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
                     this.addDownCommon();
