@@ -93,6 +93,7 @@ public class IFTTTType {
             RedStoneOutput(210),
             PlaySound(211),
             ExecuteCommand(212),
+            SetBlock(213),
             ;
 
             private final int id;

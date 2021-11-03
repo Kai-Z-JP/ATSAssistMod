@@ -152,6 +152,13 @@ public class GUIIFTTTMaterial extends GuiScreen {
                             this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> ((GuiCheckBox) button).setIsChecked(this.ifcb.isOnce()));
                     break;
+                case 213://SetBlock
+                    this.fontRendererObj.drawString("x", this.width / 2 - 72, this.height / 2 - 80, 0xffffff);
+                    this.fontRendererObj.drawString("y", this.width / 2 - 37, this.height / 2 - 80, 0xffffff);
+                    this.fontRendererObj.drawString("z", this.width / 2 - 2, this.height / 2 - 80, 0xffffff);
+                    this.fontRendererObj.drawString("id", this.width / 2 + 30, this.height / 2 - 80, 0xffffff);
+                    this.fontRendererObj.drawString("meta", this.width / 2 + 62, this.height / 2 - 80, 0xffffff);
+                    break;
                 case 221://DataMap
                     this.fontRendererObj.drawString("DataType",
                             this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
@@ -314,6 +321,29 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.addDownCommon();
                     break;
                 }
+                case 213: {//SetBlock
+                    IFTTTContainer.That.Minecraft.SetBlock ifcb = ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb);
+                    int h = this.height / 2 - 50;
+                    List<int[]> posList = ifcb.getPosList();
+                    for (int i = 0, posListSize = posList.size(); i < posListSize; i++) {
+                        int[] pos = posList.get(i);
+                        int w = this.width / 2 - 85;
+                        for (int n : pos) {
+                            this.addGuiTextField(n, w, h, Byte.MAX_VALUE, 30);
+                            w += 35;
+                        }
+                        if (posListSize < 5) {
+                            this.buttonList.add(new GuiButton(2000 + i, w, h, 20, 20, "+"));
+                        }
+                        w += 25;
+                        if (posListSize > 1) {
+                            this.buttonList.add(new GuiButton(3000 + i, w, h, 20, 20, "-"));
+                        }
+                        h += 25;
+                    }
+                    this.addDownCommon();
+                    break;
+                }
                 case 221: {//DataMap
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 20, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getKey(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
@@ -376,6 +406,10 @@ public class GUIIFTTTMaterial extends GuiScreen {
         return StringUtils.defaultString(this.textFieldList.get(number).getText());
     }
 
+    public int textFieldLength() {
+        return this.textFieldList.size();
+    }
+
     @Override
     public void updateScreen() {
         super.updateScreen();
@@ -428,7 +462,6 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 this.type = IFTTTType.This.Select;
             }
             this.ifcbIndex = button.id - 100;
-            return;
         } else if (button.id >= 200 && button.id < 206) {
             if (this.tile.getThatList().size() > button.id - 200) {
                 if (button instanceof GuiButtonDelete) {
@@ -443,138 +476,159 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 this.type = IFTTTType.That.Select;
             }
             this.ifcbIndex = button.id - 200;
-            return;
-        }
-        switch (button.id) {
-            case 110:
-                this.changeIFC(new IFTTTContainer.This.Minecraft.RedStoneInput());
-                return;
-            case 120:
-                this.changeIFC(new IFTTTContainer.This.This.RTM.SimpleDetectTrain());
-                return;
-            case 121:
-                this.changeIFC(new IFTTTContainer.This.This.RTM.Cars());
-                return;
-            case 122:
-                this.changeIFC(new IFTTTContainer.This.This.RTM.Speed());
-                return;
-            case 124:
-                this.changeIFC(new IFTTTContainer.This.This.RTM.TrainDataMap());
-                return;
-            case 130:
-                this.changeIFC(new IFTTTContainer.This.This.ATSAssist.CrossingObstacleDetection());
-                return;
-            case 210:
-                this.changeIFC(new IFTTTContainer.This.That.Minecraft.RedStoneOutput());
-                return;
-            case 211:
-                this.changeIFC(new IFTTTContainer.This.That.Minecraft.PlaySound(tile));
-                return;
-            case 212:
-                this.changeIFC(new IFTTTContainer.This.That.Minecraft.ExecuteCommand());
-                return;
-            case 221:
-                this.changeIFC(new IFTTTContainer.This.That.RTM.DataMap());
-                return;
-            case 223:
-                this.changeIFC(new IFTTTContainer.This.That.RTM.TrainSignal());
-                return;
-            case 230:
-                this.changeIFC(new IFTTTContainer.This.That.ATSAssist.JavaScript());
-                return;
-        }
-
-        switch (button.id) {
-            case 990://MainMenu
-                this.type = IFTTTType.getType(button.id);
-                return;
-            case 90:
-                this.mc.displayGuiScreen(null);
-                return;
-            case 91:
-                this.ifcb.setFromGui(this);
-                ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketIFTTT(this.tile, this.ifcb, this.ifcbIndex, 0));
-                this.mc.displayGuiScreen(null);
-                return;
-        }
-
-        if (this.type != null) {
-            switch (this.type.getId()) {
+        } else if (button.id >= 110 && button.id < 300) {
+            IFTTTContainer ifc;
+            switch (button.id) {
                 case 110:
-                    switch (button.id) {
-                        case 1000:
-                            ModeType modeType = ((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).getMode();
-                            ((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).setMode((ModeType) KaizUtils.getNextEnum(modeType));
-                            break;
-                    }
+                    ifc = new IFTTTContainer.This.Minecraft.RedStoneInput();
                     break;
                 case 120:
-                    switch (button.id) {
-                        case 1000:
-                            DetectMode modeType = ((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).getDetectMode();
-                            ((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).setDetectMode((DetectMode) KaizUtils.getNextEnum(modeType));
-                            break;
-                    }
+                    ifc = new IFTTTContainer.This.RTM.SimpleDetectTrain();
                     break;
                 case 121:
-                    switch (button.id) {
-                        case 1000:
-                            ComparisonManager.Integer modeType = ((IFTTTContainer.This.RTM.Cars) this.ifcb).getMode();
-                            ((IFTTTContainer.This.RTM.Cars) this.ifcb).setMode((ComparisonManager.Integer) KaizUtils.getNextEnum(modeType));
-                            break;
-                    }
+                    ifc = new IFTTTContainer.This.RTM.Cars();
                     break;
                 case 122:
-                    switch (button.id) {
-                        case 1000:
-                            ComparisonManager.Integer modeType = ((IFTTTContainer.This.RTM.Speed) this.ifcb).getMode();
-                            ((IFTTTContainer.This.RTM.Speed) this.ifcb).setMode(
-                                    modeType == ComparisonManager.Integer.GREATER_EQUAL ? ComparisonManager.Integer.LESS_EQUAL : ComparisonManager.Integer.GREATER_EQUAL);
-                            break;
-                    }
+                    ifc = new IFTTTContainer.This.RTM.Speed();
                     break;
                 case 124:
-                    switch (button.id) {
-                        case 1000:
-                            ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).nextDataType();
-                            break;
-                        case 1001:
-                            ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).nextComparisonType();
-                            break;
-                    }
+                    ifc = new IFTTTContainer.This.RTM.TrainDataMap();
+                    break;
+                case 130:
+                    ifc = new IFTTTContainer.This.ATSAssist.CrossingObstacleDetection();
                     break;
                 case 210:
-                    switch (button.id) {
-                        case 1000:
-                            ((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).
-                                    setTrainCarsOutput(!((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput());
-                            return;
-                    }
+                    ifc = new IFTTTContainer.That.Minecraft.RedStoneOutput();
                     break;
                 case 211:
+                    ifc = new IFTTTContainer.That.Minecraft.PlaySound(tile);
+                    break;
                 case 212:
-                    switch (button.id) {
-                        case 1000:
-                            this.ifcb.setOnce(((GuiCheckBox) button).isChecked());
-                            return;
-                    }
+                    ifc = new IFTTTContainer.That.Minecraft.ExecuteCommand();
+                    break;
+                case 213:
+                    ifc = new IFTTTContainer.That.Minecraft.SetBlock();
                     break;
                 case 221:
-                    switch (button.id) {
-                        case 1000:
-                            DataType dataType = ((IFTTTContainer.That.RTM.DataMap) this.ifcb).getDataType();
-                            ((IFTTTContainer.That.RTM.DataMap) this.ifcb).setDataType((DataType) KaizUtils.getNextEnum(dataType));
-                            break;
-                    }
+                    ifc = new IFTTTContainer.That.RTM.DataMap();
+                    break;
+                case 223:
+                    ifc = new IFTTTContainer.That.RTM.TrainSignal();
                     break;
                 case 230:
-                    switch (button.id) {
-                        case 1000:
-                            String clipBoard = GuiScreen.getClipboardString();
-                            ((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).setJSText(clipBoard);
-                            this.textFieldList.get(1).setText(clipBoard);
+                    ifc = new IFTTTContainer.That.ATSAssist.JavaScript();
+                    break;
+                default:
+                    ifc = null;
+            }
+            if (ifc != null) {
+                this.changeIFC(ifc);
+            }
+        } else if (button.id >= 1000) {
+            if (this.type != null) {
+                switch (this.type.getId()) {
+                    case 110:
+                        switch (button.id) {
+                            case 1000:
+                                ModeType modeType = ((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).getMode();
+                                ((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).setMode((ModeType) KaizUtils.getNextEnum(modeType));
+                                break;
+                        }
+                        break;
+                    case 120:
+                        switch (button.id) {
+                            case 1000:
+                                DetectMode modeType = ((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).getDetectMode();
+                                ((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).setDetectMode((DetectMode) KaizUtils.getNextEnum(modeType));
+                                break;
+                        }
+                        break;
+                    case 121:
+                        switch (button.id) {
+                            case 1000:
+                                ComparisonManager.Integer modeType = ((IFTTTContainer.This.RTM.Cars) this.ifcb).getMode();
+                                ((IFTTTContainer.This.RTM.Cars) this.ifcb).setMode((ComparisonManager.Integer) KaizUtils.getNextEnum(modeType));
+                                break;
+                        }
+                        break;
+                    case 122:
+                        switch (button.id) {
+                            case 1000:
+                                ComparisonManager.Integer modeType = ((IFTTTContainer.This.RTM.Speed) this.ifcb).getMode();
+                                ((IFTTTContainer.This.RTM.Speed) this.ifcb).setMode(
+                                        modeType == ComparisonManager.Integer.GREATER_EQUAL ? ComparisonManager.Integer.LESS_EQUAL : ComparisonManager.Integer.GREATER_EQUAL);
+                                break;
+                        }
+                        break;
+                    case 124:
+                        switch (button.id) {
+                            case 1000:
+                                ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).nextDataType();
+                                break;
+                            case 1001:
+                                ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).nextComparisonType();
+                                break;
+                        }
+                        break;
+                    case 210:
+                        switch (button.id) {
+                            case 1000:
+                                ((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).
+                                        setTrainCarsOutput(!((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput());
+                                return;
+                        }
+                        break;
+                    case 211:
+                    case 212:
+                        switch (button.id) {
+                            case 1000:
+                                this.ifcb.setOnce(((GuiCheckBox) button).isChecked());
+                                return;
+                        }
+                        break;
+                    case 213: {
+                        if (button.id >= 2000 && button.id < 3000) {
+                            ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb).addPos(new int[]{0, 0, 0, 0, 0}, button.id - 2000);
+                        } else if (button.id >= 3000 && button.id < 4000) {
+                            ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb).removePos(button.id - 3000);
+                        } else {
                             break;
+                        }
+                        this.oldType = null;
+
+                        break;
                     }
+                    case 221:
+                        switch (button.id) {
+                            case 1000:
+                                DataType dataType = ((IFTTTContainer.That.RTM.DataMap) this.ifcb).getDataType();
+                                ((IFTTTContainer.That.RTM.DataMap) this.ifcb).setDataType((DataType) KaizUtils.getNextEnum(dataType));
+                                break;
+                        }
+                        break;
+                    case 230:
+                        switch (button.id) {
+                            case 1000:
+                                String clipBoard = GuiScreen.getClipboardString();
+                                ((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).setJSText(clipBoard);
+                                this.textFieldList.get(1).setText(clipBoard);
+                                break;
+                        }
+                        break;
+                }
+            }
+        } else {
+            switch (button.id) {
+                case 990://MainMenu
+                    this.type = IFTTTType.getType(button.id);
+                    break;
+                case 90:
+                    this.mc.displayGuiScreen(null);
+                    break;
+                case 91:
+                    this.ifcb.setFromGui(this);
+                    ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketIFTTT(this.tile, this.ifcb, this.ifcbIndex, 0));
+                    this.mc.displayGuiScreen(null);
                     break;
             }
         }

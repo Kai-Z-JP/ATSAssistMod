@@ -17,6 +17,7 @@ import jp.ngt.rtm.modelpack.state.DataType;
 import jp.ngt.rtm.modelpack.state.ResourceState;
 import jp.ngt.rtm.rail.BlockLargeRailBase;
 import jp.ngt.rtm.rail.TileEntityLargeRailBase;
+import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -31,6 +32,7 @@ import net.minecraft.world.World;
 
 import javax.script.ScriptEngine;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -721,6 +723,66 @@ public abstract class IFTTTContainer implements Serializable {
                     if (!this.once || first) {
                         new IFTTTCommandSender(tile).executeCommand(this.command);
                     }
+                }
+            }
+
+            public static class SetBlock extends That {
+                private final List<int[]> posList = new ArrayList<>();
+
+                private static final long serialVersionUID = -696087836237577609L;
+
+                public SetBlock() {
+                    this.posList.add(new int[]{0, 0, 0, 0, 0});
+                }
+
+                public List<int[]> getPosList() {
+                    return posList;
+                }
+
+                public void clearPosList() {
+                    this.posList.clear();
+                }
+
+                public void addPos(int[] pos) {
+                    this.posList.add(pos);
+                }
+
+                public void addPos(int[] pos, int index) {
+                    this.posList.add(index, pos);
+                }
+
+                public void removePos(int index) {
+                    this.posList.remove(index);
+                }
+
+                @Override
+                public IFTTTType.IFTTTEnumBase getType() {
+                    return IFTTTType.That.Minecraft.SetBlock;
+                }
+
+                @Override
+                public String[] getExplanation() {
+                    return new String[]{I18n.format("ATSAssistMod.gui.IFTTTMaterial.213.1") + ": "};
+                }
+
+                @Override
+                public void setFromGui(GUIIFTTTMaterial gui) {
+                    this.clearPosList();
+                    int length = gui.textFieldLength();
+                    for (int i = 0; i < length; i += 5) {
+                        int x = gui.getTextFieldInt(i);
+                        int y = gui.getTextFieldInt(i + 1);
+                        int z = gui.getTextFieldInt(i + 2);
+                        int id = gui.getTextFieldInt(i + 3);
+                        int meta = gui.getTextFieldInt(i + 4);
+                        this.addPos(new int[]{x, y, z, id, meta});
+                    }
+                }
+
+                @Override
+                public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
+                    World world = tile.getWorldObj();
+                    this.getPosList().forEach(pos -> world.setBlock(pos[0], pos[1], pos[2], Block.getBlockById(pos[3]), pos[4], 3));
                 }
             }
         }
