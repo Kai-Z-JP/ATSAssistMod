@@ -166,8 +166,10 @@ public class GUIIFTTTMaterial extends GuiScreen {
                             this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
                     break;
                 case 230://JS
-                    this.fontRendererObj.drawString("Script Text",
+                    this.fontRendererObj.drawString("Script Name",
                             this.width / 2 - 100, this.height / 2 - 70, 0xffffff);
+                    this.fontRendererObj.drawString("Script Text",
+                            this.width / 2 - 100, this.height / 2 - 35, 0xffffff);
             }
         }
         super.drawScreen(mouseX, mouseZ, partialTick);
@@ -325,8 +327,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     break;
                 }
                 case 230: {//JS
-                    this.buttonList.add(new GuiButton(1000, this.width / 2 + 80, this.height / 2 - 60, 20, 20, "V"));
-                    this.addGuiTextField(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getJSText(), this.width / 2 - 100, this.height / 2 - 60, Integer.MAX_VALUE - 1, 175);
+                    this.buttonList.add(new GuiButton(1000, this.width / 2 + 80, this.height / 2 - 25, 20, 20, "V"));
+                    this.addGuiTextField(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getScriptName(), this.width / 2 - 100, this.height / 2 - 60, Integer.MAX_VALUE - 1, 175);
+                    this.addGuiTextField(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getJSText(), this.width / 2 - 100, this.height / 2 - 25, Integer.MAX_VALUE - 1, 175);
                     this.addDownCommon();
                     break;
                 }
@@ -558,7 +561,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                         case 1000:
                             String clipBoard = GuiScreen.getClipboardString();
                             ((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).setJSText(clipBoard);
-                            this.textFieldList.get(0).setText(clipBoard);
+                            this.textFieldList.get(1).setText(clipBoard);
                             break;
                     }
                     break;

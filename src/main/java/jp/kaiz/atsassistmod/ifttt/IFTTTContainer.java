@@ -868,6 +868,7 @@ public abstract class IFTTTContainer implements Serializable {
                 private String jsText;
                 private boolean error;
                 private UUID uuid;
+                private String scriptName = "";
 
                 public String getJSText() {
                     return jsText;
@@ -879,6 +880,14 @@ public abstract class IFTTTContainer implements Serializable {
                     this.error = false;
                 }
 
+                public String getScriptName() {
+                    return scriptName == null ? "" : scriptName;
+                }
+
+                public void setScriptName(String scriptName) {
+                    this.scriptName = scriptName;
+                }
+
                 //setJSField
 
                 @Override
@@ -888,13 +897,14 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public String[] getExplanation() {
-                    return error ? new String[]{"Script Error!"} : new String[]{""};
+                    return new String[]{this.getScriptName() + " " + (this.error ? "Script Error!" : "")};
                 }
 
                 @Override
                 @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
-                    this.setJSText(gui.getTextFieldText(0));
+                    this.setScriptName(gui.getTextFieldText(0));
+                    this.setJSText(gui.getTextFieldText(1));
                 }
 
                 @Override
