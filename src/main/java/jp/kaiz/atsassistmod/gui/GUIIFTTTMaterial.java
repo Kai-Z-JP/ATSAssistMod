@@ -397,6 +397,17 @@ public class GUIIFTTTMaterial extends GuiScreen {
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
             return;
+        } else if (par2 == Keyboard.KEY_TAB) {
+            for (int i = 0; i < this.textFieldList.size(); i++) {
+                GuiTextField textField = this.textFieldList.get(i);
+                if (textField.isFocused()) {
+                    textField.setFocused(false);
+                    int next = i == this.textFieldList.size() - 1 ? 0 : i + 1;
+                    this.textFieldList.get(next).setFocused(true);
+                    break;
+                }
+            }
+            return;
         }
         this.textFieldList.forEach(textField -> textField.textboxKeyTyped(par1, par2));
     }
