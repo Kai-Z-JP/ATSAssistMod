@@ -158,7 +158,7 @@ ATSAssistMod.IFTTT.DetectMode.name=Detect Mode
 ATSAssistMod.IFTTT.DetectMode.0=All
 ATSAssistMod.IFTTT.DetectMode.1=First
 ATSAssistMod.IFTTT.DetectMode.2=Last
-ATSAssistMod.IFTTT.DetectMode.2=On Rail
+ATSAssistMod.IFTTT.DetectMode.3=On Rail
 
 ATSAssistMod.gui.IFTTTMaterial.130.0=Start
 ATSAssistMod.gui.IFTTTMaterial.130.1=End
