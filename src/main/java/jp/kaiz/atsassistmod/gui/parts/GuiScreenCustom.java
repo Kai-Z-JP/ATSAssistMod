@@ -3,6 +3,7 @@ package jp.kaiz.atsassistmod.gui.parts;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public abstract class GuiScreenCustom extends GuiScreen {
     }
 
     @Override
-    public void mouseClicked(int x, int y, int btn) {
+    public void mouseClicked(int x, int y, int btn) throws IOException {
         super.mouseClicked(x, y, btn);
         this.textFieldList.forEach(guiTextField -> guiTextField.mouseClicked(x, y, btn));
     }

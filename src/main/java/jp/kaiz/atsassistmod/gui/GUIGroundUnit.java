@@ -1,6 +1,5 @@
 package jp.kaiz.atsassistmod.gui;
 
-import cpw.mods.fml.client.config.GuiCheckBox;
 import jp.kaiz.atsassistmod.ATSAssistBlock;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.GroundUnitType;
@@ -11,9 +10,11 @@ import jp.kaiz.atsassistmod.gui.parts.GuiOptionSliderTrainState;
 import jp.kaiz.atsassistmod.gui.parts.GuiScreenCustom;
 import jp.kaiz.atsassistmod.network.PacketGroundUnitTile;
 import jp.kaiz.atsassistmod.network.PacketGroundUnitTileInit;
+import jp.ngt.ngtlib.block.BlockUtil;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.client.config.GuiCheckBox;
 import org.lwjgl.input.Keyboard;
 
 import java.util.Arrays;
@@ -30,135 +31,135 @@ public class GUIGroundUnit extends GuiScreenCustom {
     //文字の描画
     //横はthis.width
     //縦はthis.height
-    //this.fontRendererObj.drawString("ここに文字", 横座標, 縦座標, 白なら0xffffff);
+    //this.fontRenderer.drawString("ここに文字", 横座標, 縦座標, 白なら0xffffff);
     @Override
     public void drawScreen(int mouseX, int mouseZ, float partialTick) {
         super.drawScreen(mouseX, mouseZ, partialTick);
 
         switch (this.tile.getType()) {
             case None:
-                this.fontRendererObj.drawString(/*"地上子機能選択メニュー",*/
+                this.fontRenderer.drawString(/*"地上子機能選択メニュー",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.title"),
                         this.width / 4, 20, 0xffffff);
-                this.fontRendererObj.drawString(/*"ATC",*/
+                this.fontRenderer.drawString(/*"ATC",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.text.0"),
                         this.width / 2 - 170, this.height / 2 - 90, 0xffffff);
-                this.fontRendererObj.drawString(/*"TASC",*/
+                this.fontRenderer.drawString(/*"TASC",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.text.1"),
                         this.width / 2 - 170, this.height / 2 - 50, 0xffffff);
-                this.fontRendererObj.drawString(/*"ATO",*/
+                this.fontRenderer.drawString(/*"ATO",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.text.2"),
                         this.width / 2 - 170, this.height / 2 + 15, 0xffffff);
-                this.fontRendererObj.drawString(/*"保安装置",*/
+                this.fontRenderer.drawString(/*"保安装置",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.text.3"),
                         this.width / 2 - 170, this.height / 2 + 55, 0xffffff);
-                this.fontRendererObj.drawString(/*"その他",*/
+                this.fontRenderer.drawString(/*"その他",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.text.4"),
                         this.width / 2 + 70, this.height / 2 + 55, 0xffffff);
                 return;
             case ATC_SpeedLimit_Notice:
-                this.fontRendererObj.drawString(/*"地上子機能 : ATC(ATO) : 速度制限予告",*/
+                this.fontRenderer.drawString(/*"地上子機能 : ATC(ATO) : 速度制限予告",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.1.title"),
                         this.width / 4, 20, 0xffffff);
-                this.fontRendererObj.drawString(/*"速度制限    (km/h)",*/
+                this.fontRenderer.drawString(/*"速度制限    (km/h)",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.1.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
-                this.fontRendererObj.drawString(/*"制限開始の距離 (m)",*/
+                this.fontRenderer.drawString(/*"制限開始の距離 (m)",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.1.text.1"),
                         this.width / 2 - 100, this.height / 2, 0xffffff);
-                this.fontRendererObj.drawString(/*"自動的に減速する",*/
+                this.fontRenderer.drawString(/*"自動的に減速する",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.1.text.2"),
                         this.width / 2 - 100, this.height / 2 + 25, 0xffffff);
-                this.fontRendererObj.drawString(/*"距離基準を車両先頭に",*/
+                this.fontRenderer.drawString(/*"距離基準を車両先頭に",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.6.text.1"),
                         this.width / 2 - 100, this.height / 2 + 50, 0xffffff);
                 break;
             case ATC_SpeedLimit_Cancel:
-                this.fontRendererObj.drawString(/*"地上子機能 : ATC(ATO) : 速度制限解除",*/
+                this.fontRenderer.drawString(/*"地上子機能 : ATC(ATO) : 速度制限解除",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.2.title"),
                         this.width / 4, 20, 0xffffff);
 
-                this.fontRendererObj.drawString(/*"編成最後尾で解除",*/
+                this.fontRenderer.drawString(/*"編成最後尾で解除",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.2.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
                 break;
             case TASC_StopPotion_Notice:
-                this.fontRendererObj.drawString(/*"地上子機能 : TASC : 距離設定 制御開始",*/
+                this.fontRenderer.drawString(/*"地上子機能 : TASC : 距離設定 制御開始",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.4.title"),
                         this.width / 4, 20, 0xffffff);
-                this.fontRendererObj.drawString(/*"停車位置までの距離",*/
+                this.fontRenderer.drawString(/*"停車位置までの距離",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.4.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
-                this.fontRendererObj.drawString(/*"距離基準を車両先頭に",*/
+                this.fontRenderer.drawString(/*"距離基準を車両先頭に",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.4.text.1"),
                         this.width / 2 - 100, this.height / 2, 0xffffff);
                 break;
             case TASC_Cancel:
-                this.fontRendererObj.drawString(/*"地上子機能 : TASC : 制御終了",*/
+                this.fontRenderer.drawString(/*"地上子機能 : TASC : 制御終了",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.5.title"),
                         this.width / 4, 20, 0xffffff);
                 break;
             case TASC_StopPotion_Correction:
-                this.fontRendererObj.drawString(/*"地上子機能 : TASC : 距離補正",*/
+                this.fontRenderer.drawString(/*"地上子機能 : TASC : 距離補正",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.6.title"),
                         this.width / 4, 20, 0xffffff);
-                this.fontRendererObj.drawString(/*"停車位置までの距離",*/
+                this.fontRenderer.drawString(/*"停車位置までの距離",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.6.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
-                this.fontRendererObj.drawString(/*"距離基準を車両先頭に",*/
+                this.fontRenderer.drawString(/*"距離基準を車両先頭に",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.6.text.1"),
                         this.width / 2 - 100, this.height / 2, 0xffffff);
                 break;
             case TASC_StopPotion:
-                this.fontRendererObj.drawString(/*"地上子機能 : 停車検知",*/
+                this.fontRenderer.drawString(/*"地上子機能 : 停車検知",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.7.title"),
                         this.width / 4, 20, 0xffffff);
-                this.fontRendererObj.drawString(/*"逆転ハンドル前以外でも検知",*/
+                this.fontRenderer.drawString(/*"逆転ハンドル前以外でも検知",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.7.text.0"),
                         this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
                 return;
             case ATO_Departure_Signal:
-                this.fontRendererObj.drawString(/*"地上子機能 : ATO : 出発信号 制御開始",*/
+                this.fontRenderer.drawString(/*"地上子機能 : ATO : 出発信号 制御開始",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.9.title"),
                         this.width / 4, 20, 0xffffff);
-                this.fontRendererObj.drawString(/*"目標速度",*/
+                this.fontRenderer.drawString(/*"目標速度",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.9.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
                 break;
             case ATO_Cancel:
-                this.fontRendererObj.drawString(/*"地上子機能 : ATO : 制御終了",*/
+                this.fontRenderer.drawString(/*"地上子機能 : ATO : 制御終了",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.10.title"),
                         this.width / 4, 20, 0xffffff);
                 break;
             case ATO_Change_Speed:
-                this.fontRendererObj.drawString(/*"地上子機能 : ATO : 目標速度変更",*/
+                this.fontRenderer.drawString(/*"地上子機能 : ATO : 目標速度変更",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.11.title"),
                         this.width / 4, 20, 0xffffff);
-                this.fontRendererObj.drawString(/*"目標速度",*/
+                this.fontRenderer.drawString(/*"目標速度",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.11.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
                 break;
             case TrainState_Set:
-                this.fontRendererObj.drawString(/*"地上子機能 : TrainState : 車両状態変更",*/
+                this.fontRenderer.drawString(/*"地上子機能 : TrainState : 車両状態変更",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.title"),
                         this.width / 4, 20, 0xffffff);
-                this.fontRendererObj.drawString(/*"逆転ハンドル前以外でも有効",*/
+                this.fontRenderer.drawString(/*"逆転ハンドル前以外でも有効",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.text.0"),
                         this.width / 2 + 10, this.height / 2 - 45, 0xffffff);
                 return;
             case CHANGE_TP:
-                this.fontRendererObj.drawString(/*"地上子機能 : 保安装置 : 強制変更",*/
+                this.fontRenderer.drawString(/*"地上子機能 : 保安装置 : 強制変更",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.14.title"),
                         this.width / 4, 20, 0xffffff);
                 break;
             case ATACS_Disable:
-                this.fontRendererObj.drawString(/*"地上子機能 : ATACS : 制御終了",*/
+                this.fontRenderer.drawString(/*"地上子機能 : ATACS : 制御終了",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.15.title"),
                         this.width / 4, 20, 0xffffff);
                 break;
         }
 
-        this.fontRendererObj.drawString(/*"レッドストーン連動",*/
+        this.fontRenderer.drawString(/*"レッドストーン連動",*/
                 I18n.format("ATSAssistMod.gui.GroundUnitMenu.common.text.0"),
                 this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
     }
@@ -369,7 +370,7 @@ public class GUIGroundUnit extends GuiScreenCustom {
 
         if (button.id == 0 || this.tile.getType() == GroundUnitType.None) {
             this.sendPacket(button.id);
-            this.mc.theWorld.setBlock(tile.xCoord, tile.yCoord, tile.zCoord, ATSAssistBlock.blockGroundUnit, button.id, 3);
+            BlockUtil.setBlock(this.mc.world, tile.getPos(), ATSAssistBlock.blockGroundUnit, button.id, 3);
         }
     }
 
@@ -403,7 +404,7 @@ public class GUIGroundUnit extends GuiScreenCustom {
     }
 
     private void addGuiTextField(int number, String str, int maxLength) {
-        GuiTextField text = new GuiTextField(this.fontRendererObj, this.width / 2, this.height / 2 - 30 + (25 * number), 100, 20);
+        GuiTextField text = new GuiTextField(0, this.fontRenderer, this.width / 2, this.height / 2 - 30 + (25 * number), 100, 20);
         text.setFocused(false);
         text.setMaxStringLength(maxLength);
         text.setText(str);

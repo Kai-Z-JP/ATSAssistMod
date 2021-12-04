@@ -1,11 +1,11 @@
 package jp.kaiz.atsassistmod.gui.parts;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import jp.ngt.rtm.entity.train.util.TrainState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
@@ -43,8 +43,8 @@ public class GuiOptionSliderTrainState extends GuiButton {
             }
 
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(this.xPosition + (int) (_temp * (float) (this.width - 8)), this.yPosition, 0, 66, 4, 20);
-            this.drawTexturedModalRect(this.xPosition + (int) (_temp * (float) (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
+            this.drawTexturedModalRect(this.x + (int) (_temp * (float) (this.width - 8)), this.y, 0, 66, 4, 20);
+            this.drawTexturedModalRect(this.x + (int) (_temp * (float) (this.width - 8)) + 4, this.y, 196, 66, 4, 20);
         }
     }
 
@@ -63,7 +63,7 @@ public class GuiOptionSliderTrainState extends GuiButton {
     }
 
     private void get(int mouseX) {
-        _temp = (float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8);
+        _temp = (float) (mouseX - (this.x + 4)) / (float) (this.width - 8);
 
         if (_temp < 0.0F) {
             this.nowValue = (byte) (this.type.min - 1);
@@ -90,19 +90,19 @@ public class GuiOptionSliderTrainState extends GuiButton {
         String state, data = String.valueOf(this.nowValue);
 
         switch (this.type) {
-            case State_TrainDir:
+            case Direction:
 //				state = "方向";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.0.state");
                 break;
-            case State_Notch:
+            case Notch:
 //				state = "ノッチ";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.1.state");
                 break;
-            case State_Signal:
+            case Signal:
 //				state = "信号";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.2.state");
                 break;
-            case State_Door:
+            case Door:
 //				state = "ドア";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.3.state");
                 switch (this.nowValue) {
@@ -124,7 +124,7 @@ public class GuiOptionSliderTrainState extends GuiButton {
                         break;
                 }
                 break;
-            case State_Light:
+            case Light:
 //				state = "前照灯";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.0");
                 switch (this.nowValue) {
@@ -144,7 +144,7 @@ public class GuiOptionSliderTrainState extends GuiButton {
                         break;
                 }
                 break;
-            case State_Pantograph:
+            case Pantograph:
 //				state = "パンタグラフ";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.5.state");
                 switch (this.nowValue) {
@@ -158,19 +158,19 @@ public class GuiOptionSliderTrainState extends GuiButton {
                         break;
                 }
                 break;
-            case State_ChunkLoader:
+            case ChunkLoader:
 //				state = "チャンクローダー";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.6.state");
                 break;
-            case State_Destination:
+            case Destination:
 //				state = "方向幕";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.7.state");
                 break;
-            case State_Announcement:
+            case Announcement:
 //				state = "車内放送";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.8.state");
                 break;
-            case State_Direction:
+            case Role:
 //				state = "逆転ハンドル";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.9.state");
                 switch (this.nowValue) {
@@ -188,7 +188,7 @@ public class GuiOptionSliderTrainState extends GuiButton {
                         break;
                 }
                 break;
-            case State_InteriorLight:
+            case InteriorLight:
 //				state = "車内灯";
                 state = I18n.format("ATSAssistMod.gui.GroundUnitMenu.13.slider.10.state");
                 switch (this.nowValue) {

@@ -13,24 +13,24 @@ public class GuiButtonAdd extends GuiButton {
     }
 
     @Override
-    public void drawButton(Minecraft mc, int x, int y) {
+    public void drawButton(Minecraft mc, int x, int y, float partialTick) {
         if (this.visible) {
             GL11.glPushMatrix();
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            switch (this.getHoverState(this.field_146123_n)) {
+            switch (this.getHoverState(this.hovered)) {
                 case 1:
-                    GL11.glTranslatef(this.xPosition, this.yPosition, 1.0F);
+                    GL11.glTranslatef(this.x, this.y, 1.0F);
                     GL11.glScalef((35 / 2f) / 256F, (35 / 2f) / 256F, 1.0F);
                     break;
                 case 2:
-                    GL11.glTranslatef(this.xPosition + 0.875F, this.yPosition + 0.875F, 1.0F);
+                    GL11.glTranslatef(this.x + 0.875F, this.y + 0.875F, 1.0F);
                     GL11.glScalef((35 / 2f) / 256F * 0.9F, (35 / 2f) / 256F * 0.9F, 1.0F);
                     break;
                 default:
                     return;
             }
-            this.field_146123_n = x >= this.xPosition && y >= this.yPosition && x < this.xPosition + this.width && y < this.yPosition + this.height;
+            this.hovered = x >= this.x && y >= this.y && x < this.x + this.width && y < this.y + this.height;
             OpenGlHelper.glBlendFunc(770, 771, 1, 0);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             mc.getTextureManager().bindTexture(GuiTextureManager.AddButton.texture);

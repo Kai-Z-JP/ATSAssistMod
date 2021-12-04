@@ -1,11 +1,11 @@
 package jp.kaiz.atsassistmod.network;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketSetNotch implements IMessage, IMessageHandler<PacketSetNotch, IMessage> {
     private int entityID;
@@ -50,9 +50,9 @@ public class PacketSetNotch implements IMessage, IMessageHandler<PacketSetNotch,
 
     @Override
     public IMessage onMessage(PacketSetNotch message, MessageContext ctx) {
-        World world = ctx.getServerHandler().playerEntity.worldObj;
+        World world = ctx.getServerHandler().player.getServerWorld();
         if (message.type == PacketCause.PLAYER.id) {
-            ATSAssistAPIHandlerServer.INSTANCE.onUseAPI(ctx.getServerHandler().playerEntity, message.notch);
+            ATSAssistAPIHandlerServer.INSTANCE.onUseAPI(ctx.getServerHandler().player, message.notch);
         } else if (message.type == PacketCause.ENTITY_ID.id) {
             EntityTrainBase entity = (EntityTrainBase) world.getEntityByID(message.entityID);
             ATSAssistAPIHandlerServer.INSTANCE.onUseAPI(entity, message.notch);

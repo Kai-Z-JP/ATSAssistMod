@@ -1,16 +1,19 @@
 package jp.kaiz.atsassistmod.network;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.kaiz.atsassistmod.ifttt.IFTTTContainer;
 import jp.kaiz.atsassistmod.ifttt.IFTTTUtil;
+import jp.ngt.ngtlib.network.PacketNBT;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMessage> {
-    private int x, y, z;
+    private long pos;
     private byte[] serialized;
     private int ifcbIndex;
     private int type;
@@ -19,9 +22,7 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
     }
 
     public PacketIFTTT(TileEntityIFTTT tile, IFTTTContainer ifcb, int ifcbIndex, int type) {
-        this.x = tile.xCoord;
-        this.y = tile.yCoord;
-        this.z = tile.zCoord;
+        this.pos = tile.getPos().toLong();
         this.serialized = IFTTTUtil.convertClass(ifcb);
         this.ifcbIndex = ifcbIndex;
         this.type = type;
@@ -29,29 +30,25 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.x = buf.readInt();
-        this.y = buf.readInt();
-        this.z = buf.readInt();
-        this.serialized = buf.readBytes(buf.readInt()).array();
+        this.pos = buf.readLong();
         this.ifcbIndex = buf.readInt();
         this.type = buf.readInt();
+        this.serialized = ByteBufUtil.getBytes(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeInt(this.x);
-        buf.writeInt(this.y);
-        buf.writeInt(this.z);
-        buf.writeInt(this.serialized.length);
-        buf.writeBytes(this.serialized);
+        buf.writeLong(this.pos);
         buf.writeInt(this.ifcbIndex);
         buf.writeInt(this.type);
+        buf.writeBytes(this.serialized);
     }
 
     @Override
     public IMessage onMessage(PacketIFTTT message, MessageContext ctx) {
-        World world = ctx.getServerHandler().playerEntity.worldObj;
-        TileEntityIFTTT tile = (TileEntityIFTTT) world.getTileEntity(message.x, message.y, message.z);
+        BlockPos blockPos = BlockPos.fromLong(message.pos);
+        World world = ctx.getServerHandler().player.getServerWorld();
+        TileEntityIFTTT tile = (TileEntityIFTTT) world.getTileEntity(blockPos);
         if (message.ifcbIndex == -1) {
             tile.addIFTTT(IFTTTUtil.convertClass(message.serialized));
         } else if (message.type == 2) {
@@ -59,10 +56,8 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
         } else {
             tile.setIFTTT(IFTTTUtil.convertClass(message.serialized), message.ifcbIndex);
         }
+        PacketNBT.sendToClient(tile);
         tile.markDirty();
-        tile.getDescriptionPacket();
-        world.markBlockForUpdate(message.x, message.y, message.z);
-        world.notifyBlockChange(message.x, message.y, message.z, tile.getBlockType());
         return null;
     }
 }

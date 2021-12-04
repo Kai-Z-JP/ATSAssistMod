@@ -1,0 +1,52 @@
+{
+    "variants": {
+        "meta=0": {
+            "model": "atsassistmod:groundunit0"
+        },
+        "meta=1": {
+            "model": "atsassistmod:groundunit1"
+        },
+        "meta=2": {
+            "model": "atsassistmod:groundunit2"
+        },
+        "meta=3": {
+            "model": "atsassistmod:groundunit0"
+        },
+        "meta=4": {
+            "model": "atsassistmod:groundunit4"
+        },
+        "meta=5": {
+            "model": "atsassistmod:groundunit5"
+        },
+        "meta=6": {
+            "model": "atsassistmod:groundunit6"
+        },
+        "meta=7": {
+            "model": "atsassistmod:groundunit7"
+        },
+        "meta=8": {
+            "model": "atsassistmod:groundunit0"
+        },
+        "meta=9": {
+            "model": "atsassistmod:groundunit9"
+        },
+        "meta=10": {
+            "model": "atsassistmod:groundunit10"
+        },
+        "meta=11": {
+            "model": "atsassistmod:groundunit11"
+        },
+        "meta=12": {
+            "model": "atsassistmod:groundunit0"
+        },
+        "meta=13": {
+            "model": "atsassistmod:groundunit13"
+        },
+        "meta=14": {
+            "model": "atsassistmod:groundunit14"
+        },
+        "meta=15": {
+            "model": "atsassistmod:groundunit15"
+        }
+    }
+}

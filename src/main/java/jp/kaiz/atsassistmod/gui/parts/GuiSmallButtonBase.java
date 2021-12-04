@@ -14,12 +14,12 @@ public abstract class GuiSmallButtonBase extends GuiButton {
     }
 
     @Override
-    public void drawButton(Minecraft mc, int x, int y) {
+    public void drawButton(Minecraft mc, int x, int y, float partialTick) {
         if (this.visible) {
             GL11.glPushMatrix();
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GL11.glTranslatef(this.xPosition, this.yPosition, 1.0F);
+            GL11.glTranslatef(this.x, this.y, 1.0F);
             GL11.glScalef((45 / 2F) / 256F, (45 / 2F) / 256F, 1.0F);
             mc.getTextureManager().bindTexture(this.texture);
             this.drawTexturedModalRect(0, 0, 0, 0, 256, 256);
@@ -30,16 +30,16 @@ public abstract class GuiSmallButtonBase extends GuiButton {
 
             GL11.glPushMatrix();
             GL11.glTranslatef(1.0F, 1.0F, 1.0F);
-            this.field_146123_n = x >= this.xPosition && y >= this.yPosition && x < this.xPosition + this.width && y < this.yPosition + this.height;
+            this.hovered = x >= this.x && y >= this.y && x < this.x + this.width && y < this.y + this.height;
             int l = 14737632;
             if (packedFGColour != 0) {
                 l = packedFGColour;
             } else if (!this.enabled) {
                 l = 10526880;
-            } else if (this.field_146123_n) {
+            } else if (this.hovered) {
                 l = 16777120;
             }
-            this.drawCenteredString(mc.fontRenderer, this.displayString, this.xPosition + (this.width - 1) / 2, this.yPosition + (this.height - 11) / 2, l);
+            this.drawCenteredString(mc.fontRenderer, this.displayString, this.x + (this.width - 1) / 2, this.y + (this.height - 11) / 2, l);
             GL11.glPopMatrix();
         }
     }

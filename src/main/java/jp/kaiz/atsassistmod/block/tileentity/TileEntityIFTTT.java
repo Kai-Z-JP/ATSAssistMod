@@ -6,7 +6,7 @@ import jp.ngt.ngtlib.util.NGTUtil;
 import jp.ngt.rtm.electric.IProvideElectricity;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +29,19 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
     }
 
     @Override
-    public final void writeToNBT(NBTTagCompound tag) {
+    public final NBTTagCompound writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
         tag.setInteger("redStoneOutput", this.redStoneOutput);
         tag.setBoolean("notFirst", this.notFirst);
         tag.setString("iftttThis", IFTTTUtil.listToString(this.thisList));
         tag.setString("iftttThat", IFTTTUtil.listToString(this.thatList));
+        return tag;
     }
 
     private int tick;
 
     @Override
-    public void updateEntity() {
+    public void update() {
         ++this.tick;
         if (this.tick == Integer.MAX_VALUE) {
             this.tick = 0;
@@ -48,10 +49,9 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
         if (this.thisList.isEmpty() || this.thatList.isEmpty()) {
             return;
         }
-        if (!this.worldObj.isRemote) {
-            AxisAlignedBB detect = AxisAlignedBB.getBoundingBox(
-                    this.xCoord - 1, this.yCoord, this.zCoord - 1, this.xCoord + 2, this.yCoord + 4, this.zCoord + 2);
-            List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
+        if (!this.getWorld().isRemote) {
+            AxisAlignedBB detect = new AxisAlignedBB(this.getPos().add(-1, 0, -1), this.getPos().add(2, 4, 2));
+            List<?> list = this.getWorld().getEntitiesWithinAABB(EntityTrainBase.class, detect);
             EntityTrainBase train = list.isEmpty() ? null : (EntityTrainBase) list.get(0);
             if (this.thisList.stream().allMatch(iftttContainer -> ((IFTTTContainer.This) iftttContainer).isCondition(this, train))) {
                 this.thatList.forEach(iftttContainer -> ((IFTTTContainer.That) iftttContainer).doThat(this, train, !this.notFirst));
@@ -69,7 +69,7 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
     }
 
     public int getServerTick() {
-        return this.worldObj.isRemote ? this.getTick() : NGTUtil.getServer().getTickCounter();
+        return this.getWorld().isRemote ? this.getTick() : NGTUtil.getServer().getTickCounter();
     }
 
     public int getRedStoneOutput() {
@@ -79,7 +79,7 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
     public void setRedStoneOutput(int power) {
         if (this.redStoneOutput != power) {
             this.redStoneOutput = power;
-            this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
+            this.getWorld().notifyNeighborsOfStateChange(this.getPos(), this.getBlockType(), true);
         }
     }
 

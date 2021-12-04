@@ -1,33 +1,35 @@
 package jp.kaiz.atsassistmod.block;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import jp.kaiz.atsassistmod.ATSAssistBlock;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.CreativeTabATSAssist;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityGroundUnit;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
+import jp.ngt.ngtlib.block.BlockContainerCustomWithMeta;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.stream.IntStream;
-
-public class GroundUnit extends BlockContainer {
-
-    private final IIcon[] iicon = new IIcon[16];
+public class GroundUnit extends BlockContainerCustomWithMeta {
 
     public GroundUnit() {
-        super(Material.rock);
-        setCreativeTab(CreativeTabATSAssist.tabUtils);
-        //modidないとテクスチャおかしくなる
-        setBlockName(ATSAssistCore.MODID + ":" + "GroundUnit");
-        setBlockTextureName(ATSAssistCore.MODID + ":" + "groundUnit");
-        setStepSound(Block.soundTypeStone);
+        super(Material.ROCK);
+        setCreativeTab(CreativeTabATSAssist.ATSA);
+        this.setSoundType(SoundType.STONE);
+    }
+
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
     }
 
 //    0:無動作
@@ -50,26 +52,9 @@ public class GroundUnit extends BlockContainer {
 //	  15:atacs off
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float posX, float posY, float posZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         //ブロックを右クリックした際の動作
-        player.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, player.worldObj, x, y, z);
-        return true;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
-        return iicon[meta];
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister register) {
-        IntStream.range(0, 16).forEach(i -> this.iicon[i] = register.registerIcon(this.getTextureName() + "_" + i));
-    }
-
-    @Override
-    public boolean hasTileEntity(int metadata) {
+        playerIn.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
 
@@ -79,23 +64,23 @@ public class GroundUnit extends BlockContainer {
     }
 
     @Override
-    public boolean hasComparatorInputOverride() {
+    public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }
 
     @Override
-    public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
-        return ((TileEntityGroundUnit) world.getTileEntity(x, y, z)).getRedStoneOutput();
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+        return ((TileEntityGroundUnit) worldIn.getTileEntity(pos)).getRedStoneOutput();
     }
-    
+
+
     @Override
-    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+    public boolean shouldCheckWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
     }
 
-    //メタデータによりドロップ品を変える 変えないほうが便利かも
-//	@Override
-//	public int damageDropped(int meta) {
-//		return meta;
-//	}
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+        return new ItemStack(ATSAssistBlock.blockGroundUnit);
+    }
 }

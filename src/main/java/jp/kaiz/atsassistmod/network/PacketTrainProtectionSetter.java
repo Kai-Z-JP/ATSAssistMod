@@ -1,12 +1,12 @@
 package jp.kaiz.atsassistmod.network;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import jp.kaiz.atsassistmod.controller.TrainControllerManager;
 import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketTrainProtectionSetter implements IMessage, IMessageHandler<PacketTrainProtectionSetter, IMessage> {
     private TrainProtectionType type;
@@ -30,7 +30,8 @@ public class PacketTrainProtectionSetter implements IMessage, IMessageHandler<Pa
 
     @Override
     public IMessage onMessage(PacketTrainProtectionSetter message, MessageContext ctx) {
-        TrainControllerManager.getTrainController((EntityTrainBase) ctx.getServerHandler().playerEntity.ridingEntity).setTrainProtection(message.type);
+        TrainControllerManager.getTrainController((EntityTrainBase) ctx.getServerHandler().player.getRidingEntity())
+                              .setTrainProtection(message.type);
         return null;
     }
 }

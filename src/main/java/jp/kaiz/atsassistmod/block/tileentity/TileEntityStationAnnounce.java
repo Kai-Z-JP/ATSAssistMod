@@ -2,7 +2,7 @@ package jp.kaiz.atsassistmod.block.tileentity;
 
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 
 import java.util.List;
 
@@ -20,16 +20,17 @@ public abstract class TileEntityStationAnnounce extends TileEntityCustom {
     protected abstract void readNBT(NBTTagCompound tag);
 
     @Override
-    public void writeToNBT(NBTTagCompound tag) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
         tag.setLong("channelID", this.channelID);
         this.writeNBT(tag);
+        return tag;
     }
 
     protected abstract void writeNBT(NBTTagCompound tag);
 
     @Override
-    public void updateEntity() {
+    public void update() {
     }
 
     protected abstract void onTick(EntityTrainBase train);
@@ -49,11 +50,10 @@ public abstract class TileEntityStationAnnounce extends TileEntityCustom {
         }
 
         @Override
-        public void updateEntity() {
-            if (!this.worldObj.isRemote) {
-                AxisAlignedBB detect = AxisAlignedBB.getBoundingBox(
-                        this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 3, this.zCoord + 1);
-                List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
+        public void update() {
+            if (!this.getWorld().isRemote) {
+                AxisAlignedBB detect = new AxisAlignedBB(this.getPos(), this.getPos().add(1, 3, 1));
+                List<?> list = this.getWorld().getEntitiesWithinAABB(EntityTrainBase.class, detect);
                 if (!list.isEmpty()) {
                     EntityTrainBase train = (EntityTrainBase) list.get(0);
                     if (train.isControlCar()) {

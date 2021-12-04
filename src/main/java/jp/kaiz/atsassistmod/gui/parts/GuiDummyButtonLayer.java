@@ -17,11 +17,11 @@ public class GuiDummyButtonLayer extends GuiButton {
     }
 
     @Override
-    public void drawButton(Minecraft mc, int x, int y) {
+    public void drawButton(Minecraft mc, int x, int y, float partialTick) {
         if (this.visible) {
             GL11.glPushMatrix();
             GL11.glEnable(GL11.GL_BLEND);
-            GL11.glTranslatef(this.xPosition, this.yPosition, 1.0F);
+            GL11.glTranslatef(this.x, this.y, 1.0F);
             GL11.glScalef(this.scale, this.scale, 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             mc.getTextureManager().bindTexture(this.texture);

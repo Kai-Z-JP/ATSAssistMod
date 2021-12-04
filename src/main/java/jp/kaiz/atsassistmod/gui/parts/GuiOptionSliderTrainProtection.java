@@ -1,10 +1,10 @@
 package jp.kaiz.atsassistmod.gui.parts;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
@@ -44,8 +44,8 @@ public class GuiOptionSliderTrainProtection extends GuiButton {
             }
 
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(this.xPosition + (int) (this._temp * (float) (this.width - 8)), this.yPosition, 0, 66, 4, 20);
-            this.drawTexturedModalRect(this.xPosition + (int) (this._temp * (float) (this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
+            this.drawTexturedModalRect(this.x + (int) (this._temp * (float) (this.width - 8)), this.y, 0, 66, 4, 20);
+            this.drawTexturedModalRect(this.x + (int) (this._temp * (float) (this.width - 8)) + 4, this.y, 196, 66, 4, 20);
         }
     }
 
@@ -64,7 +64,7 @@ public class GuiOptionSliderTrainProtection extends GuiButton {
     }
 
     private void get(int mouseX) {
-        this._temp = (float) (mouseX - (this.xPosition + 4)) / (float) (this.width - 8);
+        this._temp = (float) (mouseX - (this.x + 4)) / (float) (this.width - 8);
 
         if (this._temp < 0.0F) {
             this.nowValue = TrainProtectionType.values()[0];

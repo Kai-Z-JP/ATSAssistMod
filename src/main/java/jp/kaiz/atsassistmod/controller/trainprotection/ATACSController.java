@@ -8,7 +8,8 @@ import jp.ngt.rtm.rail.util.Point;
 import jp.ngt.rtm.rail.util.RailMap;
 import jp.ngt.rtm.rail.util.RailPosition;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ATACSController extends TrainProtection {
         double trainX = train.posX;
         double trainY = train.posY;
         double trainZ = train.posZ;
-        TileEntityLargeRailBase nowRailBase = TileEntityLargeRailBase.getRailFromCoordinates(train.worldObj, trainX, trainY, trainZ);
+        TileEntityLargeRailBase nowRailBase = TileEntityLargeRailBase.getRailFromCoordinates(train.world, trainX, trainY, trainZ, 0);
         if (nowRailBase != null) {
             TileEntityLargeRailCore nowRailCore = nowRailBase.getRailCore();
             if (nowRailCore != null) {
@@ -133,7 +134,7 @@ public class ATACSController extends TrainProtection {
         RailMap railMap;
         if (core instanceof TileEntityLargeRailSwitchCore) {
             TileEntityLargeRailSwitchCore switchObj = (TileEntityLargeRailSwitchCore) core;
-            railMap = switchObj.getSwitch().getNearestPoint(this.train.getBogie(train.getTrainDirection())).getActiveRailMap(this.train.worldObj);
+            railMap = switchObj.getSwitch().getNearestPoint(this.train.getBogie(train.getTrainDirection())).getActiveRailMap(this.train.world);
         } else {
             railMap = core.getRailMap(this.train.getBogie(train.getTrainDirection()));
         }
@@ -146,7 +147,7 @@ public class ATACSController extends TrainProtection {
         if (core instanceof TileEntityLargeRailSwitchCore) {
             TileEntityLargeRailSwitchCore switchObj = (TileEntityLargeRailSwitchCore) core;
 
-            railMap = this.getNearestPoint(base, switchObj.getSwitch().getPoints()).getActiveRailMap(base.getWorldObj());
+            railMap = this.getNearestPoint(base, switchObj.getSwitch().getPoints()).getActiveRailMap(base.getWorld());
         } else {
             railMap = core.getRailMap(null);
         }
@@ -157,7 +158,7 @@ public class ATACSController extends TrainProtection {
         Point point = null;
         double distance = Double.MAX_VALUE;
         for (Point p0 : points) {
-            double d0 = entity.getDistanceFrom(p0.rpRoot.posX, 0.0D, p0.rpRoot.posZ);
+            double d0 = entity.getDistanceSq(p0.rpRoot.posX, 0.0D, p0.rpRoot.posZ);
             if (d0 <= distance) {
                 point = p0;
                 distance = d0;
@@ -174,23 +175,23 @@ public class ATACSController extends TrainProtection {
             if (distance >= searchDistance) {
                 return -1d;
             }
-            TileEntityLargeRailBase railBase = this.getNextRailBase(_tempRail.getWorldObj(), _tempRailPosition);
+            TileEntityLargeRailBase railBase = this.getNextRailBase(_tempRail.getWorld(), _tempRailPosition);
             if (railBase == null) {
                 return -1d;
             }
             _tempRail = railBase.getRailCore();
             if (_tempRail.isTrainOnRail()) {
                 List<TileEntityLargeRailCore> tileList = new ArrayList<>();
-                int x0 = MathHelper.floor_double(train.boundingBox.minX + 0.01D);
-                int y0 = MathHelper.floor_double(train.boundingBox.minY + 0.01D);
-                int z0 = MathHelper.floor_double(train.boundingBox.minZ + 0.01D);
-                int x1 = MathHelper.floor_double(train.boundingBox.maxX - 0.01D);
-                int y1 = MathHelper.floor_double(train.boundingBox.maxY - 0.01D);
-                int z1 = MathHelper.floor_double(train.boundingBox.maxZ - 0.01D);
+                int x0 = MathHelper.floor(train.getEntityBoundingBox().minX + 0.01D);
+                int y0 = MathHelper.floor(train.getEntityBoundingBox().minY + 0.01D);
+                int z0 = MathHelper.floor(train.getEntityBoundingBox().minZ + 0.01D);
+                int x1 = MathHelper.floor(train.getEntityBoundingBox().maxX - 0.01D);
+                int y1 = MathHelper.floor(train.getEntityBoundingBox().maxY - 0.01D);
+                int z1 = MathHelper.floor(train.getEntityBoundingBox().maxZ - 0.01D);
                 for (int x = x0; x <= x1; ++x) {
                     for (int y = y0; y <= y1; ++y) {
                         for (int z = z0; z <= z1; ++z) {
-                            TileEntityLargeRailBase rail = TileEntityLargeRailBase.getRailFromCoordinates(train.worldObj, x, y, z);
+                            TileEntityLargeRailBase rail = TileEntityLargeRailBase.getRailFromCoordinates(train.getEntityWorld(), x, y, z, 0);
                             if (rail != null) {
                                 TileEntityLargeRailCore railCore = rail.getRailCore();
                                 if (railCore != null) {
@@ -208,7 +209,7 @@ public class ATACSController extends TrainProtection {
             _tempRailPosition = this.getFarRailPotion(_tempRailPosition, _tempMap);
             distance = distance + _tempMap.getLength();
         }
-        return distance - train.getModelSet().getConfig().trainDistance;
+        return distance - train.getResourceState().getResourceSet().getConfig().trainDistance;
     }
 
     private double getPattern(double distance) {
@@ -229,10 +230,7 @@ public class ATACSController extends TrainProtection {
     }
 
     private TileEntityLargeRailBase getNextRailBase(World world, RailPosition railPosition) {
-        TileEntity tile = world.getTileEntity(
-                MathHelper.floor_double(railPosition.posX + RailPosition.REVISION[railPosition.direction][0]),
-                railPosition.blockY,
-                MathHelper.floor_double(railPosition.posZ + RailPosition.REVISION[railPosition.direction][1]));
+        TileEntity tile = world.getTileEntity(new BlockPos(MathHelper.floor(railPosition.posX + RailPosition.REVISION[railPosition.direction][0]), railPosition.blockY, MathHelper.floor(railPosition.posZ + RailPosition.REVISION[railPosition.direction][1])));
         return tile instanceof TileEntityLargeRailBase ? (TileEntityLargeRailBase) tile : null;
     }
 

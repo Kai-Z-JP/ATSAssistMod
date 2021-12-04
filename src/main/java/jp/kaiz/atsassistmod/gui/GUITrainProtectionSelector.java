@@ -1,6 +1,5 @@
 package jp.kaiz.atsassistmod.gui;
 
-import cpw.mods.fml.client.config.GuiCheckBox;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.api.TrainControllerClient;
 import jp.kaiz.atsassistmod.api.TrainControllerClientManager;
@@ -13,6 +12,7 @@ import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.client.config.GuiCheckBox;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
     private final EntityTrainBase train;
 
     public GUITrainProtectionSelector() {
-        this.train = (EntityTrainBase) Minecraft.getMinecraft().thePlayer.ridingEntity;
+        this.train = (EntityTrainBase) Minecraft.getMinecraft().player.getRidingEntity();
         this.tcc = TrainControllerClientManager.getTCC(this.train);
         String tpList = this.train.getResourceState().getDataMap().getString("ATSAssist_TP");
         if (tpList.isEmpty()) {
@@ -63,23 +63,23 @@ public class GUITrainProtectionSelector extends GuiScreenCustom {
         int widthBaseR1 = this.width / 2 + 80;
 
         //TASC/ATO
-        this.fontRendererObj.drawStringWithShadow(/*"運転切替"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.0"), widthBaseL + 20, heightBase - 25, 0xffffff);
-        this.fontRendererObj.drawStringWithShadow(/*"運転モード: "*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.7"), widthBaseL, heightBase, 0xffffff);
-        this.fontRendererObj.drawStringWithShadow(/*"((手動)/(TASC)/(TASC/ATO))"*/
+        this.fontRenderer.drawStringWithShadow(/*"運転切替"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.0"), widthBaseL + 20, heightBase - 25, 0xffffff);
+        this.fontRenderer.drawStringWithShadow(/*"運転モード: "*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.7"), widthBaseL, heightBase, 0xffffff);
+        this.fontRenderer.drawStringWithShadow(/*"((手動)/(TASC)/(TASC/ATO))"*/
                 I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text." + (this.tcc != null ? this.tcc.isATO() ? 3 : this.tcc.isTASC() ? 2 : 1 : 1)
                 ), widthBaseL + 55, heightBase, 0xffffff);
-        this.fontRendererObj.drawStringWithShadow(/*手動運転固定*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.6"), widthBaseL, heightBase + 25, 0xffffff);
+        this.fontRenderer.drawStringWithShadow(/*手動運転固定*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.6"), widthBaseL, heightBase + 25, 0xffffff);
 
-        this.fontRendererObj.drawStringWithShadow(/*"HUD非表示"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.4"), widthBaseL, heightBase + 100, 0xffffff);
+        this.fontRenderer.drawStringWithShadow(/*"HUD非表示"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.4"), widthBaseL, heightBase + 100, 0xffffff);
 
         //保安装置
-        this.fontRendererObj.drawStringWithShadow(/*"保安装置切替"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.5"), widthBaseR0 + 50, heightBase - 25, 0xffffff);
+        this.fontRenderer.drawStringWithShadow(/*"保安装置切替"*/I18n.format("ATSAssistMod.gui.TrainProtectionSelector.text.5"), widthBaseR0 + 50, heightBase - 25, 0xffffff);
         //開放
-        this.fontRendererObj.drawStringWithShadow(TrainProtectionType.NONE.getDisplayName(), widthBaseR0, heightBase, 0xffffff);
+        this.fontRenderer.drawStringWithShadow(TrainProtectionType.NONE.getDisplayName(), widthBaseR0, heightBase, 0xffffff);
         //開放
-        this.fontRendererObj.drawStringWithShadow(TrainProtectionType.STATION_PREMISES.getDisplayName(), widthBaseR0, heightBase + 25, 0xffffff);
+        this.fontRenderer.drawStringWithShadow(TrainProtectionType.STATION_PREMISES.getDisplayName(), widthBaseR0, heightBase + 25, 0xffffff);
         for (TrainProtectionType type : this.validTPList) {
-            this.fontRendererObj.drawStringWithShadow(type.getDisplayName(), widthBaseR1, heightBase, 0xffffff);
+            this.fontRenderer.drawStringWithShadow(type.getDisplayName(), widthBaseR1, heightBase, 0xffffff);
             heightBase = heightBase + 25;
         }
 

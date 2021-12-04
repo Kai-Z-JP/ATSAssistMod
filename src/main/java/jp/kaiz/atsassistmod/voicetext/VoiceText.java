@@ -1,10 +1,10 @@
 package jp.kaiz.atsassistmod.voicetext;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.utils.KaizUtils;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -51,22 +51,22 @@ public class VoiceText {
 
     public VoiceText setEmotion(Emotion emotion, int level) {
         this.emotion = emotion;
-        this.emotionLevel = MathHelper.clamp_int(level, 1, 4);
+        this.emotionLevel = MathHelper.clamp(level, 1, 4);
         return this;
     }
 
     public VoiceText setPitch(int pitch) {
-        this.pitch = MathHelper.clamp_int(pitch, 50, 200);
+        this.pitch = MathHelper.clamp(pitch, 50, 200);
         return this;
     }
 
     public VoiceText setSpeed(int speed) {
-        this.speed = MathHelper.clamp_int(speed, 50, 400);
+        this.speed = MathHelper.clamp(speed, 50, 400);
         return this;
     }
 
     public VoiceText setVolume(int volume) {
-        this.volume = MathHelper.clamp_int(volume, 50, 200);
+        this.volume = MathHelper.clamp(volume, 50, 200);
         return this;
     }
 

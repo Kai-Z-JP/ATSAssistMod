@@ -1,7 +1,5 @@
 package jp.kaiz.atsassistmod.ifttt;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.kaiz.atsassistmod.gui.GUIIFTTTMaterial;
@@ -9,7 +7,9 @@ import jp.kaiz.atsassistmod.network.PacketPlaySoundIFTTT;
 import jp.kaiz.atsassistmod.sound.ATSASoundPlayer;
 import jp.kaiz.atsassistmod.utils.ComparisonManager;
 import jp.kaiz.atsassistmod.utils.KaizUtils;
+import jp.ngt.ngtlib.block.BlockUtil;
 import jp.ngt.ngtlib.io.ScriptUtil;
+import jp.ngt.ngtlib.network.PacketNBT;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.entity.train.parts.EntityFloor;
 import jp.ngt.rtm.modelpack.state.DataMap;
@@ -19,16 +19,17 @@ import jp.ngt.rtm.rail.BlockLargeRailBase;
 import jp.ngt.rtm.rail.TileEntityLargeRailBase;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.event.ClickEvent;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatStyle;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.script.ScriptEngine;
 import java.io.Serializable;
@@ -143,7 +144,7 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
-                    int power = tile.getWorldObj().getStrongestIndirectPower(tile.xCoord, tile.yCoord, tile.zCoord);
+                    int power = tile.getWorld().isBlockIndirectlyGettingPowered(tile.getPos());
                     switch (this.mode) {
                         case ON:
                             return power > 0;
@@ -228,12 +229,10 @@ public abstract class IFTTTContainer implements Serializable {
                         case LastCar:
                             return train != null && (train.getFormation().size() == 1 || train.getConnectedTrain(1 - train.getTrainDirection()) == null);
                         case OnRail:
-                            World world = tile.getWorldObj();
-                            int x = tile.xCoord;
-                            int y = tile.yCoord;
-                            int z = tile.zCoord;
-                            if (world.getBlock(x, y + 1, z) instanceof BlockLargeRailBase) {
-                                TileEntity aboveTile = world.getTileEntity(x, y + 1, z);
+                            World world = tile.getWorld();
+                            BlockPos pos = tile.getPos().up();
+                            if (world.getBlockState(pos).getBlock() instanceof BlockLargeRailBase) {
+                                TileEntity aboveTile = world.getTileEntity(pos);
                                 if (aboveTile instanceof TileEntityLargeRailBase) {
                                     return ((TileEntityLargeRailBase) aboveTile).isTrainOnRail();
                                 }
@@ -516,11 +515,10 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
-                    return tile.getWorldObj().getEntitiesWithinAABB(EntityLiving.class.getSuperclass(), AxisAlignedBB.getBoundingBox(
+                    return tile.getWorld().getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(
                             Math.min(this.startCC[0], this.endCC[0]), Math.min(this.startCC[1], this.endCC[1]), Math.min(this.startCC[2], this.endCC[2]),
                             Math.max(this.startCC[0], this.endCC[0]), Math.max(this.startCC[1], this.endCC[1]), Math.max(this.startCC[2], this.endCC[2])
-                    )).stream().anyMatch(o ->
-                            !((((Entity) o).ridingEntity instanceof EntityTrainBase) || (((Entity) o).ridingEntity instanceof EntityFloor)));
+                    )).stream().anyMatch(o -> !(o.getRidingEntity() instanceof EntityTrainBase || o.getRidingEntity() instanceof EntityFloor));
                 }
             }
         }
@@ -596,7 +594,7 @@ public abstract class IFTTTContainer implements Serializable {
                 private transient ResourceLocation sound;
 
                 public PlaySound(TileEntity tile) {
-                    this.pos = new int[]{tile.xCoord, tile.yCoord, tile.zCoord};
+                    this.pos = new int[]{tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ()};
                 }
 
                 public void setSoundName(String soundName) {
@@ -704,7 +702,8 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public IFTTTType.IFTTTEnumBase getType() {
-                    return IFTTTType.That.Minecraft.ExecuteCommand;
+//                    return IFTTTType.That.Minecraft.ExecuteCommand;
+                    return null;
                 }
 
                 @Override
@@ -781,8 +780,8 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
-                    World world = tile.getWorldObj();
-                    this.getPosList().forEach(pos -> world.setBlock(pos[0], pos[1], pos[2], Block.getBlockById(pos[3]), pos[4], 3));
+                    World world = tile.getWorld();
+                    this.getPosList().forEach(pos -> BlockUtil.setBlock(world, pos[0], pos[1], pos[2], Block.getBlockById(pos[3]), pos[4], 3));
                 }
             }
         }
@@ -937,7 +936,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 public void setJSText(String jsText) {
-                    this.uuid = net.minecraft.client.Minecraft.getMinecraft().thePlayer.getUniqueID();
+                    this.uuid = net.minecraft.client.Minecraft.getMinecraft().player.getUniqueID();
                     this.jsText = jsText;
                     this.error = false;
                 }
@@ -980,27 +979,26 @@ public abstract class IFTTTContainer implements Serializable {
                             ScriptUtil.doScriptFunction(scriptEngine, "doThat", tile, train, first);
                             this.error = false;
                         } catch (Throwable e) {
-                            System.out.printf("[ATSA Notice] World: %s X:%s Y:%s Z:%s IFTTTBlock Script Error!", tile.getWorldObj().getWorldInfo().getWorldName(), tile.xCoord, tile.yCoord, tile.zCoord);
+                            System.out.printf("[ATSA Notice] World: %s X:%s Y:%s Z:%s IFTTTBlock Script Error!", tile.getWorld().getWorldInfo().getWorldName(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ());
 
-                            ((List<EntityPlayerMP>) tile.getWorldObj().playerEntities)
+                            tile.getWorld().playerEntities
                                     .stream()
                                     .filter(playerMP -> playerMP.getUniqueID().equals(uuid))
                                     .findFirst()
                                     .ifPresent(playerMP -> {
-                                        playerMP.addChatMessage(new ChatComponentText("文法は以下を参考にしてください。"));
-                                        playerMP.addChatMessage(new ChatComponentText("https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md").setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md"))));
-                                        playerMP.addChatMessage(new ChatComponentText(String.format("[ATSA Notice] World: %s X:%s Y:%s Z:%s Script Error!", tile.getWorldObj().getWorldInfo().getWorldName(), tile.xCoord, tile.yCoord, tile.zCoord)));
-                                        playerMP.addChatMessage(new ChatComponentText(e.getMessage()));
+                                        playerMP.sendMessage(new TextComponentString("文法は以下を参考にしてください。"));
+                                        playerMP.sendMessage(new TextComponentString("https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md").setStyle(new Style().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Kai-Z-JP/ATSAssistMod/blob/develop/MANUAL.md"))));
+                                        playerMP.sendMessage(new TextComponentString(String.format("[ATSA Notice] World: %s X:%s Y:%s Z:%s Script Error!", tile.getWorld().getWorldInfo().getWorldName(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ())));
+                                        playerMP.sendMessage(new TextComponentString(e.getMessage()));
                                         if (e.getCause() != null) {
-                                            playerMP.addChatMessage(new ChatComponentText(e.getCause().getMessage()));
+                                            playerMP.sendMessage(new TextComponentString(e.getCause().getMessage()));
                                         }
                                     });
                             e.printStackTrace();
 
                             this.error = true;
+                            PacketNBT.sendToClient(tile);
                             tile.markDirty();
-                            tile.getWorldObj().markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
-                            tile.getWorldObj().notifyBlockChange(tile.xCoord, tile.yCoord, tile.zCoord, tile.getBlockType());
                         }
                     }
                 }

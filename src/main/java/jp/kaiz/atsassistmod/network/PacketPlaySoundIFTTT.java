@@ -1,22 +1,21 @@
 package jp.kaiz.atsassistmod.network;
 
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.kaiz.atsassistmod.ifttt.IFTTTContainer;
 import jp.ngt.ngtlib.util.NGTUtilClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketPlaySoundIFTTT implements IMessage, IMessageHandler<PacketPlaySoundIFTTT, IMessage> {
     private boolean finish;
 
-    private int tilePosX;
-    private int tilePosY;
-    private int tilePosZ;
+    private long tilePos;
     private int posX;
     private int posY;
     private int posZ;
@@ -29,16 +28,12 @@ public class PacketPlaySoundIFTTT implements IMessage, IMessageHandler<PacketPla
 
     public PacketPlaySoundIFTTT(TileEntity tile) {
         this.finish = true;
-        this.tilePosX = tile.xCoord;
-        this.tilePosY = tile.yCoord;
-        this.tilePosZ = tile.zCoord;
+        this.tilePos = tile.getPos().toLong();
     }
 
     public PacketPlaySoundIFTTT(TileEntity tile, int[] pos, ResourceLocation src, boolean repeat) {
         this.finish = false;
-        this.tilePosX = tile.xCoord;
-        this.tilePosY = tile.yCoord;
-        this.tilePosZ = tile.zCoord;
+        this.tilePos = tile.getPos().toLong();
         this.posX = pos[0];
         this.posY = pos[1];
         this.posZ = pos[2];
@@ -49,9 +44,7 @@ public class PacketPlaySoundIFTTT implements IMessage, IMessageHandler<PacketPla
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeBoolean(this.finish);
-        buf.writeInt(this.tilePosX);
-        buf.writeInt(this.tilePosY);
-        buf.writeInt(this.tilePosZ);
+        buf.writeLong(this.tilePos);
         if (!finish) {
             buf.writeInt(this.posX);
             buf.writeInt(this.posY);
@@ -65,9 +58,7 @@ public class PacketPlaySoundIFTTT implements IMessage, IMessageHandler<PacketPla
     @Override
     public void fromBytes(ByteBuf buf) {
         this.finish = buf.readBoolean();
-        this.tilePosX = buf.readInt();
-        this.tilePosY = buf.readInt();
-        this.tilePosZ = buf.readInt();
+        this.tilePos = buf.readLong();
         if (!finish) {
             this.posX = buf.readInt();
             this.posY = buf.readInt();
@@ -81,18 +72,20 @@ public class PacketPlaySoundIFTTT implements IMessage, IMessageHandler<PacketPla
 
     @Override
     public IMessage onMessage(PacketPlaySoundIFTTT message, MessageContext ctx) {
-        TileEntity tile = NGTUtilClient.getMinecraft().theWorld.getTileEntity(message.tilePosX, message.tilePosY, message.tilePosZ);
+        BlockPos blockPos = BlockPos.fromLong(message.tilePos);
+        TileEntity tile = NGTUtilClient.getMinecraft().world.getTileEntity(blockPos);
         if (tile instanceof TileEntityIFTTT) {
-            ((TileEntityIFTTT) tile).getThatList().stream()
-                    .filter(IFTTTContainer.That.Minecraft.PlaySound.class::isInstance)
-                    .map(IFTTTContainer.That.Minecraft.PlaySound.class::cast)
-                    .forEach(iftttContainer -> {
-                        if (message.finish) {
-                            iftttContainer.finishSound();
-                        } else {
-                            iftttContainer.playSound((TileEntityIFTTT) tile);
-                        }
-                    });
+            ((TileEntityIFTTT) tile).getThatList()
+                                    .stream()
+                                    .filter(IFTTTContainer.That.Minecraft.PlaySound.class::isInstance)
+                                    .map(IFTTTContainer.That.Minecraft.PlaySound.class::cast)
+                                    .forEach(iftttContainer -> {
+                                        if (message.finish) {
+                                            iftttContainer.finishSound();
+                                        } else {
+                                            iftttContainer.playSound((TileEntityIFTTT) tile);
+                                        }
+                                    });
         }
         return null;
     }

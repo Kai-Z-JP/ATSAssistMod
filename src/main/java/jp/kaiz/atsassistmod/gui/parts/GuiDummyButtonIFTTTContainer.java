@@ -14,19 +14,19 @@ public class GuiDummyButtonIFTTTContainer extends GuiDummyButtonLayer {
     }
 
     @Override
-    public void drawButton(Minecraft mc, int x, int y) {
-        super.drawButton(mc, x, y);
+    public void drawButton(Minecraft mc, int x, int y, float partialTick) {
+        super.drawButton(mc, x, y, partialTick);
         if (this.visible) {
             GL11.glPushMatrix();
             GL11.glTranslatef(1.0F, 1.0F, 1.0F);
             GL11.glScalef(1.0F, 1.0F, 1.0F);
-            mc.fontRenderer.drawStringWithShadow(this.ifcb.getTitle(), this.xPosition + 3, this.yPosition, 0xFFFFFF);
+            mc.fontRenderer.drawStringWithShadow(this.ifcb.getTitle(), this.x + 3, this.y, 0xFFFFFF);
             String[] explanation = this.ifcb.getExplanation();
             switch (explanation.length) {
                 case 2:
-                    mc.fontRenderer.drawString(explanation[1], this.xPosition + 10, this.yPosition + 21, 0x000000);
+                    mc.fontRenderer.drawString(explanation[1], this.x + 10, this.y + 21, 0x000000);
                 case 1:
-                    mc.fontRenderer.drawString(explanation[0], this.xPosition + 10, this.yPosition + 11, 0x000000);
+                    mc.fontRenderer.drawString(explanation[0], this.x + 10, this.y + 11, 0x000000);
             }
             GL11.glPopMatrix();
         }

@@ -1,12 +1,13 @@
 package jp.kaiz.atsassistmod;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CreativeTabATSAssist extends CreativeTabs {
-    public static final CreativeTabs tabUtils = new CreativeTabATSAssist("ATSAssist_utils");
+    public static final CreativeTabs ATSA = new CreativeTabATSAssist("atsa_utils");
 
     private CreativeTabATSAssist(String label) {
         super(label);
@@ -14,8 +15,8 @@ public class CreativeTabATSAssist extends CreativeTabs {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Item getTabIconItem() {
-        return Item.getItemFromBlock(ATSAssistBlock.blockIFTTT);
+    public ItemStack getTabIconItem() {
+        return new ItemStack(Item.getItemFromBlock(ATSAssistBlock.blockIFTTT));
     }
 
 

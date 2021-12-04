@@ -11,7 +11,7 @@ public class ATSAEntityWrapper {
     }
 
     public int getX() {
-        return this.entity.serverPosX;
+        return this.entity.getPosition().getX();
     }
 
     public double getPosX() {
@@ -19,7 +19,7 @@ public class ATSAEntityWrapper {
     }
 
     public int getY() {
-        return this.entity.serverPosY;
+        return this.entity.getPosition().getY();
     }
 
     public double getPosY() {
@@ -27,7 +27,7 @@ public class ATSAEntityWrapper {
     }
 
     public int getZ() {
-        return this.entity.serverPosZ;
+        return this.entity.getPosition().getZ();
     }
 
     public double getPosZ() {
@@ -35,6 +35,6 @@ public class ATSAEntityWrapper {
     }
 
     public World getWorld() {
-        return this.entity.worldObj;
+        return this.entity.getEntityWorld();
     }
 }

@@ -1,19 +1,19 @@
 #For translators. I think it's easier to understand the meaning of the text if you refer to the Japanese version.
 
-tile.ATSAssistMod:GroundUnit.0.name=TrainProtection Block(None)
-tile.ATSAssistMod:GroundUnit.1.name=TrainProtection Block(ATC:Speed limit notice)
-tile.ATSAssistMod:GroundUnit.2.name=TrainProtection Block(ATC:Speed limit cancel)
-tile.ATSAssistMod:GroundUnit.4.name=TrainProtection Block(TASC:Distance setting & Control start)
-tile.ATSAssistMod:GroundUnit.5.name=TrainProtection Block(TASC:Control end)
-tile.ATSAssistMod:GroundUnit.6.name=TrainProtection Block(TASC:Distance correction)
-tile.ATSAssistMod:GroundUnit.7.name=TrainProtection Block(Stop detection)
-tile.ATSAssistMod:GroundUnit.9.name=TrainProtection Block(ATO:Departure signal & Control start)
-tile.ATSAssistMod:GroundUnit.10.name=TrainProtection Block(ATO:Control end)
-tile.ATSAssistMod:GroundUnit.11.name=TrainProtection Block(ATO:Change target speed)
+tile.atsa:groundunit.0.name=TrainProtection Block(None)
+tile.atsa:groundunit.1.name=TrainProtection Block(ATC:Speed limit notice)
+tile.atsa:groundunit.2.name=TrainProtection Block(ATC:Speed limit cancel)
+tile.atsa:groundunit.4.name=TrainProtection Block(TASC:Distance setting & Control start)
+tile.atsa:groundunit.5.name=TrainProtection Block(TASC:Control end)
+tile.atsa:groundunit.6.name=TrainProtection Block(TASC:Distance correction)
+tile.atsa:groundunit.7.name=TrainProtection Block(Stop detection)
+tile.atsa:groundunit.9.name=TrainProtection Block(ATO:Departure signal & Control start)
+tile.atsa:groundunit.10.name=TrainProtection Block(ATO:Control end)
+tile.atsa:groundunit.11.name=TrainProtection Block(ATO:Change target speed)
 
-item.ATSAssistMod:TrainProtectionSelector.name=On-ride Train Protection change SW
+item.atsa:train_protection_selector.name=On-ride Train Protection change SW
 
-tile.ATSAssistMod:IFTTT.0.name=IFTTT block
+tile.atsa:ifttt.name=IFTTT block
 
 ATSAssistMod.trainprotection.none=None
 ATSAssistMod.trainprotection.station_premises=StaPre

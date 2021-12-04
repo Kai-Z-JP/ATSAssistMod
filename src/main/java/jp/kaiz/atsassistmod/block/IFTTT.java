@@ -1,54 +1,42 @@
 package jp.kaiz.atsassistmod.block;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import jp.kaiz.atsassistmod.ATSAssistBlock;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.CreativeTabATSAssist;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.ngt.rtm.electric.IBlockConnective;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class IFTTT extends BlockContainer implements IBlockConnective {
-    private IIcon icon;
 
     public IFTTT() {
-        super(Material.rock);
-        setCreativeTab(CreativeTabATSAssist.tabUtils);
-        //modidないとテクスチャおかしくなる
-        setBlockName(ATSAssistCore.MODID + ":" + "IFTTT");
-        setBlockTextureName(ATSAssistCore.MODID + ":" + "IFTTT");
-        setStepSound(Block.soundTypeStone);
+        super(Material.ROCK);
+        setCreativeTab(CreativeTabATSAssist.ATSA);
+        this.setSoundType(SoundType.STONE);
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float posX, float posY, float posZ) {
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         //ブロックを右クリックした際の動作
-        player.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_IFTTT, player.worldObj, x, y, z);
-        return true;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
-        return this.icon;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister register) {
-        this.icon = register.registerIcon(this.getTextureName());
-    }
-
-    @Override
-    public boolean hasTileEntity(int metadata) {
+        playerIn.openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_IFTTT, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
 
@@ -58,13 +46,13 @@ public class IFTTT extends BlockContainer implements IBlockConnective {
     }
 
     @Override
-    public boolean hasComparatorInputOverride() {
+    public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }
 
     @Override
-    public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
-        return ((TileEntityIFTTT) world.getTileEntity(x, y, z)).getRedStoneOutput();
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+        return ((TileEntityIFTTT) worldIn.getTileEntity(pos)).getRedStoneOutput();
     }
 
     @Override
@@ -72,8 +60,14 @@ public class IFTTT extends BlockContainer implements IBlockConnective {
         return true;
     }
 
+
     @Override
-    public boolean shouldCheckWeakPower(IBlockAccess world, int x, int y, int z, int side) {
+    public boolean shouldCheckWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return false;
+    }
+
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+        return new ItemStack(ATSAssistBlock.blockIFTTT);
     }
 }

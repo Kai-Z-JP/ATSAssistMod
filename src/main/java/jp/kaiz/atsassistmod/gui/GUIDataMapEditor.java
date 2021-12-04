@@ -1,7 +1,7 @@
 package jp.kaiz.atsassistmod.gui;
 
 import jp.kaiz.atsassistmod.utils.DataEntrySet;
-import jp.ngt.rtm.modelpack.IModelSelector;
+import jp.ngt.rtm.modelpack.IResourceSelector;
 import jp.ngt.rtm.modelpack.state.DataMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -10,19 +10,20 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import org.lwjgl.input.Keyboard;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GUIDataMapEditor extends GuiScreen {
     protected final List<GuiTextField> textFieldList = new ArrayList<>();
-    private final IModelSelector iModelSelector;
+    private final IResourceSelector iModelSelector;
     private int selected = -1;
     private DataMapList dataMapList;
     private final ArrayList<DataEntrySet> dataEntrySetList = new ArrayList<>();
     private DataEntrySet selectedData;
     private int listWidth;
 
-    public GUIDataMapEditor(IModelSelector iModelSelector, DataMap dataMap) {
+    public GUIDataMapEditor(IResourceSelector iModelSelector, DataMap dataMap) {
         this.iModelSelector = iModelSelector;
         dataMap.getEntries().forEach((s, dataEntry) -> this.dataEntrySetList.add(new DataEntrySet(s, dataEntry)));
     }
@@ -30,17 +31,17 @@ public class GUIDataMapEditor extends GuiScreen {
     //文字の描画
     //横はthis.width
     //縦はthis.height
-    //this.fontRendererObj.drawString("ここに文字", 横座標, 縦座標, 白なら0xffffff);
+    //this.fontRenderer.drawString("ここに文字", 横座標, 縦座標, 白なら0xffffff);
     @Override
     public void drawScreen(int mouseX, int mouseZ, float partialTick) {
         super.drawDefaultBackground();
         this.textFieldList.forEach(GuiTextField::drawTextBox);
         this.dataMapList.drawScreen(mouseX, mouseZ, partialTick);
-        this.fontRendererObj.drawStringWithShadow("DataMapEditor",
+        this.fontRenderer.drawStringWithShadow("DataMapEditor",
                 this.width / 2 - 100, 20, 0xffffff);
-        this.fontRendererObj.drawStringWithShadow("Type: " + this.iModelSelector.getModelType(),
+        this.fontRenderer.drawStringWithShadow("Type: " + this.iModelSelector.getResourceState().type.name,
                 this.width / 2 - 90, 30, 0xffffff);
-        this.fontRendererObj.drawStringWithShadow("Name: " + this.iModelSelector.getModelName(),
+        this.fontRenderer.drawStringWithShadow("Name: " + this.iModelSelector.getResourceState().getResourceName(),
                 this.width / 2 - 90, 40, 0xffffff);
         super.drawScreen(mouseX, mouseZ, partialTick);
     }
@@ -54,8 +55,8 @@ public class GUIDataMapEditor extends GuiScreen {
         super.buttonList.clear();
         this.textFieldList.clear();
 //		for (DataEntrySet dataEntrySet : this.dataEntrySetList) {
-//			this.listWidth = Math.max(listWidth, getFontRenderer().getStringWidth(dataEntrySet.key) + 10);
-//			this.listWidth = Math.max(listWidth, getFontRenderer().getStringWidth(dataEntrySet.value.get().toString()) + 10);
+//			this.listWidth = Math.max(listWidth, getfontRenderer().getStringWidth(dataEntrySet.key) + 10);
+//			this.listWidth = Math.max(listWidth, getfontRenderer().getStringWidth(dataEntrySet.value.get().toString()) + 10);
 //		}
 //		this.listWidth = Math.min(listWidth, 150);
         this.listWidth = 100;
@@ -85,7 +86,7 @@ public class GUIDataMapEditor extends GuiScreen {
     }
 
     @Override
-    public void mouseClicked(int x, int y, int btn) {
+    public void mouseClicked(int x, int y, int btn) throws IOException {
         super.mouseClicked(x, y, btn);
         this.textFieldList.forEach(guiTextField -> guiTextField.mouseClicked(x, y, btn));
     }
@@ -100,7 +101,7 @@ public class GUIDataMapEditor extends GuiScreen {
     }
 
     FontRenderer getFontRenderer() {
-        return this.fontRendererObj;
+        return this.fontRenderer;
     }
 
 

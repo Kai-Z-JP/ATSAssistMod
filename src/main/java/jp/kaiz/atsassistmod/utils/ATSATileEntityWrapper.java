@@ -12,15 +12,15 @@ public class ATSATileEntityWrapper {
     }
 
     public int getX() {
-        return this.tileEntity.xCoord;
+        return this.tileEntity.getPos().getX();
     }
 
     public int getY() {
-        return this.tileEntity.yCoord;
+        return this.tileEntity.getPos().getY();
     }
 
     public int getZ() {
-        return this.tileEntity.zCoord;
+        return this.tileEntity.getPos().getZ();
     }
 
     public int[] getPos() {
@@ -28,7 +28,7 @@ public class ATSATileEntityWrapper {
     }
 
     public World getWorld() {
-        return this.tileEntity.getWorldObj();
+        return this.tileEntity.getWorld();
     }
 
     public int getBlockMetadata() {
@@ -40,6 +40,6 @@ public class ATSATileEntityWrapper {
     }
 
     public int getBlockPowerInput() {
-        return this.getWorld().getBlockPowerInput(this.getX(), this.getY(), this.getZ());
+        return this.getWorld().getStrongPower(tileEntity.getPos());
     }
 }

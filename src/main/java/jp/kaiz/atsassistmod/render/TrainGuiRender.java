@@ -1,7 +1,5 @@
 package jp.kaiz.atsassistmod.render;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import jp.kaiz.atsassistmod.api.TrainControllerClient;
 import jp.kaiz.atsassistmod.api.TrainControllerClientManager;
 import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
@@ -13,6 +11,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class TrainGuiRender extends GuiScreen {
@@ -23,19 +23,19 @@ public class TrainGuiRender extends GuiScreen {
     }
 
     public void onRenderGui(RenderGameOverlayEvent event) {
-        if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR) {
+        if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {
             Minecraft mc = this.mc;
-            EntityPlayer player = mc.thePlayer;
+            EntityPlayer player = mc.player;
             if (!player.isRiding() || mc.gameSettings.thirdPersonView != 0) {
                 return;
             }
 
-            this.width = event.resolution.getScaledWidth();
-            this.height = event.resolution.getScaledHeight();
+            this.width = event.getResolution().getScaledWidth();
+            this.height = event.getResolution().getScaledHeight();
 
-            if (player.ridingEntity instanceof EntityTrainBase) {
-                if (((EntityTrainBase) player.ridingEntity).isControlCar()) {
-                    this.renderTrainGui((EntityTrainBase) player.ridingEntity);
+            if (player.getRidingEntity() instanceof EntityTrainBase) {
+                if (((EntityTrainBase) player.getRidingEntity()).isControlCar()) {
+                    this.renderTrainGui((EntityTrainBase) player.getRidingEntity());
                 }
             }
         }
@@ -48,7 +48,7 @@ public class TrainGuiRender extends GuiScreen {
                 return;
             }
             FontRenderer fontrenderer = this.mc.fontRenderer;
-            ModelSetVehicleBase<TrainConfig> model = train.getModelSet();
+            ModelSetVehicleBase<TrainConfig> model = train.getResourceState().getResourceSet();
 
             String atoSpeed = tcc.isATO() ? String.valueOf(tcc.getATOSpeed()) : "off";
             String tascSpeed = tcc.isTASC() ? String.valueOf(tcc.getTASCDistance()) : "off";

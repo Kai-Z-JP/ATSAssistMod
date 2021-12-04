@@ -1,13 +1,13 @@
 package jp.kaiz.atsassistmod.network;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketSetTrainState implements IMessage, IMessageHandler<PacketSetTrainState, IMessage> {
     private int id, entityID;
@@ -61,12 +61,12 @@ public class PacketSetTrainState implements IMessage, IMessageHandler<PacketSetT
     public IMessage onMessage(PacketSetTrainState message, MessageContext ctx) {
         Entity entity = null;
         if (message.cause == PacketCause.PLAYER.id) {
-            EntityPlayer player = ctx.getServerHandler().playerEntity;
+            EntityPlayer player = ctx.getServerHandler().player;
             if (player.isRiding()) {
-                entity = player.ridingEntity;
+                entity = player.getRidingEntity();
             }
         } else if (message.cause == PacketCause.ENTITY_ID.id) {
-            World world = ctx.getServerHandler().playerEntity.worldObj;
+            World world = ctx.getServerHandler().player.getServerWorld();
             entity = world.getEntityByID(message.entityID);
         }
 

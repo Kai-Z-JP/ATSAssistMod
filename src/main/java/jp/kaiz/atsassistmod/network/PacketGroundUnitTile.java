@@ -1,19 +1,19 @@
 package jp.kaiz.atsassistmod.network;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import jp.kaiz.atsassistmod.ATSAssistBlock;
+import io.netty.buffer.ByteBufUtil;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityGroundUnit;
 import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
+import jp.ngt.ngtlib.network.PacketNBT;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGroundUnitTile, IMessage> {
     private int id;
-    private int x;
-    private int y;
-    private int z;
+    private long pos;
     private boolean linkRedStone;
     private boolean useTrainDistance;
     private int speed;
@@ -27,9 +27,7 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
 
     public PacketGroundUnitTile(TileEntityGroundUnit tile, boolean linkRedStone) {
         this.id = tile.getType().id;
-        this.x = tile.xCoord;
-        this.y = tile.yCoord;
-        this.z = tile.zCoord;
+        this.pos = tile.getPos().toLong();
         this.linkRedStone = linkRedStone;
     }
 
@@ -70,9 +68,7 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
     @Override
     public void fromBytes(ByteBuf buf) {
         this.id = buf.readInt();
-        this.x = buf.readInt();
-        this.y = buf.readInt();
-        this.z = buf.readInt();
+        this.pos = buf.readLong();
         this.linkRedStone = buf.readBoolean();
         switch (this.id) {
             case 1:
@@ -96,7 +92,7 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
                 this.speed = buf.readInt();
                 break;
             case 13:
-                this.par1ByteArray = buf.readBytes(12).array();
+                this.par1ByteArray = ByteBufUtil.getBytes(buf);
                 break;
             case 14:
                 this.par0 = buf.readInt();
@@ -112,9 +108,7 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeInt(this.id);
-        buf.writeInt(this.x);
-        buf.writeInt(this.y);
-        buf.writeInt(this.z);
+        buf.writeLong(this.pos);
         buf.writeBoolean(this.linkRedStone);
         switch (this.id) {
             case 1:
@@ -153,8 +147,9 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
 
     @Override
     public IMessage onMessage(PacketGroundUnitTile message, MessageContext ctx) {
-        WorldServer world = (WorldServer) ctx.getServerHandler().playerEntity.worldObj;
-        TileEntityGroundUnit tile = (TileEntityGroundUnit) world.getTileEntity(message.x, message.y, message.z);
+        WorldServer world = ctx.getServerHandler().player.getServerWorld();
+        BlockPos blockPos = BlockPos.fromLong(message.pos);
+        TileEntityGroundUnit tile = (TileEntityGroundUnit) world.getTileEntity(blockPos);
         tile.setLinkRedStone(message.linkRedStone);
         switch (message.id) {
             case 1:
@@ -190,10 +185,8 @@ public class PacketGroundUnitTile implements IMessage, IMessageHandler<PacketGro
                 //なし
                 break;
         }
+        PacketNBT.sendToClient(tile);
         tile.markDirty();
-        tile.getDescriptionPacket();
-        world.markBlockForUpdate(message.x, message.y, message.z);
-        world.notifyBlockChange(message.x, message.y, message.z, ATSAssistBlock.blockGroundUnit);
         return null;
     }
 }

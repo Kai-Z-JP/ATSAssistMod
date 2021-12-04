@@ -1,13 +1,13 @@
 package jp.kaiz.atsassistmod.utils;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.ngt.ngtlib.util.NGTUtil;
 import jp.ngt.ngtlib.util.NGTUtilClient;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.audio.SoundManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.commons.lang3.EnumUtils;
 import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;

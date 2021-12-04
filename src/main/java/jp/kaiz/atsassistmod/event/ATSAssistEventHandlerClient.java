@@ -1,16 +1,9 @@
 package jp.kaiz.atsassistmod.event;
 
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import jp.kaiz.atsassistmod.ATSAssistCore;
-import jp.kaiz.atsassistmod.network.PacketFormationSync;
 import jp.kaiz.atsassistmod.render.TrainGuiRender;
 import jp.ngt.ngtlib.util.NGTUtilClient;
 import jp.ngt.rtm.entity.train.EntityBogie;
-import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.entity.train.parts.EntityVehiclePart;
 import jp.ngt.rtm.entity.vehicle.EntityVehicleBase;
 import net.minecraft.client.Minecraft;
@@ -18,6 +11,11 @@ import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -38,14 +36,9 @@ public class ATSAssistEventHandlerClient {
 
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-        if (event.entity instanceof EntityVehicleBase || event.entity instanceof EntityBogie || event.entity instanceof EntityVehiclePart) {
-            event.entity.renderDistanceWeight = 16 * ATSAssistCore.proxy.getMinecraft().gameSettings.renderDistanceChunks;
-            event.entity.ignoreFrustumCheck = true;
-        }
-        if (event.entity instanceof EntityTrainBase) {
-            if (((EntityTrainBase) event.entity).getFormation() == null) {
-                ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketFormationSync((EntityTrainBase) event.entity, false));
-            }
+        if (event.getEntity() instanceof EntityVehicleBase || event.getEntity() instanceof EntityBogie || event.getEntity() instanceof EntityVehiclePart) {
+            event.getEntity().setRenderDistanceWeight(16 * ATSAssistCore.proxy.getMinecraft().gameSettings.renderDistanceChunks);
+            event.getEntity().ignoreFrustumCheck = true;
         }
     }
 

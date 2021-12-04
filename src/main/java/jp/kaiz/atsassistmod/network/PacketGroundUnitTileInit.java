@@ -1,16 +1,19 @@
 package jp.kaiz.atsassistmod.network;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import jp.kaiz.atsassistmod.ATSAssistBlock;
 import jp.kaiz.atsassistmod.ATSAssistCore;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityGroundUnit;
+import jp.ngt.ngtlib.block.BlockUtil;
+import jp.ngt.ngtlib.network.PacketNBT;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketGroundUnitTileInit implements IMessage, IMessageHandler<PacketGroundUnitTileInit, IMessage> {
-    public int x, y, z;
+    public long pos;
     public int id;
 
 
@@ -18,50 +21,41 @@ public class PacketGroundUnitTileInit implements IMessage, IMessageHandler<Packe
     }
 
     public PacketGroundUnitTileInit(int id, TileEntityGroundUnit tileEntity) {
-        this.x = tileEntity.xCoord;
-        this.y = tileEntity.yCoord;
-        this.z = tileEntity.zCoord;
+        this.pos = tileEntity.getPos().toLong();
         this.id = id;
     }
 
-    public PacketGroundUnitTileInit(int x, int y, int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public PacketGroundUnitTileInit(long pos) {
+        this.pos = pos;
         this.id = -1;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.x = buf.readInt();
-        this.y = buf.readInt();
-        this.z = buf.readInt();
+        this.pos = buf.readLong();
         this.id = buf.readInt();
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeInt(this.x);
-        buf.writeInt(this.y);
-        buf.writeInt(this.z);
+        buf.writeLong(this.pos);
         buf.writeInt(this.id);
     }
 
     @Override
     public IMessage onMessage(PacketGroundUnitTileInit message, MessageContext ctx) {
+        BlockPos blockPos = BlockPos.fromLong(message.pos);
         if (message.id == -1) {
             World world = ATSAssistCore.proxy.getWorld();
-            ATSAssistCore.proxy.getPlayer().openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, world, message.x, message.y, message.z);
+            ATSAssistCore.proxy.getPlayer().openGui(ATSAssistCore.INSTANCE, ATSAssistCore.guiId_GroundUnit, world, blockPos.getX(), blockPos.getY(), blockPos.getZ());
             return null;
         } else {
-            World world = ctx.getServerHandler().playerEntity.worldObj;
-            world.setBlock(message.x, message.y, message.z, ATSAssistBlock.blockGroundUnit, message.id, 3);
-            TileEntityGroundUnit tile = (TileEntityGroundUnit) world.getTileEntity(message.x, message.y, message.z);
+            World world = ctx.getServerHandler().player.getServerWorld();
+            BlockUtil.setBlock(world, blockPos, ATSAssistBlock.blockGroundUnit, message.id, 3);
+            TileEntityGroundUnit tile = (TileEntityGroundUnit) world.getTileEntity(blockPos);
+            PacketNBT.sendToClient(tile);
             tile.markDirty();
-            tile.getDescriptionPacket();
-            world.markBlockForUpdate(message.x, message.y, message.z);
-            world.notifyBlockChange(message.x, message.y, message.z, ATSAssistBlock.blockGroundUnit);
-            return new PacketGroundUnitTileInit(message.x, message.y, message.z);
+            return new PacketGroundUnitTileInit(message.pos);
         }
     }
 }

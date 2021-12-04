@@ -1,19 +1,19 @@
 # Переведено с переводчика с японского. Artemiy Danilin (Trollebas) - перевод на русский.
 
-tile.ATSAssistMod:GroundUnit.0.name=Поездно-защитный блок
-tile.ATSAssistMod:GroundUnit.1.name=Поездно-защитный блок(АУПС:Уведомление об ограничении скорости)
-tile.ATSAssistMod:GroundUnit.2.name=Поездно-защитный блок(АУПС:Отмена ограничения скорости)
-tile.ATSAssistMod:GroundUnit.4.name=Поездно-защитный блок(ЗПМ:Установка расстояния и контроль запуска)
-tile.ATSAssistMod:GroundUnit.5.name=Поездно-защитный блок(ЗПМ:Конец управления)
-tile.ATSAssistMod:GroundUnit.6.name=Поездно-защитный блок(ЗПМ:Коррекция расстояния)
-tile.ATSAssistMod:GroundUnit.7.name=Поездно-защитный блок(Остановить обнаружение)
-tile.ATSAssistMod:GroundUnit.9.name=Поездно-защитный блок(АУП:Сигнал отправления и контрольный пуск)
-tile.ATSAssistMod:GroundUnit.10.name=Поездно-защитный блок(АУП:Конец управления)
-tile.ATSAssistMod:GroundUnit.11.name=Поездно-защитный блок(АУП:Изменение целевой скорости)
+tile.atsa:groundunit.0.name=Поездно-защитный блок
+tile.atsa:groundunit.1.name=Поездно-защитный блок(АУПС:Уведомление об ограничении скорости)
+tile.atsa:groundunit.2.name=Поездно-защитный блок(АУПС:Отмена ограничения скорости)
+tile.atsa:groundunit.4.name=Поездно-защитный блок(ЗПМ:Установка расстояния и контроль запуска)
+tile.atsa:groundunit.5.name=Поездно-защитный блок(ЗПМ:Конец управления)
+tile.atsa:groundunit.6.name=Поездно-защитный блок(ЗПМ:Коррекция расстояния)
+tile.atsa:groundunit.7.name=Поездно-защитный блок(Остановить обнаружение)
+tile.atsa:groundunit.9.name=Поездно-защитный блок(АУП:Сигнал отправления и контрольный пуск)
+tile.atsa:groundunit.10.name=Поездно-защитный блок(АУП:Конец управления)
+tile.atsa:groundunit.11.name=Поездно-защитный блок(АУП:Изменение целевой скорости)
 
-item.ATSAssistMod:TrainProtectionSelector.name=Изменение защиты поезда в пути следования SW
+item.atsa:train_protection_selector.name=Изменение защиты поезда в пути следования SW
 
-tile.ATSAssistMod:IFTTT.0.name=Блок автоматизации управления (IFTTT)
+tile.atsa:ifttt.name=Блок автоматизации управления (IFTTT)
 tile.ATSAssistMod:stationAnnounce.0.name=Громкоговоритель 
 item.ATSAssistMod:itemDataMapEditor.name=Редактор карт данных
 

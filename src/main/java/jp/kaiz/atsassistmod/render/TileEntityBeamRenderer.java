@@ -1,13 +1,13 @@
 package jp.kaiz.atsassistmod.render;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityCustom;
+import jp.ngt.ngtlib.renderer.NGTTessellator;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
@@ -19,7 +19,7 @@ public class TileEntityBeamRenderer extends TileEntitySpecialRenderer {
 
         if (tileEntity.isRenderBeam()) {
             GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
-            Tessellator tessellator = Tessellator.instance;
+            NGTTessellator tessellator = NGTTessellator.instance;
             this.bindTexture(TEXTURE);
 //            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 10497.0F);
 //            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 10497.0F);
@@ -31,7 +31,7 @@ public class TileEntityBeamRenderer extends TileEntitySpecialRenderer {
 
             tessellator.setBrightness(255);
             tessellator.startDrawingQuads();
-            tessellator.setColorRGBA(0, 190, 246, 32);
+            tessellator.setColorRGBA_F(0, 190, 246, 32);
 
             double d7 = 0.5D - 0.15D;
             double d9 = 0.5D + 0.15D;
@@ -42,22 +42,22 @@ public class TileEntityBeamRenderer extends TileEntitySpecialRenderer {
             double d29 = (double) 256.0F + d28;
 
             {
-                tessellator.addVertexWithUV(x + d7, y + d23, z + d9, d27, d29);
-                tessellator.addVertexWithUV(x + d7, y, z + d9, d27, d28);
-                tessellator.addVertexWithUV(x + d9, y, z + d9, d25, d28);
-                tessellator.addVertexWithUV(x + d9, y + d23, z + d9, d25, d29);
-                tessellator.addVertexWithUV(x + d7, y + d23, z + d7, d27, d29);
-                tessellator.addVertexWithUV(x + d7, y, z + d7, d27, d28);
-                tessellator.addVertexWithUV(x + d9, y, z + d7, d25, d28);
-                tessellator.addVertexWithUV(x + d9, y + d23, z + d7, d25, d29);
-                tessellator.addVertexWithUV(x + d9, y + d23, z + d9, d27, d29);
-                tessellator.addVertexWithUV(x + d9, y, z + d9, d27, d28);
-                tessellator.addVertexWithUV(x + d9, y, z + d7, d25, d28);
-                tessellator.addVertexWithUV(x + d9, y + d23, z + d7, d25, d29);
-                tessellator.addVertexWithUV(x + d7, y + d23, z + d7, d27, d29);
-                tessellator.addVertexWithUV(x + d7, y, z + d7, d27, d28);
-                tessellator.addVertexWithUV(x + d7, y, z + d9, d25, d28);
-                tessellator.addVertexWithUV(x + d7, y + d23, z + d9, d25, d29);
+                tessellator.addVertexWithUV((float) (x + d7), (float) (y + d23), (float) (z + d9), (float) d27, (float) d29);
+                tessellator.addVertexWithUV((float) (x + d7), (float) y, (float) (z + d9), (float) d27, (float) d28);
+                tessellator.addVertexWithUV((float) (x + d9), (float) y, (float) (z + d9), (float) d25, (float) d28);
+                tessellator.addVertexWithUV((float) (x + d9), (float) (y + d23), (float) (z + d9), (float) d25, (float) d29);
+                tessellator.addVertexWithUV((float) (x + d7), (float) (y + d23), (float) (z + d7), (float) d27, (float) d29);
+                tessellator.addVertexWithUV((float) (x + d7), (float) y, (float) (z + d7), (float) d27, (float) d28);
+                tessellator.addVertexWithUV((float) (x + d9), (float) y, (float) (z + d7), (float) d25, (float) d28);
+                tessellator.addVertexWithUV((float) (x + d9), (float) (y + d23), (float) (z + d7), (float) d25, (float) d29);
+                tessellator.addVertexWithUV((float) (x + d9), (float) (y + d23), (float) (z + d9), (float) d27, (float) d29);
+                tessellator.addVertexWithUV((float) (x + d9), (float) y, (float) (z + d9), (float) d27, (float) d28);
+                tessellator.addVertexWithUV((float) (x + d9), (float) y, (float) (z + d7), (float) d25, (float) d28);
+                tessellator.addVertexWithUV((float) (x + d9), (float) (y + d23), (float) (z + d7), (float) d25, (float) d29);
+                tessellator.addVertexWithUV((float) (x + d7), (float) (y + d23), (float) (z + d7), (float) d27, (float) d29);
+                tessellator.addVertexWithUV((float) (x + d7), (float) y, (float) (z + d7), (float) d27, (float) d28);
+                tessellator.addVertexWithUV((float) (x + d7), (float) y, (float) (z + d9), (float) d25, (float) d28);
+                tessellator.addVertexWithUV((float) (x + d7), (float) (y + d23), (float) (z + d9), (float) d25, (float) d29);
             }
 
             tessellator.draw();

@@ -92,7 +92,7 @@ public class IFTTTType {
         public enum Minecraft implements IFTTTEnumBase {
             RedStoneOutput(210),
             PlaySound(211),
-            ExecuteCommand(212),
+//            ExecuteCommand(212),
             SetBlock(213),
             ;
 

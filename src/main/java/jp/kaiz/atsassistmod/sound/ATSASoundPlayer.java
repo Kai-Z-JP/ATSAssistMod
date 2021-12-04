@@ -1,7 +1,7 @@
 package jp.kaiz.atsassistmod.sound;
 
+import jp.ngt.ngtlib.sound.NGTSound;
 import jp.ngt.ngtlib.util.NGTUtil;
-import jp.ngt.ngtlib.util.NGTUtilClient;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
@@ -33,7 +33,7 @@ public class ATSASoundPlayer {
         public void playSound(TileEntity tile, ResourceLocation src, boolean repeat) {
             this.stopSound();
             this.sound = new ATSAMovingSoundTileEntity(tile, src, repeat, 10.0F);
-            NGTUtilClient.playSound(this.sound);
+            NGTSound.playSound(this.sound);
         }
 
         @Override
@@ -43,7 +43,7 @@ public class ATSASoundPlayer {
             }
             this.stopSound();
             this.sound = new ATSAMovingSoundTileEntity(tile, pos, src, repeat, volume);
-            NGTUtilClient.playSound(this.sound);
+            NGTSound.playSound(this.sound);
         }
 
         @Override

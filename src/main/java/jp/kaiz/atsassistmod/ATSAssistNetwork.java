@@ -1,9 +1,10 @@
 package jp.kaiz.atsassistmod;
 
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.relauncher.Side;
+
 import jp.kaiz.atsassistmod.gui.ATSAssistGUIHandler;
 import jp.kaiz.atsassistmod.network.*;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 import static jp.kaiz.atsassistmod.ATSAssistCore.NETWORK_WRAPPER;
 
@@ -27,9 +28,6 @@ public class ATSAssistNetwork {
         NETWORK_WRAPPER.registerMessage(PacketPlaySoundIFTTT.class, PacketPlaySoundIFTTT.class, 32, Side.CLIENT);
 
         NETWORK_WRAPPER.registerMessage(PacketPlaySounds.class, PacketPlaySounds.class, 40, Side.CLIENT);
-
-        NETWORK_WRAPPER.registerMessage(PacketFormationSync.class, PacketFormationSync.class, 90, Side.SERVER);
-        NETWORK_WRAPPER.registerMessage(PacketFormationSync.class, PacketFormationSync.class, 91, Side.CLIENT);
 
         NetworkRegistry.INSTANCE.registerGuiHandler(ATSAssistCore.INSTANCE, new ATSAssistGUIHandler());
     }

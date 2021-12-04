@@ -1,8 +1,5 @@
 package jp.kaiz.atsassistmod;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityCustom;
 import jp.kaiz.atsassistmod.event.ATSAssistEventHandlerClient;
 import jp.kaiz.atsassistmod.event.ATSAssistKeyHandler;
@@ -17,6 +14,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.List;
@@ -31,6 +31,9 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(handler);
         FMLCommonHandler.instance().bus().register(handler);
         FMLCommonHandler.instance().bus().register(new ATSAssistKeyHandler());
+
+        ATSAssistBlock.initClient();
+        ATSAssistItem.initClient();
     }
 
     @Override
@@ -57,12 +60,12 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public World getWorld() {
-        return this.getMinecraft().theWorld;
+        return this.getMinecraft().world;
     }
 
     @Override
     public EntityPlayer getPlayer() {
-        return this.getMinecraft().thePlayer;
+        return this.getMinecraft().player;
     }
 
     @Override
@@ -80,10 +83,7 @@ public class ClientProxy extends CommonProxy {
                         String[] domainPath = order.split(":");
                         ResourceLocation src = new ResourceLocation(domainPath[0], domainPath[1]);
 
-                        List<ISound> trackList = posList.stream()
-                                .filter(Objects::nonNull)
-                                .map(pos -> new ATSAMovingSoundTileEntity(tile, pos, src, false, volume))
-                                .collect(Collectors.toList());
+                        List<ISound> trackList = posList.stream().filter(Objects::nonNull).map(pos -> new ATSAMovingSoundTileEntity(tile, pos, src, false, volume)).collect(Collectors.toList());
                         ATSAssistEventHandlerClient.soundList.addAll(trackList);
                         Thread.sleep(50L);
                         while (soundHandler.isSoundPlaying(trackList.get(0))) {

@@ -5,11 +5,11 @@ import net.minecraft.world.World;
 
 public class KaizEntityUtils {
     public static World getWorld(Entity entity) {
-        return entity.worldObj;
+        return entity.world;
     }
 
     public static int getX(Entity entity) {
-        return entity.serverPosX;
+        return entity.getPosition().getX();
     }
 
     public static double getPosX(Entity entity) {
@@ -17,7 +17,7 @@ public class KaizEntityUtils {
     }
 
     public static int getY(Entity entity) {
-        return entity.serverPosY;
+        return entity.getPosition().getY();
     }
 
     public static double getPosY(Entity entity) {
@@ -25,7 +25,7 @@ public class KaizEntityUtils {
     }
 
     public static int getZ(Entity entity) {
-        return entity.serverPosZ;
+        return entity.getPosition().getZ();
     }
 
     public static double getPosZ(Entity entity) {

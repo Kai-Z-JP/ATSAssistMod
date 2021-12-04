@@ -1,18 +1,18 @@
 #역전핸들 관련 참고자료 http://www.kric.go.kr/servlet/ContentDownloadServlet?type=pdf&object_id=0900271a8021cc65
-tile.ATSAssistMod:GroundUnit.0.name=보안장치 블록(동작 없음)
-tile.ATSAssistMod:GroundUnit.1.name=보안장치 블록(ATC 제한예고)
-tile.ATSAssistMod:GroundUnit.2.name=보안장치 블록(ATC 제한해제)
-tile.ATSAssistMod:GroundUnit.4.name=보안장치 블록(TASC 거리설정, 제어시작)
-tile.ATSAssistMod:GroundUnit.5.name=보안장치 블록(TASC 제어종료)
-tile.ATSAssistMod:GroundUnit.6.name=보안장치 블록(TASC 거리수정)
-tile.ATSAssistMod:GroundUnit.7.name=보안장치 블록(정차 검지)
-tile.ATSAssistMod:GroundUnit.9.name=보안장치 블록(ATO 출발신호, 제어시작)
-tile.ATSAssistMod:GroundUnit.10.name=보안장치 블록(ATO 제어종료)
-tile.ATSAssistMod:GroundUnit.11.name=보안장치 블록(ATO 목표속도 변경)
+tile.atsa:groundunit.0.name=보안장치 블록(동작 없음)
+tile.atsa:groundunit.1.name=보안장치 블록(ATC 제한예고)
+tile.atsa:groundunit.2.name=보안장치 블록(ATC 제한해제)
+tile.atsa:groundunit.4.name=보안장치 블록(TASC 거리설정, 제어시작)
+tile.atsa:groundunit.5.name=보안장치 블록(TASC 제어종료)
+tile.atsa:groundunit.6.name=보안장치 블록(TASC 거리수정)
+tile.atsa:groundunit.7.name=보안장치 블록(정차 검지)
+tile.atsa:groundunit.9.name=보안장치 블록(ATO 출발신호, 제어시작)
+tile.atsa:groundunit.10.name=보안장치 블록(ATO 제어종료)
+tile.atsa:groundunit.11.name=보안장치 블록(ATO 목표속도 변경)
 
-item.ATSAssistMod:TrainProtectionSelector.name=차상보안장치 전환SW
+item.atsa:train_protection_selector.name=차상보안장치 전환SW
 
-tile.ATSAssistMod:IFTTT.0.name=IFTTT블록
+tile.atsa:ifttt.name=IFTTT블록
 
 ATSAssistMod.trainprotection.none=개방
 ATSAssistMod.trainprotection.station_premises=구내

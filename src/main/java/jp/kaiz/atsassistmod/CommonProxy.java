@@ -1,6 +1,5 @@
 package jp.kaiz.atsassistmod;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityGroundUnit;
 import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.kaiz.atsassistmod.network.PacketPlaySounds;
@@ -8,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.List;
 

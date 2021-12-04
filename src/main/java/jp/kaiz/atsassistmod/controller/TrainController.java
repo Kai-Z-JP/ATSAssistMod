@@ -234,7 +234,7 @@ public class TrainController {
         int minBrakeNotch = brakeNotch.stream().mapToInt(v -> v).min().orElse(1);
 
         //ControllerNotch マジもんのコントローラー用
-        if (this.train.riddenByEntity == null) {
+        if (this.train.getFirstPassenger() == null) {
             this.controllerNotchA = -1;
             this.controllerNotchB = 1;
             if (this.controllerControl) {
@@ -254,7 +254,7 @@ public class TrainController {
             //最大アクセルを計算
             int maxAcceleratorNotch = acceleratorNotch.stream().mapToInt(v -> v).max().orElse(-1);
 
-            if (this.train.riddenByEntity != null) {
+            if (this.train.getFirstPassenger() != null) {
                 if (this.controllerControl) {
                     maxAcceleratorNotch = Math.max(maxAcceleratorNotch, this.controllerNotchA);
                 }

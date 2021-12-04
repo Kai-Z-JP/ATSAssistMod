@@ -5,14 +5,16 @@ import jp.kaiz.atsassistmod.block.GroundUnitType;
 import jp.kaiz.atsassistmod.controller.SpeedOrder;
 import jp.kaiz.atsassistmod.controller.TrainControllerManager;
 import jp.kaiz.atsassistmod.controller.trainprotection.TrainProtectionType;
+import jp.ngt.ngtlib.block.BlockUtil;
+import jp.ngt.ngtlib.network.PacketNBT;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.entity.train.util.TrainState;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 
-import java.util.List;
-
-public abstract class TileEntityGroundUnit extends TileEntityCustom {
+public abstract class TileEntityGroundUnit extends TileEntityCustom implements ITickable {
     //編成単位での管理
     protected long formationID;
     //レッドストーン連動
@@ -32,25 +34,30 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
     protected abstract void readNBT(NBTTagCompound tag);
 
     @Override
-    public final void writeToNBT(NBTTagCompound tag) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
         tag.setLong("formationID", this.formationID);
         tag.setBoolean("linkRedStone", this.linkRedStone);
         tag.setInteger("redStoneOutput", this.redStoneOutput);
         this.writeNBT(tag);
+        return tag;
     }
 
     protected abstract void writeNBT(NBTTagCompound tag);
 
     @Override
-    public void updateEntity() {
-        if (!this.worldObj.isRemote) {
-            if (!this.linkRedStone || this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)) {//レッドストーン確認
-                AxisAlignedBB detect = AxisAlignedBB.getBoundingBox(
-                        this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 3, this.zCoord + 1);
-                List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
-                if (!list.isEmpty()) {
-                    EntityTrainBase train = (EntityTrainBase) list.get(0);
+    public void update() {
+        if (!this.getWorld().isRemote) {
+            if (!this.linkRedStone || this.getWorld()
+                                          .isBlockIndirectlyGettingPowered(this.getPos()) > 0) {//レッドストーン確認
+                AxisAlignedBB detect = new AxisAlignedBB(this.getPos(), this.getPos()
+                                                                            .add(1, 3, 1));
+                EntityTrainBase train = this.getWorld()
+                                            .getEntitiesWithinAABB(EntityTrainBase.class, detect)
+                                            .stream()
+                                            .findFirst()
+                                            .orElse(null);
+                if (train != null) {
                     if (train.isControlCar()) {
                         if (this.formationID != train.getFormation().id) {
                             this.onTick(train);
@@ -71,7 +78,10 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
     public void setRedStoneOutput(int power) {
         if (this.redStoneOutput != power) {
             this.redStoneOutput = power;
-            this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, this.getBlockType());
+            IBlockState state = this.getWorld()
+                                    .getBlockState(this.getPos());
+            this.getWorld()
+                .notifyBlockUpdate(this.getPos(), state, state, 3);
         }
     }
 
@@ -138,7 +148,10 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
 
         @Override
         public void onTick(EntityTrainBase train) {
-            SpeedOrder speedOrder = new SpeedOrder(this.speedLimit, this.isUseTrainDistance() ? this.distance - train.getModelSet().getConfig().trainDistance : this.distance, this.autoBrake);
+            SpeedOrder speedOrder = new SpeedOrder(this.speedLimit, this.isUseTrainDistance() ?
+                    this.distance - train.getResourceState().getResourceSet().getConfig().trainDistance :
+                    this.distance,
+                    this.autoBrake);
             TrainControllerManager.getTrainController(train).addSpeedOrder(speedOrder);
         }
 
@@ -219,22 +232,28 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
         @Override
         public void onTick(EntityTrainBase train) {
             if (this.formationID != train.getFormation().id) {
-                TrainControllerManager.getTrainController(train).removeSpeedLimit();
+                TrainControllerManager.getTrainController(train)
+                                      .removeSpeedLimit();
                 this.formationID = train.getFormation().id;
             }
         }
 
         @Override
-        public void updateEntity() {
-            if (!this.worldObj.isRemote) {
-                if (!this.linkRedStone || this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)) {//レッドストーン確認
-                    AxisAlignedBB detect = AxisAlignedBB.getBoundingBox(
-                            this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 4, this.zCoord + 1);
-                    List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
-                    if (!list.isEmpty()) {
-                        EntityTrainBase train = (EntityTrainBase) list.get(0);
+        public void update() {
+            if (!this.getWorld().isRemote) {
+                if (!this.linkRedStone || this.getWorld().isBlockIndirectlyGettingPowered(this.getPos()) > 0) {
+                    //レッドストーン確認
+                    AxisAlignedBB detect = new AxisAlignedBB(this.getPos(), this.getPos()
+                                                                                .add(1, 4, 1));
+                    EntityTrainBase train = this.getWorld()
+                                                .getEntitiesWithinAABB(EntityTrainBase.class, detect)
+                                                .stream()
+                                                .findFirst()
+                                                .orElse(null);
+                    if (train != null) {
                         if (this.useTrainDistance) {
-                            if (train.getFormation().size() == 1) {
+                            if (train.getFormation()
+                                     .size() == 1) {
                                 this.onTick(train);
                                 return;
                             } else if (!train.isControlCar() && (train.getConnectedTrain(0) == null || train.getConnectedTrain(1) == null)) {
@@ -272,44 +291,23 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
     public static class TASCStopPositionNotice extends TileEntityGroundUnit implements Distance, TrainDistance {
         private double distance;
         private boolean trainDistance;
-        private byte version;
-
-        public TASCStopPositionNotice() {
-            this.version = 1;
-        }
 
         @Override
         public void readNBT(NBTTagCompound tag) {
             this.distance = tag.getDouble("distance");
             this.trainDistance = tag.getBoolean("trainDistance");
-            this.version = tag.getByte("version");
         }
 
         @Override
         public void writeNBT(NBTTagCompound tag) {
             tag.setDouble("distance", this.distance);
             tag.setBoolean("trainDistance", this.trainDistance);
-            tag.setByte("version", this.version);
         }
 
         @Override
         public void onTick(EntityTrainBase train) {
-            TrainControllerManager.getTrainController(train).tascController.enable(this.isUseTrainDistance() ? this.distance + 1.5d - train.getModelSet().getConfig().trainDistance : this.distance + 1.5d);
-        }
-
-        @Override
-        public void updateEntity() {
-            if (!worldObj.isRemote) {
-                if (this.version == 0) {
-                    this.distance -= 2;
-                    this.version = 1;
-                    this.markDirty();
-                    this.getDescriptionPacket();
-                    this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-                    this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, ATSAssistBlock.blockGroundUnit);
-                }
-            }
-            super.updateEntity();
+            TrainControllerManager.getTrainController(train).tascController.enable(this.isUseTrainDistance() ?
+                    this.distance + 1.5d - train.getResourceState().getResourceSet().getConfig().trainDistance : this.distance + 1.5d);
         }
 
         @Override
@@ -363,44 +361,23 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
     public static class TASCStopPositionCorrection extends TileEntityGroundUnit implements Distance, TrainDistance {
         private double distance;
         private boolean trainDistance;
-        private byte version;
-
-        public TASCStopPositionCorrection() {
-            version = 1;
-        }
 
         @Override
         public void readNBT(NBTTagCompound tag) {
             this.distance = tag.getDouble("distance");
             this.trainDistance = tag.getBoolean("trainDistance");
-            this.version = tag.getByte("version");
         }
 
         @Override
         public void writeNBT(NBTTagCompound tag) {
             tag.setDouble("distance", this.distance);
             tag.setBoolean("trainDistance", this.trainDistance);
-            tag.setByte("version", this.version);
         }
 
         @Override
         public void onTick(EntityTrainBase train) {
-            TrainControllerManager.getTrainController(train).tascController.setStopDistance(this.isUseTrainDistance() ? this.distance + 1.5d - train.getModelSet().getConfig().trainDistance : this.distance + 1.5d);
-        }
-
-        @Override
-        public void updateEntity() {
-            if (!worldObj.isRemote) {
-                if (this.version == 0) {
-                    this.distance -= 2;
-                    this.version = 1;
-                    this.markDirty();
-                    this.getDescriptionPacket();
-                    this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-                    this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, ATSAssistBlock.blockGroundUnit);
-                }
-            }
-            super.updateEntity();
+            TrainControllerManager.getTrainController(train).tascController.setStopDistance(this.isUseTrainDistance() ? this.distance + 1.5d -
+                    train.getResourceState().getResourceSet().getConfig().trainDistance : this.distance + 1.5d);
         }
 
         @Override
@@ -440,13 +417,15 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
         }
 
         @Override
-        public void updateEntity() {
-            if (!this.worldObj.isRemote) {
-                AxisAlignedBB detect = AxisAlignedBB.getBoundingBox(
-                        this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 3, this.zCoord + 1);
-                List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
-                if (!list.isEmpty()) {
-                    EntityTrainBase train = (EntityTrainBase) list.get(0);
+        public void update() {
+            if (!this.getWorld().isRemote) {
+                AxisAlignedBB detect = new AxisAlignedBB(this.getPos(), this.getPos().add(1, 3, 1));
+                EntityTrainBase train = this.getWorld()
+                                            .getEntitiesWithinAABB(EntityTrainBase.class, detect)
+                                            .stream()
+                                            .findFirst()
+                                            .orElse(null);
+                if (train != null) {
                     if (this.linkRedStone) {//逆転前以外でも
                         this.onTick(train);
                         return;
@@ -463,7 +442,8 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
 
         @Override
         public void onTick(EntityTrainBase train) {
-            this.setRedStoneOutput(train.getSpeed() == 0F ? train.getFormation().size() : 0);
+            this.setRedStoneOutput(train.getSpeed() == 0F ? train.getFormation()
+                                                                 .size() : 0);
         }
 
         @Override
@@ -487,7 +467,8 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
 
         @Override
         public void onTick(EntityTrainBase train) {
-            TrainControllerManager.getTrainController(train).enableATO(this.speedLimit);
+            TrainControllerManager.getTrainController(train)
+                                  .enableATO(this.speedLimit);
         }
 
         @Override
@@ -520,7 +501,8 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
 
         @Override
         public void onTick(EntityTrainBase train) {
-            TrainControllerManager.getTrainController(train).disableATO();
+            TrainControllerManager.getTrainController(train)
+                                  .disableATO();
         }
 
         @Override
@@ -544,7 +526,8 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
 
         @Override
         public void onTick(EntityTrainBase train) {
-            TrainControllerManager.getTrainController(train).setMaxSpeed(this.speedLimit);
+            TrainControllerManager.getTrainController(train)
+                                  .setMaxSpeed(this.speedLimit);
         }
 
         @Override
@@ -568,19 +551,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
         private byte[] states;
 
         public TrainStateSet() {
-            states = new byte[]{
-                    -1,
-                    -9,
-                    -1,
-                    -1,
-                    -1,
-                    -1,
-                    -1,
-                    -1,
-                    -1,
-                    -1,
-                    -1,
-                    -1,};
+            states = new byte[]{-1, -9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,};
         }
 
         @Override
@@ -602,7 +573,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
                 if (states[i] < TrainState.getStateType(i).min) {
                     continue;
                 }
-                if (i == TrainState.TrainStateType.State_TrainDir.id) {
+                if (i == TrainState.TrainStateType.Direction.id) {
                     train.setTrainDirection(states[i]);
                     continue;
                 }
@@ -625,14 +596,16 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
         }
 
         @Override
-        public void updateEntity() {
-            if (!this.worldObj.isRemote) {
-                if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)) {//レッドストーン確認
-                    AxisAlignedBB detect = AxisAlignedBB.getBoundingBox(
-                            this.xCoord - 1, this.yCoord, this.zCoord - 1, this.xCoord + 2, this.yCoord + 3, this.zCoord + 2);
-                    List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class.getSuperclass(), detect);
-                    if (!list.isEmpty()) {
-                        EntityTrainBase train = (EntityTrainBase) list.get(0);
+        public void update() {
+            if (!this.getWorld().isRemote) {
+                if (this.getWorld().isBlockIndirectlyGettingPowered(this.getPos()) > 0) {//レッドストーン確認
+                    AxisAlignedBB detect = new AxisAlignedBB(this.getPos().add(-1, 0, -1), this.getPos().add(2, 3, 2));
+                    EntityTrainBase train = this.getWorld()
+                                                .getEntitiesWithinAABB(EntityTrainBase.class, detect)
+                                                .stream()
+                                                .findFirst()
+                                                .orElse(null);
+                    if (train != null) {
                         if (this.linkRedStone) {//逆転前以外でも
                             this.onTick(train);
                         } else {
@@ -647,7 +620,6 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
     }
 
     public static class ChangeTrainProtection extends TileEntityGroundUnit {
-        private byte version;
         private int tpType;
 
         public ChangeTrainProtection() {
@@ -656,42 +628,24 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
 
 
         public ChangeTrainProtection(TrainProtectionType type) {
-            this.version = 1;
             this.tpType = type.id;
         }
 
 
         @Override
         protected void readNBT(NBTTagCompound tag) {
-            this.version = tag.getByte("version");
             this.tpType = tag.getInteger("tpType");
         }
 
         @Override
         public void writeNBT(NBTTagCompound tag) {
-            tag.setByte("version", this.version);
             tag.setInteger("tpType", this.tpType);
         }
 
         @Override
-        public void updateEntity() {
-            if (!worldObj.isRemote) {
-                switch (this.version) {
-                    case 0:
-                        this.tpType = TrainProtectionType.ATACS.id;
-                        this.version = 1;
-                        break;
-                    case 1:
-                        super.updateEntity();
-                        break;
-                }
-            }
-        }
-
-        @Override
         protected void onTick(EntityTrainBase train) {
-            TrainControllerManager.getTrainController(train).setTrainProtection(TrainProtectionType.getType(this.tpType));
-//            TrainControllerManager.getTrainController(train).enableTrainProtection(TrainProtectionType.ATACS);
+            TrainControllerManager.getTrainController(train)
+                                  .setTrainProtection(TrainProtectionType.getType(this.tpType));
         }
 
         @Override
@@ -724,12 +678,13 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
         }
 
         @Override
-        public void updateEntity() {
-            if (!worldObj.isRemote) {
-                this.worldObj.setBlock(this.xCoord, this.yCoord, this.zCoord, ATSAssistBlock.blockGroundUnit, 14, 3);
-                ((ChangeTrainProtection) this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord)).setTPType(TrainProtectionType.NONE);
-                this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-                this.worldObj.notifyBlockChange(this.xCoord, this.yCoord, this.zCoord, ATSAssistBlock.blockGroundUnit);
+        public void update() {
+            if (!this.getWorld().isRemote) {
+                BlockUtil.setBlock(this.getWorld(), this.getPos(), ATSAssistBlock.blockGroundUnit, 14, 3);
+                ChangeTrainProtection tile = ((ChangeTrainProtection) this.getWorld().getTileEntity(this.getPos()));
+                tile.setTPType(TrainProtectionType.NONE);
+                PacketNBT.sendToClient(tile);
+                tile.markDirty();
             }
         }
 

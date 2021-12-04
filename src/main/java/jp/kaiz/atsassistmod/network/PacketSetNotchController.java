@@ -1,12 +1,12 @@
 package jp.kaiz.atsassistmod.network;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import jp.kaiz.atsassistmod.controller.TrainControllerManager;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketSetNotchController implements IMessage, IMessageHandler<PacketSetNotchController, IMessage> {
 
@@ -31,9 +31,9 @@ public class PacketSetNotchController implements IMessage, IMessageHandler<Packe
 
     @Override
     public IMessage onMessage(PacketSetNotchController message, MessageContext ctx) {
-        EntityPlayer player = ctx.getServerHandler().playerEntity;
-        if (player.isRiding() && player.ridingEntity instanceof EntityTrainBase) {
-            EntityTrainBase train = (EntityTrainBase) player.ridingEntity;
+        EntityPlayer player = ctx.getServerHandler().player;
+        if (player.getRidingEntity() instanceof EntityTrainBase) {
+            EntityTrainBase train = (EntityTrainBase) player.getRidingEntity();
             if (train.isControlCar()) {
                 TrainControllerManager.getTrainController(train).setControllerNotch(message.notch);
             }
