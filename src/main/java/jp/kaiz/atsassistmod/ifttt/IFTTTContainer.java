@@ -765,6 +765,7 @@ public abstract class IFTTTContainer implements Serializable {
                 }
 
                 @Override
+                @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
                     this.clearPosList();
                     int length = gui.textFieldLength();
