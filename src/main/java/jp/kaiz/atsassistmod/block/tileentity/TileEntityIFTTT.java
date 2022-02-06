@@ -14,7 +14,7 @@ import java.util.List;
 public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectricity {
     //外に出すレッドストーン
     private int redStoneOutput;
-    private boolean notFirst;
+    private boolean notFirst, anyMatch;
 
     private List<IFTTTContainer> thisList = new ArrayList<>();
     private List<IFTTTContainer> thatList = new ArrayList<>();
@@ -24,6 +24,7 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
         super.readFromNBT(tag);
         this.redStoneOutput = tag.getInteger("redStoneOutput");
         this.notFirst = tag.getBoolean("notFirst");
+        this.anyMatch = tag.getBoolean("anyMatch");
         this.thisList = IFTTTUtil.listFromJson(tag.getString("iftttThis"));
         this.thatList = IFTTTUtil.listFromJson(tag.getString("iftttThat"));
     }
@@ -33,6 +34,7 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
         super.writeToNBT(tag);
         tag.setInteger("redStoneOutput", this.redStoneOutput);
         tag.setBoolean("notFirst", this.notFirst);
+        tag.setBoolean("anyMatch", this.anyMatch);
         tag.setString("iftttThis", IFTTTUtil.listToString(this.thisList));
         tag.setString("iftttThat", IFTTTUtil.listToString(this.thatList));
     }
@@ -53,7 +55,8 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
                     this.xCoord - 1, this.yCoord, this.zCoord - 1, this.xCoord + 2, this.yCoord + 4, this.zCoord + 2);
             List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
             EntityTrainBase train = list.isEmpty() ? null : (EntityTrainBase) list.get(0);
-            if (this.thisList.stream().allMatch(iftttContainer -> ((IFTTTContainer.This) iftttContainer).isCondition(this, train))) {
+            if ((!this.anyMatch && this.thisList.stream().allMatch(iftttContainer -> ((IFTTTContainer.This) iftttContainer).isCondition(this, train)))
+                    || (this.anyMatch && this.thisList.stream().anyMatch(iftttContainer -> ((IFTTTContainer.This) iftttContainer).isCondition(this, train)))) {
                 this.thatList.forEach(iftttContainer -> ((IFTTTContainer.That) iftttContainer).doThat(this, train, !this.notFirst));
                 this.notFirst = true;
             } else if (notFirst) {
@@ -135,5 +138,13 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
     @Override
     public void setElectricity(int x, int y, int z, int level) {
 
+    }
+
+    public boolean isAnyMatch() {
+        return anyMatch;
+    }
+
+    public void setAnyMatch(boolean anyMatch) {
+        this.anyMatch = anyMatch;
     }
 }
