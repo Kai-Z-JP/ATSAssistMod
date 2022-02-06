@@ -148,8 +148,10 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 case 212://ExecuteCommand
                     this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.0"),
                             this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.1"),
+                    this.fontRendererObj.drawString(I18n.format("DisplayName"),
                             this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.1"),
+                            this.width / 2 - 100, this.height / 2 - 15, 0xffffff);
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> ((GuiCheckBox) button).setIsChecked(this.ifcb.isOnce()));
                     break;
                 case 213://SetBlock
@@ -317,7 +319,8 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 }
                 case 212: {//ExecuteCommand
                     this.buttonList.add(new GuiCheckBox(1000, this.width / 2 + 45, this.height / 2 - 80, "", false));
-                    this.addGuiTextField(((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).getCommand(), this.width / 2 - 100, this.height / 2 - 30, Byte.MAX_VALUE, 200);
+                    this.addGuiTextField(((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).getDisplayName(), this.width / 2 - 100, this.height / 2 - 40, Byte.MAX_VALUE, 200);
+                    this.addGuiTextField(((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).getCommand(), this.width / 2 - 100, this.height / 2 - 5, Byte.MAX_VALUE, 200);
                     this.addDownCommon();
                     break;
                 }

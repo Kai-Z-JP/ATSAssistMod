@@ -29,6 +29,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.script.ScriptEngine;
 import java.io.Serializable;
@@ -693,6 +694,7 @@ public abstract class IFTTTContainer implements Serializable {
                 private static final long serialVersionUID = -83401892282647225L;
                 private String command = "";
                 private String result = "";
+                private String displayName = "";
 
                 public void setCommand(String command) {
                     this.command = command;
@@ -702,6 +704,14 @@ public abstract class IFTTTContainer implements Serializable {
                     return command;
                 }
 
+                public void setDisplayName(String displayName) {
+                    this.displayName = displayName;
+                }
+
+                public String getDisplayName() {
+                    return this.displayName == null ? "" : this.displayName;
+                }
+
                 @Override
                 public IFTTTType.IFTTTEnumBase getType() {
                     return IFTTTType.That.Minecraft.ExecuteCommand;
@@ -709,13 +719,17 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public String[] getExplanation() {
-                    return new String[]{I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.1") + ": " + this.command};
+                    return new String[]{
+                            StringUtils.isNotEmpty(this.displayName) ?
+                                    this.displayName :
+                                    (I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.1") + ": " + this.command)};
                 }
 
                 @Override
                 @SideOnly(Side.CLIENT)
                 public void setFromGui(GUIIFTTTMaterial gui) {
-                    this.setCommand(gui.getTextFieldText(0));
+                    this.setDisplayName(gui.getTextFieldText(0));
+                    this.setCommand(gui.getTextFieldText(1));
                 }
 
                 @Override
