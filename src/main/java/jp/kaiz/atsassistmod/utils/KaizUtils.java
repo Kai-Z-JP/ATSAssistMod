@@ -7,6 +7,7 @@ import jp.ngt.ngtlib.util.NGTUtil;
 import jp.ngt.ngtlib.util.NGTUtilClient;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.audio.SoundManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import org.apache.commons.lang3.EnumUtils;
 import paulscode.sound.SoundSystem;
@@ -60,7 +61,6 @@ public class KaizUtils {
             while (ais.read(buff, 0, bytecount) != -1) {
                 sndSystem.feedRawAudioData(name, buff);
             }
-            System.out.println(String.valueOf(sndSystem.playing(name)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,7 +71,6 @@ public class KaizUtils {
         if (posList != null && orderList != null) {
             ATSAssistCore.proxy.playSounds(tile, posList, orderList, volume);
         }
-
     }
 
     public static void playSounds(TileEntity tile, int[][] posArray, Object[] orderArray, float volume) {
@@ -80,5 +79,20 @@ public class KaizUtils {
         }
 
         playSounds(tile, Arrays.asList(posArray), Arrays.asList(orderArray), volume);
+    }
+
+
+    public static void playSounds(Entity entity, List<Object> orderList, float volume) {
+        if (orderList != null) {
+            ATSAssistCore.proxy.playSounds(entity, orderList, volume);
+        }
+    }
+
+    public static void playSounds(Entity entity, Object[] orderArray, float volume) {
+        if (orderArray == null) {
+            return;
+        }
+
+        playSounds(entity, Arrays.asList(orderArray), volume);
     }
 }

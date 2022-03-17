@@ -27,6 +27,7 @@ public class ATSAssistNetwork {
         NETWORK_WRAPPER.registerMessage(PacketPlaySoundIFTTT.class, PacketPlaySoundIFTTT.class, 32, Side.CLIENT);
 
         NETWORK_WRAPPER.registerMessage(PacketPlaySounds.class, PacketPlaySounds.class, 40, Side.CLIENT);
+        NETWORK_WRAPPER.registerMessage(PacketPlaySoundsEntity.class, PacketPlaySoundsEntity.class, 41, Side.CLIENT);
 
         NETWORK_WRAPPER.registerMessage(PacketFormationSync.class, PacketFormationSync.class, 90, Side.SERVER);
         NETWORK_WRAPPER.registerMessage(PacketFormationSync.class, PacketFormationSync.class, 91, Side.CLIENT);
