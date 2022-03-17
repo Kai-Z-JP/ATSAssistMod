@@ -62,7 +62,7 @@ public class RnATSController extends TrainProtection {
         float overSpeed = speedH - this.limitSpeed;
         if (overSpeed > 5) {
             return -7;
-        } else if (overSpeed > 0) {
+        } else if (overSpeed > 0 || this.train.getSignal() == 1) {
             return -4;
         } else {
             return 1;
