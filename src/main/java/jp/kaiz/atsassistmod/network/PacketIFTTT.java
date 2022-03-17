@@ -17,6 +17,7 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
     private byte[] serialized;
     private int ifcbIndex;
     private int type;
+    private boolean anyMatch;
 
     public PacketIFTTT() {
     }
@@ -26,6 +27,7 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
         this.serialized = IFTTTUtil.convertClass(ifcb);
         this.ifcbIndex = ifcbIndex;
         this.type = type;
+        this.anyMatch = tile.isAnyMatch();
     }
 
     @Override
@@ -34,6 +36,7 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
         this.ifcbIndex = buf.readInt();
         this.type = buf.readInt();
         this.serialized = ByteBufUtil.getBytes(buf);
+        this.anyMatch = buf.readBoolean();
     }
 
     @Override
@@ -42,6 +45,7 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
         buf.writeInt(this.ifcbIndex);
         buf.writeInt(this.type);
         buf.writeBytes(this.serialized);
+        buf.writeBoolean(this.anyMatch);
     }
 
     @Override
@@ -53,6 +57,8 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
             tile.addIFTTT(IFTTTUtil.convertClass(message.serialized));
         } else if (message.type == 2) {
             tile.removeIFTTT(IFTTTUtil.convertClass(message.serialized), message.ifcbIndex);
+        } else if (message.type == 3) {
+            tile.setAnyMatch(message.anyMatch);
         } else {
             tile.setIFTTT(IFTTTUtil.convertClass(message.serialized), message.ifcbIndex);
         }

@@ -45,6 +45,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseZ, float partialTick) {
         super.drawDefaultBackground();
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
 
         GL11.glPushMatrix();
         GL11.glTranslatef(1.0F, 1.0F, 1.0F);
@@ -58,6 +59,11 @@ public class GUIIFTTTMaterial extends GuiScreen {
             this.mc.getTextureManager().bindTexture(GuiTextureManager.IFTTTBaseLayer.texture);
             this.drawTexturedModalRect(0, 0, 0, 0, 256, 256);
             GL11.glPopMatrix();
+
+            this.fontRenderer.drawStringWithShadow("AnyMatch",
+                    this.width / 2 - this.fontRenderer.getStringWidth("AnyMatch") / 2 - 161,
+                    this.height / 2 - this.fontRenderer.FONT_HEIGHT / 2 - 15,
+                    0xffffff);
         } else {
             this.fontRenderer.drawString("IFTTT : " + (this.type instanceof IFTTTContainer.This ? "This" : "That") + " : " + this.type.getName(),
                     this.width / 4, 20, 0xffffff);
@@ -243,6 +249,8 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 }
             }
             this.addAddButton(200, this.width / 2 - 73, this.height / 2 + 19, i1, thatSize);
+
+            this.buttonList.add(new GuiCheckBox(300, this.width / 2 - 138, this.height / 2 - 20, "", this.tile.isAnyMatch()));
         } else {
             switch (this.type.getId()) {
                 case 100: {//IFTTTType.This.Select
@@ -525,6 +533,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
             if (ifc != null) {
                 this.changeIFC(ifc);
             }
+        } else if (button.id == 300) {
+            this.tile.setAnyMatch(!this.tile.isAnyMatch());
+            ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketIFTTT(this.tile, this.ifcb, this.ifcbIndex, 3));
         } else if (button.id >= 1000) {
             if (this.type != null) {
                 switch (this.type.getId()) {
