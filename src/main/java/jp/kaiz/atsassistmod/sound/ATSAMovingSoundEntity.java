@@ -24,6 +24,8 @@ public class ATSAMovingSoundEntity extends MovingSound {
     public void update() {
         if (this.entity.isEntityAlive()) {
             this.setPos((int) this.entity.posX, (int) this.entity.posY, (int) this.entity.posZ);
+        } else {
+            this.stop();
         }
     }
 
