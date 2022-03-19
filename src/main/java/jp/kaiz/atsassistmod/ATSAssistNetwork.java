@@ -28,6 +28,7 @@ public class ATSAssistNetwork {
         NETWORK_WRAPPER.registerMessage(PacketPlaySoundIFTTT.class, PacketPlaySoundIFTTT.class, 32, Side.CLIENT);
 
         NETWORK_WRAPPER.registerMessage(PacketPlaySounds.class, PacketPlaySounds.class, 40, Side.CLIENT);
+        NETWORK_WRAPPER.registerMessage(PacketPlaySoundsEntity.class, PacketPlaySoundsEntity.class, 41, Side.CLIENT);
 
         NetworkRegistry.INSTANCE.registerGuiHandler(ATSAssistCore.INSTANCE, new ATSAssistGUIHandler());
     }

@@ -4,11 +4,13 @@ import jp.kaiz.atsassistmod.block.tileentity.TileEntityCustom;
 import jp.kaiz.atsassistmod.event.ATSAssistEventHandlerClient;
 import jp.kaiz.atsassistmod.event.ATSAssistKeyHandler;
 import jp.kaiz.atsassistmod.render.TileEntityBeamRenderer;
+import jp.kaiz.atsassistmod.sound.ATSAMovingSoundEntity;
 import jp.kaiz.atsassistmod.sound.ATSAMovingSoundTileEntity;
 import jp.ngt.ngtlib.util.NGTUtilClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -87,6 +89,31 @@ public class ClientProxy extends CommonProxy {
                         ATSAssistEventHandlerClient.soundList.addAll(trackList);
                         Thread.sleep(50L);
                         while (soundHandler.isSoundPlaying(trackList.get(0))) {
+                        }
+                    } else if (NumberUtils.isNumber(order)) {
+                        Thread.sleep((long) (1000L * Double.parseDouble(order)));
+                    }
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+            });
+        }).start();
+    }
+
+    @Override
+    public void playSounds(Entity entity, List<Object> orderList, float volume) {
+        new Thread(() -> {
+            SoundHandler soundHandler = NGTUtilClient.getMinecraft().getSoundHandler();
+            orderList.stream().filter(Objects::nonNull).map(Object::toString).forEach(order -> {
+                try {
+                    if (order.contains(":")) {
+                        String[] domainPath = order.split(":");
+                        ResourceLocation src = new ResourceLocation(domainPath[0], domainPath[1]);
+
+                        ISound track = new ATSAMovingSoundEntity(entity, src, false, volume);
+                        ATSAssistEventHandlerClient.soundList.add(track);
+                        Thread.sleep(50L);
+                        while (soundHandler.isSoundPlaying(track)) {
                         }
                     } else if (NumberUtils.isNumber(order)) {
                         Thread.sleep((long) (1000L * Double.parseDouble(order)));
