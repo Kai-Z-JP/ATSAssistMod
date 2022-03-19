@@ -53,12 +53,12 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
         BlockPos blockPos = BlockPos.fromLong(message.pos);
         World world = ctx.getServerHandler().player.getServerWorld();
         TileEntityIFTTT tile = (TileEntityIFTTT) world.getTileEntity(blockPos);
-        if (message.ifcbIndex == -1) {
+        if (message.type == 3) {
+            tile.setAnyMatch(message.anyMatch);
+        } else if (message.ifcbIndex == -1) {
             tile.addIFTTT(IFTTTUtil.convertClass(message.serialized));
         } else if (message.type == 2) {
             tile.removeIFTTT(IFTTTUtil.convertClass(message.serialized), message.ifcbIndex);
-        } else if (message.type == 3) {
-            tile.setAnyMatch(message.anyMatch);
         } else {
             tile.setIFTTT(IFTTTUtil.convertClass(message.serialized), message.ifcbIndex);
         }
