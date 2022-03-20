@@ -148,6 +148,7 @@ ATSAssistMod.IFTTTType.200=Select
 ATSAssistMod.IFTTTType.210=RS Output
 ATSAssistMod.IFTTTType.211=Play sound
 ATSAssistMod.IFTTTType.212=Execute command
+ATSAssistMod.IFTTTType.213=SetBlock
 ATSAssistMod.IFTTTType.220=TrainState
 ATSAssistMod.IFTTTType.221=TrainDataMap
 ATSAssistMod.IFTTTType.222=BlockDataMap
