@@ -161,11 +161,14 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> ((GuiCheckBox) button).setIsChecked(this.ifcb.isOnce()));
                     break;
                 case 213://SetBlock
-                    this.fontRendererObj.drawString("x", this.width / 2 - 72, this.height / 2 - 80, 0xffffff);
-                    this.fontRendererObj.drawString("y", this.width / 2 - 37, this.height / 2 - 80, 0xffffff);
-                    this.fontRendererObj.drawString("z", this.width / 2 - 2, this.height / 2 - 80, 0xffffff);
-                    this.fontRendererObj.drawString("id", this.width / 2 + 30, this.height / 2 - 80, 0xffffff);
-                    this.fontRendererObj.drawString("meta", this.width / 2 + 62, this.height / 2 - 80, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.213.0"),
+                            this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
+                    this.fontRendererObj.drawString("x", this.width / 2 - 72, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString("y", this.width / 2 - 37, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString("z", this.width / 2 - 2, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString("id", this.width / 2 + 30, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString("meta", this.width / 2 + 62, this.height / 2 - 50, 0xffffff);
+                    ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> ((GuiCheckBox) button).setIsChecked(this.ifcb.isOnce()));
                     break;
                 case 221://DataMap
                     this.fontRendererObj.drawString("DataType",
@@ -333,8 +336,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     break;
                 }
                 case 213: {//SetBlock
+                    this.buttonList.add(new GuiCheckBox(1000, this.width / 2 + 45, this.height / 2 - 80, "", false));
                     IFTTTContainer.That.Minecraft.SetBlock ifcb = ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb);
-                    int h = this.height / 2 - 50;
+                    int h = this.height / 2 - 30;
                     List<int[]> posList = ifcb.getPosList();
                     for (int i = 0, posListSize = posList.size(); i < posListSize; i++) {
                         int[] pos = posList.get(i);
@@ -601,6 +605,11 @@ public class GUIIFTTTMaterial extends GuiScreen {
                         }
                         break;
                     case 213: {
+                        switch (button.id) {
+                            case 1000:
+                                this.ifcb.setOnce(((GuiCheckBox) button).isChecked());
+                                return;
+                        }
                         if (button.id >= 2000 && button.id < 3000) {
                             ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb).addPos(new int[]{0, 0, 0, 0, 0}, button.id - 2000);
                         } else if (button.id >= 3000 && button.id < 4000) {
