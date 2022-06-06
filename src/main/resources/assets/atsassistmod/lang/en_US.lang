@@ -177,6 +177,8 @@ ATSAssistMod.gui.IFTTTMaterial.211.2=Radius
 ATSAssistMod.gui.IFTTTMaterial.212.0=Run only once
 ATSAssistMod.gui.IFTTTMaterial.212.1=Command
 
+ATSAssistMod.gui.IFTTTMaterial.213.0=Run only once
+
 ATSAssistMod.gui.IFTTTMaterial.common.button.91.0=Add
 ATSAssistMod.gui.IFTTTMaterial.common.button.91.1=Change
 ATSAssistMod.gui.IFTTTMaterial.common.button.990=Back
