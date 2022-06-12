@@ -781,6 +781,10 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public void doThat(TileEntityIFTTT tile, EntityTrainBase train, boolean first) {
+                    if (!this.once || first) {
+                        World world = tile.getWorld();
+                        this.getPosList().forEach(pos -> BlockUtil.setBlock(world, pos[0], pos[1], pos[2], Block.getBlockById(pos[3]), pos[4], 3));
+                    }
                     World world = tile.getWorld();
                     this.getPosList().forEach(pos -> BlockUtil.setBlock(world, pos[0], pos[1], pos[2], Block.getBlockById(pos[3]), pos[4], 3));
                 }
