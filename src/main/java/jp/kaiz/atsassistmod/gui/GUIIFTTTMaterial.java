@@ -65,7 +65,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.height / 2 - this.fontRenderer.FONT_HEIGHT / 2 - 15,
                     0xffffff);
         } else {
-            this.fontRenderer.drawString("IFTTT : " + (this.type instanceof IFTTTContainer.This ? "This" : "That") + " : " + this.type.getName(),
+            this.fontRenderer.drawString("IFTTT : " + (this.type.getId() < 200 ? "This" : "That") + " : " + this.type.getName(),
                     this.width / 4, 20, 0xffffff);
             switch (this.type.getId()) {
                 case 100://IFTTTType.This.Select
