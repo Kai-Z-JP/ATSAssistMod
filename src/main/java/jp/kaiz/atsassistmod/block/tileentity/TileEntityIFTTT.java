@@ -55,7 +55,7 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
                     this.xCoord - 1, this.yCoord, this.zCoord - 1, this.xCoord + 2, this.yCoord + 4, this.zCoord + 2);
             List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
             EntityTrainBase train = list.isEmpty() ? null : (EntityTrainBase) list.get(0);
-            if ((!this.anyMatch && this.thisList.stream().allMatch(iftttContainer -> ((IFTTTContainer.This) iftttContainer).isCondition(this, train)))
+            if ((!this.anyMatch && !this.thisList.isEmpty() && this.thisList.stream().allMatch(iftttContainer -> ((IFTTTContainer.This) iftttContainer).isCondition(this, train)))
                     || (this.anyMatch && this.thisList.stream().anyMatch(iftttContainer -> ((IFTTTContainer.This) iftttContainer).isCondition(this, train)))) {
                 this.thatList.forEach(iftttContainer -> ((IFTTTContainer.That) iftttContainer).doThat(this, train, !this.notFirst));
                 this.notFirst = true;
