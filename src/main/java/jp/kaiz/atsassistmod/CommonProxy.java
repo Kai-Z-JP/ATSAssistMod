@@ -25,6 +25,8 @@ public class CommonProxy {
 
         GameRegistry.registerTileEntity(TileEntityGroundUnit.ATCSpeedLimitCancel.class, "TileGU_ATC_SpeedLimit_Cancel");
 
+        GameRegistry.registerTileEntity(TileEntityGroundUnit.ATCSpeedLimitReset.class, "TileGU_ATC_SpeedLimit_Reset");
+
         GameRegistry.registerTileEntity(TileEntityGroundUnit.TASCStopPositionNotice.class, "TileGU_TASC_StopPosition_Notice");
 
         GameRegistry.registerTileEntity(TileEntityGroundUnit.TASCDisable.class, "TileGU_TASC_Cancel");

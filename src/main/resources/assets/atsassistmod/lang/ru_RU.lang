@@ -44,6 +44,7 @@ ATSAssistMod.gui.GroundUnitMenu.0.text.3=Поездная защита
 ATSAssistMod.gui.GroundUnitMenu.0.text.4=Остальное
 ATSAssistMod.gui.GroundUnitMenu.0.button.1=Уведомление об ограничении скорости
 ATSAssistMod.gui.GroundUnitMenu.0.button.2=Освобождение от ограничения скорости
+ATSAssistMod.gui.GroundUnitMenu.0.button.3=Одновременное снятие ограничения скорости
 ATSAssistMod.gui.GroundUnitMenu.0.button.4=Установка расстояния и контроль запуска
 ATSAssistMod.gui.GroundUnitMenu.0.button.5=Конец управления
 ATSAssistMod.gui.GroundUnitMenu.0.button.6=Коррекция расстояния
