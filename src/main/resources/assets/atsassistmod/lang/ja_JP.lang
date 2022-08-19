@@ -44,6 +44,7 @@ ATSAssistMod.gui.GroundUnitMenu.0.text.4=その他
 
 ATSAssistMod.gui.GroundUnitMenu.0.button.1=速度制限予告
 ATSAssistMod.gui.GroundUnitMenu.0.button.2=速度制限解除
+ATSAssistMod.gui.GroundUnitMenu.0.button.3=速度制限一斉解除
 ATSAssistMod.gui.GroundUnitMenu.0.button.4=停車位置予告
 ATSAssistMod.gui.GroundUnitMenu.0.button.5=制御終了
 ATSAssistMod.gui.GroundUnitMenu.0.button.6=停車距離補正

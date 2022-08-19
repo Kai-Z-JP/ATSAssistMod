@@ -269,6 +269,73 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
         }
     }
 
+    public static class ATCSpeedLimitReset extends TileEntityGroundUnit implements TrainDistance {
+        //編成最後尾で解除
+        private boolean useTrainDistance;
+
+        @Override
+        public void readNBT(NBTTagCompound tag) {
+            this.useTrainDistance = tag.getBoolean("lateCancel");
+        }
+
+        @Override
+        public void writeNBT(NBTTagCompound tag) {
+            tag.setBoolean("lateCancel", useTrainDistance);
+        }
+
+        @Override
+        public void onTick(EntityTrainBase train) {
+            if (this.formationID != train.getFormation().id) {
+                TrainControllerManager.getTrainController(train).removeAllSpeedLimit();
+                this.formationID = train.getFormation().id;
+            }
+        }
+
+        @Override
+        public void updateEntity() {
+            if (!this.worldObj.isRemote) {
+                if (!this.linkRedStone || this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord)) {//レッドストーン確認
+                    AxisAlignedBB detect = AxisAlignedBB.getBoundingBox(
+                            this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 4, this.zCoord + 1);
+                    List<?> list = this.worldObj.getEntitiesWithinAABB(EntityTrainBase.class, detect);
+                    if (!list.isEmpty()) {
+                        EntityTrainBase train = (EntityTrainBase) list.get(0);
+                        if (this.useTrainDistance) {
+                            if (train.getFormation().size() == 1) {
+                                this.onTick(train);
+                                return;
+                            } else if (!train.isControlCar() && (train.getConnectedTrain(0) == null || train.getConnectedTrain(1) == null)) {
+                                this.onTick(train);
+                                return;
+                            }
+                        } else {
+                            if (train.isControlCar()) {
+                                this.onTick(train);
+                                return;
+                            }
+                        }
+                    }
+                }
+                this.formationID = 0;
+            }
+        }
+
+        @Override
+        public GroundUnitType getType() {
+            return GroundUnitType.ATC_SpeedLimit_Cancel;
+        }
+
+        @Override
+        public void setUseTrainDistance(boolean useTrainDistance) {
+            this.useTrainDistance = useTrainDistance;
+        }
+
+        @Override
+        public boolean isUseTrainDistance() {
+            return this.useTrainDistance;
+        }
+    }
+
     public static class TASCStopPositionNotice extends TileEntityGroundUnit implements Distance, TrainDistance {
         private double distance;
         private boolean trainDistance;

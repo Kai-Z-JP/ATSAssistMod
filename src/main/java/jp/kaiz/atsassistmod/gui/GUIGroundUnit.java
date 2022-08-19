@@ -180,6 +180,9 @@ public class GUIGroundUnit extends GuiScreenCustom {
                         new GuiButton(2, this.width / 2 - 50, this.height / 2 - 75, 100, 20, /*"速度制限解除"*/
                                 I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.2")
                         ),
+                        new GuiButton(3, this.width / 2 + 70, this.height / 2 - 75, 100, 20,
+                                I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.3")
+                        ),
                         new GuiButton(4, this.width / 2 - 170, this.height / 2 - 35, 100, 20, /*"停車位置予告"*/
                                 I18n.format("ATSAssistMod.gui.GroundUnitMenu.0.button.4")
                         ),
@@ -222,6 +225,10 @@ public class GUIGroundUnit extends GuiScreenCustom {
             case ATC_SpeedLimit_Cancel: {
                 this.addDownCommon();
                 this.buttonList.add(new GuiCheckBox(31, this.width / 2 + 45, this.height / 2 - 25, "", ((TileEntityGroundUnit.TrainDistance) tile).isUseTrainDistance()));
+                break;
+            }
+            case ATC_SpeedLimit_Reset: {
+                this.addDownCommon();
                 break;
             }
             case TASC_StopPotion_Correction:
