@@ -90,7 +90,7 @@ public class TrainController {
 
     public void removeSpeedLimit() {
         if (!this.speedLimit.isEmpty()) {
-            this.speedLimit.remove(this.speedLimit.size() - 1);
+            this.speedLimit.remove(0);
         }
     }
 
