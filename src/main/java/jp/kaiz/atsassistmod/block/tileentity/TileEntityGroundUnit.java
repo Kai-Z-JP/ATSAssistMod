@@ -322,7 +322,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom {
 
         @Override
         public GroundUnitType getType() {
-            return GroundUnitType.ATC_SpeedLimit_Cancel;
+            return GroundUnitType.ATC_SpeedLimit_Reset;
         }
 
         @Override
