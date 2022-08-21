@@ -233,7 +233,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
         public void onTick(EntityTrainBase train) {
             if (this.formationID != train.getFormation().id) {
                 TrainControllerManager.getTrainController(train)
-                                      .removeSpeedLimit();
+                        .removeSpeedLimit();
                 this.formationID = train.getFormation().id;
             }
         }
@@ -244,16 +244,16 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
                 if (!this.linkRedStone || this.getWorld().isBlockIndirectlyGettingPowered(this.getPos()) > 0) {
                     //レッドストーン確認
                     AxisAlignedBB detect = new AxisAlignedBB(this.getPos(), this.getPos()
-                                                                                .add(1, 4, 1));
+                            .add(1, 4, 1));
                     EntityTrainBase train = this.getWorld()
-                                                .getEntitiesWithinAABB(EntityTrainBase.class, detect)
-                                                .stream()
-                                                .findFirst()
-                                                .orElse(null);
+                            .getEntitiesWithinAABB(EntityTrainBase.class, detect)
+                            .stream()
+                            .findFirst()
+                            .orElse(null);
                     if (train != null) {
                         if (this.useTrainDistance) {
                             if (train.getFormation()
-                                     .size() == 1) {
+                                    .size() == 1) {
                                 this.onTick(train);
                                 return;
                             } else if (!train.isControlCar() && (train.getConnectedTrain(0) == null || train.getConnectedTrain(1) == null)) {
@@ -275,6 +275,78 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
         @Override
         public GroundUnitType getType() {
             return GroundUnitType.ATC_SpeedLimit_Cancel;
+        }
+
+        @Override
+        public void setUseTrainDistance(boolean useTrainDistance) {
+            this.useTrainDistance = useTrainDistance;
+        }
+
+        @Override
+        public boolean isUseTrainDistance() {
+            return this.useTrainDistance;
+        }
+    }
+
+    public static class ATCSpeedLimitReset extends TileEntityGroundUnit implements TrainDistance {
+        //編成最後尾で解除
+        private boolean useTrainDistance;
+
+        @Override
+        public void readNBT(NBTTagCompound tag) {
+            this.useTrainDistance = tag.getBoolean("lateCancel");
+        }
+
+        @Override
+        public void writeNBT(NBTTagCompound tag) {
+            tag.setBoolean("lateCancel", useTrainDistance);
+        }
+
+        @Override
+        public void onTick(EntityTrainBase train) {
+            if (this.formationID != train.getFormation().id) {
+                TrainControllerManager.getTrainController(train).removeAllSpeedLimit();
+                this.formationID = train.getFormation().id;
+            }
+        }
+
+        @Override
+        public void update() {
+            if (!this.getWorld().isRemote) {
+                if (!this.linkRedStone || this.getWorld().isBlockIndirectlyGettingPowered(this.getPos()) > 0) {
+                    //レッドストーン確認
+                    AxisAlignedBB detect = new AxisAlignedBB(this.getPos(), this.getPos()
+                            .add(1, 4, 1));
+                    EntityTrainBase train = this.getWorld()
+                            .getEntitiesWithinAABB(EntityTrainBase.class, detect)
+                            .stream()
+                            .findFirst()
+                            .orElse(null);
+                    if (train != null) {
+                        if (this.useTrainDistance) {
+                            if (train.getFormation()
+                                    .size() == 1) {
+                                this.onTick(train);
+                                return;
+                            } else if (!train.isControlCar() && (train.getConnectedTrain(0) == null || train.getConnectedTrain(1) == null)) {
+                                this.onTick(train);
+                                return;
+                            }
+                        } else {
+                            if (train.isControlCar()) {
+                                this.onTick(train);
+                                return;
+                            }
+                        }
+                    }
+                }
+                this.formationID = 0;
+            }
+        }
+
+        @Override
+        public GroundUnitType getType() {
+            return GroundUnitType.ATC_SpeedLimit_Reset;
         }
 
         @Override

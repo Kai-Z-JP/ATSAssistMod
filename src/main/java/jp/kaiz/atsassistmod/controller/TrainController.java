@@ -94,6 +94,12 @@ public class TrainController {
         }
     }
 
+    public void removeAllSpeedLimit() {
+        if (!this.speedLimit.isEmpty()) {
+            this.speedLimit.clear();
+        }
+    }
+
     //速度制限
     public int getSpeedLimit() {
         //未設定の時はInteger.MAX_VALUEを返す

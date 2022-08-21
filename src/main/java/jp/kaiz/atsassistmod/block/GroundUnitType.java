@@ -19,6 +19,11 @@ public enum GroundUnitType {
         public TileEntityGroundUnit getNewInstance() {
             return new TileEntityGroundUnit.ATCSpeedLimitCancel();
         }
+    }, ATC_SpeedLimit_Reset(3) {
+        @Override
+        public TileEntityGroundUnit getNewInstance() {
+            return new TileEntityGroundUnit.ATCSpeedLimitReset();
+        }
     }, TASC_StopPotion_Notice(4) {
         @Override
         public TileEntityGroundUnit getNewInstance() {

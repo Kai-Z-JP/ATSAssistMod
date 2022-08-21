@@ -45,6 +45,7 @@ ATSAssistMod.gui.GroundUnitMenu.1.text.0=속도제한    (km/h)
 ATSAssistMod.gui.GroundUnitMenu.1.text.1=제한시작까지의 거리 (m)
 ATSAssistMod.gui.GroundUnitMenu.0.button.1=속도제한 예고
 ATSAssistMod.gui.GroundUnitMenu.0.button.2=속도제한 해제
+ATSAssistMod.gui.GroundUnitMenu.0.button.3=속도제한 일제해제
 ATSAssistMod.gui.GroundUnitMenu.0.button.4=정차위치 예고
 ATSAssistMod.gui.GroundUnitMenu.0.button.5=제어종료
 ATSAssistMod.gui.GroundUnitMenu.0.button.6=정차위치까지의 거리 수정

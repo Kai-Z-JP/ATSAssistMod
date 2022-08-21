@@ -44,6 +44,7 @@ ATSAssistMod.gui.GroundUnitMenu.0.text.3=Train Protection
 ATSAssistMod.gui.GroundUnitMenu.0.text.4=Other
 ATSAssistMod.gui.GroundUnitMenu.0.button.1=Speed limit notice
 ATSAssistMod.gui.GroundUnitMenu.0.button.2=Speed limit release
+ATSAssistMod.gui.GroundUnitMenu.0.button.3=All Speed limit release
 ATSAssistMod.gui.GroundUnitMenu.0.button.4=Distance setting & Control start
 ATSAssistMod.gui.GroundUnitMenu.0.button.5=Control end
 ATSAssistMod.gui.GroundUnitMenu.0.button.6=Distance correction
