@@ -10,8 +10,10 @@ import jp.kaiz.atsassistmod.sound.ATSASoundPlayer;
 import jp.kaiz.atsassistmod.utils.ComparisonManager;
 import jp.kaiz.atsassistmod.utils.KaizUtils;
 import jp.ngt.ngtlib.io.ScriptUtil;
+import jp.ngt.rtm.entity.EntityInstalledObject;
+import jp.ngt.rtm.entity.train.EntityBogie;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
-import jp.ngt.rtm.entity.train.parts.EntityFloor;
+import jp.ngt.rtm.entity.train.parts.EntityVehiclePart;
 import jp.ngt.rtm.modelpack.state.DataMap;
 import jp.ngt.rtm.modelpack.state.DataType;
 import jp.ngt.rtm.modelpack.state.ResourceState;
@@ -20,7 +22,7 @@ import jp.ngt.rtm.rail.TileEntityLargeRailBase;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.event.ClickEvent;
 import net.minecraft.tileentity.TileEntity;
@@ -517,11 +519,18 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
-                    return tile.getWorldObj().getEntitiesWithinAABB(EntityLiving.class.getSuperclass(), AxisAlignedBB.getBoundingBox(
+                    return ((List<Entity>) tile.getWorldObj().getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(
                             Math.min(this.startCC[0], this.endCC[0]), Math.min(this.startCC[1], this.endCC[1]), Math.min(this.startCC[2], this.endCC[2]),
                             Math.max(this.startCC[0], this.endCC[0]), Math.max(this.startCC[1], this.endCC[1]), Math.max(this.startCC[2], this.endCC[2])
-                    )).stream().anyMatch(o ->
-                            !((((Entity) o).ridingEntity instanceof EntityTrainBase) || (((Entity) o).ridingEntity instanceof EntityFloor)));
+                    ))).stream()
+                            .filter(obj -> !(obj instanceof EntityTrainBase))
+                            .filter(obj -> !(obj instanceof EntityVehiclePart))
+                            .filter(obj -> !(obj instanceof EntityBogie))
+                            .filter(obj -> !(obj instanceof EntityItem))
+                            .filter(obj -> !(obj instanceof EntityInstalledObject))
+                            .filter(obj -> !(obj.ridingEntity instanceof EntityTrainBase))
+                            .filter(obj -> !(obj.ridingEntity instanceof EntityVehiclePart))
+                            .count() > 0;
                 }
             }
         }
