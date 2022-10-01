@@ -82,7 +82,7 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
     public void setRedStoneOutput(int power) {
         if (this.redStoneOutput != power) {
             this.redStoneOutput = power;
-            this.getWorld().notifyNeighborsOfStateChange(this.getPos(), this.getBlockType(), true);
+            this.getWorld().updateComparatorOutputLevel(this.getPos(), this.getBlockType());
         }
     }
 

@@ -9,7 +9,6 @@ import jp.ngt.ngtlib.block.BlockUtil;
 import jp.ngt.ngtlib.network.PacketNBT;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.entity.train.util.TrainState;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -49,14 +48,14 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
     public void update() {
         if (!this.getWorld().isRemote) {
             if (!this.linkRedStone || this.getWorld()
-                                          .isBlockIndirectlyGettingPowered(this.getPos()) > 0) {//レッドストーン確認
+                    .isBlockIndirectlyGettingPowered(this.getPos()) > 0) {//レッドストーン確認
                 AxisAlignedBB detect = new AxisAlignedBB(this.getPos(), this.getPos()
-                                                                            .add(1, 3, 1));
+                        .add(1, 3, 1));
                 EntityTrainBase train = this.getWorld()
-                                            .getEntitiesWithinAABB(EntityTrainBase.class, detect)
-                                            .stream()
-                                            .findFirst()
-                                            .orElse(null);
+                        .getEntitiesWithinAABB(EntityTrainBase.class, detect)
+                        .stream()
+                        .findFirst()
+                        .orElse(null);
                 if (train != null) {
                     if (train.isControlCar()) {
                         if (this.formationID != train.getFormation().id) {
@@ -78,10 +77,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
     public void setRedStoneOutput(int power) {
         if (this.redStoneOutput != power) {
             this.redStoneOutput = power;
-            IBlockState state = this.getWorld()
-                                    .getBlockState(this.getPos());
-            this.getWorld()
-                .notifyBlockUpdate(this.getPos(), state, state, 3);
+            this.getWorld().updateComparatorOutputLevel(this.getPos(), this.getBlockType());
         }
     }
 
@@ -493,10 +489,10 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
             if (!this.getWorld().isRemote) {
                 AxisAlignedBB detect = new AxisAlignedBB(this.getPos(), this.getPos().add(1, 3, 1));
                 EntityTrainBase train = this.getWorld()
-                                            .getEntitiesWithinAABB(EntityTrainBase.class, detect)
-                                            .stream()
-                                            .findFirst()
-                                            .orElse(null);
+                        .getEntitiesWithinAABB(EntityTrainBase.class, detect)
+                        .stream()
+                        .findFirst()
+                        .orElse(null);
                 if (train != null) {
                     if (this.linkRedStone) {//逆転前以外でも
                         this.onTick(train);
@@ -515,7 +511,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
         @Override
         public void onTick(EntityTrainBase train) {
             this.setRedStoneOutput(train.getSpeed() == 0F ? train.getFormation()
-                                                                 .size() : 0);
+                    .size() : 0);
         }
 
         @Override
@@ -540,7 +536,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
         @Override
         public void onTick(EntityTrainBase train) {
             TrainControllerManager.getTrainController(train)
-                                  .enableATO(this.speedLimit);
+                    .enableATO(this.speedLimit);
         }
 
         @Override
@@ -574,7 +570,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
         @Override
         public void onTick(EntityTrainBase train) {
             TrainControllerManager.getTrainController(train)
-                                  .disableATO();
+                    .disableATO();
         }
 
         @Override
@@ -599,7 +595,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
         @Override
         public void onTick(EntityTrainBase train) {
             TrainControllerManager.getTrainController(train)
-                                  .setMaxSpeed(this.speedLimit);
+                    .setMaxSpeed(this.speedLimit);
         }
 
         @Override
@@ -673,10 +669,10 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
                 if (this.getWorld().isBlockIndirectlyGettingPowered(this.getPos()) > 0) {//レッドストーン確認
                     AxisAlignedBB detect = new AxisAlignedBB(this.getPos().add(-1, 0, -1), this.getPos().add(2, 3, 2));
                     EntityTrainBase train = this.getWorld()
-                                                .getEntitiesWithinAABB(EntityTrainBase.class, detect)
-                                                .stream()
-                                                .findFirst()
-                                                .orElse(null);
+                            .getEntitiesWithinAABB(EntityTrainBase.class, detect)
+                            .stream()
+                            .findFirst()
+                            .orElse(null);
                     if (train != null) {
                         if (this.linkRedStone) {//逆転前以外でも
                             this.onTick(train);
@@ -717,7 +713,7 @@ public abstract class TileEntityGroundUnit extends TileEntityCustom implements I
         @Override
         protected void onTick(EntityTrainBase train) {
             TrainControllerManager.getTrainController(train)
-                                  .setTrainProtection(TrainProtectionType.getType(this.tpType));
+                    .setTrainProtection(TrainProtectionType.getType(this.tpType));
         }
 
         @Override
