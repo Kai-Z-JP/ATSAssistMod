@@ -2,6 +2,7 @@
 tile.ATSAssistMod:GroundUnit.0.name=保安装置ブロック(無動作)
 tile.ATSAssistMod:GroundUnit.1.name=保安装置ブロック(ATC:制限予告)
 tile.ATSAssistMod:GroundUnit.2.name=保安装置ブロック(ATC:制限解除)
+tile.ATSAssistMod:GroundUnit.3.name=保安装置ブロック(ATC:制限クリア)
 tile.ATSAssistMod:GroundUnit.4.name=保安装置ブロック(TASC:距離設定 制御開始)
 tile.ATSAssistMod:GroundUnit.5.name=保安装置ブロック(TASC:制御終了)
 tile.ATSAssistMod:GroundUnit.6.name=保安装置ブロック(TASC:距離補正)
@@ -63,6 +64,8 @@ ATSAssistMod.gui.GroundUnitMenu.1.text.2=自動的に減速する
 
 ATSAssistMod.gui.GroundUnitMenu.2.title=地上子機能 : ATC(ATO) : 速度制限解除
 ATSAssistMod.gui.GroundUnitMenu.2.text.0=編成最後尾で解除
+
+ATSAssistMod.gui.GroundUnitMenu.3.title=地上子機能 : ATC(ATO) : 速度制限クリア
 
 ATSAssistMod.gui.GroundUnitMenu.4.title=地上子機能 : TASC : 距離設定 制御開始
 ATSAssistMod.gui.GroundUnitMenu.4.text.0=停車位置までの距離
