@@ -3,6 +3,7 @@
 tile.atsa:groundunit.0.name=TrainProtection Block(None)
 tile.atsa:groundunit.1.name=TrainProtection Block(ATC:Speed limit notice)
 tile.atsa:groundunit.2.name=TrainProtection Block(ATC:Speed limit cancel)
+tile.atsa:groundunit.3.name=TrainProtection Block(ATC:Speed limit clear)
 tile.atsa:groundunit.4.name=TrainProtection Block(TASC:Distance setting & Control start)
 tile.atsa:groundunit.5.name=TrainProtection Block(TASC:Control end)
 tile.atsa:groundunit.6.name=TrainProtection Block(TASC:Distance correction)
@@ -63,6 +64,8 @@ ATSAssistMod.gui.GroundUnitMenu.1.text.2=Auto braking
 
 ATSAssistMod.gui.GroundUnitMenu.2.title=Ground unit menu : ATC (ATO) : Speed limit release
 ATSAssistMod.gui.GroundUnitMenu.2.text.0=Cancel at the end
+
+ATSAssistMod.gui.GroundUnitMenu.3.title=Ground unit menu : ATC (ATO) : Speed limit clear
 
 ATSAssistMod.gui.GroundUnitMenu.4.title=Ground unit menu : TASC : Distance setting & Control start
 ATSAssistMod.gui.GroundUnitMenu.4.text.0=Stop position

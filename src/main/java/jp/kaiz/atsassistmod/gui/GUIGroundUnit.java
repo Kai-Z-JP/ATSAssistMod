@@ -83,6 +83,11 @@ public class GUIGroundUnit extends GuiScreenCustom {
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.2.text.0"),
                         this.width / 2 - 100, this.height / 2 - 25, 0xffffff);
                 break;
+            case ATC_SpeedLimit_Reset:
+                this.fontRenderer.drawString(/*"地上子機能 : ATC(ATO) : 速度制限クリア",*/
+                        I18n.format("ATSAssistMod.gui.GroundUnitMenu.3.title"),
+                        this.width / 4, 20, 0xffffff);
+                break;
             case TASC_StopPotion_Notice:
                 this.fontRenderer.drawString(/*"地上子機能 : TASC : 距離設定 制御開始",*/
                         I18n.format("ATSAssistMod.gui.GroundUnitMenu.4.title"),
@@ -354,6 +359,7 @@ public class GUIGroundUnit extends GuiScreenCustom {
                 case TASC_StopPotion:
                 case ATO_Cancel:
                 case ATACS_Disable:
+                case ATC_SpeedLimit_Reset:
                     packet = new PacketGroundUnitTile(
                             this.tile,
                             linkRedStone);
