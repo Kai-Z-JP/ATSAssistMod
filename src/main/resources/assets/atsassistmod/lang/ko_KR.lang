@@ -1,4 +1,5 @@
-#역전핸들 관련 참고자료 http://www.kric.go.kr/servlet/ContentDownloadServlet?type=pdf&object_id=0900271a8021cc65
+# Переведено с переводчика с японского. Artemiy Danilin (Trollebas) - перевод на русский.
+
 tile.ATSAssistMod:GroundUnit.0.name=보안장치 블록(동작 없음)
 tile.ATSAssistMod:GroundUnit.1.name=보안장치 블록(ATC 제한예고)
 tile.ATSAssistMod:GroundUnit.2.name=보안장치 블록(ATC 제한해제)
@@ -12,7 +13,9 @@ tile.ATSAssistMod:GroundUnit.11.name=보안장치 블록(ATO 목표속도 변경
 
 item.ATSAssistMod:TrainProtectionSelector.name=차상보안장치 전환SW
 
-tile.ATSAssistMod:IFTTT.0.name=IFTTT블록
+ATSAssistMod.gui.GroundUnitMenu.5.title=지상자 기능: TASC 제어종료
+tile.ATSAssistMod:IFTTT.0.name=IFTTT블록 
+#역전핸들 관련 참고자료 http://www.kric.go.kr/servlet/ContentDownloadServlet?type=pdf&object_id=0900271a8021cc65
 
 ATSAssistMod.trainprotection.none=개방
 ATSAssistMod.trainprotection.station_premises=구내
@@ -28,7 +31,7 @@ ATSAssistMod.gui.TrainProtectionSelector.text.3=TASC/ATO
 ATSAssistMod.gui.TrainProtectionSelector.text.4=HUD 비표시
 ATSAssistMod.gui.TrainProtectionSelector.text.5=보안장치 전환
 
-ATSAssistMod.gui.GroundUnitMenu.common.text.0=레드스톤 연동
+ATSAssistMod.gui.GroundUnitMenu.0.button.7=정차검지
 ATSAssistMod.gui.GroundUnitMenu.common.button.0=초기 화면으로
 ATSAssistMod.gui.GroundUnitMenu.common.button.21=적용하고 닫기
 ATSAssistMod.gui.GroundUnitMenu.common.button.20=그냥 닫기
@@ -39,17 +42,13 @@ ATSAssistMod.gui.GroundUnitMenu.0.text.1=TASC
 ATSAssistMod.gui.GroundUnitMenu.0.text.2=ATO
 ATSAssistMod.gui.GroundUnitMenu.0.text.3=보안장치
 ATSAssistMod.gui.GroundUnitMenu.0.text.4=기타
-
-ATSAssistMod.gui.GroundUnitMenu.1.title=지상자 기능: ATC(ATO) 속도제한 예고
-ATSAssistMod.gui.GroundUnitMenu.1.text.0=속도제한    (km/h)
-ATSAssistMod.gui.GroundUnitMenu.1.text.1=제한 시점까지의 거리 (m)
 ATSAssistMod.gui.GroundUnitMenu.0.button.1=속도제한 예고
 ATSAssistMod.gui.GroundUnitMenu.0.button.2=속도제한 해제
 ATSAssistMod.gui.GroundUnitMenu.0.button.3=속도제한 모두 해제
-ATSAssistMod.gui.GroundUnitMenu.0.button.4=정차위치 예고
+ATSAssistMod.gui.GroundUnitMenu.4.text.0=정차위치까지의 거리
 ATSAssistMod.gui.GroundUnitMenu.0.button.5=제어종료
 ATSAssistMod.gui.GroundUnitMenu.0.button.6=정차위치까지의 거리 수정
-ATSAssistMod.gui.GroundUnitMenu.0.button.7=정차검지
+ATSAssistMod.gui.GroundUnitMenu.7.text.0=역전핸들이 F위치가 아닐 때에도 검지
 ATSAssistMod.gui.GroundUnitMenu.0.button.9=출발신호
 ATSAssistMod.gui.GroundUnitMenu.0.button.10=제어종료
 ATSAssistMod.gui.GroundUnitMenu.0.button.11=목표속도 변경
@@ -57,21 +56,25 @@ ATSAssistMod.gui.GroundUnitMenu.0.button.13=열차 상태 변경
 ATSAssistMod.gui.GroundUnitMenu.0.button.14=강제변경
 ATSAssistMod.gui.GroundUnitMenu.0.button.20=닫기
 
+ATSAssistMod.gui.GroundUnitMenu.1.title=지상자 기능: ATC(ATO) 속도제한 예고
+ATSAssistMod.gui.GroundUnitMenu.1.text.0=속도제한    (km/h)
+ATSAssistMod.gui.GroundUnitMenu.1.text.1=제한 시점까지의 거리 (m)
+
 ATSAssistMod.gui.GroundUnitMenu.2.title=지상자 기능: ATC(ATO) 속도제한 해제
 ATSAssistMod.gui.GroundUnitMenu.2.text.0=후미차량까지 통과 후 해제
 
 ATSAssistMod.gui.GroundUnitMenu.4.title=지상자 기능: TASC 거리설정, 제어시작
-ATSAssistMod.gui.GroundUnitMenu.4.text.0=정차위치까지의 거리
+ATSAssistMod.gui.GroundUnitMenu.0.button.4=정차위치 예고
 ATSAssistMod.gui.GroundUnitMenu.4.text.1=차량 선두를 기준으로
 
-ATSAssistMod.gui.GroundUnitMenu.5.title=지상자 기능: TASC 제어종료
+ATSAssistMod.gui.GroundUnitMenu.7.title=지상자 기능: 정차검지
 
 ATSAssistMod.gui.GroundUnitMenu.6.title=지상자 기능: TASC 거리수정
-ATSAssistMod.gui.GroundUnitMenu.6.text.0=정차위치까지의 거리
+ATSAssistMod.gui.GroundUnitMenu.common.text.0=레드스톤 연동
 ATSAssistMod.gui.GroundUnitMenu.6.text.1=차량 선두를 기준으로
 
-ATSAssistMod.gui.GroundUnitMenu.7.title=지상자 기능: 정차검지
-ATSAssistMod.gui.GroundUnitMenu.7.text.0=역전핸들이 F위치가 아닐 때에도 검지
+ATSAssistMod.gui.GroundUnitMenu.13.text.0=역전핸들이 F위치가 아닐 때에도 검지
+ATSAssistMod.gui.GroundUnitMenu.6.text.0=정차위치까지의 거리
 
 ATSAssistMod.gui.GroundUnitMenu.9.title=지상자 기능: ATO 출발신호, 제어시작
 ATSAssistMod.gui.GroundUnitMenu.9.text.0=목표속도
@@ -82,7 +85,7 @@ ATSAssistMod.gui.GroundUnitMenu.11.title=지상자 기능: ATO 목표속도 변�
 ATSAssistMod.gui.GroundUnitMenu.11.text.0=목표속도
 
 ATSAssistMod.gui.GroundUnitMenu.13.title=지상자 기능: TrainState 열차 상태 변경
-ATSAssistMod.gui.GroundUnitMenu.13.text.0=역전핸들이 F위치가 아닐 때에도 검지
+ATSAssistMod.gui.GroundUnitMenu.13.text.0=Обнаруживать не только спереди
 
 ATSAssistMod.gui.GroundUnitMenu.13.slider.0.state=방향
 
@@ -96,10 +99,10 @@ ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.1=오른쪽 열림
 ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.2=왼쪽 열림
 ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.3=양쪽 열림
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.0=전조등
-ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.1=전조등, 미등
 ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.0=OF
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.0=전조등
 ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.1=ON
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.1=전조등, 미등
 ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.2=ON
 
 ATSAssistMod.gui.GroundUnitMenu.13.slider.5.state=팬터그래프
@@ -128,9 +131,10 @@ ATSAssistMod.gui.GroundUnitMenu.14.title=지상자 기능: 보안장치 강제�
 
 ATSAssistMod.gui.GroundUnitMenu.15.title=지상자 기능: ATACS 제어종료
 
+ATSAssistMod.IFTTTType.111=Minecraft 시각
 ATSAssistMod.IFTTTType.100=선택
 ATSAssistMod.IFTTTType.110=RS신호 입력
-ATSAssistMod.IFTTTType.111=Minecraft 시각
+ATSAssistMod.IFTTTType.111=Игровое время
 ATSAssistMod.IFTTTType.112=주변광
 ATSAssistMod.IFTTTType.120=단순 열차 검지
 ATSAssistMod.IFTTTType.121=량 수
@@ -138,7 +142,7 @@ ATSAssistMod.IFTTTType.122=속도
 ATSAssistMod.IFTTTType.123=TrainState
 ATSAssistMod.IFTTTType.124=TrainDataMap
 ATSAssistMod.IFTTTType.125=BlockDataMap
-ATSAssistMod.IFTTTType.130=건널목 장애 검사
+ATSAssistMod.IFTTTType.130=Crossing inspection
 ATSAssistMod.IFTTTType.131=JavaScript
 ATSAssistMod.IFTTTType.200=선택
 ATSAssistMod.IFTTTType.210=RS신호 입출력
