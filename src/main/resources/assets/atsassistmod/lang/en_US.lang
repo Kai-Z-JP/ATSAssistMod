@@ -1,8 +1,9 @@
-#For translators. Artemiy Danilin (Trollebas) - перевод на русский.
+#For translators. I think it's easier to understand the meaning of the text if you refer to the Japanese version.
 
 tile.ATSAssistMod:GroundUnit.0.name=TrainProtection Block(None)
 tile.ATSAssistMod:GroundUnit.1.name=TrainProtection Block(ATC:Speed limit notice)
 tile.ATSAssistMod:GroundUnit.2.name=TrainProtection Block(ATC:Speed limit cancel)
+tile.ATSAssistMod:GroundUnit.3.name=TrainProtection Block(ATC:Speed limit clear)
 tile.ATSAssistMod:GroundUnit.4.name=TrainProtection Block(TASC:Distance setting & Control start)
 tile.ATSAssistMod:GroundUnit.5.name=TrainProtection Block(TASC:Control end)
 tile.ATSAssistMod:GroundUnit.6.name=TrainProtection Block(TASC:Distance correction)
@@ -13,9 +14,7 @@ tile.ATSAssistMod:GroundUnit.11.name=TrainProtection Block(ATO:Change target spe
 
 item.ATSAssistMod:TrainProtectionSelector.name=On-ride Train Protection change SW
 
-tile.ATSAssistMod:GroundUnit.3.name=TrainProtection Block(ATC:Speed limit clear)
-tile.ATSAssistMod:IFTTT.0.name=IFTTT block 
-ATSAssistMod.IFTTTType.222=BlockDataMap
+tile.ATSAssistMod:IFTTT.0.name=IFTTT block
 
 ATSAssistMod.trainprotection.none=None
 ATSAssistMod.trainprotection.station_premises=StaPre
@@ -30,6 +29,8 @@ ATSAssistMod.gui.TrainProtectionSelector.text.2=TASC
 ATSAssistMod.gui.TrainProtectionSelector.text.3=TASC/ATO
 ATSAssistMod.gui.TrainProtectionSelector.text.4=Hide the HUD
 ATSAssistMod.gui.TrainProtectionSelector.text.5=TrainProtection SW
+ATSAssistMod.gui.TrainProtectionSelector.text.6=Manual Drive
+ATSAssistMod.gui.TrainProtectionSelector.text.7=Mode:
 
 ATSAssistMod.gui.GroundUnitMenu.common.text.0=Link to redstone input
 ATSAssistMod.gui.GroundUnitMenu.common.button.0=Reset
@@ -59,9 +60,12 @@ ATSAssistMod.gui.GroundUnitMenu.0.button.20=Cancel
 ATSAssistMod.gui.GroundUnitMenu.1.title=Ground unit menu : ATC (ATO) : Speed limit notice
 ATSAssistMod.gui.GroundUnitMenu.1.text.0=Speed limit (km/h)
 ATSAssistMod.gui.GroundUnitMenu.1.text.1=Distance to start limit (m)
+ATSAssistMod.gui.GroundUnitMenu.1.text.2=Auto braking
 
 ATSAssistMod.gui.GroundUnitMenu.2.title=Ground unit menu : ATC (ATO) : Speed limit release
 ATSAssistMod.gui.GroundUnitMenu.2.text.0=Cancel at the end
+
+ATSAssistMod.gui.GroundUnitMenu.3.title=Ground unit menu : ATC (ATO) : Speed limit clear
 
 ATSAssistMod.gui.GroundUnitMenu.4.title=Ground unit menu : TASC : Distance setting & Control start
 ATSAssistMod.gui.GroundUnitMenu.4.text.0=Stop position
@@ -148,9 +152,10 @@ ATSAssistMod.IFTTTType.200=Select
 ATSAssistMod.IFTTTType.210=RS Output
 ATSAssistMod.IFTTTType.211=Play sound
 ATSAssistMod.IFTTTType.212=Execute command
+ATSAssistMod.IFTTTType.213=SetBlock
 ATSAssistMod.IFTTTType.220=TrainState
 ATSAssistMod.IFTTTType.221=TrainDataMap
-ATSAssistMod.IFTTTType.213=SetBlock
+ATSAssistMod.IFTTTType.222=BlockDataMap
 ATSAssistMod.IFTTTType.223=Signal
 ATSAssistMod.IFTTTType.230=JavaScript
 
@@ -158,6 +163,7 @@ ATSAssistMod.IFTTT.DetectMode.name=Detect Mode
 ATSAssistMod.IFTTT.DetectMode.0=All
 ATSAssistMod.IFTTT.DetectMode.1=First
 ATSAssistMod.IFTTT.DetectMode.2=Last
+ATSAssistMod.IFTTT.DetectMode.3=On Rail
 
 ATSAssistMod.gui.IFTTTMaterial.130.0=Start
 ATSAssistMod.gui.IFTTTMaterial.130.1=End
