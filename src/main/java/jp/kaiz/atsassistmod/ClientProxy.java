@@ -89,6 +89,7 @@ public class ClientProxy extends CommonProxy {
                         ATSAssistEventHandlerClient.soundList.addAll(trackList);
                         Thread.sleep(50L);
                         while (soundHandler.isSoundPlaying(trackList.get(0))) {
+                            Thread.sleep(50L);
                         }
                     } else if (NumberUtils.isNumber(order)) {
                         Thread.sleep((long) (1000L * Double.parseDouble(order)));
@@ -114,6 +115,7 @@ public class ClientProxy extends CommonProxy {
                         ATSAssistEventHandlerClient.soundList.add(track);
                         Thread.sleep(50L);
                         while (soundHandler.isSoundPlaying(track)) {
+                            Thread.sleep(50L);
                         }
                     } else if (NumberUtils.isNumber(order)) {
                         Thread.sleep((long) (1000L * Double.parseDouble(order)));
