@@ -24,6 +24,8 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class GUIIFTTTMaterial extends GuiScreen {
     private final List<GuiTextField> textFieldList = new ArrayList<>();
@@ -202,12 +204,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
         widthBase += number < 3 ? 95 * number : 95 * (number - 3);
         heightBase += number < 3 ? size < 3 ? 25 : 0 : 50;
 
-        this.buttonList.add(
-                new GuiDummyButtonIFTTTContainer(widthBase, heightBase, ifcb));
-        this.buttonList.add(
-                new GuiButtonEdit(baseButtonID + number, widthBase + 41, heightBase + 34));
-        this.buttonList.add(
-                new GuiButtonDelete(baseButtonID + number, widthBase + 65, heightBase + 34));
+        this.buttonList.add(new GuiDummyButtonIFTTTContainer(widthBase, heightBase, ifcb));
+        this.buttonList.add(new GuiButtonEdit(baseButtonID + number, widthBase + 41, heightBase + 34));
+        this.buttonList.add(new GuiButtonDelete(baseButtonID + number, widthBase + 65, heightBase + 34));
     }
 
     private void addAddButton(int baseButtonID, int widthBase, int heightBase, int number, int size) {
@@ -217,8 +216,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
         widthBase += 95 * (number < 3 ? number : (number - 3));
         heightBase += number < 3 ? size < 3 ? 25 : 0 : 50;
 
-        this.buttonList.add(
-                new GuiButtonAdd(baseButtonID + number, widthBase, heightBase));
+        this.buttonList.add(new GuiButtonAdd(baseButtonID + number, widthBase, heightBase));
     }
 
     //チェックボックスも
@@ -299,9 +297,11 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[0], this.width / 2 - 50, this.height / 2 - 30, Byte.MAX_VALUE, 30);
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[1], this.width / 2 - 15, this.height / 2 - 30, Byte.MAX_VALUE, 30);
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getStartCC()[2], this.width / 2 + 20, this.height / 2 - 30, Byte.MAX_VALUE, 30);
+                    this.buttonList.add(new GuiButton(1000, this.width / 2 + 55, this.height / 2 - 30, 20, 20, "V"));
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[0], this.width / 2 - 50, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[1], this.width / 2 - 15, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[2], this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.buttonList.add(new GuiButton(1001, this.width / 2 + 55, this.height / 2 - 5, 20, 20, "V"));
                     this.addDownCommon();
                     break;
                 }
@@ -325,6 +325,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[0], this.width / 2 - 50, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[1], this.width / 2 - 15, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[2], this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
+                    this.buttonList.add(new GuiButton(1001, this.width / 2 + 55, this.height / 2 - 5, 20, 20, "V"));
                     this.addDownCommon();
                     break;
                 }
@@ -354,6 +355,8 @@ public class GUIIFTTTMaterial extends GuiScreen {
                         if (posListSize > 1) {
                             this.buttonList.add(new GuiButton(3000 + i, w, h, 20, 20, "-"));
                         }
+                        w += 25;
+                        this.buttonList.add(new GuiButton(4000 + i, w, h, 20, 20, "V"));
                         h += 25;
                     }
                     this.addDownCommon();
@@ -543,6 +546,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
             this.tile.setAnyMatch(!this.tile.isAnyMatch());
             ATSAssistCore.NETWORK_WRAPPER.sendToServer(new PacketIFTTT(this.tile, this.ifcb, this.ifcbIndex, 3));
         } else if (button.id >= 1000) {
+            int[] pos = this.getPosFromClipboard();
             if (this.type != null) {
                 switch (this.type.getId()) {
                     case 110:
@@ -588,6 +592,20 @@ public class GUIIFTTTMaterial extends GuiScreen {
                                 break;
                         }
                         break;
+                    case 130:
+                        switch (button.id) {
+                            case 1000:
+                                if (pos != null) {
+                                    ((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).setStartCC(pos[0], pos[1], pos[2]);
+                                }
+                                break;
+                            case 1001:
+                                if (pos != null) {
+                                    ((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).setEndCC(pos[0], pos[1], pos[2]);
+                                }
+                                break;
+                        }
+                        break;
                     case 210:
                         switch (button.id) {
                             case 1000:
@@ -597,6 +615,14 @@ public class GUIIFTTTMaterial extends GuiScreen {
                         }
                         break;
                     case 211:
+                        switch (button.id) {
+                            case 1001:
+                                if (pos != null) {
+                                    ((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).setPos(pos[0], pos[1], pos[2]);
+                                }
+                                break;
+                        }
+                        break;
                     case 212:
                         switch (button.id) {
                             case 1000:
@@ -610,10 +636,22 @@ public class GUIIFTTTMaterial extends GuiScreen {
                                 this.ifcb.setOnce(((GuiCheckBox) button).isChecked());
                                 return;
                         }
+                        List<int[]> posList = IntStream.range(0, this.textFieldList.size() / 5)
+                                .mapToObj(i -> this.textFieldList.subList(i * 5, Math.min((i + 1) * 5, this.textFieldList.size())).stream().map(GuiTextField::getText).mapToInt(Integer::parseInt).toArray())
+                                .collect(Collectors.toList());
+                        IntStream.range(0, posList.size()).forEach(i -> ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb).setPos(posList.get(i), i));
                         if (button.id >= 2000 && button.id < 3000) {
                             ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb).addPos(new int[]{0, 0, 0, 0, 0}, button.id - 2000);
                         } else if (button.id >= 3000 && button.id < 4000) {
                             ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb).removePos(button.id - 3000);
+                        } else if (button.id >= 4000 && button.id < 5000) {
+                            int idx = button.id - 4000;
+                            if (pos != null) {
+                                this.textFieldList.get(idx * 5).setText(String.valueOf(pos[0]));
+                                this.textFieldList.get(idx * 5 + 1).setText(String.valueOf(pos[1]));
+                                this.textFieldList.get(idx * 5 + 2).setText(String.valueOf(pos[2]));
+                                break;
+                            }
                         } else {
                             break;
                         }
@@ -655,6 +693,11 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     break;
             }
         }
+    }
+
+    private int[] getPosFromClipboard() {
+        String clipboardText = GuiScreen.getClipboardString();
+        return clipboardText.matches("^-?(\\d+ *,? +){2}-?\\d+$") ? Arrays.stream(clipboardText.split(" *,? +")).mapToInt(Integer::parseInt).toArray() : null;
     }
 
     private void changeIFC(IFTTTContainer ifc) {
