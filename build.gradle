@@ -20,6 +20,11 @@ plugins {
 	id "com.anatawa12.jarInJar" version "1.0.3"
 }
 
+configurations {
+	embed
+	compile.extendsFrom(embed)
+}
+
 apply plugin: 'forge'
 
 version = "SNAPSHOT"
@@ -52,6 +57,8 @@ dependencies {
 	// http://www.gradle.org/docs/current/userguide/dependency_management.html
 	compile  "curse.maven:ngtlib-288989:2940833"
 	compile  "curse.maven:realtrainmod-288988:3039063"
+
+	embed 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
 }
 
 processResources {
@@ -70,6 +77,19 @@ processResources {
 	// copy everything else, thats not the mcmod.info
 	from(sourceSets.main.resources.srcDirs) {
 		exclude 'mcmod.info'
+	}
+}
+
+jar {
+	configurations.embed.each { dep ->
+		from(project.zipTree(dep)) {
+			exclude 'META-INF', 'META-INF/versions/**', 'META-INF/maven/**'
+		}
+	}
+
+	from(rootDir) {
+		include 'README.md'
+		include 'LICENCE'
 	}
 }
 
