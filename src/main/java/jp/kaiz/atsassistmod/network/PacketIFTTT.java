@@ -23,7 +23,7 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
         this.x = tile.xCoord;
         this.y = tile.yCoord;
         this.z = tile.zCoord;
-        this.serialized = IFTTTUtil.convertClass(ifcb);
+        this.serialized = IFTTTUtil.convertClassSafe(ifcb);
         this.ifcbIndex = ifcbIndex;
         this.type = type;
         this.anyMatch = tile.isAnyMatch();
@@ -59,11 +59,11 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
         if (message.type == 3) {
             tile.setAnyMatch(message.anyMatch);
         } else if (message.ifcbIndex == -1) {
-            tile.addIFTTT(IFTTTUtil.convertClass(message.serialized));
+            tile.addIFTTT(IFTTTUtil.convertClassSafe(message.serialized));
         } else if (message.type == 2) {
-            tile.removeIFTTT(IFTTTUtil.convertClass(message.serialized), message.ifcbIndex);
+            tile.removeIFTTT(IFTTTUtil.convertClassSafe(message.serialized), message.ifcbIndex);
         } else {
-            tile.setIFTTT(IFTTTUtil.convertClass(message.serialized), message.ifcbIndex);
+            tile.setIFTTT(IFTTTUtil.convertClassSafe(message.serialized), message.ifcbIndex);
         }
         tile.markDirty();
         tile.getDescriptionPacket();
