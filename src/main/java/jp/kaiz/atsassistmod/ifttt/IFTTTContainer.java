@@ -760,6 +760,10 @@ public abstract class IFTTTContainer implements Serializable {
                     this.posList.add(index, pos);
                 }
 
+                public void setPos(int[] pos, int index) {
+                    this.posList.set(index, pos);
+                }
+
                 public void removePos(int index) {
                     this.posList.remove(index);
                 }
