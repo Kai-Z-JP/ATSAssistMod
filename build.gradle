@@ -11,6 +11,11 @@ buildscript {
     }
 }
 
+configurations {
+    embed
+    compile.extendsFrom(embed)
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 
 version = "1.12.2-SNAPSHOT"
@@ -59,6 +64,7 @@ repositories {
 	maven {
 		url "https://www.cursemaven.com"
 	}
+    mavenCentral()
 }
 
 dependencies {
@@ -90,4 +96,19 @@ dependencies {
 
     implementation "curse.maven:ngtlib-288989:3003745"
     implementation "curse.maven:realtrainmod-288988:3061973"
+
+    embed 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
+}
+
+jar {
+    configurations.embed.each { dep ->
+        from(project.zipTree(dep)) {
+            exclude 'META-INF', 'META-INF/versions/**', 'META-INF/maven/**'
+        }
+    }
+
+    from(rootDir) {
+        include 'README.md'
+        include 'LICENCE'
+    }
 }

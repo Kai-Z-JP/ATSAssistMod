@@ -1,5 +1,7 @@
 package jp.kaiz.atsassistmod.ifttt;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -12,7 +14,27 @@ import java.util.stream.Collectors;
 public class IFTTTUtil {
     private final static Gson GSON = new GsonBuilder().serializeNulls().disableHtmlEscaping().create();
 
-    public static byte[] convertClass(IFTTTContainer ifcb) {
+    public static byte[] convertClassSafe(IFTTTContainer ifcb) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsBytes(ifcb);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static IFTTTContainer convertClassSafe(byte[] bytes) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(bytes, IFTTTContainer.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static byte[] convertClass(IFTTTContainer ifcb) {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -25,7 +47,7 @@ public class IFTTTUtil {
         return null;
     }
 
-    public static IFTTTContainer convertClass(byte[] bytes) {
+    private static IFTTTContainer convertClass(byte[] bytes) {
         try {
             ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
             return (IFTTTContainer) ois.readObject();
