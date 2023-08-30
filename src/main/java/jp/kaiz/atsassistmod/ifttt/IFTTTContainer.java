@@ -1,6 +1,7 @@
 package jp.kaiz.atsassistmod.ifttt;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -609,6 +610,9 @@ public abstract class IFTTTContainer implements Serializable {
                 private transient ATSASoundPlayer soundPlayer;
                 private transient ResourceLocation sound;
 
+                private PlaySound() {
+                }
+
                 public PlaySound(TileEntity tile) {
                     this.pos = new int[]{tile.xCoord, tile.yCoord, tile.zCoord};
                 }
@@ -961,6 +965,7 @@ public abstract class IFTTTContainer implements Serializable {
             public static class JavaScript extends That {
                 private static final long serialVersionUID = 1661419614469936838L;
                 private transient ScriptEngine scriptEngine;
+                @JsonProperty()
                 private String jsText;
                 private boolean error;
                 private UUID uuid;

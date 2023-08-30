@@ -1,6 +1,9 @@
 package jp.kaiz.atsassistmod.utils;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 public class ComparisonManager {
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
     public interface ComparisonBase<T> {
         java.lang.String getName();
 
