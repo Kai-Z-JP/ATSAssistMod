@@ -105,7 +105,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.textFieldList.stream().filter(guiTextField -> guiTextField.yPosition == this.height / 2 - 5).forEach(guiTextField -> guiTextField.setVisible(((Enum<?>) ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getComparisonType()).getDeclaringClass() != ComparisonManager.Boolean.class));
                     break;
                 case 125://TrainDirection
-                    this.fontRendererObj.drawString("Train runs", this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString("Train heading", this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString = ((IFTTTContainer.This.RTM.TrainDirection) this.ifcb).getDirection().name());
                     break;
                 case 130://踏切障検

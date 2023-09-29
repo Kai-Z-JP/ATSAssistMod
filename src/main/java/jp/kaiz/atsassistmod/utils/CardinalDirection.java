@@ -4,7 +4,7 @@ import jp.ngt.rtm.entity.train.EntityBogie;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 
 public enum CardinalDirection {
-    NORTH("NOTRH", false, Axis.Z), EAST("EAST", true, Axis.X), SOUTH("SOUTH", true, Axis.Z), WEST("WEST", false, Axis.X);
+    NORTH("NORTH", false, Axis.Z), EAST("EAST", true, Axis.X), SOUTH("SOUTH", true, Axis.Z), WEST("WEST", false, Axis.X);
 
     private final String name;
     private final boolean positive;

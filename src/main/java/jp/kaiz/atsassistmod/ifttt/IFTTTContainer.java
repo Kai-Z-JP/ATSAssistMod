@@ -503,7 +503,7 @@ public abstract class IFTTTContainer implements Serializable {
 
                 @Override
                 public String[] getExplanation() {
-                    return new String[]{"Train runs" + this.direction.name()};
+                    return new String[]{"Train heading " + this.direction.name()};
                 }
 
                 @Override
