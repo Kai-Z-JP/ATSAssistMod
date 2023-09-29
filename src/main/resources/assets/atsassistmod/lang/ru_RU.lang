@@ -1,184 +1,178 @@
-#翻訳者の方へ。 英語版より日本語版を参照していただいたほうが文意がわかりやすいと思います。
-tile.ATSAssistMod:GroundUnit.0.name=保安装置ブロック(無動作)
-tile.ATSAssistMod:GroundUnit.1.name=保安装置ブロック(ATC:制限予告)
-tile.ATSAssistMod:GroundUnit.2.name=保安装置ブロック(ATC:制限解除)
-tile.ATSAssistMod:GroundUnit.3.name=保安装置ブロック(ATC:制限クリア)
-tile.ATSAssistMod:GroundUnit.4.name=保安装置ブロック(TASC:距離設定 制御開始)
-tile.ATSAssistMod:GroundUnit.5.name=保安装置ブロック(TASC:制御終了)
-tile.ATSAssistMod:GroundUnit.6.name=保安装置ブロック(TASC:距離補正)
-tile.ATSAssistMod:GroundUnit.7.name=保安装置ブロック(停車検知)
-tile.ATSAssistMod:GroundUnit.9.name=保安装置ブロック(ATO:出発信号 制御開始)
-tile.ATSAssistMod:GroundUnit.10.name=保安装置ブロック(ATO:制御終了)
-tile.ATSAssistMod:GroundUnit.11.name=保安装置ブロック(ATO:目標速度変更)
+#역전핸들 관련 참고자료 http://www.kric.go.kr/servlet/ContentDownloadServlet?type=pdf&object_id=0900271a8021cc65
+tile.ATSAssistMod:GroundUnit.0.name=보안장치 블록(동작 없음)
+tile.ATSAssistMod:GroundUnit.1.name=보안장치 블록(ATC 제한예고)
+tile.ATSAssistMod:GroundUnit.2.name=보안장치 블록(ATC 제한해제)
+tile.ATSAssistMod:GroundUnit.4.name=보안장치 블록(TASC 거리설정, 제어시작)
+tile.ATSAssistMod:GroundUnit.5.name=보안장치 블록(TASC 제어종료)
+tile.ATSAssistMod:GroundUnit.6.name=보안장치 블록(TASC 거리수정)
+tile.ATSAssistMod:GroundUnit.7.name=보안장치 블록(정차 검지)
+tile.ATSAssistMod:GroundUnit.9.name=보안장치 블록(ATO 출발신호, 제어시작)
+tile.ATSAssistMod:GroundUnit.10.name=보안장치 블록(ATO 제어종료)
+tile.ATSAssistMod:GroundUnit.11.name=보안장치 블록(ATO 목표속도 변경)
 
-item.ATSAssistMod:TrainProtectionSelector.name=車上保安装置切替SW
+item.ATSAssistMod:TrainProtectionSelector.name=차상보안장치 전환SW
 
-tile.ATSAssistMod:IFTTT.0.name=IFTTTブロック
+tile.ATSAssistMod:IFTTT.0.name=IFTTT블록
 
-ATSAssistMod.trainprotection.none=開放
-ATSAssistMod.trainprotection.station_premises=構内
+ATSAssistMod.trainprotection.none=개방
+ATSAssistMod.trainprotection.station_premises=구내
 ATSAssistMod.trainprotection.atacs=ATACS
 ATSAssistMod.trainprotection.atsps=ATS-Ps
 ATSAssistMod.trainprotection.rats=R-ATS
 ATSAssistMod.trainprotection.rnats=Rn-ATS
 
-ATSAssistMod.gui.TrainProtectionSelector.text.0=運転切替
-ATSAssistMod.gui.TrainProtectionSelector.text.1=手動
+ATSAssistMod.gui.TrainProtectionSelector.text.0=운전 전환
+ATSAssistMod.gui.TrainProtectionSelector.text.1=수동
 ATSAssistMod.gui.TrainProtectionSelector.text.2=TASC
 ATSAssistMod.gui.TrainProtectionSelector.text.3=TASC/ATO
-ATSAssistMod.gui.TrainProtectionSelector.text.4=HUD非表示
-ATSAssistMod.gui.TrainProtectionSelector.text.5=保安装置切替
-ATSAssistMod.gui.TrainProtectionSelector.text.6=手動運転固定
-ATSAssistMod.gui.TrainProtectionSelector.text.7=運転モード:
+ATSAssistMod.gui.TrainProtectionSelector.text.4=HUD 비표시
+ATSAssistMod.gui.TrainProtectionSelector.text.5=보안장치 전환
 
-ATSAssistMod.gui.GroundUnitMenu.common.text.0=レッドストーン連動
-ATSAssistMod.gui.GroundUnitMenu.common.button.0=リセット
-ATSAssistMod.gui.GroundUnitMenu.common.button.21=決定
-ATSAssistMod.gui.GroundUnitMenu.common.button.20=キャンセル
+ATSAssistMod.gui.GroundUnitMenu.common.text.0=레드스톤 연동
+ATSAssistMod.gui.GroundUnitMenu.common.button.0=초기 화면으로
+ATSAssistMod.gui.GroundUnitMenu.common.button.21=적용하고 닫기
+ATSAssistMod.gui.GroundUnitMenu.common.button.20=그냥 닫기
 
-ATSAssistMod.gui.GroundUnitMenu.0.title=地上子機能選択メニュー
+ATSAssistMod.gui.GroundUnitMenu.0.title=지상자 기능 선택 메뉴
 ATSAssistMod.gui.GroundUnitMenu.0.text.0=ATC
 ATSAssistMod.gui.GroundUnitMenu.0.text.1=TASC
 ATSAssistMod.gui.GroundUnitMenu.0.text.2=ATO
-ATSAssistMod.gui.GroundUnitMenu.0.text.3=保安装置
-ATSAssistMod.gui.GroundUnitMenu.0.text.4=その他
+ATSAssistMod.gui.GroundUnitMenu.0.text.3=보안장치
+ATSAssistMod.gui.GroundUnitMenu.0.text.4=기타
 
-ATSAssistMod.gui.GroundUnitMenu.0.button.1=速度制限予告
-ATSAssistMod.gui.GroundUnitMenu.0.button.2=速度制限解除
-ATSAssistMod.gui.GroundUnitMenu.0.button.3=速度制限一斉解除
-ATSAssistMod.gui.GroundUnitMenu.0.button.4=停車位置予告
-ATSAssistMod.gui.GroundUnitMenu.0.button.5=制御終了
-ATSAssistMod.gui.GroundUnitMenu.0.button.6=停車距離補正
-ATSAssistMod.gui.GroundUnitMenu.0.button.7=停車検知
-ATSAssistMod.gui.GroundUnitMenu.0.button.9=出発信号
-ATSAssistMod.gui.GroundUnitMenu.0.button.10=制御終了
-ATSAssistMod.gui.GroundUnitMenu.0.button.11=目標速度変更
-ATSAssistMod.gui.GroundUnitMenu.0.button.13=列車データ変更
-ATSAssistMod.gui.GroundUnitMenu.0.button.14=強制変更
-ATSAssistMod.gui.GroundUnitMenu.0.button.20=キャンセル
+ATSAssistMod.gui.GroundUnitMenu.1.title=지상자 기능: ATC(ATO) 속도제한 예고
+ATSAssistMod.gui.GroundUnitMenu.1.text.0=속도제한    (km/h)
+ATSAssistMod.gui.GroundUnitMenu.1.text.1=제한 시점까지의 거리 (m)
+ATSAssistMod.gui.GroundUnitMenu.0.button.1=속도제한 예고
+ATSAssistMod.gui.GroundUnitMenu.0.button.2=속도제한 해제
+ATSAssistMod.gui.GroundUnitMenu.0.button.3=속도제한 모두 해제
+ATSAssistMod.gui.GroundUnitMenu.0.button.4=정차위치 예고
+ATSAssistMod.gui.GroundUnitMenu.0.button.5=제어종료
+ATSAssistMod.gui.GroundUnitMenu.0.button.6=정차위치까지의 거리 수정
+ATSAssistMod.gui.GroundUnitMenu.0.button.7=정차검지
+ATSAssistMod.gui.GroundUnitMenu.0.button.9=출발신호
+ATSAssistMod.gui.GroundUnitMenu.0.button.10=제어종료
+ATSAssistMod.gui.GroundUnitMenu.0.button.11=목표속도 변경
+ATSAssistMod.gui.GroundUnitMenu.0.button.13=열차 상태 변경
+ATSAssistMod.gui.GroundUnitMenu.0.button.14=강제변경
+ATSAssistMod.gui.GroundUnitMenu.0.button.20=닫기
 
-ATSAssistMod.gui.GroundUnitMenu.1.title=地上子機能 : ATC(ATO) : 速度制限予告
-ATSAssistMod.gui.GroundUnitMenu.1.text.0=速度制限    (km/h)
-ATSAssistMod.gui.GroundUnitMenu.1.text.1=制限開始の距離 (m)
-ATSAssistMod.gui.GroundUnitMenu.1.text.2=自動的に減速する
+ATSAssistMod.gui.GroundUnitMenu.2.title=지상자 기능: ATC(ATO) 속도제한 해제
+ATSAssistMod.gui.GroundUnitMenu.2.text.0=후미차량까지 통과 후 해제
 
-ATSAssistMod.gui.GroundUnitMenu.2.title=地上子機能 : ATC(ATO) : 速度制限解除
-ATSAssistMod.gui.GroundUnitMenu.2.text.0=編成最後尾で解除
+ATSAssistMod.gui.GroundUnitMenu.4.title=지상자 기능: TASC 거리설정, 제어시작
+ATSAssistMod.gui.GroundUnitMenu.4.text.0=정차위치까지의 거리
+ATSAssistMod.gui.GroundUnitMenu.4.text.1=차량 선두를 기준으로
 
-ATSAssistMod.gui.GroundUnitMenu.3.title=地上子機能 : ATC(ATO) : 速度制限クリア
+ATSAssistMod.gui.GroundUnitMenu.5.title=지상자 기능: TASC 제어종료
 
-ATSAssistMod.gui.GroundUnitMenu.4.title=地上子機能 : TASC : 距離設定 制御開始
-ATSAssistMod.gui.GroundUnitMenu.4.text.0=停車位置までの距離
-ATSAssistMod.gui.GroundUnitMenu.4.text.1=距離基準を車両先頭に
+ATSAssistMod.gui.GroundUnitMenu.6.title=지상자 기능: TASC 거리수정
+ATSAssistMod.gui.GroundUnitMenu.6.text.0=정차위치까지의 거리
+ATSAssistMod.gui.GroundUnitMenu.6.text.1=차량 선두를 기준으로
 
-ATSAssistMod.gui.GroundUnitMenu.5.title=地上子機能 : TASC : 制御終了
+ATSAssistMod.gui.GroundUnitMenu.7.title=지상자 기능: 정차검지
+ATSAssistMod.gui.GroundUnitMenu.7.text.0=역전핸들이 F위치가 아닐 때에도 검지
 
-ATSAssistMod.gui.GroundUnitMenu.6.title=地上子機能 : TASC : 距離補正
-ATSAssistMod.gui.GroundUnitMenu.6.text.0=停車位置までの距離
-ATSAssistMod.gui.GroundUnitMenu.6.text.1=距離基準を車両先頭に
+ATSAssistMod.gui.GroundUnitMenu.9.title=지상자 기능: ATO 출발신호, 제어시작
+ATSAssistMod.gui.GroundUnitMenu.9.text.0=목표속도
 
-ATSAssistMod.gui.GroundUnitMenu.7.title=地上子機能 : 停車検知
-ATSAssistMod.gui.GroundUnitMenu.7.text.0=逆転ハンドル前以外でも検知
+ATSAssistMod.gui.GroundUnitMenu.10.title=지상자 기능: ATO 제어종료
 
-ATSAssistMod.gui.GroundUnitMenu.9.title=地上子機能 : ATO : 出発信号 制御開始
-ATSAssistMod.gui.GroundUnitMenu.9.text.0=目標速度
+ATSAssistMod.gui.GroundUnitMenu.11.title=지상자 기능: ATO 목표속도 변경
+ATSAssistMod.gui.GroundUnitMenu.11.text.0=목표속도
 
-ATSAssistMod.gui.GroundUnitMenu.10.title=地上子機能 : ATO : 制御終了
+ATSAssistMod.gui.GroundUnitMenu.13.title=지상자 기능: TrainState 열차 상태 변경
+ATSAssistMod.gui.GroundUnitMenu.13.text.0=역전핸들이 F위치가 아닐 때에도 검지
 
-ATSAssistMod.gui.GroundUnitMenu.11.title=地上子機能 : ATO : 目標速度変更
-ATSAssistMod.gui.GroundUnitMenu.11.text.0=目標速度
+ATSAssistMod.gui.GroundUnitMenu.13.slider.0.state=방향
 
-ATSAssistMod.gui.GroundUnitMenu.13.title=地上子機能 : TrainState : 車両状態変更
-ATSAssistMod.gui.GroundUnitMenu.13.text.0=逆転ハンドル前以外でも検知
+ATSAssistMod.gui.GroundUnitMenu.13.slider.1.state=놋치
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.0.state=方向
+ATSAssistMod.gui.GroundUnitMenu.13.slider.2.state=신호
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.1.state=ノッチ
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.state=출입문
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.0=양쪽 닫힘
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.1=오른쪽 열림
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.2=왼쪽 열림
+ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.3=양쪽 열림
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.2.state=信号
-
-ATSAssistMod.gui.GroundUnitMenu.13.slider.3.state=ドア
-ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.0=両側 閉
-ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.1=右側 開
-ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.2=左側 開
-ATSAssistMod.gui.GroundUnitMenu.13.slider.3.data.3=両側 開
-
-ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.0=前照灯
-ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.1=前照灯・尾灯
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.0=전조등
+ATSAssistMod.gui.GroundUnitMenu.13.slider.4.state.1=전조등, 미등
 ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.0=OF
 ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.1=ON
 ATSAssistMod.gui.GroundUnitMenu.13.slider.4.data.2=ON
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.5.state=パンタグラフ
-ATSAssistMod.gui.GroundUnitMenu.13.slider.5.data.0=下げ
-ATSAssistMod.gui.GroundUnitMenu.13.slider.5.data.1=上げ
+ATSAssistMod.gui.GroundUnitMenu.13.slider.5.state=팬터그래프
+ATSAssistMod.gui.GroundUnitMenu.13.slider.5.data.0=하강
+ATSAssistMod.gui.GroundUnitMenu.13.slider.5.data.1=상승
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.6.state=チャンクローダー
+ATSAssistMod.gui.GroundUnitMenu.13.slider.6.state=청크로더
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.7.state=方向幕
+ATSAssistMod.gui.GroundUnitMenu.13.slider.7.state=행선안내기
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.8.state=車内放送
+ATSAssistMod.gui.GroundUnitMenu.13.slider.8.state=차내방송
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.9.state=逆転ハンドル
-ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.0=前
-ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.1=切
-ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.2=後
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.state=역전핸들
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.0=F(전진)
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.1=N(차단)
+ATSAssistMod.gui.GroundUnitMenu.13.slider.9.data.2=R(후진)
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.10.state=車内灯
+ATSAssistMod.gui.GroundUnitMenu.13.slider.10.state=실내등
 ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.0=OFF
 ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.1=ON
 ATSAssistMod.gui.GroundUnitMenu.13.slider.10.data.2=Rainbow
 
-ATSAssistMod.gui.GroundUnitMenu.13.slider.notchange=変更なし
+ATSAssistMod.gui.GroundUnitMenu.13.slider.notchange=그대로
 
-ATSAssistMod.gui.GroundUnitMenu.14.title=地上子機能 : 保安装置 : 強制変更
+ATSAssistMod.gui.GroundUnitMenu.14.title=지상자 기능: 보안장치 강제변경
 
-ATSAssistMod.gui.GroundUnitMenu.15.title=地上子機能 : ATACS : 制御終了
+ATSAssistMod.gui.GroundUnitMenu.15.title=지상자 기능: ATACS 제어종료
 
-ATSAssistMod.IFTTTType.100=選択
-ATSAssistMod.IFTTTType.110=RS信号入力
-ATSAssistMod.IFTTTType.111=Minecraft時間
-ATSAssistMod.IFTTTType.112=周辺光
-ATSAssistMod.IFTTTType.120=単純列車検知
-ATSAssistMod.IFTTTType.121=両数
-ATSAssistMod.IFTTTType.122=速度
+ATSAssistMod.IFTTTType.100=선택
+ATSAssistMod.IFTTTType.110=RS신호 입력
+ATSAssistMod.IFTTTType.111=Minecraft 시각
+ATSAssistMod.IFTTTType.112=주변광
+ATSAssistMod.IFTTTType.120=단순 열차 검지
+ATSAssistMod.IFTTTType.121=량 수
+ATSAssistMod.IFTTTType.122=속도
 ATSAssistMod.IFTTTType.123=TrainState
 ATSAssistMod.IFTTTType.124=TrainDataMap
 ATSAssistMod.IFTTTType.125=TrainDirection(Yaw)
-ATSAssistMod.IFTTTType.130=踏切障検
-ATSAssistMod.IFTTTType.200=選択
-ATSAssistMod.IFTTTType.210=RS信号出力
-ATSAssistMod.IFTTTType.211=音声再生
-ATSAssistMod.IFTTTType.212=コマンド実行
+ATSAssistMod.IFTTTType.130=건널목 장애 검사
+ATSAssistMod.IFTTTType.131=JavaScript
+ATSAssistMod.IFTTTType.200=선택
+ATSAssistMod.IFTTTType.210=RS신호 입출력
+ATSAssistMod.IFTTTType.211=음성 재생
+ATSAssistMod.IFTTTType.212=명령어 실행
 ATSAssistMod.IFTTTType.220=TrainState
 ATSAssistMod.IFTTTType.221=TrainDataMap
 ATSAssistMod.IFTTTType.222=BlockDataMap
-ATSAssistMod.IFTTTType.223=信号
+ATSAssistMod.IFTTTType.223=신호
+ATSAssistMod.IFTTTType.230=JavaScript
 
-ATSAssistMod.IFTTT.DetectMode.name=動作モード
-ATSAssistMod.IFTTT.DetectMode.0=全車
-ATSAssistMod.IFTTT.DetectMode.1=先頭車
-ATSAssistMod.IFTTT.DetectMode.2=最後尾
-ATSAssistMod.IFTTT.DetectMode.3=レール内
+ATSAssistMod.IFTTT.DetectMode.name=동작 모드
+ATSAssistMod.IFTTT.DetectMode.0=모든 차량
+ATSAssistMod.IFTTT.DetectMode.1=선두차량
+ATSAssistMod.IFTTT.DetectMode.2=후미차량
 
-ATSAssistMod.gui.IFTTTMaterial.130.0=始点
-ATSAssistMod.gui.IFTTTMaterial.130.1=終点
+ATSAssistMod.gui.IFTTTMaterial.130.0=시점
+ATSAssistMod.gui.IFTTTMaterial.130.1=종점
 
-ATSAssistMod.gui.IFTTTMaterial.210.0=両数出力
-ATSAssistMod.gui.IFTTTMaterial.210.1=出力レベル
+ATSAssistMod.gui.IFTTTMaterial.210.0=량 수 출력
+ATSAssistMod.gui.IFTTTMaterial.210.1=출력 레벨
 
-ATSAssistMod.gui.IFTTTMaterial.210.button.enable=有効
-ATSAssistMod.gui.IFTTTMaterial.210.button.disable=無効
+ATSAssistMod.gui.IFTTTMaterial.210.button.enable=활성화
+ATSAssistMod.gui.IFTTTMaterial.210.button.disable=비활성화
 
-ATSAssistMod.gui.IFTTTMaterial.211.0=一度のみ再生
-ATSAssistMod.gui.IFTTTMaterial.211.1=音声名
-ATSAssistMod.gui.IFTTTMaterial.211.2=半径
+ATSAssistMod.gui.IFTTTMaterial.211.0=한 번만 재생
+ATSAssistMod.gui.IFTTTMaterial.211.1=음성 이름
+ATSAssistMod.gui.IFTTTMaterial.211.2=반경
 
-ATSAssistMod.gui.IFTTTMaterial.212.0=一度のみ実行
-ATSAssistMod.gui.IFTTTMaterial.212.1=コマンド
+ATSAssistMod.gui.IFTTTMaterial.212.0=한 번만 실행
+ATSAssistMod.gui.IFTTTMaterial.212.1=명령어
 
-ATSAssistMod.gui.IFTTTMaterial.213.0=一度のみ実行
+ATSAssistMod.gui.IFTTTMaterial.213.0=한 번만 실행
 
-ATSAssistMod.gui.IFTTTMaterial.common.button.91.0=追加
-ATSAssistMod.gui.IFTTTMaterial.common.button.91.1=変更
-ATSAssistMod.gui.IFTTTMaterial.common.button.990=戻る
+ATSAssistMod.gui.IFTTTMaterial.common.button.91.0=추가
+ATSAssistMod.gui.IFTTTMaterial.common.button.91.1=변경
+ATSAssistMod.gui.IFTTTMaterial.common.button.990=돌아가기
