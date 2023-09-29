@@ -1,5 +1,6 @@
 package jp.kaiz.atsassistmod.controller.trainprotection;
 
+import jp.ngt.rtm.entity.train.EntityBogie;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import jp.ngt.rtm.rail.TileEntityLargeRailBase;
 import jp.ngt.rtm.rail.TileEntityLargeRailCore;
@@ -7,11 +8,12 @@ import jp.ngt.rtm.rail.TileEntityLargeRailSwitchCore;
 import jp.ngt.rtm.rail.util.Point;
 import jp.ngt.rtm.rail.util.RailMap;
 import jp.ngt.rtm.rail.util.RailPosition;
+import jp.ngt.rtm.rail.util.RailProperty;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ATACSController extends TrainProtection {
@@ -180,27 +182,21 @@ public class ATACSController extends TrainProtection {
             }
             _tempRail = railBase.getRailCore();
             if (_tempRail.isTrainOnRail()) {
-                List<TileEntityLargeRailCore> tileList = new ArrayList<>();
-                int x0 = MathHelper.floor_double(train.boundingBox.minX + 0.01D);
-                int y0 = MathHelper.floor_double(train.boundingBox.minY + 0.01D);
-                int z0 = MathHelper.floor_double(train.boundingBox.minZ + 0.01D);
-                int x1 = MathHelper.floor_double(train.boundingBox.maxX - 0.01D);
-                int y1 = MathHelper.floor_double(train.boundingBox.maxY - 0.01D);
-                int z1 = MathHelper.floor_double(train.boundingBox.maxZ - 0.01D);
-                for (int x = x0; x <= x1; ++x) {
-                    for (int y = y0; y <= y1; ++y) {
-                        for (int z = z0; z <= z1; ++z) {
-                            TileEntityLargeRailBase rail = TileEntityLargeRailBase.getRailFromCoordinates(train.worldObj, x, y, z);
-                            if (rail != null) {
-                                TileEntityLargeRailCore railCore = rail.getRailCore();
-                                if (railCore != null) {
-                                    tileList.add(railCore);
-                                }
-                            }
-                        }
-                    }
-                }
-                if (!tileList.contains(_tempRail)) {
+                EntityBogie bogie0 = this.train.getBogie(0);
+                EntityBogie bogie1 = this.train.getBogie(1);
+
+                int x0 = MathHelper.floor_double(Math.min(bogie0.posX, bogie1.posX));
+                int y0 = MathHelper.floor_double(Math.min(bogie0.posY, bogie1.posY));
+                int z0 = MathHelper.floor_double(Math.min(bogie0.posZ, bogie1.posZ));
+                int x1 = MathHelper.floor_double(Math.max(bogie0.posX, bogie1.posX));
+                int y1 = MathHelper.floor_double(Math.max(bogie0.posY, bogie1.posY));
+                int z1 = MathHelper.floor_double(Math.max(bogie0.posZ, bogie1.posZ));
+
+                RailProperty rp = _tempRail.getProperty();
+
+                if (Arrays.stream(_tempRail.getAllRailMaps()).map(railMap -> railMap.getRailBlockList(rp)).flatMap(List::stream).noneMatch(pos ->
+                        pos[0] >= x0 && pos[0] <= x1 && pos[1] >= y0 - 2 && pos[1] <= y1 + 1 && pos[2] >= z0 && pos[2] <= z1
+                )) {
                     break;
                 }
             }
