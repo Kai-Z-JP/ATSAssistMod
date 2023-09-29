@@ -10,6 +10,7 @@ import jp.kaiz.atsassistmod.block.tileentity.TileEntityIFTTT;
 import jp.kaiz.atsassistmod.gui.GUIIFTTTMaterial;
 import jp.kaiz.atsassistmod.network.PacketPlaySoundIFTTT;
 import jp.kaiz.atsassistmod.sound.ATSASoundPlayer;
+import jp.kaiz.atsassistmod.utils.CardinalDirection;
 import jp.kaiz.atsassistmod.utils.ComparisonManager;
 import jp.kaiz.atsassistmod.utils.KaizUtils;
 import jp.ngt.ngtlib.io.ScriptUtil;
@@ -476,6 +477,44 @@ public abstract class IFTTTContainer implements Serializable {
                         return this.comparisonType.isTrue(dv, this.value);
                     }
                     return false;
+                }
+            }
+
+            public static class TrainDirection extends This {
+                private static final long serialVersionUID = -2660351192067336593L;
+                private CardinalDirection direction;
+
+                public TrainDirection() {
+                    this.direction = CardinalDirection.NORTH;
+                }
+
+                public CardinalDirection getDirection() {
+                    return direction;
+                }
+
+                public void setDirection(CardinalDirection direction) {
+                    this.direction = direction;
+                }
+
+                @Override
+                public IFTTTType.IFTTTEnumBase getType() {
+                    return IFTTTType.This.RTM.TrainDirection;
+                }
+
+                @Override
+                public String[] getExplanation() {
+                    return new String[]{"Train runs" + this.direction.name()};
+                }
+
+                @Override
+                @SideOnly(Side.CLIENT)
+                public void setFromGui(GUIIFTTTMaterial gui) {
+
+                }
+
+                @Override
+                public boolean isCondition(TileEntityIFTTT tile, EntityTrainBase train) {
+                    return train != null && this.direction.isInDirection(train);
                 }
             }
         }

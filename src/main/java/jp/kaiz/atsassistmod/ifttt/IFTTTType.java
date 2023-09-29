@@ -42,7 +42,7 @@ public class IFTTTType {
             Speed(122),
             //            TrainState(123),
             TrainDataMap(124),
-//            BlockDataMap(125),
+            TrainDirection(125),
             ;
 
             private final int id;

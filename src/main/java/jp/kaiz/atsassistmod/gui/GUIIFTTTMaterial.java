@@ -9,6 +9,7 @@ import jp.kaiz.atsassistmod.ifttt.IFTTTContainer.This.Minecraft.RedStoneInput.Mo
 import jp.kaiz.atsassistmod.ifttt.IFTTTContainer.This.RTM.SimpleDetectTrain.DetectMode;
 import jp.kaiz.atsassistmod.ifttt.IFTTTType;
 import jp.kaiz.atsassistmod.network.PacketIFTTT;
+import jp.kaiz.atsassistmod.utils.CardinalDirection;
 import jp.kaiz.atsassistmod.utils.ComparisonManager;
 import jp.kaiz.atsassistmod.utils.KaizUtils;
 import jp.ngt.rtm.modelpack.state.DataType;
@@ -61,52 +62,38 @@ public class GUIIFTTTMaterial extends GuiScreen {
             this.drawTexturedModalRect(0, 0, 0, 0, 256, 256);
             GL11.glPopMatrix();
 
-            this.fontRendererObj.drawStringWithShadow("AnyMatch",
-                    this.width / 2 - this.fontRendererObj.getStringWidth("AnyMatch") / 2 - 161,
-                    this.height / 2 - this.fontRendererObj.FONT_HEIGHT / 2 - 15,
-                    0xffffff);
+            this.fontRendererObj.drawStringWithShadow("AnyMatch", this.width / 2 - this.fontRendererObj.getStringWidth("AnyMatch") / 2 - 161, this.height / 2 - this.fontRendererObj.FONT_HEIGHT / 2 - 15, 0xffffff);
         } else {
-            this.fontRendererObj.drawString("IFTTT : " + (this.type.getId() < 200 ? "This" : "That") + " : " + this.type.getName(),
-                    this.width / 4, 20, 0xffffff);
+            this.fontRendererObj.drawString("IFTTT : " + (this.type.getId() < 200 ? "This" : "That") + " : " + this.type.getName(), this.width / 4, 20, 0xffffff);
             switch (this.type.getId()) {
                 case 100://IFTTTType.This.Select
                 case 200://IFTTTType.That.Select
-                    this.fontRendererObj.drawString("Minecraft",
-                            this.width / 2 - 170, this.height / 2 - 90, 0xffffff);
-                    this.fontRendererObj.drawString("RTM",
-                            this.width / 2 - 170, this.height / 2 - 25, 0xffffff);
-                    this.fontRendererObj.drawString("ATSAssist",
-                            this.width / 2 - 170, this.height / 2 + 40, 0xffffff);
+                    this.fontRendererObj.drawString("Minecraft", this.width / 2 - 170, this.height / 2 - 90, 0xffffff);
+                    this.fontRendererObj.drawString("RTM", this.width / 2 - 170, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("ATSAssist", this.width / 2 - 170, this.height / 2 + 40, 0xffffff);
                     break;
                 case 110://RedStoneInput
-                    this.fontRendererObj.drawString("Input",
-                            this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("Input", this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
                     ModeType modeType = ((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).getMode();
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString = ((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).getMode().name);
                     this.textFieldList.forEach(textField -> textField.setVisible(modeType.needStr));
                     break;
                 case 120://単純列検
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.IFTTT.DetectMode.name"),
-                            this.width / 2 - 75, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.IFTTT.DetectMode.name"), this.width / 2 - 75, this.height / 2 - 25, 0xffffff);
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString = ((IFTTTContainer.This.RTM.SimpleDetectTrain) this.ifcb).getDetectMode().getDisplayName());
                     break;
                 case 121://両数
-                    this.fontRendererObj.drawString("Cars",
-                            this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("Cars", this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString = ((IFTTTContainer.This.RTM.Cars) this.ifcb).getMode().getName());
                     break;
                 case 122://速度
-                    this.fontRendererObj.drawString("Speed",
-                            this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("Speed", this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString = ((IFTTTContainer.This.RTM.Speed) this.ifcb).getMode().getName());
                     break;
                 case 124://TrainDataMap
-                    this.fontRendererObj.drawString("DataType",
-                            this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
-                    this.fontRendererObj.drawString("Key",
-                            this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
-                    this.fontRendererObj.drawString("Value",
-                            this.width / 2 - 50, this.height / 2, 0xffffff);
+                    this.fontRendererObj.drawString("DataType", this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString("Key", this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("Value", this.width / 2 - 50, this.height / 2, 0xffffff);
                     ((List<GuiButton>) this.buttonList).forEach(button -> {
                         if (button.id == 1000) {
                             button.displayString = ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getDataType().key;
@@ -117,54 +104,40 @@ public class GUIIFTTTMaterial extends GuiScreen {
 
                     this.textFieldList.stream().filter(guiTextField -> guiTextField.yPosition == this.height / 2 - 5).forEach(guiTextField -> guiTextField.setVisible(((Enum<?>) ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getComparisonType()).getDeclaringClass() != ComparisonManager.Boolean.class));
                     break;
+                case 125://TrainDirection
+                    this.fontRendererObj.drawString("Train runs", this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
+                    ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString = ((IFTTTContainer.This.RTM.TrainDirection) this.ifcb).getDirection().name());
+                    break;
                 case 130://踏切障検
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.130.0"),
-                            this.width / 2 - 75, this.height / 2 - 25, 0xffffff);
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.130.1"),
-                            this.width / 2 - 75, this.height / 2, 0xffffff);
-                    this.fontRendererObj.drawString("X",
-                            this.width / 2 - 40, this.height / 2 - 45, 0xffffff);
-                    this.fontRendererObj.drawString("Y",
-                            this.width / 2 - 2, this.height / 2 - 45, 0xffffff);
-                    this.fontRendererObj.drawString("Z",
-                            this.width / 2 + 33, this.height / 2 - 45, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.130.0"), this.width / 2 - 75, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.130.1"), this.width / 2 - 75, this.height / 2, 0xffffff);
+                    this.fontRendererObj.drawString("X", this.width / 2 - 40, this.height / 2 - 45, 0xffffff);
+                    this.fontRendererObj.drawString("Y", this.width / 2 - 2, this.height / 2 - 45, 0xffffff);
+                    this.fontRendererObj.drawString("Z", this.width / 2 + 33, this.height / 2 - 45, 0xffffff);
                     break;
                 case 210://RedStoneOutput
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.0"),
-                            this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.1"),
-                            this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
-                    ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString =
-                            I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.button." + (((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput() ? "enable" : "disable")));
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.0"), this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.1"), this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
+                    ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString = I18n.format("ATSAssistMod.gui.IFTTTMaterial.210.button." + (((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput() ? "enable" : "disable")));
                     this.textFieldList.forEach(textField -> textField.setVisible(!((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput()));
                     break;
                 case 211://PlaySound
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.0"),
-                            this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.1"),
-                            this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.2"),
-                            this.width / 2 - 72, this.height / 2 - 25, 0xffffff);
-                    this.fontRendererObj.drawString("X",
-                            this.width / 2 - 37, this.height / 2 - 25, 0xffffff);
-                    this.fontRendererObj.drawString("Y",
-                            this.width / 2 - 2, this.height / 2 - 25, 0xffffff);
-                    this.fontRendererObj.drawString("Z",
-                            this.width / 2 + 33, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.0"), this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.1"), this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.211.2"), this.width / 2 - 72, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("X", this.width / 2 - 37, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("Y", this.width / 2 - 2, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("Z", this.width / 2 + 33, this.height / 2 - 25, 0xffffff);
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> ((GuiCheckBox) button).setIsChecked(this.ifcb.isOnce()));
                     break;
                 case 212://ExecuteCommand
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.0"),
-                            this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
-                    this.fontRendererObj.drawString(I18n.format("DisplayName"),
-                            this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.1"),
-                            this.width / 2 - 100, this.height / 2 - 15, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.0"), this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("DisplayName"), this.width / 2 - 100, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.212.1"), this.width / 2 - 100, this.height / 2 - 15, 0xffffff);
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> ((GuiCheckBox) button).setIsChecked(this.ifcb.isOnce()));
                     break;
                 case 213://SetBlock
-                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.213.0"),
-                            this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
+                    this.fontRendererObj.drawString(I18n.format("ATSAssistMod.gui.IFTTTMaterial.213.0"), this.width / 2 - 100, this.height / 2 - 75, 0xffffff);
                     this.fontRendererObj.drawString("x", this.width / 2 - 72, this.height / 2 - 50, 0xffffff);
                     this.fontRendererObj.drawString("y", this.width / 2 - 37, this.height / 2 - 50, 0xffffff);
                     this.fontRendererObj.drawString("z", this.width / 2 - 2, this.height / 2 - 50, 0xffffff);
@@ -173,23 +146,17 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> ((GuiCheckBox) button).setIsChecked(this.ifcb.isOnce()));
                     break;
                 case 221://DataMap
-                    this.fontRendererObj.drawString("DataType",
-                            this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
-                    this.fontRendererObj.drawString("Key",
-                            this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
-                    this.fontRendererObj.drawString("Value",
-                            this.width / 2 - 50, this.height / 2, 0xffffff);
+                    this.fontRendererObj.drawString("DataType", this.width / 2 - 50, this.height / 2 - 50, 0xffffff);
+                    this.fontRendererObj.drawString("Key", this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("Value", this.width / 2 - 50, this.height / 2, 0xffffff);
                     ((List<GuiButton>) this.buttonList).stream().filter(button -> button.id == 1000).forEach(button -> button.displayString = ((IFTTTContainer.That.RTM.DataMap) this.ifcb).getDataType().key);
                     break;
                 case 223://TrainSignal
-                    this.fontRendererObj.drawString("SignalLevel",
-                            this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
+                    this.fontRendererObj.drawString("SignalLevel", this.width / 2 - 50, this.height / 2 - 25, 0xffffff);
                     break;
                 case 230://JS
-                    this.fontRendererObj.drawString("Script Name",
-                            this.width / 2 - 100, this.height / 2 - 70, 0xffffff);
-                    this.fontRendererObj.drawString("Script Text",
-                            this.width / 2 - 100, this.height / 2 - 35, 0xffffff);
+                    this.fontRendererObj.drawString("Script Name", this.width / 2 - 100, this.height / 2 - 70, 0xffffff);
+                    this.fontRendererObj.drawString("Script Text", this.width / 2 - 100, this.height / 2 - 35, 0xffffff);
             }
         }
         super.drawScreen(mouseX, mouseZ, partialTick);
@@ -265,24 +232,24 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 case 110: {//RedStoneInput
                     this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.This.Minecraft.RedStoneInput) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 30, 2, 30);
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 120: {//単純列検
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 30, 60, 20, ""));
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 121: {//両数
                     this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.This.RTM.Cars) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 122: {//速度
                     this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.This.RTM.Speed) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 124: {//TrainDataMap
@@ -290,7 +257,11 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.buttonList.add(new GuiButton(1001, this.width / 2 - 15, this.height / 2 - 5, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getKey(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addGuiTextField(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
-                    this.addDownCommon();
+                    break;
+                }
+                case 125: {//TrainDirection
+                    this.buttonList.add(new GuiButton(1000, this.width / 2 - 15, this.height / 2 - 30, 60, 20, ""));
+                    this.addBottomCommon();
                     break;
                 }
                 case 130: {//踏切障検
@@ -302,7 +273,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[1], this.width / 2 - 15, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addGuiTextField(((IFTTTContainer.This.ATSAssist.CrossingObstacleDetection) this.ifcb).getEndCC()[2], this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.buttonList.add(new GuiButton(1001, this.width / 2 + 55, this.height / 2 - 5, 20, 20, "V"));
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 200: {//IFTTTType.This.Select
@@ -315,7 +286,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 case 210: {//RedStoneOutput
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).getOutputLevel(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 211: {//PlaySound
@@ -326,14 +297,14 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[1], this.width / 2 - 15, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.PlaySound) this.ifcb).getPos()[2], this.width / 2 + 20, this.height / 2 - 5, Byte.MAX_VALUE, 30);
                     this.buttonList.add(new GuiButton(1001, this.width / 2 + 55, this.height / 2 - 5, 20, 20, "V"));
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 212: {//ExecuteCommand
                     this.buttonList.add(new GuiCheckBox(1000, this.width / 2 + 45, this.height / 2 - 80, "", false));
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).getDisplayName(), this.width / 2 - 100, this.height / 2 - 40, Byte.MAX_VALUE, 200);
                     this.addGuiTextField(((IFTTTContainer.That.Minecraft.ExecuteCommand) this.ifcb).getCommand(), this.width / 2 - 100, this.height / 2 - 5, Byte.MAX_VALUE, 200);
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 213: {//SetBlock
@@ -359,33 +330,33 @@ public class GUIIFTTTMaterial extends GuiScreen {
                         this.buttonList.add(new GuiButton(4000 + i, w, h, 20, 20, "V"));
                         h += 25;
                     }
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 221: {//DataMap
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 30, this.height / 2 - 55, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getKey(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addGuiTextField(((IFTTTContainer.That.RTM.DataMap) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 223: {//TrainSignal
                     this.addGuiTextField(((IFTTTContainer.That.RTM.TrainSignal) this.ifcb).getSignal(), this.width / 2 + 30, this.height / 2 - 30, 3, 50);
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
                 case 230: {//JS
                     this.buttonList.add(new GuiButton(1000, this.width / 2 + 80, this.height / 2 - 25, 20, 20, "V"));
                     this.addGuiTextField(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getScriptName(), this.width / 2 - 100, this.height / 2 - 60, Integer.MAX_VALUE - 1, 175);
                     this.addGuiTextField(((IFTTTContainer.That.ATSAssist.JavaScript) this.ifcb).getJSText(), this.width / 2 - 100, this.height / 2 - 25, Integer.MAX_VALUE - 1, 175);
-                    this.addDownCommon();
+                    this.addBottomCommon();
                     break;
                 }
             }
         }
     }
 
-    private void addDownCommon() {
+    private void addBottomCommon() {
         this.buttonList.add(new GuiButton(91, this.width / 2 - 110, this.height - 30, 100, 20, I18n.format("ATSAssistMod.gui.IFTTTMaterial.common.button.91." + (this.ifcbIndex == -1 ? 0 : 1))));
         this.buttonList.add(new GuiButton(990, this.width / 2 + 10, this.height - 30, 100, 20, I18n.format("ATSAssistMod.gui.IFTTTMaterial.common.button.990")));
     }
@@ -507,6 +478,9 @@ public class GUIIFTTTMaterial extends GuiScreen {
                 case 124:
                     ifc = new IFTTTContainer.This.RTM.TrainDataMap();
                     break;
+                case 125:
+                    ifc = new IFTTTContainer.This.RTM.TrainDirection();
+                    break;
                 case 130:
                     ifc = new IFTTTContainer.This.ATSAssist.CrossingObstacleDetection();
                     break;
@@ -572,8 +546,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                         switch (button.id) {
                             case 1000:
                                 ComparisonManager.Integer modeType = ((IFTTTContainer.This.RTM.Speed) this.ifcb).getMode();
-                                ((IFTTTContainer.This.RTM.Speed) this.ifcb).setMode(
-                                        modeType == ComparisonManager.Integer.GREATER_EQUAL ? ComparisonManager.Integer.LESS_EQUAL : ComparisonManager.Integer.GREATER_EQUAL);
+                                ((IFTTTContainer.This.RTM.Speed) this.ifcb).setMode(modeType == ComparisonManager.Integer.GREATER_EQUAL ? ComparisonManager.Integer.LESS_EQUAL : ComparisonManager.Integer.GREATER_EQUAL);
                                 break;
                         }
                         break;
@@ -584,6 +557,14 @@ public class GUIIFTTTMaterial extends GuiScreen {
                                 break;
                             case 1001:
                                 ((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).nextComparisonType();
+                                break;
+                        }
+                        break;
+                    case 125:
+                        switch (button.id) {
+                            case 1000:
+                                CardinalDirection direction = ((IFTTTContainer.This.RTM.TrainDirection) this.ifcb).getDirection();
+                                ((IFTTTContainer.This.RTM.TrainDirection) this.ifcb).setDirection((CardinalDirection) KaizUtils.getNextEnum(direction));
                                 break;
                         }
                         break;
@@ -604,8 +585,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     case 210:
                         switch (button.id) {
                             case 1000:
-                                ((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).
-                                        setTrainCarsOutput(!((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput());
+                                ((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).setTrainCarsOutput(!((IFTTTContainer.That.Minecraft.RedStoneOutput) this.ifcb).isTrainCarsOutput());
                                 return;
                         }
                         break;
@@ -631,9 +611,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                                 this.ifcb.setOnce(((GuiCheckBox) button).isChecked());
                                 return;
                         }
-                        List<int[]> posList = IntStream.range(0, this.textFieldList.size() / 5)
-                                .mapToObj(i -> this.textFieldList.subList(i * 5, Math.min((i + 1) * 5, this.textFieldList.size())).stream().map(GuiTextField::getText).mapToInt(this::parseIntOrZero).toArray())
-                                .collect(Collectors.toList());
+                        List<int[]> posList = IntStream.range(0, this.textFieldList.size() / 5).mapToObj(i -> this.textFieldList.subList(i * 5, Math.min((i + 1) * 5, this.textFieldList.size())).stream().map(GuiTextField::getText).mapToInt(this::parseIntOrZero).toArray()).collect(Collectors.toList());
                         IntStream.range(0, posList.size()).forEach(i -> ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb).setPos(posList.get(i), i));
                         if (button.id >= 2000 && button.id < 3000) {
                             ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb).addPos(new int[]{0, 0, 0, 0, 0}, button.id - 2000);
