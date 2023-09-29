@@ -412,12 +412,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
     }
 
     public int getTextFieldInt(int number) {
-        int i = 0;
-        try {
-            i = Integer.parseInt(this.getTextFieldText(number));
-        } catch (NumberFormatException ignored) {
-        }
-        return i;
+        return this.parseIntOrZero(this.getTextFieldText(number));
     }
 
     public String getTextFieldText(int number) {
@@ -637,7 +632,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                                 return;
                         }
                         List<int[]> posList = IntStream.range(0, this.textFieldList.size() / 5)
-                                .mapToObj(i -> this.textFieldList.subList(i * 5, Math.min((i + 1) * 5, this.textFieldList.size())).stream().map(GuiTextField::getText).mapToInt(Integer::parseInt).toArray())
+                                .mapToObj(i -> this.textFieldList.subList(i * 5, Math.min((i + 1) * 5, this.textFieldList.size())).stream().map(GuiTextField::getText).mapToInt(this::parseIntOrZero).toArray())
                                 .collect(Collectors.toList());
                         IntStream.range(0, posList.size()).forEach(i -> ((IFTTTContainer.That.Minecraft.SetBlock) this.ifcb).setPos(posList.get(i), i));
                         if (button.id >= 2000 && button.id < 3000) {
@@ -695,9 +690,17 @@ public class GUIIFTTTMaterial extends GuiScreen {
         }
     }
 
+    private int parseIntOrZero(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
     private int[] getPosFromClipboard() {
         String clipboardText = GuiScreen.getClipboardString();
-        return clipboardText.matches("^-?(\\d+ *,? +){2}-?\\d+$") ? Arrays.stream(clipboardText.split(" *,? +")).mapToInt(Integer::parseInt).toArray() : null;
+        return clipboardText.matches("^-?(\\d+ *,? +){2}-?\\d+$") ? Arrays.stream(clipboardText.split(" *,? +")).mapToInt(this::parseIntOrZero).toArray() : null;
     }
 
     private void changeIFC(IFTTTContainer ifc) {
