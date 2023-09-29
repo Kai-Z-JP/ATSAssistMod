@@ -975,6 +975,7 @@ public abstract class IFTTTContainer implements Serializable {
                     return jsText;
                 }
 
+                @SideOnly(Side.CLIENT)
                 public void setJSText(String jsText) {
                     this.uuid = net.minecraft.client.Minecraft.getMinecraft().thePlayer.getUniqueID();
                     this.jsText = jsText;
