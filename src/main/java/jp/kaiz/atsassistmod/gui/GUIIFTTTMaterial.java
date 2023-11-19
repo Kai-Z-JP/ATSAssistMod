@@ -257,6 +257,7 @@ public class GUIIFTTTMaterial extends GuiScreen {
                     this.buttonList.add(new GuiButton(1001, this.width / 2 - 15, this.height / 2 - 5, 30, 20, ""));
                     this.addGuiTextField(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getKey(), this.width / 2 + 30, this.height / 2 - 30, Byte.MAX_VALUE, 50);
                     this.addGuiTextField(((IFTTTContainer.This.RTM.TrainDataMap) this.ifcb).getValue(), this.width / 2 + 30, this.height / 2 - 5, Byte.MAX_VALUE, 50);
+                    this.addBottomCommon();
                     break;
                 }
                 case 125: {//TrainDirection
