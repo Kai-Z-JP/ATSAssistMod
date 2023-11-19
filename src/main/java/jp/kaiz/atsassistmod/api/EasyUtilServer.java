@@ -1,5 +1,10 @@
 package jp.kaiz.atsassistmod.api;
 
+import jp.kaiz.atsassistmod.controller.SpeedOrder;
+import jp.kaiz.atsassistmod.controller.TrainController;
+import jp.kaiz.atsassistmod.controller.TrainControllerManager;
+import jp.ngt.rtm.entity.train.EntityTrainBase;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -50,6 +55,13 @@ public class EasyUtilServer {
             };
             new Thread(r).start();
         }
+    }
 
+    public static class TrainControl {
+        public static void addSpeedOrder(EntityTrainBase train, int speed, double distance, boolean autoBrake) {
+            TrainController tc = TrainControllerManager.getTrainController(train);
+            SpeedOrder so = new SpeedOrder(speed, distance, autoBrake);
+            tc.addSpeedOrder(so);
+        }
     }
 }
