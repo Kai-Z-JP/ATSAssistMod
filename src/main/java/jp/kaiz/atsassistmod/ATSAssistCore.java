@@ -15,7 +15,7 @@ public class ATSAssistCore {
     //変更するとブロック消える
     public static final String MODID = "ATSAssistMod";
 
-    public static final String VERSION = "1.7.9";
+    public static final String VERSION = "1.8.0-rc.1";
 
     @Mod.Instance(MODID)
     public static ATSAssistCore INSTANCE;
