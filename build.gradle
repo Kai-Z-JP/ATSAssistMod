@@ -55,8 +55,8 @@ dependencies {
 	// for more info...
 	// http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
 	// http://www.gradle.org/docs/current/userguide/dependency_management.html
-	compile  "curse.maven:ngtlib-288989:2940833"
-	compile  "curse.maven:realtrainmod-288988:3039063"
+	compile "curse.maven:ngtlib-288989:4030452"
+	compile "curse.maven:realtrainmod-288988:4030455"
 
 	embed 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
 }
