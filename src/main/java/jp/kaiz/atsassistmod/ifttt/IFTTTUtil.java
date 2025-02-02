@@ -85,9 +85,17 @@ public class IFTTTUtil {
         }.getType());
     }
 
+    public static List<byte[]> listToSerializedList(List<IFTTTContainer> ifcbList) {
+        return ifcbList.stream().map(IFTTTUtil::convertClassSafe).filter(Objects::nonNull).collect(Collectors.toList());
+    }
+
     public static List<IFTTTContainer> listFromJson(String json) {
         List<byte[]> iftttJsonList = GSON.fromJson(json, new TypeToken<List<byte[]>>() {
         }.getType());
         return iftttJsonList.stream().map(IFTTTUtil::convertClass).filter(Objects::nonNull).collect(Collectors.toList());
+    }
+
+    public static IFTTTContainer containerFromSerialized(byte[] serialized) {
+        return convertClassSafe(serialized);
     }
 }

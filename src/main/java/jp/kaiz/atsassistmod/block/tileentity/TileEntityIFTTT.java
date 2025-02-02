@@ -6,10 +6,12 @@ import jp.ngt.ngtlib.util.NGTUtil;
 import jp.ngt.rtm.electric.IProvideElectricity;
 import jp.ngt.rtm.entity.train.EntityTrainBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectricity {
     //外に出すレッドストーン
@@ -21,12 +23,37 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
 
     @Override
     public final void readFromNBT(NBTTagCompound tag) {
+        this.thisList.clear();
+        this.thatList.clear();
+
         super.readFromNBT(tag);
         this.redStoneOutput = tag.getInteger("redStoneOutput");
         this.notFirst = tag.getBoolean("notFirst");
         this.anyMatch = tag.getBoolean("anyMatch");
-        this.thisList = IFTTTUtil.listFromJson(tag.getString("iftttThis"));
-        this.thatList = IFTTTUtil.listFromJson(tag.getString("iftttThat"));
+        if (tag.hasKey("iftttThis")) {
+            this.thisList = IFTTTUtil.listFromJson(tag.getString("iftttThis"));
+        } else {
+            NBTTagList iftttThisList = tag.getTagList("iftttThisList", 10);
+            for (int i = 0; i < iftttThisList.tagCount(); i++) {
+                NBTTagCompound nbt = iftttThisList.getCompoundTagAt(i);
+                IFTTTContainer ifcb = IFTTTUtil.convertClassSafe(nbt.getByteArray("data"));
+                if (ifcb != null) {
+                    this.thisList.add(ifcb);
+                }
+            }
+        }
+        if (tag.hasKey("iftttThat")) {
+            this.thatList = IFTTTUtil.listFromJson(tag.getString("iftttThat"));
+        } else {
+            NBTTagList iftttThatList = tag.getTagList("iftttThatList", 10);
+            for (int i = 0; i < iftttThatList.tagCount(); i++) {
+                NBTTagCompound nbt = iftttThatList.getCompoundTagAt(i);
+                IFTTTContainer ifcb = IFTTTUtil.convertClassSafe(nbt.getByteArray("data"));
+                if (ifcb != null) {
+                    this.thatList.add(ifcb);
+                }
+            }
+        }
     }
 
     @Override
@@ -35,8 +62,30 @@ public class TileEntityIFTTT extends TileEntityCustom implements IProvideElectri
         tag.setInteger("redStoneOutput", this.redStoneOutput);
         tag.setBoolean("notFirst", this.notFirst);
         tag.setBoolean("anyMatch", this.anyMatch);
-        tag.setString("iftttThis", IFTTTUtil.listToString(this.thisList));
-        tag.setString("iftttThat", IFTTTUtil.listToString(this.thatList));
+        NBTTagList iftttThisList = new NBTTagList();
+        this.thisList
+                .stream()
+                .map(IFTTTUtil::convertClassSafe)
+                .map(Objects::requireNonNull)
+                .map(bytes -> {
+                    NBTTagCompound nbt = new NBTTagCompound();
+                    nbt.setByteArray("data", bytes);
+                    return nbt;
+                })
+                .forEach(iftttThisList::appendTag);
+        tag.setTag("iftttThisList", iftttThisList);
+        NBTTagList iftttThatList = new NBTTagList();
+        this.thatList
+                .stream()
+                .map(IFTTTUtil::convertClassSafe)
+                .map(Objects::requireNonNull)
+                .map(bytes -> {
+                    NBTTagCompound nbt = new NBTTagCompound();
+                    nbt.setByteArray("data", bytes);
+                    return nbt;
+                })
+                .forEach(iftttThatList::appendTag);
+        tag.setTag("iftttThatList", iftttThatList);
     }
 
     private int tick;

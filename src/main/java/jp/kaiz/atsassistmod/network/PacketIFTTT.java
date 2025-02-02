@@ -66,7 +66,6 @@ public class PacketIFTTT implements IMessage, IMessageHandler<PacketIFTTT, IMess
             tile.setIFTTT(IFTTTUtil.convertClassSafe(message.serialized), message.ifcbIndex);
         }
         tile.markDirty();
-        tile.getDescriptionPacket();
         world.markBlockForUpdate(message.x, message.y, message.z);
         world.notifyBlockChange(message.x, message.y, message.z, tile.getBlockType());
         return null;
