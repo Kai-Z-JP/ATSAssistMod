@@ -10,6 +10,7 @@ public class RnATSController extends TrainProtection {
         super.onTick(train, distance);
         switch (train.getSignal()) {
             case 1:
+                train.atsCount = 0;
                 this.limitSpeed = 0;
                 break;
             case 2:
