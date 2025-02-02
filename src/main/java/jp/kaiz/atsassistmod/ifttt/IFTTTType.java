@@ -1,5 +1,7 @@
 package jp.kaiz.atsassistmod.ifttt;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.resources.I18n;
 
 public class IFTTTType {
@@ -147,6 +149,7 @@ public class IFTTTType {
     public interface IFTTTEnumBase {
         int getId();
 
+        @SideOnly(Side.CLIENT)
         default String getName() {
             return I18n.format("ATSAssistMod.IFTTTType." + this.getId());
         }
