@@ -5,8 +5,6 @@ buildscript {
 			name = "forge"
 			url = "https://maven.minecraftforge.net/"
 		}
-		gradlePluginPortal()
-        jcenter()
 	}
 	dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:4.+'
