@@ -22,7 +22,7 @@ plugins {
 
 configurations {
 	embed
-	compile.extendsFrom(embed)
+	implementation.extendsFrom(embed)
 }
 
 apply plugin: 'forge'
