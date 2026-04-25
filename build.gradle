@@ -105,6 +105,10 @@ task slimJar(type: Jar, dependsOn: classes) {
 
 assemble.dependsOn slimJar
 
+artifacts {
+	archives slimJar
+}
+
 tasks.withType(Jar) {
 	compileJava.options.encoding = 'UTF-8'
 }
