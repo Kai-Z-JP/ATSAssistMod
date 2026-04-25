@@ -83,7 +83,7 @@ processResources {
 jar {
 	configurations.embed.each { dep ->
 		from(project.zipTree(dep)) {
-			exclude 'META-INF', 'META-INF/versions/**', 'META-INF/maven/**'
+			exclude 'META-INF', 'META-INF/versions/**', 'META-INF/maven/**', 'META-INF/LICENSE', 'META-INF/NOTICE'
 		}
 	}
 
@@ -98,14 +98,3 @@ tasks.withType(Jar) {
 }
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
-
-
-tasks.embedJarInJar {
-	dependsOn tasks.reobf
-	target = "FMLInCpw"
-	basePackage = "jp.kaiz.atsassistmod.JarInJar"
-}
-
-tasks.assemble {
-	dependsOn tasks.embedJarInJar
-}
