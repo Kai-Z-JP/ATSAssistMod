@@ -83,7 +83,7 @@ processResources {
 jar {
 	configurations.embed.each { dep ->
 		from(project.zipTree(dep)) {
-			exclude 'META-INF', 'META-INF/versions/**', 'META-INF/maven/**', 'META-INF/LICENSE', 'META-INF/NOTICE'
+			exclude 'META-INF', 'META-INF/versions/**', 'META-INF/maven/**'
 		}
 	}
 
@@ -92,6 +92,18 @@ jar {
 		include 'LICENCE'
 	}
 }
+
+task slimJar(type: Jar, dependsOn: classes) {
+	archiveClassifier = 'slim'
+	from sourceSets.main.output
+
+	from(rootDir) {
+		include 'README.md'
+		include 'LICENCE'
+	}
+}
+
+assemble.dependsOn slimJar
 
 tasks.withType(Jar) {
 	compileJava.options.encoding = 'UTF-8'
