@@ -11,12 +11,14 @@ buildscript {
     }
 }
 
-configurations {
-    embed
-    compile.extendsFrom(embed)
+plugins {
+    // this version works on gradle 4.9
+    // more recent versions of shadow work on more recent versions of gradle
+    id 'com.github.johnrengelman.shadow' version '4.0.4'
 }
 
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 version = "1.12.2-SNAPSHOT"
 group = "jp.kaiz.atsassistmod" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -97,18 +99,31 @@ dependencies {
     implementation "curse.maven:ngtlib-288989:3003745"
     implementation "curse.maven:realtrainmod-288988:3061973"
 
-    embed 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
 }
 
-jar {
-    configurations.embed.each { dep ->
-        from(project.zipTree(dep)) {
-            exclude 'META-INF', 'META-INF/versions/**', 'META-INF/maven/**'
-        }
+shadowJar {
+    archiveClassifier.set('')
+
+    // Include ONLY jackson
+    dependencies {
+        include(dependency('com.fasterxml.jackson.core:.*'))
+        include(dependency('com.fasterxml.jackson.dataformat:.*'))
     }
 
-    from(rootDir) {
-        include 'README.md'
-        include 'LICENCE'
-    }
+    // Relocate jackson packages
+    relocate 'com.fasterxml.jackson', 'jp.kaiz.atsassistmod.shadow.jackson'
+
+    // Safety exclusions
+    exclude 'META-INF/**'
+    exclude '**/module-info.class'
 }
+
+reobf {
+    shadowJar { }
+}
+
+tasks.build.dependsOn tasks.shadowJar
