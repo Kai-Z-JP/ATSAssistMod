@@ -1,0 +1,37 @@
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
+
+# Files from Forge MDK
+forge*changelog.txt
+.gitattributes
+# macOS system files
+.DS_Store
+# Applepie
+libs/
+/src/main/resources/_COROUTINE/
+/src/main/resources/com/
+/src/main/resources/io/
+/src/main/resources/kotlin/
+/src/main/resources/kotlinx/
+/src/main/resources/org/
+/src/main/resources/assets/fix-rtm/
