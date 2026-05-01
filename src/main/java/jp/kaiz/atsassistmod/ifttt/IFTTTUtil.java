@@ -16,12 +16,9 @@ public class IFTTTUtil {
 
     public static byte[] convertClassSafe(IFTTTContainer ifcb) {
         try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(baos);
-            oos.writeObject(ifcb);
-            oos.flush();
-            return baos.toByteArray();
-        } catch (IOException e) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsBytes(ifcb);
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return null;
@@ -29,9 +26,9 @@ public class IFTTTUtil {
 
     public static IFTTTContainer convertClassSafe(byte[] bytes) {
         try {
-            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes));
-            return (IFTTTContainer) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(bytes, IFTTTContainer.class);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
