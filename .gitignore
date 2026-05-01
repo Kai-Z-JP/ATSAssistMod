@@ -27,6 +27,7 @@ forge*changelog.txt
 # macOS system files
 .DS_Store
 # Applepie
+# 追記:AppleExtendedから適当にコピペしたので下のやつ気にしないでください。
 libs/
 /src/main/resources/_COROUTINE/
 /src/main/resources/com/
