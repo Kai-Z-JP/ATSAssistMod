@@ -1,6 +1,9 @@
 package jp.kaiz.atsassistmod.ifttt;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,11 +16,19 @@ import java.util.stream.Collectors;
 
 public class IFTTTUtil {
     private final static Gson GSON = new GsonBuilder().serializeNulls().disableHtmlEscaping().create();
+    private static final ObjectMapper IFTTT_MAPPER = createIFTTTMapper();
+
+    private static ObjectMapper createIFTTTMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return mapper;
+    }
 
     public static byte[] convertClassSafe(IFTTTContainer ifcb) {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.writeValueAsBytes(ifcb);
+            return IFTTT_MAPPER.writeValueAsBytes(ifcb);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -26,8 +37,7 @@ public class IFTTTUtil {
 
     public static IFTTTContainer convertClassSafe(byte[] bytes) {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(bytes, IFTTTContainer.class);
+            return IFTTT_MAPPER.readValue(bytes, IFTTTContainer.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
