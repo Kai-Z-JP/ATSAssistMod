@@ -1,38 +1,9 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
+/.gradle/
+/.idea/
+/build/
+/classes/
+/eclipse/
 
-# idea
-out
+*.iml
 *.ipr
 *.iws
-*.iml
-.idea
-
-# gradle
-build
-.gradle
-
-# other
-eclipse
-run
-
-# Files from Forge MDK
-forge*changelog.txt
-.gitattributes
-# macOS system files
-.DS_Store
-# Applepie
-# 追記:AppleExtendedから適当にコピペしたので下のやつ気にしないでください。
-libs/
-/src/main/resources/_COROUTINE/
-/src/main/resources/com/
-/src/main/resources/io/
-/src/main/resources/kotlin/
-/src/main/resources/kotlinx/
-/src/main/resources/org/
-/src/main/resources/assets/fix-rtm/
